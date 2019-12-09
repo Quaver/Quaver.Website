@@ -1,0 +1,19 @@
+{
+    "defaultSeverity": "error",
+    "jsRules": {},
+    "rules": {
+        "eofline": false,
+        "no-trailing-whitespace": false,
+        "quotemark": [
+            true,
+            "double",
+            "jsx-double"
+        ],
+        "max-line-length": [
+            true,
+            160
+        ],
+        "indent": [true, "spaces", 4]
+    },
+    "rulesDirectory": []
+}

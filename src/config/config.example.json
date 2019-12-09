@@ -1,0 +1,14 @@
+{
+    "port": 8084,
+    "baseUrl": "http://localhost:8084",
+    "apiBaseUrl": "https://api.quavergame.com",
+    "expressSessionSecret": "",
+    "databaseSql": {
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": "",
+        "connectionLimit": 10
+    },
+    "jwtSecret": ""
+}

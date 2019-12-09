@@ -1,0 +1,19 @@
+<h1>LOGGED IN USER</h1>
+<% if (!currentUser) { %>
+    <a href="/login">Login</a>
+<% } else { %>
+    <a href="/logout">Logout</a>
+<% } %>
+<br/>
+<%= JSON.stringify(currentUser) %> <br/><br/>
+
+<h1>STATS</h1>
+<%= JSON.stringify(stats) %><br/><br/>
+
+<h1>BLOG</h1>
+<%= JSON.stringify(blog) %> <br/><br/>
+
+<h1>RECENTLY RANKED</h1>
+<% recentlyRanked.forEach(x => { %>
+    <%= JSON.stringify(x) %><br/><br/>
+<% }) %>

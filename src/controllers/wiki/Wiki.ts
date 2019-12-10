@@ -4,6 +4,7 @@ const axios = require("axios");
 const config = require("../../config/config.json")
 const showdown  = require('showdown');
 const sanitizeHtml = require('sanitize-html');
+const matchAll = require('string.prototype.matchall');
 
 export default class Wiki {
     /**
@@ -15,8 +16,8 @@ export default class Wiki {
         try {
             const response = await axios.get(`https://raw.githubusercontent.com/${config.wikiRepository}/${config.wikiBranch}/en.md`);
 
-            const converter = new showdown.Converter();
-            const html = sanitizeHtml(converter.makeHtml(response.data));
+            let html = sanitizeHtml(new showdown.Converter().makeHtml(response.data));
+            html = await Wiki.FixLinks(html);
 
             Responses.Send(req, res, "wiki", "Wiki | Quaver", { wikiContent: html });
         } catch (err) {
@@ -39,8 +40,8 @@ export default class Wiki {
 
             const response = await axios.get(`https://raw.githubusercontent.com/${config.wikiRepository}/${config.wikiBranch}/${page}/en.md`);
 
-            const converter = new showdown.Converter();
-            const html = sanitizeHtml(converter.makeHtml(response.data));
+            let html = sanitizeHtml(new showdown.Converter().makeHtml(response.data));
+            html = await Wiki.FixLinks(html);
 
             Responses.Send(req, res, "wiki", "Wiki | Quaver", { wikiContent: html });
         } catch (err) {
@@ -50,5 +51,23 @@ export default class Wiki {
             Logger.Error(err);
             Responses.Return500(req, res);
         }
+    }
+
+    /**
+     * Fixes the links in an HTML wiki document
+     */
+    private static async FixLinks(html: string): Promise<string> {
+        const regex = /<a href=(\"\/.+\")>/g;
+        const matches = html.match(regex);
+
+        if (matches) {
+            for (let i = 0; i < matches.length; i++) {
+                let match = matches[i];
+                match = match.replace("<a href=\"", "").replace("\">", "");
+                html = html.replace(match, `/wiki${match}`);
+            }
+        }
+
+        return html;
     }
 }

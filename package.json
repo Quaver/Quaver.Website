@@ -38,6 +38,7 @@
     "passport-local": "^1.0.0",
     "redis": "^2.8.0",
     "sanitize-html": "^1.20.1",
-    "showdown": "^1.9.1"
+    "showdown": "^1.9.1",
+    "string.prototype.matchall": "^4.0.0"
   }
 }

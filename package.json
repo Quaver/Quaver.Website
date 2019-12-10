@@ -36,6 +36,8 @@
     "openid": "^2.0.6",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "sanitize-html": "^1.20.1",
+    "showdown": "^1.9.1"
   }
 }

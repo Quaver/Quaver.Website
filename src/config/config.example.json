@@ -10,5 +10,7 @@
         "database": "",
         "connectionLimit": 10
     },
-    "jwtSecret": ""
+    "jwtSecret": "",
+    "wikiRepository": "Quaver/Quaver.Wiki",
+    "wikiBranch": "master"
 }

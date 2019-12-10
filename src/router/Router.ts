@@ -6,6 +6,7 @@ import Leaderboard from "../controllers/leaderboard/Leaderboard";
 import Maps from "../controllers/maps/Maps";
 import Users from "../controllers/users/Users";
 import Playlists from "../controllers/playlists/Playlists";
+import Wiki from "../controllers/wiki/Wiki";
 const passport = require('passport');
 
 export default class Router {
@@ -24,6 +25,8 @@ export default class Router {
         router.route("/map/:id").get(Maps.MapGET);
         router.route("/user/:id").get(Users.GET);
         router.route("/playlist/:id").get(Playlists.GET);
+        router.route("/wiki").get(Wiki.HomeGET);
+        router.route("/wiki/*").get(Wiki.WikiPageGET);
         router.route("/login").get(Login.GET);
         router.route("/login/verify").get(Login.VerifyGET);
         router.route("/logout").get(Login.LogoutGET);

@@ -57,7 +57,6 @@ export default class API {
         if (!req.user)
             return null;
 
-        // Create and sign a JWT to give back to the user.
         const token = await Jwt.Sign({
             user: {
                 id: req.user.id,
@@ -68,7 +67,7 @@ export default class API {
                 country: req.user.country,
                 avatar_url: req.user.avatar_url
             }
-        }, config.jwtSecret, "1h");
+        }, config.jwtSecret, "30s");
 
         return token;
     }

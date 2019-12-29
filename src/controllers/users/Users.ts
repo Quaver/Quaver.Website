@@ -34,7 +34,7 @@ export default class Users {
                 case "playlists":
                     return await Users.GetPlaylists(req, res, user, mode);
                 default:
-                    Responses.Send(req, res, "user-profile-info", `${user.info.username}'s Profile | Quaver`, { 
+                    Responses.Send(req, res, "user/user-profile-info", `${user.info.username}'s Profile | Quaver`, { 
                         user, 
                         mode
                     });
@@ -62,7 +62,7 @@ export default class Users {
             const apiScores = await API.GET(req, `v1/users/scores/best?id=${user.info.id}&mode=${mode}&page=${page}`);
             scores = apiScores.scores;
 
-            Responses.Send(req, res, "user-profile-best", `${user.info.username}'s Profile | Quaver`, {
+            Responses.Send(req, res, "user/user-profile-best", `${user.info.username}'s Profile | Quaver`, {
                 user,
                 mode,
                 scores
@@ -89,7 +89,7 @@ export default class Users {
             const apiScores = await API.GET(req, `v1/users/scores/recent?id=${user.info.id}&mode=${mode}&page=${page}`);
             scores = apiScores.scores;
 
-            Responses.Send(req, res, "user-profile-recent", `${user.info.username}'s Profile | Quaver`, {
+            Responses.Send(req, res, "user/user-profile-recent", `${user.info.username}'s Profile | Quaver`, {
                 user,
                 mode,
                 scores
@@ -116,7 +116,7 @@ export default class Users {
             const apiScores = await API.GET(req, `v1/users/scores/firstplace?id=${user.info.id}&mode=${mode}&page=${page}`);
             scores = apiScores.scores;
 
-            Responses.Send(req, res, "user-profile-first-place", `${user.info.username}'s Profile | Quaver`, {
+            Responses.Send(req, res, "user/user-profile-first-place", `${user.info.username}'s Profile | Quaver`, {
                 user,
                 mode,
                 scores
@@ -138,7 +138,7 @@ export default class Users {
             const ranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=2`);
             const unranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=2`);
 
-            Responses.Send(req, res, "user-profile-mapsets", `${user.info.username}'s Profile | Quaver`, {
+            Responses.Send(req, res, "user/user-profile-mapsets", `${user.info.username}'s Profile | Quaver`, {
                 user,
                 mode,
                 ranked: ranked.mapsets,
@@ -161,7 +161,7 @@ export default class Users {
         try {
             const playlists =  await API.GET(req, `v1/users/${user.info.id}/playlists`);
 
-            Responses.Send(req, res, "user-profile-playlists", `${user.info.username}'s Profile | Quaver`, {
+            Responses.Send(req, res, "user/user-profile-playlists", `${user.info.username}'s Profile | Quaver`, {
                 user,
                 mode,
                 playlists: playlists.playlists

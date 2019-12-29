@@ -1,0 +1,123 @@
+<%- include ("../partials/header") %>
+<%- include ("../partials/navigation") %>
+
+<div class="profile-cover"
+    style="background: linear-gradient(0deg, rgba(36, 36, 36, 0.5), rgba(36, 36, 36, 0.5)), url('/img/cover.jpg') center center;">
+    <div class="profile-overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="user-avatar">
+                <img src="<%= user.info.avatar_url %>">
+            </div>
+            <div class="user">
+                <h1 class="h4 text-white"> <img src="/img/flags/<%= user.info.country %>.png"> <%= user.info.username %>
+                </h1>
+                <h5 class="h5 text-color-ranking-supervisor">Ranking Supervisor</h5>
+                <h4 class="h5 text-white">
+                    <div class="status offline"></div>Offline
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="menu">
+        <nav class="navbar navbar-expand-lg navbar-light menu-bg">
+            <div class="collapse navbar-collapse" id="navbarColor03">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">General Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Recent Scores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Best Scores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mapsets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Playlists</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="mt-3 q-panel-header">
+        BADGES
+    </div>
+    <div class="q-panel-body">
+        <% user.profile_badges.forEach(badge => { %>
+        <img src="https://quaver.blob.core.windows.net/badges/<%= badge.id %>.png" width="80px" height="40px">
+        <% }); %>
+    </div>
+
+    <% if(user.info.userpage) { %>
+    <div class="mt-3 q-panel-header">
+        ABOUT ME
+    </div>
+    <div class="q-panel-body">
+        <div class="bio-edit">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </div>
+        <%- user.info.userpage %>
+    </div>
+    <% } %>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="mt-3 q-panel-header">
+                STATISTICS
+            </div>
+            <div class="q-panel-body">
+                stats..
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="mt-3 q-panel-header">
+                RECENT ACTIVITY
+            </div>
+            <div class="q-panel-body">
+                stats..
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3 q-panel-header">
+        RANK PROGRESSION
+    </div>
+    <div class="q-panel-body">
+        stats..
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="mt-3 q-panel-header">
+                JUDGEMENT COUNTER
+            </div>
+            <div class="q-panel-body">
+                stats..
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="mt-3 q-panel-header">
+                GRADE COUNTER
+            </div>
+            <div class="q-panel-body">
+                stats..
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3 q-panel-header">
+        ACHIEVEMENTS
+    </div>
+    <div class="q-panel-body">
+        stats..
+    </div>
+</div>
+
+<%- include ("../partials/footer") %>

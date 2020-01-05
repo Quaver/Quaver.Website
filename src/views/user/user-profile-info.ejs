@@ -45,19 +45,20 @@
             </div>
         </nav>
     </div>
-
     <div class="mt-3 q-panel-header">
-        BADGES
+        <span>BADGES</span>
     </div>
     <div class="q-panel-body">
         <% user.profile_badges.forEach(badge => { %>
-        <img src="https://quaver.blob.core.windows.net/badges/<%= badge.id %>.png" width="80px" height="40px">
+        <img src="https://quaver.blob.core.windows.net/badges/<%= badge.id %>.png" width="80px" height="40px" data-toggle="tooltip" title="<%= badge.name %>
+
+<%= badge.description %>">
         <% }); %>
     </div>
 
     <% if(user.info.userpage) { %>
     <div class="mt-3 q-panel-header">
-        ABOUT ME
+        <span>ABOUT ME</span>
     </div>
     <div class="q-panel-body">
         <div class="bio-edit">
@@ -70,10 +71,32 @@
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4">
             <div class="mt-3 q-panel-header">
-                STATISTICS
+                <span>STATISTICS</span>
+                <div class="mode-switch">
+                    <a href="/user/<%=user.info.id%>?mode=1" class="mode-4 <% if (mode == 1) { %>active<% } %>">
+                        <div>4K</div>
+                    </a>
+                    <a href="/user/<%=user.info.id%>?mode=2" class="mode-7 <% if (mode == 2) { %>active<% } %>">
+                        <div>7K</div>
+                    </a>
+                </div>
             </div>
             <div class="q-panel-body">
-                stats..
+                <% var mode = 'keys' + (mode == 1 ? '4' : '7') %>
+                <ul class="statistics">
+                    <li>Global Rank<span>#<%= user[mode].globalRank.toLocaleString() %></span></li>
+                    <li>Country Rank <span>#<%= user[mode].countryRank.toLocaleString() %></span></li>
+                    <li>Multiplayer Wins Rank<span>#<%= user[mode].multiplayerWinRank.toLocaleString() %></span></li>
+                    <li>Overall Rating <span><%= user[mode].stats.overall_performance_rating.toFixed(2) %></span></li>
+                    <li>Accuracy <span><%= user[mode].stats.overall_accuracy.toFixed(2) %>%</span></li>
+                    <li>Ranked Score <span><%= user[mode].stats.ranked_score.toLocaleString() %></span></li>
+                    <li>Total Score <span><%= user[mode].stats.total_score.toLocaleString() %></span></li>
+                    <li>Max Combo <span><%= user[mode].stats.max_combo.toLocaleString() %></span></li>
+                    <li>Play Count <span><%= user[mode].stats.play_count.toLocaleString() %></span></li>
+                    <li>Multiplayer Record <span><%= user[mode].globalRank.toLocaleString() %></span></li>
+                    <li>Date Registered <span><%= user.info.time_registered %></span></li>
+                    <li>Last Seen <span><%= user.info.latest_activity %></span></li>
+                </ul>
             </div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8">
@@ -81,43 +104,152 @@
                 RECENT ACTIVITY
             </div>
             <div class="q-panel-body">
-                stats..
+                <ul class="feed">
+                    <% user.activity_feed.forEach(feed => { %>
+                    <li>
+                        <% var u = "<a href='/user/" + user.info.id + "'>" + user.info.username + "</a>" %>
+                        <% var map = "<a href='" + feed.map.id + "'>" + feed.map.name + "</a>" %>
+                        <% if(feed.type == 0) { %>
+                        <div class="icon"><i class="fa fa-user-plus"></i></div>
+                        <%- u %> has just registered for Quaver!</a>.
+                        <div><%= feed.timestamp %></div>
+                        <% } else if (feed.type == 1) { %>
+                        <div class="icon"><i class="fa fa-file-upload"></i></div>
+                        <%- u %> has uploaded a new mapset: <%- map %></a>.
+                        <div><%= feed.timestamp %></div>
+                        <% } else if (feed.type == 2) { %>
+                        <div class="icon"><i class="fa fa-file-export"></i></div>
+                        <%- u %> has updated mapset: <%- map %>.
+                        <div><%= feed.timestamp %></div>
+                        <% } else if (feed.type == 3) { %>
+                        <div class="icon"><i class="fa fa-check-circle"></i></div>
+                        <%- u %> has just ranked mapset: <%- map %>.
+                        <div><%= feed.timestamp %></div>
+                        <% } else if (feed.type == 4) { %>
+                        <div class="icon"><i class="fa fa-times-circle"></i></div>
+                        <%- u %> has gotten denied from rank for mapset: <%- map %>.
+                        <div><%= feed.timestamp %></div>
+                        <% } else if (feed.type == 5) { %>
+                        <div class="icon"><i class="fa fa-trophy"></i></div>
+                        <%- u %> has achieved first place on <%- map %>.
+                        <div><%= feed.timestamp %></div>
+                        <% } else if (feed.type == 6) { %>
+                        <div class="icon"><i class="fa fa-times"></i></div>
+                        <%- u %> has lost first place on <%- map %>.
+                        <div><%= feed.timestamp %></div>
+                        <% } else if (feed.type == 7) { %>
+                        <div class="icon"><i class="fa fa-medal"></i></div>
+                        <%- u %> has unlocked achievement: <%= feed.map.name %>.
+                        <div><%= feed.timestamp %></div>
+                        <% } else if (feed.type == 8) { %>
+                        <div class="icon"><i class="fa fa-heart"></i></div>
+                        <%- u %> has generously donated to Quaver!.
+                        <div><%= feed.timestamp %></div>
+                        <% } else if (feed.type == 9) { %>
+                        <div class="icon"><i class="fa fa-gift"></i></div>
+                        <%- u %> has received a gift for donator perks!.
+                        <div><%= feed.timestamp %></div>
+                        <% } %>
+                    </li>
+                    <% }); %>
+                </ul>
             </div>
         </div>
     </div>
 
     <div class="mt-3 q-panel-header">
-        RANK PROGRESSION
+        <span>RANK PROGRESSION</span>
     </div>
     <div class="q-panel-body">
-        stats..
+        <canvas id="chartRank"></canvas>
     </div>
 
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="mt-3 q-panel-header">
-                JUDGEMENT COUNTER
+                <span>JUDGEMENT COUNTER</span>
             </div>
             <div class="q-panel-body">
-                stats..
+                <canvas id="chartJudgements"></canvas>
             </div>
         </div>
-        <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="mt-3 q-panel-header">
-                GRADE COUNTER
+                <span>GRADE COUNTER</span>
             </div>
             <div class="q-panel-body">
-                stats..
+                we don't have grade counter
             </div>
         </div>
     </div>
 
     <div class="mt-3 q-panel-header">
-        ACHIEVEMENTS
+        <span>ACHIEVEMENTS</span>
     </div>
     <div class="q-panel-body">
-        stats..
+        <div class="row">
+            <% user.achievements.forEach(achievement => { %>
+            <div class="col-lg-1 col-md-1 col-sm-1 mt-2 mb-2">
+                <img src="/img/achievements/<%= achievement.id %><%= (achievement.unlocked ? '' : '-locked') %>.png"
+                    width="67px" height="67px" data-toggle="tooltip" title="<%= achievement.name %>
+<%= achievement.difficulty %>
+
+<%= achievement.description %>
+">
+            </div>
+            <% }); %>
+        </div>
     </div>
 </div>
-
+<script src="/js/Chart.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var chartJudgements = document.getElementById('chartJudgements').getContext('2d');
+        new Chart(chartJudgements, {
+            type: 'bar',
+            data: {
+                labels: ['Marv', 'Perf', 'Great', 'Good', 'Okay', 'Miss'],
+                datasets: [{
+                    label: '',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [
+                        "<%=user[mode].stats.total_marv%>",
+                        "<%=user[mode].stats.total_perf%>",
+                        "<%=user[mode].stats.total_great%>",
+                        "<%=user[mode].stats.total_good%>",
+                        "<%=user[mode].stats.total_okay%>",
+                        "<%=user[mode].stats.total_miss%>",
+                    ],
+                    backgroundColor: [
+                        '#FBFFB6',
+                        '#F2C94C',
+                        '#56FE6E',
+                        '#0FBAE5',
+                        '#EE5FAC',
+                        '#F9645D'
+                    ],
+                }],
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
 <%- include ("../partials/footer") %>

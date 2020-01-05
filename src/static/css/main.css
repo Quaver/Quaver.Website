@@ -196,9 +196,11 @@ body {
     text-shadow: 0px 0px 6px #FFFFFF;
     font-size: 20px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.q-panel-header::before {
+.q-panel-header span::before {
     color: #45D6F5;
     text-shadow: 0px 0px 9px #0FBAE5;
     content: "|";
@@ -212,7 +214,7 @@ body {
     border-radius: 6px;
     margin-top: 10px;
     margin-bottom: 15px;
-    padding: 12px;
+    padding: 14px;
     color: #FFFFFF;
     position: relative;
 }
@@ -230,6 +232,124 @@ body {
     right: 10px;
     color: #5B5B5B;
     font-size: 25px;
+}
+
+/* Mode Switch */
+
+.mode-switch { vertical-align: middle;
+    text-shadow: none;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.mode-switch a {
+    border-radius: 9.5px;
+    color: #808080;
+}
+
+.mode-switch a:hover {
+    text-decoration: none;
+}
+
+.mode-switch .active {
+    color: #FFFFFF;
+}
+
+.mode-switch a div {
+    border-radius: 9.5px;
+    width: 48px;
+    height: 19px;
+    display: inline-block;
+    text-align: center;
+}
+
+.mode-switch a {
+    background: #242424;
+    padding: 4px 0 4px 0;
+    position: relative;
+}
+
+.mode-switch .mode-4 {
+    background: #0587E5;
+    box-shadow: none;
+    z-index: 4;
+}
+
+.mode-switch .mode-7 {
+    background: #9B51E0;
+    box-shadow: none;
+    z-index: 4;
+}
+
+.mode-switch a:not(.active):not(.mode-4) {
+    background: #242424;
+    padding-left: 15px;
+    margin-left: -20px;
+    z-index: 3;
+    -webkit-box-shadow:inset 0px 0px 0px 2px #9B51E0;
+    -moz-box-shadow:inset 0px 0px 0px 2px #9B51E0;
+    box-shadow:inset 0px 0px 0px 2px #9B51E0;
+}
+
+.mode-switch a:not(.active):not(.mode-7) {
+    background: #242424;
+    padding-right: 15px;
+    margin-right: -20px;
+    z-index: 3;
+    -webkit-box-shadow:inset 0px 0px 0px 2px #0587E5;
+    -moz-box-shadow:inset 0px 0px 0px 2px #0587E5;
+    box-shadow:inset 0px 0px 0px 2px #0587E5;
+}
+
+/* User Statistics */
+
+.statistics {
+    margin-bottom: 0;
+}
+
+.statistics li span {
+    float: right;
+}
+
+/* User Feed */
+
+.feed {
+    margin-bottom: 0;
+    color: #5B5B5B;
+    width: 100%;
+}
+
+.feed li{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #363636;
+    display: table;
+    width: 100%;
+}
+
+.feed li:first-child {
+    padding-top: 0;
+}
+
+.feed li:last-child {
+    border: 0;
+}
+
+.feed li .icon {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Tooltip */
+
+.tooltip-inner {
+    white-space: pre-wrap;
+    min-width: 100px;
 }
 
 /* Group Colors */

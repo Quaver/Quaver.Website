@@ -17,7 +17,7 @@ export default class Users {
 
             const tab = req.query.tab || "info";
 
-            const user = await Users.FetchUser(req, req.params.id);
+            const user = await Users.FetchUser(req, req.params.id, mode);
 
             if (!user)
                 return res.status(404).json({ status: 404, error: "User not found" });
@@ -177,7 +177,7 @@ export default class Users {
      * @param req 
      * @param id 
      */
-    private static async FetchUser(req: any, id: any): Promise<any> {
+    private static async FetchUser(req: any, id: any, mode: any): Promise<any> {
         try {
             const response = await API.GET(req, `v1/users/full/${id}`);
 
@@ -185,8 +185,28 @@ export default class Users {
                 return null;
 
             const onlineStatusResponse = await API.GET(req, `v1/server/users/online/${response.user.info.id}`);
+            const achievementsResponse = await API.GET(req, `v1/users/${response.user.info.id}/achievements`);
+            // const graphRankResponse = await API.GET(req, `v1/users/graph/rank?id=${response.user.info.id}&mode=${mode}`);
             response.user.online_status = onlineStatusResponse;
+            response.user.achievements = achievementsResponse.achievements;
+            // console.log(graphRankResponse.statistics);
+            // response.user.graphRank = graphRankResponse;
+            // response.user.graph.rank.labels = graphRankResponse.statistics.map((x: { timestamp: any; }) => x.timestamp);
+            // response.user.graph.rank.data = graphRankResponse.statistics.map((x: { rank: any; }) => x.rank);
             
+            // needs moment to convert to DD.MM
+            // for (var i = 0; i < response.user.graph.rank.labels.length; i++) {
+            //     response.user.graph.rank.labels[i] = moment(response.user.graph.rank.labels[i]).format("DD.MM");
+            // }
+
+            // Remove today
+            // response.user.graph.rank.labels.pop();
+            // response.user.graph.rank.data.pop();
+            // // Add Now
+            // response.user.graph.rank.labels.push('Now');
+            // response.user.graph.rank.data.push(response.user['keys' + (mode == 1 ? '4' : '7')].globalRank);
+
+
             return response.user;     
         } catch (err) {
             Logger.Error(err);

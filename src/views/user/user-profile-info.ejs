@@ -50,7 +50,8 @@
     </div>
     <div class="q-panel-body">
         <% user.profile_badges.forEach(badge => { %>
-        <img src="https://quaver.blob.core.windows.net/badges/<%= badge.id %>.png" width="80px" height="40px" data-toggle="tooltip" title="<%= badge.name %>
+        <img src="https://quaver.blob.core.windows.net/badges/<%= badge.id %>.png" width="80px" height="40px"
+            data-toggle="tooltip" title="<%= badge.name %>
 
 <%= badge.description %>">
         <% }); %>
@@ -64,7 +65,12 @@
         <div class="bio-edit">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         </div>
-        <%- user.info.userpage %>
+        <div id="html-bio" style="display: block;">
+            <%- bio %>
+        </div>
+        <div id="bbcode-bio" style="display: none;" contenteditable>
+            <%= bio %>
+        </div>
     </div>
     <% } %>
 
@@ -112,44 +118,35 @@
                         <% if(feed.type == 0) { %>
                         <div class="icon"><i class="fa fa-user-plus"></i></div>
                         <%- u %> has just registered for Quaver!</a>.
-                        <div><%= feed.timestamp %></div>
                         <% } else if (feed.type == 1) { %>
                         <div class="icon"><i class="fa fa-file-upload"></i></div>
                         <%- u %> has uploaded a new mapset: <%- map %></a>.
-                        <div><%= feed.timestamp %></div>
                         <% } else if (feed.type == 2) { %>
                         <div class="icon"><i class="fa fa-file-export"></i></div>
                         <%- u %> has updated mapset: <%- map %>.
-                        <div><%= feed.timestamp %></div>
                         <% } else if (feed.type == 3) { %>
                         <div class="icon"><i class="fa fa-check-circle"></i></div>
                         <%- u %> has just ranked mapset: <%- map %>.
-                        <div><%= feed.timestamp %></div>
                         <% } else if (feed.type == 4) { %>
                         <div class="icon"><i class="fa fa-times-circle"></i></div>
                         <%- u %> has gotten denied from rank for mapset: <%- map %>.
-                        <div><%= feed.timestamp %></div>
                         <% } else if (feed.type == 5) { %>
                         <div class="icon"><i class="fa fa-trophy"></i></div>
                         <%- u %> has achieved first place on <%- map %>.
-                        <div><%= feed.timestamp %></div>
                         <% } else if (feed.type == 6) { %>
                         <div class="icon"><i class="fa fa-times"></i></div>
                         <%- u %> has lost first place on <%- map %>.
-                        <div><%= feed.timestamp %></div>
                         <% } else if (feed.type == 7) { %>
                         <div class="icon"><i class="fa fa-medal"></i></div>
                         <%- u %> has unlocked achievement: <%= feed.map.name %>.
-                        <div><%= feed.timestamp %></div>
                         <% } else if (feed.type == 8) { %>
                         <div class="icon"><i class="fa fa-heart"></i></div>
                         <%- u %> has generously donated to Quaver!.
-                        <div><%= feed.timestamp %></div>
                         <% } else if (feed.type == 9) { %>
                         <div class="icon"><i class="fa fa-gift"></i></div>
                         <%- u %> has received a gift for donator perks!.
-                        <div><%= feed.timestamp %></div>
                         <% } %>
+                        <div class="timestamp"><%= feed.timestamp %></div>
                     </li>
                     <% }); %>
                 </ul>
@@ -157,14 +154,15 @@
         </div>
     </div>
 
-    <div class="mt-3 q-panel-header">
-        <span>RANK PROGRESSION</span>
-    </div>
-    <div class="q-panel-body">
-        <canvas id="chartRank"></canvas>
-    </div>
-
     <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="mt-3 q-panel-header">
+                <span>RANK PROGRESSION</span>
+            </div>
+            <div class="q-panel-body">
+                <canvas id="chartRank"></canvas>
+            </div>
+        </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="mt-3 q-panel-header">
                 <span>JUDGEMENT COUNTER</span>
@@ -173,6 +171,7 @@
                 <canvas id="chartJudgements"></canvas>
             </div>
         </div>
+        <!---
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="mt-3 q-panel-header">
                 <span>GRADE COUNTER</span>
@@ -181,6 +180,7 @@
                 we don't have grade counter
             </div>
         </div>
+        --->
     </div>
 
     <div class="mt-3 q-panel-header">

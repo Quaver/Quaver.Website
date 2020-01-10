@@ -33,6 +33,10 @@ body {
     color: #FFFFFF;
 }
 
+.navbar i {
+    margin-right: 5px;
+}
+
 .navbar-dark .navbar-nav .nav-link,
 .navbar-dark .navbar-nav .active>.nav-link {
     font-size: 14px;
@@ -193,7 +197,7 @@ body {
 
 .q-panel-header {
     color: #FFFFFF;
-    text-shadow: 0px 0px 6px #FFFFFF;
+    /* text-shadow: 0px 0px 6px #FFFFFF; */
     font-size: 20px;
     display: flex;
     align-items: center;
@@ -318,8 +322,12 @@ body {
 
 .feed {
     margin-bottom: 0;
-    color: #5B5B5B;
+    color: #CACACA;
     width: 100%;
+}
+
+.feed .timestamp {
+    color: #808080;
 }
 
 .feed li{
@@ -389,8 +397,51 @@ body {
 /* Footer */
 
 footer {
-    background: linear-gradient(180deg, #242424 0%, #1B1B1B 100%);
+    background: #242424;
     margin-top: 50px;
-    color: #FFFFFF;
+    color: #808080;
     min-height: 200px;
+    padding: 40px 0 40px 0;
+}
+
+footer h3{
+    font-size: 20px;
+    color: #CACACA;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+footer ul li {
+    margin-bottom: 10px;
+}
+
+footer ul a {
+    color: #0587E5;
+}
+
+footer ul a:hover {
+    color: #45D6F5;
+}
+
+footer .footer-social {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+footer .footer-social a {
+    font-size: 16px;
+    padding: 0 10px;
+    color: #FFFFFF;
+}
+
+footer .footer-social a:hover {
+    color: #45D6F5;
+}
+
+footer .footer-text  {
+    text-align: center;
 }

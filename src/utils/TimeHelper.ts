@@ -2,12 +2,6 @@ import moment from "moment";
 
 export default class TimeHelper {
 
-    /**
-     * Checks if a user has a specific user group.
-     * @param user
-     * @param group
-     * @constructor
-     */
     public static formatDate(time: any): string {
         const now = moment();
         const secondDiff = now.diff(moment(time), "seconds");

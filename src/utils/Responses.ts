@@ -1,6 +1,7 @@
 import * as express from "express";
 import UserHelper from "./UserHelper";
 import UserGroups from "../enums/Usergroups";
+import TimeHelper from "./TimeHelper";
 
 const config = require("../config/config.json");
 
@@ -20,7 +21,8 @@ export default class Responses {
             title, 
             currentUser: req.user,
             UserHelper: UserHelper,
-            UserGroups: UserGroups
+            UserGroups: UserGroups,
+            TimeHelper: TimeHelper
         };
         
         Object.assign(templateData, data);

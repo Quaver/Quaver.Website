@@ -112,8 +112,8 @@
                     <li>Max Combo <span><%= user[mode].stats.max_combo.toLocaleString() %></span></li>
                     <li>Play Count <span><%= user[mode].stats.play_count.toLocaleString() %></span></li>
                     <li>Multiplayer Record <span><%= user[mode].globalRank.toLocaleString() %></span></li>
-                    <li>Date Registered <span><%= user.info.time_registered %></span></li>
-                    <li>Last Seen <span><%= user.info.latest_activity %></span></li>
+                    <li>Date Registered <span><%= TimeHelper.ToDate(user.info.time_registered, false) %></span></li>
+                    <li>Last Seen <span><%= TimeHelper.formatDate(user.info.latest_activity) %></span></li>
                 </ul>
             </div>
         </div>
@@ -158,7 +158,7 @@
                         <div class="icon"><i class="fa fa-gift"></i></div>
                         <%- u %> has received a gift for donator perks!.
                         <% } %>
-                        <div class="timestamp"><%= feed.timestamp %></div>
+                        <div class="timestamp"><%= TimeHelper.formatDate(feed.timestamp) %></div>
                     </li>
                     <% }); %>
                 </ul>

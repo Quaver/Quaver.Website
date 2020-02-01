@@ -12,7 +12,19 @@
             <div class="user">
                 <h1 class="h4 text-white"> <img src="/img/flags/<%= user.info.country %>.png"> <%= user.info.username %>
                 </h1>
-                <h5 class="h5 text-color-ranking-supervisor">Ranking Supervisor</h5>
+                <h5 class="h5">
+                <% if(UserHelper.HasGroup(user.info, UserGroups.Developer)) { %>
+                <span class="text-color-developer">Developer</span>
+                <% } else if(UserHelper.HasGroup(user.info, UserGroups.Admin)) { %>
+                <span class="text-color-admin">Administrator</span>
+                <% } else if(UserHelper.HasGroup(user.info, UserGroups.Moderator)) { %>
+                <span class="text-color-moderator">Moderator</span>
+                <% } else if(UserHelper.HasGroup(user.info, UserGroups.RankingSupervisor)) { %>
+                <span class="text-color-ranking-supervisor">Ranking Supervisor</span>
+                <% } else if(UserHelper.HasGroup(user.info, UserGroups.Contributor)) { %>
+                <span class="text-color-contributor">Contributor</span>
+                <% } %>
+                </h5>
                 <h4 class="h5 text-white">
                     <div class="status offline"></div>Offline
                 </h4>

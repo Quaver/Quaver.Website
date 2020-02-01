@@ -1,4 +1,7 @@
 import * as express from "express";
+import UserHelper from "./UserHelper";
+import UserGroups from "../enums/Usergroups";
+
 const config = require("../config/config.json");
 
 export default class Responses {
@@ -15,7 +18,9 @@ export default class Responses {
         const templateData = { 
             baseUrl: config.baseUrl,
             title, 
-            currentUser: req.user
+            currentUser: req.user,
+            UserHelper: UserHelper,
+            UserGroups: UserGroups
         };
         
         Object.assign(templateData, data);

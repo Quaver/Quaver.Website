@@ -17,7 +17,7 @@ export default class Home {
 
             return Responses.Send(req, res, "home", "Home | Quaver", {
                 recentlyRanked: recentlyRanked,
-                stats: stats,
+                stats: stats.stats,
                 blog: blog.data
             });
         } catch (err) {

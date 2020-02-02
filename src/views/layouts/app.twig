@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include 'layouts/meta.twig' %}
+    {% block style %}{% endblock %}
+  </head>
+  <body class="fixed-navbar">
+  <div class="site">
+    {% block loader %}{% endblock %}
+    {% include 'layouts/header.twig' %}
+    {% block content %}{% endblock %}
+    {% include 'layouts/footer.twig' %}
+    {% include 'layouts/scripts.twig' %}
+    {% block scripts %}{% endblock %}
+  </div>
+  </body>
+</html>

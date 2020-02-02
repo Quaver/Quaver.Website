@@ -3,7 +3,7 @@ import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import bbobHTML from '@bbob/html';
 import presetHTML5 from '@bbob/preset-html5';
-const sanitizeHtml = require('sanitize-html');
+import sanitizeHtml from 'sanitize-html';
 
 export default class Users {
     /**
@@ -44,6 +44,9 @@ export default class Users {
                           'span': ['style']
                         }
                     }), presetHTML5());
+
+                    console.log(user);
+
                     Responses.Send(req, res, "user/user-profile-info", `${user.info.username}'s Profile | Quaver`, { 
                         user, 
                         mode,

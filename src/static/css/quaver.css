@@ -1,0 +1,22 @@
+.navbar-brand {
+    padding-top: 0;
+}
+
+.category {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.category span:first-child {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 15px;
+    opacity: 0.6;
+    color: black;
+    margin-bottom: -5px;
+}
+.category span:last-child {
+    font-size: 30px;
+    font-weight: 500;
+    color: #0072ff;
+}

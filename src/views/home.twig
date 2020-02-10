@@ -3,22 +3,25 @@
     <section class="pt-0">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xl-12 mx-auto py-8 overflow-hidden" data-parallax="scroll"
-                     data-image-src="img/cover.jpg">
-                    <div class="overlay"
-                         style="background-color: rgb(54, 55, 58) !important; opacity: 0.50 !important;"></div>
+                <div class="col-xl-12 mx-auto py-8 overflow-hidden" data-parallax="scroll" data-image-src="img/cover.jpg">
+                    <div class="overlay" style="background-color: rgb(54, 55, 58) !important; opacity: 0.50 !important;"></div>
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h1 class="display-1 font-weight-bold text-white mb-3 text-center">Quaver</h1>
-                                <p class="text-white text-center">The ultimate community-driven, and open-source
-                                    competitive rhythm game coming soon to Steam.</p>
+                                <h1 class="display-1 font-weight-bold text-white mb-3 text-center">
+                                    Quaver
+                                </h1>
+                                <p class="text-white text-center">
+                                    The ultimate community-driven, and open-source competitive rhythm game coming soon to Steam.
+                                </p>
                                 <div class="mt-6 pt-2 text-center">
-                                    <a class="btn btn-dark btn-shadow btn-rounded btn-lg" target="_blank"
-                                       href="https://store.steampowered.com/app/980610/Quaver/" role="button">Visit the
-                                        Steam Page</a>
-                                    <a class="btn btn-light btn-rounded btn-lg ml-2" href="https://blog.quavergame.com/"
-                                       role="button">Dev Blog</a></div>
+                                    <a class="btn btn-dark btn-shadow btn-rounded btn-lg" target="_blank" href="https://store.steampowered.com/app/980610/Quaver/" role="button">
+                                        Visit the Steam Page
+                                    </a>
+                                    <a class="btn btn-light btn-rounded btn-lg ml-2" href="https://store.steampowered.com/news/?appids=980610" role="button">
+                                        Dev Blog
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -37,35 +40,41 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    {% for post in blog.items %}
-                    <div class="card">
-                        <div class="card-header">
-                            <h6 class="mb-0">{{ post.title }}</h6>
+                    <div class="widget" style="margin-bottom: 0;">
+                        <div class="widget-header">
+                            News
                         </div>
-                        <div class="card-body">
-                            <div class="post border-0 mb-0 pb-0">
-                                <div class="post-thumbnail">
-                                    <img class="post-img"
-                                         src="{{ post.image }}"
-                                         alt="{{ post.title }}">
-                                </div>
-                                <div class="post-body">
-                                    <p>
-                                        {{ post.short_text }}
-                                    </p>
+                    </div>
+                    {% for post in blog.items %}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="post border-0 mb-0 pb-0">
+                                    <div class="post-thumbnail">
+                                        <img class="post-img" src="{{ post.image }}" alt="{{ post.title }}">
+                                    </div>
+                                    <div class="post-body">
+                                        <a href="{{ post.id }}" class="post-news-title" target="_blank">
+                                            {{ post.title }}
+                                        </a>
+                                        <p class="post-news-date">
+                                            {{ formatDateDistance(post.date_modified) }}
+                                        </p>
+                                        <p>
+                                            {{ post.short_text }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer d-block d-md-flex align-items-center">
-                            <a class="btn btn-outline ml-0 mb-2 mb-md-0 d-block d-md-inline" href="{{ post.id }}"
-                               role="button">Read more</a>
-                        </div>
-                    </div>
                     {% endfor %}
                 </div>
                 <div class="col-lg-4">
+                    <div class="widget" style="margin-bottom: 0;">
+                        <div class="widget-header">
+                            Stats
+                        </div>
+                    </div>
                     <div class="widget widget-secondary">
-                        <div class="widget-header border-0">Stats</div>
                         <div class="widget-body">
                             <div data-v-04944006="" class="categories">
                                 <div data-v-04944006="" class="row">
@@ -87,7 +96,7 @@
                                             <span>{{ stats.total_mapsets|number_format(0, '.', ',') }}</span>
                                         </div>
                                     </div>
-                                    <div  class="col-lg-6">
+                                    <div class="col-lg-6">
                                         <div class="category">
                                             <span>Total scores</span>
                                             <span>{{ stats.total_scores|number_format(0, '.', ',') }}</span>
@@ -97,12 +106,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="widget">
+                    <div class="widget" style="margin-bottom: 0;">
                         <div class="widget-header">
                             FOLLOW US ON TWITTER
                         </div>
-                        <a class="twitter-timeline" data-lang="en" data-dnt="true" data-tweet-limit="10"
-                           href="https://twitter.com/QuaverGame?ref_src=twsrc%5Etfw"></a>
+                    </div>
+                    <div class="widget widget-secondary">
+                        <div class="widget-body">
+                            <a class="twitter-timeline" data-lang="en" data-dnt="true" data-tweet-limit="10" data-theme="dark" data-chrome="transparent" data-link-color="#45D6F5"
+                                    href="https://twitter.com/QuaverGame?ref_src=twsrc%5Etfw"></a>
+                        </div>
                         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     </div>
                 </div>

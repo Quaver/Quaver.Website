@@ -8,6 +8,10 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const config = require("./config/config.json");
 const twig = require("twig");
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
+const client = redis.createClient();
 
 export default class Server {
     /**
@@ -47,11 +51,11 @@ export default class Server {
         if (this.ExpressApp.get('env') === 'development') {
             twig.cache(false);
         }
-
+        console.log('fuck');
         this.ExpressApp.use(bodyParser.json());
         this.ExpressApp.use(bodyParser.urlencoded({extended: true}));
 
-        this.ExpressApp.use(require('express-session')({ secret: config.expressSessionSecret, resave: true, saveUninitialized: true }));
+        this.ExpressApp.use(require('express-session')({ secret: config.expressSessionSecret, resave: true, saveUninitialized: true, store: new RedisStore({ client: client, prefix: config.expressSessionSecretRedis }) }));
         
         Login.Initialize();
         Login.ConfigurePassport();

@@ -1,2 +1,27 @@
 <h1>PLAYLIST</h1>
 <%= JSON.stringify(playlist) %>
+
+
+{% extends "layouts/app.twig" %}
+{% block content %}
+
+    <nav class="bg-white border-bottom" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Wiki</li>
+            </ol>
+        </div>
+    </nav>
+
+    <%- wikiContent %>
+
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

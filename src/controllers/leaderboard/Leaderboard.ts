@@ -15,11 +15,19 @@ export default class Leaderboard {
             const page = req.query.page || 0;
             const country = req.query.country ? `&country=${req.query.country}` : "";
 
+            const stats = await API.GET(req, "v1/stats");
+            const limit = 50;
+            const totalUsers = stats.stats.total_users;
+            const pages = Math.ceil(totalUsers/limit);
+
             const leaderboard = await API.GET(req, `v1/leaderboard?mode=${mode}&page=${page}${country}`);
 
             Responses.Send(req, res, "leaderboard", "Leaderboard | Quaver", {
                 leaderboardType: country == "" ? LeaderboardType.Global : LeaderboardType.Country,
-                leaderboard: leaderboard.users
+                leaderboard: leaderboard.users,
+                mode: mode,
+                page: page,
+                pages: pages
             });
         } catch (err) {
             Logger.Error(err);

@@ -1,0 +1,135 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark d-flex align-items-end py-3" style="background-color: #3a3a3c !important;min-height: 320px;">
+        <img class="background" src="https://cdn.quavergame.com/profile-covers/{{ user.info.id }}.jpg" onerror="this.src='/img/cover.jpg'" alt="" style="opacity: 0.25 !important;">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col d-flex flex-column flex-lg-row align-items-center text-center position-absolute bottom left pl-lg-8">
+                    <a class="avatar-thumbnail avatar-lg d-lg-none bg-dark mb-3 mb-lg-0 border-0" href="#">
+                        <img src="{{ user.info.avatar_url }}" alt="">
+                    </a>
+                    <h2 class="h4 text-white mb-0 ml-2 pl-lg-8">
+                        {{ user.info.username }}
+                    </h2>
+                    <div class="ml-lg-auto mt-4 mb-3 my-lg-0">
+                        <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">
+                            <i class="ya ya-user-add"></i>
+                            Add friend
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="sticky-wrapper" class="sticky-wrapper" style="height: 63px;">
+        <section class="bg-quaver-nav border-bottom nav-profile py-0" ya-sticky="" style="">
+            <div class="container">
+                <div class="row">
+                    <div class="col d-flex align-items-center">
+                        <a class="avatar-thumbnail avatar-xl position-absolute d-none d-lg-block" href="#">
+                            <img src="{{ user.info.avatar_url }}" alt="" width="188" height="188">
+                        </a>
+                        <div class="avatar-fixed d-none d-lg-block">
+                            <a class="avatar-tile" href="#">
+                                <img src="{{ user.info.avatar_url }}" alt="" width="50" height="50">
+                                <div>
+                                    <strong>{{ user.info.username }}</strong>
+                                    <span class="d-block">@mem</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="nav-scroll">
+                            <div class="nav nav-list nav-list-profile">
+                                <a class="nav-item nav-link active" href="#">Stats & Feed</a>
+                                <a class="nav-item nav-link" href="#">Rank Progression</a>
+                                <a class="nav-item nav-link" href="#">Scores</a>
+                                <a class="nav-item nav-link" href="#">Judgement Breakdown</a>
+                                <a class="nav-item nav-link" href="#">Maps</a>
+                                <a class="nav-item nav-link" href="#">Playlists</a>
+                                <a class="nav-item nav-link" href="#">Achievements</a>
+                            </div>
+                        </div>
+                        <div class="dropdown d-none d-xl-inline-block ml-auto">
+                            <button class="btn btn-default btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ya ya-gear"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Change Cover</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <section class="py-lg-4">
+        <div class="container">
+            {% include 'user/user-profile-info.twig' %}
+            {% include 'user/user-profile-graphs.twig' %}
+            {% include 'user/user-profile-scores.twig' %}
+            {% include 'user/user-profile-mapsets.twig' %}
+            {% include 'user/user-profile-playlists.twig' %}
+            {% include 'user/user-profile-achievements.twig' %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="/js/Chart.min.js"></script>
+    {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
+    <script>
+        $(document).ready(function () {
+            var chartJudgements = document.getElementById('chartJudgements').getContext('2d');
+            new Chart(chartJudgements, {
+                type: 'bar',
+                data: {
+                    labels: ['Marv', 'Perf', 'Great', 'Good', 'Okay', 'Miss'],
+                    datasets: [{
+                        label: '',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [
+                            "{{ user[game_mode].stats.total_marv }}",
+                            "{{ user[game_mode].stats.total_perf }}",
+                            "{{ user[game_mode].stats.total_great }}",
+                            "{{ user[game_mode].stats.total_good }}",
+                            "{{ user[game_mode].stats.total_okay }}",
+                            "{{ user[game_mode].stats.total_miss }}",
+                        ],
+                        backgroundColor: [
+                            '#FBFFB6',
+                            '#F2C94C',
+                            '#56FE6E',
+                            '#0FBAE5',
+                            '#EE5FAC',
+                            '#F9645D'
+                        ],
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: false,
+                    },
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            gridLines: {
+                                display: false
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

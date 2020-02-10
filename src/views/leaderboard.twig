@@ -1,5 +1,106 @@
-<h1>LEADERBOARD TYPE</h1>
-<%= leaderboardType %>
+{% extends "layouts/app.twig" %}
 
-<h1>LEADERBOARD USERS</h1>
-<%= JSON.stringify(leaderboard) %>
+
+
+{% block content %}
+    {% import "/helpers/pagination.twig" as pagination %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="img/cover.jpg" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        Leaderboard -
+                        {% if leaderboardType == 0 %}Overall Rating{% elseif leaderboardType == 2 %}Total Hits{% else %}Multiplayer{% endif %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-lg-5">
+        <div class="container">
+            <div class="nav-tab-scroll" id="mode-tabs">
+                <div class="nav nav-tabs {% if mode == 1 %} keys4 {% else %} keys7 {% endif %}" id="tab" role="tablist">
+                    <a class="nav-item nav-link {% if mode == 1 %} active-keys4 {% else %}tab-keys4{% endif %}" href="/leaderboard?mode=1">
+                        4 Keys
+                    </a>
+                    <a class="nav-item nav-link {% if mode == 2 %} active-keys7 {% else %}tab-keys7{% endif %}" href="/leaderboard?mode=2">
+                        7 Keys
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="pagination">
+                        {% for i in page+1..pages+1 if page < pages %}
+                            <li>
+                                <a href="/leaderboard?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="table-responsive" id="leaderboard">
+                        <table class="table align-items-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">Rank</th>
+                                <th scope="col">Player</th>
+                                <th scope="col">Overall Rating</th>
+                                <th scope="col">Score</th>
+                                <th scope="col">Accuracy</th>
+                                <th scope="col">Max Combo</th>
+                                <th scope="col">Play Count</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for player in leaderboard %}
+                                <tr>
+                                    <td>{{ player.stats.rank }}</td>
+                                    <td>
+                                        <a href="#">
+                                            <img src="/img/flags/{{ player.country }}.png" alt="{{ player.country }}">
+                                        </a>
+                                        <a href="/user/{{ player.id }}">
+                                            {{ player.username }}
+                                        </a>
+                                    </td>
+                                    <td>{{ player.stats.overall_performance_rating|number_format(2) }}</td>
+                                    <td>{{ player.stats.ranked_score|number_format(0, '.', ',') }}</td>
+                                    <td>{{ player.stats.overall_accuracy|number_format(2) }}%</td>
+                                    <td>{{ player.stats.max_combo|number_format(0, '.', ',') }}</td>
+                                    <td>{{ player.stats.play_count|number_format(0, '.', ',') }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-md-flex">
+                        <div class="btn-group mr-auto">
+                            <a class="btn btn-default btn-icon" href="">
+                                <i class="ya ya-small-left"></i>
+                                Previous
+                            </a>
+
+                        </div>
+                        <div class="btn-group ml-auto mr-2">
+                            <a class="btn btn-default btn-icon" href="">
+                                Next
+                                <i class="ya ya-small-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

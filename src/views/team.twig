@@ -1,2 +1,25 @@
 <h1>TEAM</h1>
 <%= JSON.stringify(team) %>
+
+{% extends "layouts/app.twig" %}
+{% block content %}
+
+    <nav class="bg-white border-bottom" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Team</li>
+            </ol>
+        </div>
+    </nav>
+
+
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

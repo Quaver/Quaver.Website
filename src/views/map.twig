@@ -1,11 +1,24 @@
-<h1>MAPSET</h1>
-<%= JSON.stringify(mapset) %>
+{% extends "layouts/app.twig" %}
+{% block content %}
 
-<h1>MAP</h1>
-<%= JSON.stringify(map) %> 
+    <h1>MAPSET</h1>
+    {{ dump(mapset) }}
 
-<h1>SCORES</h1>
-<%= JSON.stringify(scores) %>
+    <h1>MAP</h1>
+    {{ dump(map) }}
 
-<h1>COMMENTS</h1>
-<%= JSON.stringify(comments) %>
+    <h1>SCORES</h1>
+    {{ dump(scores) }}
+
+    <h1>COMMENTS</h1>
+    {{ dump(comments) }}
+
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

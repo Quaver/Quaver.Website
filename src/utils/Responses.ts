@@ -22,9 +22,10 @@ export default class Responses {
             currentUser: req.user,
             UserHelper: UserHelper,
             UserGroups: UserGroups,
-            TimeHelper: TimeHelper
+            formatDateDistance: TimeHelper.formatDateDistance,
+            formatDate: TimeHelper.formatDate
         };
-        
+
         Object.assign(templateData, data);
         return res.render(template, templateData);
     }

@@ -17,6 +17,11 @@ body {
     padding: .5rem 1.5rem;
 }
 
+.navbar-nav .dropdown-menu {
+    background-color: unset;
+    background: linear-gradient(180deg, #242424 0%, #1B1B1B 100%);
+}
+
 .bg-quaver {
     background: linear-gradient(180deg, #242424 0%, #1B1B1B 100%);
     font-family: Lato;

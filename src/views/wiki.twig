@@ -1,1 +1,29 @@
-<%- wikiContent %>
+{% extends "layouts/app.twig" %}
+{% block content %}
+
+    <nav class="bg-white border-bottom" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Wiki</li>
+            </ol>
+        </div>
+    </nav>
+
+    <section class="d-flex align-items-center pb-0 pb-lg-4 pt-lg-6 px-1 px-md-0">
+        <div class="container markdown-body">
+            {{ wikiContent|raw }}
+        </div>
+    </section>
+
+
+
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="/css/github-markdown.css">
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

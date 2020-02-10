@@ -1,4 +1,140 @@
-<%- include ("../partials/header") %>
-<%- include ("../partials/navigation") %>
-
-<%- include ("../partials/footer") %>
+<div class="row">
+    <div class="col d-flex align-items-center">
+            <div class="avatar-fixed d-none d-lg-block" style="width: 220px"></div>
+            <div class="widget">
+                {% for badge in user.profile_badges %}
+                    <img src="https://quaver.blob.core.windows.net/badges/{{ badge.id }}.png" width="80px" height="40px" data-toggle="tooltip" title="{{ badge.name }}{{ badge.description }}">
+                {% endfor %}
+            </div>
+    </div>
+    <div class="col-lg-12">
+        {% if user.info.userpage %}
+            <div class="widget">
+                <div class="widget-header">About Me</div>
+            </div>
+            <div class="widget widget-secondary">
+                <div class="widget-body">
+                    {{ bio|raw }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <!--  -->
+    <div class="col-md-4">
+        <div class="widget">
+            <div class="widget-header">Statistics</div>
+        </div>
+        <div class="widget widget-secondary">
+            <div class="widget-body">
+                {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
+                <ul class="statistics">
+                    <li>Global Rank
+                        <span>#{{ user[game_mode].globalRank|number_format(0, '.', ',') }}</span>
+                    </li>
+                    <li>Country Rank
+                        <span>#{{ user[game_mode].countryRank|number_format(0, '.', ',') }}</span>
+                    </li>
+                    <li>Multiplayer Wins Rank
+                        <span>#{{ user[game_mode].multiplayerWinRank|number_format(0, '.', ',') }}</span>
+                    </li>
+                    <li>Overall Rating
+                        <span>{{ user[game_mode].stats.overall_performance_rating|number_format(2) }}</span>
+                    </li>
+                    <li>Accuracy
+                        <span>{{ user[game_mode].stats.overall_accuracy|number_format(2) }}%</span>
+                    </li>
+                    <li>Ranked Score
+                        <span>{{ user[game_mode].stats.ranked_score|number_format(0, '.', ',') }}</span>
+                    </li>
+                    <li>Total Score
+                        <span>{{ user[game_mode].stats.total_score|number_format(0, '.', ',') }}</span>
+                    </li>
+                    <li>Max Combo
+                        <span>{{ user[game_mode].stats.max_combo|number_format(0, '.', ',') }}</span>
+                    </li>
+                    <li>Play Count
+                        <span>{{ user[game_mode].stats.play_count|number_format(0, '.', ',') }}</span>
+                    </li>
+                    <li>Multiplayer Record
+                        <span>{{ user[game_mode].globalRank }}</span>
+                    </li>
+                    <li>Date Registered
+                        <span>{{ formatDate(user.info.time_registered) }}</span>
+                    </li>
+                    <li>Last Seen
+                        <span>{{ formatDateDistance(user.info.latest_activity) }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="widget">
+            <div class="widget-header">Feed</div>
+        </div>
+        <div class="widget widget-secondary">
+            <div class="widget-body">
+                <ul class="feed">
+                    {% for feed in user.activity_feed %}
+                        <li>
+                            {% set u = "<a href='/user/" ~ user.info.id ~ "'>" ~ user.info.username ~ "</a>" %}
+                            {% set map = "<a href='" ~ feed.map.id ~ "'>" ~ feed.map.name ~ "</a>" %}
+                            {% if feed.type == 0 %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-user-plus"></i>
+                                </div>
+                                {{ u|raw }} has just registered for Quaver!</a>.
+                            {% elseif (feed.type == 1) %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-file-upload"></i>
+                                </div>
+                                {{ u|raw }} has uploaded a new mapset: {{ map|raw }}</a>.
+                            {% elseif (feed.type == 2) %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-file-export"></i>
+                                </div>
+                                {{ u|raw }} has updated mapset: {{ map|raw }}.
+                            {% elseif (feed.type == 3) %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-check-circle"></i>
+                                </div>
+                                {{ u|raw }} has just ranked mapset: {{ map|raw }}.
+                            {% elseif (feed.type == 4) %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-times-circle"></i>
+                                </div>
+                                {{ u|raw }} has gotten denied from rank for mapset: {{ map|raw }}.
+                            {% elseif (feed.type == 5) %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-trophy"></i>
+                                </div>
+                                {{ u|raw }} has achieved first place on {{ map|raw }}.
+                            {% elseif (feed.type == 6) %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-times"></i>
+                                </div>
+                                {{ u|raw }} has lost first place on {{ map|raw }}.
+                            {% elseif (feed.type == 7) %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-medal"></i>
+                                </div>
+                                {{ u|raw }} has unlocked achievement: {{ feed.map.name }}.
+                            {% elseif (feed.type == 8) %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                                {{ u|raw }} has generously donated to Quaver!.
+                            {% elseif (feed.type == 9) %}
+                                <div class="feed-icon">
+                                    <i class="fa fa-gift"></i>
+                                </div>
+                                {{ u|raw }} has received a gift for donator perks!.
+                            {% endif %}
+                            <div class="timestamp">{{ formatDateDistance(feed.timestamp) }}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

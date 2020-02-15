@@ -51,7 +51,7 @@ export default class Server {
         if (this.ExpressApp.get('env') === 'development') {
             twig.cache(false);
         }
-        console.log('fuck');
+        
         this.ExpressApp.use(bodyParser.json());
         this.ExpressApp.use(bodyParser.urlencoded({extended: true}));
 

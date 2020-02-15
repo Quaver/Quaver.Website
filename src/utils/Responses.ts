@@ -20,7 +20,7 @@ export default class Responses {
             baseUrl: config.baseUrl,
             title, 
             currentUser: req.user,
-            UserHelper: UserHelper,
+            HasGroup: UserHelper.HasGroup,
             UserGroups: UserGroups,
             formatDateDistance: TimeHelper.formatDateDistance,
             formatDate: TimeHelper.formatDate

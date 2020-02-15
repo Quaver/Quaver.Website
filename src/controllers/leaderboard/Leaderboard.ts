@@ -42,13 +42,22 @@ export default class Leaderboard {
      */
     public static async TotalHitsGET(req: any, res: any): Promise<void> {
         try {
+            const mode = req.query.mode || 1;
             const page = req.query.page || 0;
 
             const leaderboard = await API.GET(req, `v1/leaderboard/hits?page=${page}`);
 
+            const stats = await API.GET(req, "v1/stats");
+            const limit = 50;
+            const totalUsers = stats.stats.total_users;
+            const pages = Math.ceil(totalUsers/limit);
+
             Responses.Send(req, res, "leaderboard", "Total Hits Leaderboard | Quaver", {
                 leaderboardType: LeaderboardType.TotalHits,
-                leaderboard: leaderboard.users
+                leaderboard: leaderboard.users,
+                mode: mode,
+                page: page,
+                pages: pages
             });
         } catch (err) {
             Logger.Error(err);
@@ -68,9 +77,17 @@ export default class Leaderboard {
 
             const leaderboard = await API.GET(req, `v1/multiplayer/leaderboard?mode=${mode}&page=${page}`);
 
+            const stats = await API.GET(req, "v1/stats");
+            const limit = 50;
+            const totalUsers = stats.stats.total_users;
+            const pages = Math.ceil(totalUsers/limit);
+
             Responses.Send(req, res, "leaderboard", "Multiplayer Leaderboard | Quaver", {
                 leaderboardType: LeaderboardType.Multiplayer,
-                leaderboard: leaderboard.users
+                leaderboard: leaderboard.users,
+                mode: mode,
+                page: page,
+                pages: pages
             });
         } catch (err) {
             Logger.Error(err);

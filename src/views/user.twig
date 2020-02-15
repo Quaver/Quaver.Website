@@ -34,26 +34,38 @@
                                 <img src="{{ user.info.avatar_url }}" alt="" width="50" height="50">
                                 <div>
                                     <strong>{{ user.info.username }}</strong>
-                                    <span class="d-block">@mem</span>
+                                    <span class="d-block">
+                                        {% if HasGroup(user.info, UserGroups.Developer) %}
+                                            Developer
+                                        {% elseif HasGroup(user.info, UserGroups.Admin) %}
+                                            Administrator
+                                        {% elseif HasGroup(user.info, UserGroups.Moderator) %}
+                                            Moderator
+                                        {% elseif HasGroup(user.info, UserGroups.RankingSupervisor) %}
+                                            Ranking Supervisor
+                                        {% elseif HasGroup(user.info, UserGroups.Contributor) %}
+                                            Contributor
+                                        {% endif %}
+                                    </span>
                                 </div>
                             </a>
                         </div>
                         <div class="nav-scroll">
                             <div class="nav nav-list nav-list-profile">
-                                <a class="nav-item nav-link active" href="#">Stats & Feed</a>
-                                <a class="nav-item nav-link" href="#">Rank Progression</a>
-                                <a class="nav-item nav-link" href="#">Scores</a>
-                                <a class="nav-item nav-link" href="#">Judgement Breakdown</a>
-                                <a class="nav-item nav-link" href="#">Maps</a>
-                                <a class="nav-item nav-link" href="#">Playlists</a>
-                                <a class="nav-item nav-link" href="#">Achievements</a>
+                                <a class="nav-item nav-link active" href="#feed">Stats & Feed</a>
+                                <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a>
+                                <a class="nav-item nav-link" href="#scores">Scores</a>
+                                <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a>
+                                <a class="nav-item nav-link" href="#maps">Maps</a>
+                                <a class="nav-item nav-link" href="#playlists">Playlists</a>
+                                <a class="nav-item nav-link" href="#achievements">Achievements</a>
                             </div>
                         </div>
                         <div class="dropdown d-none d-xl-inline-block ml-auto">
-                            <button class="btn btn-default btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-quaver-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="ya ya-gear"></i>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right btn-quaver-dark dropdown-quaver">
                                 <a class="dropdown-item" href="#">Change Cover</a>
                                 <a class="dropdown-item" href="#">Settings</a>
                             </div>
@@ -80,6 +92,7 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="/js/custom.js"></script>
     <script src="/js/Chart.min.js"></script>
     {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
     <script>

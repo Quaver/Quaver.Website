@@ -331,3 +331,17 @@ body {
 .feed li .timestamp {
 
 }
+
+.btn-quaver-dark {
+    background-color: #1A1A1A;
+    color: #ffffff;
+}
+
+.dropdown-quaver a {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.dropdown-quaver a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+}

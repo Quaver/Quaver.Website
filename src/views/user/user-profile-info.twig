@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="feed">
     <div class="col d-flex align-items-center">
             <div class="avatar-fixed d-none d-lg-block" style="width: 220px"></div>
             <div class="widget">
@@ -83,7 +83,7 @@
                                 <div class="feed-icon">
                                     <i class="fa fa-user-plus"></i>
                                 </div>
-                                {{ u|raw }} has just registered for Quaver!.
+                                {{ u|raw }} has just registered for Quaver!
                             {% elseif (feed.type == 1) %}
                                 <div class="feed-icon">
                                     <i class="fa fa-file-upload"></i>

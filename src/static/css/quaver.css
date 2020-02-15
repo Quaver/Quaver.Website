@@ -315,6 +315,19 @@ body {
 .feed li .feed-icon {
     display: table-cell;
     vertical-align: middle;
-    padding-left: 10px;
     padding-right: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
+
+.feed li .feed-icon i {
+}
+
+.feed li .feed-text {
+
+}
+
+.feed li .timestamp {
+
 }

@@ -83,12 +83,12 @@
                                 <div class="feed-icon">
                                     <i class="fa fa-user-plus"></i>
                                 </div>
-                                {{ u|raw }} has just registered for Quaver!</a>.
+                                {{ u|raw }} has just registered for Quaver!.
                             {% elseif (feed.type == 1) %}
                                 <div class="feed-icon">
                                     <i class="fa fa-file-upload"></i>
                                 </div>
-                                {{ u|raw }} has uploaded a new mapset: {{ map|raw }}</a>.
+                                {{ u|raw }} has uploaded a new mapset: {{ map|raw }}.
                             {% elseif (feed.type == 2) %}
                                 <div class="feed-icon">
                                     <i class="fa fa-file-export"></i>
@@ -113,7 +113,9 @@
                                 <div class="feed-icon">
                                     <i class="fa fa-times"></i>
                                 </div>
-                                {{ u|raw }} has lost first place on {{ map|raw }}.
+                                <div class="feed-text">
+                                    {{ u|raw }} has lost first place on {{ map|raw }}.
+                                </div>
                             {% elseif (feed.type == 7) %}
                                 <div class="feed-icon">
                                     <i class="fa fa-medal"></i>

@@ -3,6 +3,7 @@
     "baseUrl": "http://localhost:8084",
     "apiBaseUrl": "https://api.quavergame.com",
     "expressSessionSecret": "",
+    "expressSessionSecretRedis": "",
     "databaseSql": {
         "host": "",
         "user": "",

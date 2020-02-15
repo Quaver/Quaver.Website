@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: url("/img/triangles.png"), rgba(26, 26, 26, 1);
 }

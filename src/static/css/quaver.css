@@ -1,5 +1,7 @@
 html {
     scroll-behavior: smooth;
+    font-family: 'Lato', sans-serif;
+
 }
 
 body {
@@ -348,4 +350,89 @@ body {
 .dropdown-quaver a:hover {
     background-color: rgba(0, 0, 0, 0.2);
     color: #ffffff;
+}
+
+/* Mapset */
+
+.mapsets {
+    width: 100%;
+}
+
+.mapset {
+    border-radius: 6px;
+    height: 96px;
+    margin-bottom: 10px;
+    padding: 15px 20px 15px 20px;
+}
+
+.mapset-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mapset-info-right > div {
+    display: inline-block;
+    text-align: center;
+    width: 71px;
+    height: 24px;
+    border-radius: 14px;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 12px;
+    line-height: 2;
+    text-transform: uppercase;
+}
+
+.mapset-4k {
+    background: #0587E5;
+}
+
+.mapset-7k {
+    background: #9B51E0;
+}
+
+.mapset-4k-7k {
+    background: linear-gradient(90deg, #9B51E0 35.92%, #0587E5 100%);
+}
+
+.mapset-ranked {
+    background: #27B06E;
+}
+
+.mapset-info-download {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.mapset-song {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.05em;font-family: 'Lato', sans-serif;
+}
+
+.mapset-difficulty {
+    margin-top: 15px;
+}
+
+/* Border fixes */
+
+.avatar-thumbnail img {
+    border-radius: 0.25rem;
+}
+
+.nav-tabs {
+    border-bottom-color: #09a5c8;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
+    background-color: #09a5c8;
+    color: white;
+    border-color: #09a5c8;
+}
+
+#leaderboard table tr {
+    text-align: center;
+}
+
+#leaderboard table tr th:nth-child(2), #leaderboard table tr td:nth-child(2) {
+    text-align: left;
 }

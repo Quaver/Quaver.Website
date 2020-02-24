@@ -3,10 +3,31 @@
         <div class="widget">
             <div class="widget-header">Scores</div>
         </div>
-        <div class="widget widget-secondary">
-            <div class="widget-body">
-                text
+        <div class="card">
+            <div class="card-header transparent p-0 border-0">
+                <div class="nav-tab-scroll">
+                    <div class="nav nav-tabs" id="tab" role="tablist">
+                        <a class="nav-item nav-link active" id="best-tab" data-toggle="tab" href="#best" role="tab" aria-controls="best" aria-selected="false">Best</a>
+                        <a class="nav-item nav-link" id="recent-tab" data-toggle="tab" href="#recent" role="tab" aria-controls="recent" aria-selected="false">Recent</a>
+                        <a class="nav-item nav-link" id="first-tab" data-toggle="tab" href="#first" role="tab" aria-controls="first" aria-selected="true">First Place</a>
+                    </div>
+                </div>
             </div>
+            <form>
+                <div class="card-body" style="padding: 0;">
+                    <div class="tab-content" id="tab">
+                        <div class="tab-pane fade show active" id="best" role="tabpanel" aria-labelledby="best-tab">
+                            {% include '../helpers/scores.twig' with {'table': 'best', 'data': best} %}
+                        </div>
+                        <div class="tab-pane fade show" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+                            {% include '../helpers/scores.twig' with {'table': 'recent', 'data': recent} %}
+                        </div>
+                        <div class="tab-pane fade show" id="first" role="tabpanel" aria-labelledby="first-tab">
+                            {% include '../helpers/scores.twig' with {'table': 'first', 'data': first} %}
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

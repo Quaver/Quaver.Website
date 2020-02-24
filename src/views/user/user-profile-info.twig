@@ -19,7 +19,6 @@
             </div>
         {% endif %}
     </div>
-    <!--  -->
     <div class="col-md-4">
         <div class="widget">
             <div class="widget-header">Statistics</div>
@@ -56,7 +55,7 @@
                         <span>{{ user[game_mode].stats.play_count|number_format(0, '.', ',') }}</span>
                     </li>
                     <li>Multiplayer Record
-                        <span>{{ user[game_mode].globalRank }}</span>
+                        <span>{{ user[game_mode].stats.multiplayer_wins }}W - {{ user[game_mode].stats.multiplayer_losses }}L - {{ user[game_mode].stats.multiplayer_ties }}T</span>
                     </li>
                     <li>Date Registered
                         <span>{{ formatDate(user.info.time_registered) }}</span>

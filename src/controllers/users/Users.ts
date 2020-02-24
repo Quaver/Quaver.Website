@@ -3,7 +3,7 @@ import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import bbobHTML from '@bbob/html';
 import presetHTML5 from '@bbob/preset-html5';
-import sanitizeHtml from 'sanitize-html';
+import sanitizeHtml = require("sanitize-html");
 
 export default class Users {
     /**
@@ -62,19 +62,11 @@ export default class Users {
      * @param mode
      */
     private static async GetBestScores(req: any, res: any, user: any, mode: number): Promise<any> {
-        try {
-            const page = parseInt(req.query.page) || 0;
+        const page = parseInt(req.query.page) || 0;
 
-            let scores = [];
+        const apiScores = await API.GET(req, `v1/users/scores/best?id=${user.info.id}&mode=${mode}&page=${page}`);
 
-            const apiScores = await API.GET(req, `v1/users/scores/best?id=${user.info.id}&mode=${mode}&page=${page}`);
-            scores = apiScores.scores;
-
-            return scores;
-        } catch (err) {
-            Logger.Error(err);
-            Responses.Return500(req, res);
-        }
+        return apiScores.scores;
     }
 
     /**
@@ -85,19 +77,11 @@ export default class Users {
      * @param mode
      */
     private static async GetRecentScores(req: any, res: any, user: any, mode: number): Promise<any> {
-        try {
-            const page = parseInt(req.query.page) || 0;
+        const page = parseInt(req.query.page) || 0;
 
-            let scores = [];
+        const apiScores = await API.GET(req, `v1/users/scores/recent?id=${user.info.id}&mode=${mode}&page=${page}`);
 
-            const apiScores = await API.GET(req, `v1/users/scores/recent?id=${user.info.id}&mode=${mode}&page=${page}`);
-            scores = apiScores.scores;
-
-            return scores;
-        } catch (err) {
-            Logger.Error(err);
-            Responses.Return500(req, res);
-        }
+        return apiScores.scores;
     }
 
     /**
@@ -108,19 +92,11 @@ export default class Users {
      * @param mode
      */
     private static async GetFirstPlaceScores(req: any, res: any, user: any, mode: number): Promise<any> {
-        try {
-            const page = parseInt(req.query.page) || 0;
+        const page = parseInt(req.query.page) || 0;
 
-            let scores = [];
+        const apiScores = await API.GET(req, `v1/users/scores/firstplace?id=${user.info.id}&mode=${mode}&page=${page}`);
 
-            const apiScores = await API.GET(req, `v1/users/scores/firstplace?id=${user.info.id}&mode=${mode}&page=${page}`);
-            scores = apiScores.scores;
-
-            return scores;
-        } catch (err) {
-            Logger.Error(err);
-            Responses.Return500(req, res);
-        }
+        return apiScores.scores;
     }
 
     /**
@@ -130,14 +106,9 @@ export default class Users {
      * @param user
      */
     private static async GetUploadedMapSetsRanked(req: any, res: any, user: any): Promise<any> {
-        try {
-            const ranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=2`);
+        const ranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=2`);
 
-            return ranked.mapsets;
-        } catch (err) {
-            Logger.Error(err);
-            Responses.Return500(req, res);
-        }
+        return ranked.mapsets;
     }
 
     /**
@@ -147,14 +118,9 @@ export default class Users {
      * @param user
      */
     private static async GetUploadedMapSetsUnRanked(req: any, res: any, user: any): Promise<any> {
-        try {
-            const unranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=2`);
+        const unranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=2`);
 
-            return unranked.mapsets;
-        } catch (err) {
-            Logger.Error(err);
-            Responses.Return500(req, res);
-        }
+        return unranked.mapsets;
     }
 
     /**
@@ -165,14 +131,9 @@ export default class Users {
      * @param mode
      */
     private static async GetPlaylists(req: any, res: any, user: any): Promise<any> {
-        try {
-            const playlists = await API.GET(req, `v1/users/${user.info.id}/playlists`);
+        const playlists = await API.GET(req, `v1/users/${user.info.id}/playlists`);
 
-            return playlists.playlists;
-        } catch (err) {
-            Logger.Error(err);
-            Responses.Return500(req, res);
-        }
+        return playlists.playlists;
     }
 
     /**
@@ -181,22 +142,17 @@ export default class Users {
      * @param id
      */
     private static async FetchUser(req: any, id: any, mode: any): Promise<any> {
-        try {
-            const response = await API.GET(req, `v1/users/full/${id}`);
+        const response = await API.GET(req, `v1/users/full/${id}`);
 
-            if (response.status != 200)
-                return null;
-
-            const onlineStatusResponse = await API.GET(req, `v1/server/users/online/${response.user.info.id}`);
-            const achievementsResponse = await API.GET(req, `v1/users/${response.user.info.id}/achievements`);
-            // const graphRankResponse = await API.GET(req, `v1/users/graph/rank?id=${response.user.info.id}&mode=${mode}`);
-            response.user.online_status = onlineStatusResponse;
-            response.user.achievements = achievementsResponse.achievements;
-
-            return response.user;
-        } catch (err) {
-            Logger.Error(err);
+        if (response.status != 200)
             return null;
-        }
+
+        const onlineStatusResponse = await API.GET(req, `v1/server/users/online/${response.user.info.id}`);
+        const achievementsResponse = await API.GET(req, `v1/users/${response.user.info.id}/achievements`);
+        // const graphRankResponse = await API.GET(req, `v1/users/graph/rank?id=${response.user.info.id}&mode=${mode}`);
+        response.user.online_status = onlineStatusResponse;
+        response.user.achievements = achievementsResponse.achievements;
+
+        return response.user;
     }
 }

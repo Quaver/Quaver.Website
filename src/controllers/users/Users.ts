@@ -62,9 +62,7 @@ export default class Users {
      * @param mode
      */
     private static async GetBestScores(req: any, res: any, user: any, mode: number): Promise<any> {
-        const page = parseInt(req.query.page) || 0;
-
-        const apiScores = await API.GET(req, `v1/users/scores/best?id=${user.info.id}&mode=${mode}&page=${page}`);
+        const apiScores = await API.GET(req, `v1/users/scores/best?id=${user.info.id}&mode=${mode}&page=0&limit=15`);
 
         return apiScores.scores;
     }
@@ -77,9 +75,7 @@ export default class Users {
      * @param mode
      */
     private static async GetRecentScores(req: any, res: any, user: any, mode: number): Promise<any> {
-        const page = parseInt(req.query.page) || 0;
-
-        const apiScores = await API.GET(req, `v1/users/scores/recent?id=${user.info.id}&mode=${mode}&page=${page}`);
+        const apiScores = await API.GET(req, `v1/users/scores/recent?id=${user.info.id}&mode=${mode}&page=0&limit=15`);
 
         return apiScores.scores;
     }
@@ -92,9 +88,7 @@ export default class Users {
      * @param mode
      */
     private static async GetFirstPlaceScores(req: any, res: any, user: any, mode: number): Promise<any> {
-        const page = parseInt(req.query.page) || 0;
-
-        const apiScores = await API.GET(req, `v1/users/scores/firstplace?id=${user.info.id}&mode=${mode}&page=${page}`);
+        const apiScores = await API.GET(req, `v1/users/scores/firstplace?id=${user.info.id}&mode=${mode}&page=0&limit=15`);
 
         return apiScores.scores;
     }
@@ -128,7 +122,6 @@ export default class Users {
      * @param req
      * @param res
      * @param user
-     * @param mode
      */
     private static async GetPlaylists(req: any, res: any, user: any): Promise<any> {
         const playlists = await API.GET(req, `v1/users/${user.info.id}/playlists`);
@@ -140,6 +133,7 @@ export default class Users {
      * Fetches information for an individual user
      * @param req
      * @param id
+     * @param mode
      */
     private static async FetchUser(req: any, id: any, mode: any): Promise<any> {
         const response = await API.GET(req, `v1/users/full/${id}`);

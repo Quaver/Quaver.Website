@@ -1,5 +1,7 @@
 {% extends "layouts/app.twig" %}
 {% block content %}
+    <script src="/js/mustache.js"></script>
+    <script src="/js/moment.min.js"></script>
     <section class="bg-image bg-dark d-flex align-items-end py-3" style="background-color: #3a3a3c !important;min-height: 320px;">
         <img class="background" src="https://cdn.quavergame.com/profile-covers/{{ user.info.id }}.jpg" onerror="this.src='/img/cover.jpg'" alt="" style="opacity: 0.25 !important;">
         <div class="container position-relative">
@@ -52,7 +54,7 @@
                         </div>
                         <div class="nav-scroll">
                             <div class="nav nav-list nav-list-profile">
-                                <a class="nav-item nav-link active" href="#feed">Stats & Feed</a>
+                                <a class="nav-item nav-link" href="#feed">Stats & Feed</a>
                                 <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a>
                                 <a class="nav-item nav-link" href="#scores">Scores</a>
                                 <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a>
@@ -96,8 +98,8 @@
     <script src="/js/Chart.min.js"></script>
     {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
     <script>
-        $(document).ready(function () {
-            var chartJudgements = document.getElementById('chartJudgements').getContext('2d');
+        function loadChart(table_class, score_id, total_marv, total_perf, total_great, total_good, total_okay, total_miss) {
+            let chartJudgements = document.getElementsByClassName('chartScore_' + table_class + '_' + score_id)[0].getContext('2d');
             new Chart(chartJudgements, {
                 type: 'bar',
                 data: {
@@ -106,12 +108,12 @@
                         label: '',
                         borderColor: 'rgb(255, 99, 132)',
                         data: [
-                            "{{ user[game_mode].stats.total_marv }}",
-                            "{{ user[game_mode].stats.total_perf }}",
-                            "{{ user[game_mode].stats.total_great }}",
-                            "{{ user[game_mode].stats.total_good }}",
-                            "{{ user[game_mode].stats.total_okay }}",
-                            "{{ user[game_mode].stats.total_miss }}",
+                            total_marv,
+                            total_perf,
+                            total_great,
+                            total_good,
+                            total_okay,
+                            total_miss,
                         ],
                         backgroundColor: [
                             '#FBFFB6',
@@ -143,6 +145,6 @@
                     }
                 }
             });
-        });
+        }
     </script>
 {% endblock %}

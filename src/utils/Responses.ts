@@ -18,6 +18,7 @@ export default class Responses {
         // Build the object of data that will be sent to be use in the template.
         const templateData = { 
             baseUrl: config.baseUrl,
+            apiBaseUrl: config.apiBaseUrl,
             title, 
             currentUser: req.user,
             HasGroup: UserHelper.HasGroup,

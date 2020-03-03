@@ -31,3 +31,148 @@
         </div>
     </div>
 </div>
+
+<script type="x-tmpl-mustache" id="score-template" type="text/template">
+    [$#scores$]
+    <tr style="text-align: center">
+        <td>
+            <img src="/img/grades/[$grade$].png" alt="[$grade$]" title="[$grade$]" width="30px" height="30px">
+        </td>
+        <td>
+            <a href="#">[$map.artist$] - [$map.title$] [[$ map.difficulty_name $]]</a>
+            <br>
+            [$time$]
+        </td>
+        <td>[$performance_rating$]</td>
+        <td>[$accuracy$]%</td>
+        <td>[$mods_string$]</td>
+        <td>
+            <a href="http://api.quavergame.com/d/web/replay/[$id$]">
+                <i class="fas fa-download" data-toggle="tooltip" title="Download" data-original-title="Download"></i>
+            </a>
+        </td>
+        <td>
+            <a data-toggle="collapse" href="#score_[$table$]_[$id$]" data-target="#score_[$table$]_[$id$]" onclick="loadChart('[$table$]', [$id$], [$count_marv$], [$count_perf$], [$count_great$], [$count_good$], [$count_okay$], [$count_miss$]);">
+                <i class="fas fa-angle-down"></i>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7" style="padding: 0;">
+            <div class="accordian-body collapse" data-parent="#scores" id="score_[$table$]_[$id$]" style="overflow: hidden">
+                <div class="row">
+                    <div class="col-sm-8 my-auto">
+                        <div style="padding: 12px; margin: auto 0;">
+                            <canvas class="chartScore_[$table$]_[$id$]"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="widget widget-game" style=" margin-bottom: 0;" style="min-height: 400px;">
+                            <img src="https://cdn.quavergame.com/banners/[$map.id$]_banner.jpg" alt="">
+                            <div class="widget-body">
+                                <h6>Performance Rating</h6>
+                                <span class="font-weight-light font-size-md"></span>
+                                <h6 class="mt-4">Score</h6>
+                                <span class="font-weight-light font-size-md"></span>
+                                <h6 class="mt-4">Scroll Speed</h6>
+                                <span class="font-weight-light font-size-md">35</span>
+                                <h6 class="mt-4">Max Combo</h6>
+                                <span class="font-weight-light font-size-md">x</span>
+                                <h6 class="mt-4">Ratio</h6>
+                                <span class="font-weight-light font-size-md">0.0 - 1.1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    [$/scores$]
+</script>
+
+<script>
+    Mustache.tags = ["[$", "$]"];
+    let template = null;
+    window.addEventListener('DOMContentLoaded', () => {
+        template = $('#score-template').html();
+
+        $('.getMoreScoresEvent').on('click', function () {
+            console.log($(this).data('table'));
+            getMoreScoresEvent($(this).data('table'));
+        });
+    });
+
+    function durationParse(time) {
+        if (time) {
+            const now = new moment();
+            const secondDiff = now.diff(new moment(time), "seconds");
+            const minuteDiff = now.diff(new moment(time), "minutes");
+            const hourDiff = now.diff(new moment(time), "hours");
+            const dayDiff = now.diff(new moment(time), "days");
+            const monthDiff = now.diff(new moment(time), "months");
+            const yearDiff = now.diff(new moment(time), "years");
+
+            if (yearDiff === 1)
+                return `${yearDiff} year ago`;
+
+            if (yearDiff > 1)
+                return `${yearDiff} years ago`;
+
+            if (monthDiff === 1)
+                return `${monthDiff} month ago`;
+
+            if (monthDiff > 1 && monthDiff < 12)
+                return `${monthDiff} months ago`;
+
+            if (dayDiff === 1)
+                return `${dayDiff} day ago`;
+
+            if (dayDiff > 1 && dayDiff < 31)
+                return `${dayDiff} days ago`;
+
+            if (hourDiff === 1)
+                return `${hourDiff} hour ago`;
+
+            if (hourDiff > 1 && hourDiff < 24)
+                return `${hourDiff} hours ago`;
+
+            if (minuteDiff === 1)
+                return `${minuteDiff} minute ago`;
+
+            if (minuteDiff >= 1 && minuteDiff < 60)
+                return `${minuteDiff} minutes ago`;
+
+            if (secondDiff === 1)
+                return `${secondDiff} second ago`;
+
+            if (secondDiff < 60)
+                return `${secondDiff} seconds ago`;
+
+            return "An eternity ago";
+        }
+    }
+
+    let pages = {
+        "best": 1,
+        "recent": 1,
+        "first": 1
+    };
+
+    function getMoreScoresEvent(table) {
+        $.ajax({
+            type: 'GET',
+            url: `{{ apiBaseUrl }}/v1/users/scores/best?id={{ user.info.id }}&mode={{ mode }}&page=${pages[table]}&limit=15`,
+            success: function (response) {
+                $.each(response.scores, function (key, value) {
+                    value['accuracy'] = value['accuracy'].toFixed(2);
+                    value['performance_rating'] = value['performance_rating'].toFixed(2);
+                    value['time'] = durationParse(value['time']);
+                });
+                response.table = table;
+                let info = Mustache.render(template, response);
+                $(`#table_${table} tbody:last`).append(info);
+                pages[table]++;
+            }
+        });
+    }
+</script>

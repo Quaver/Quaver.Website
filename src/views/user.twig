@@ -96,8 +96,12 @@
 {% block scripts %}
     <script src="/js/custom.js"></script>
     <script src="/js/Chart.min.js"></script>
+    <script src="/js/chartjs-plugin-datalabels.js"></script>
     {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
     <script>
+        Chart.defaults.global.defaultFontStyle = '600';
+        Chart.defaults.global.defaultFontSize = '15';
+
         function loadChart(table_class, score_id, total_marv, total_perf, total_great, total_good, total_okay, total_miss) {
             let chartJudgements = document.getElementsByClassName('chartScore_' + table_class + '_' + score_id)[0].getContext('2d');
             new Chart(chartJudgements, {
@@ -126,9 +130,52 @@
                     }],
                 },
                 options: {
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            align: 'end',
+                            anchor: 'end',
+                            offset: '2',
+                            color: [
+                                '#FBFFB6',
+                                '#F2C94C',
+                                '#56FE6E',
+                                '#0FBAE5',
+                                '#EE5FAC',
+                                '#F9645D'
+                            ],
+                            textShadowColor: 'black',
+                            textShadowBlur: 4
+                            // color: '#CACACA'
+                        }
+                    },
+                    // animation: {
+                    //     "hover": {
+                    //         "animationDuration": 0
+                    //     },
+                    //     "onComplete": function() {
+                    //         var chartInstance = this.chart,
+                    //             ctx = chartInstance.ctx;
+                    //
+                    //         // ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    //         ctx.textAlign = 'center';
+                    //         ctx.textBaseline = 'bottom';
+                    //
+                    //         this.data.datasets.forEach(function(dataset, i) {
+                    //             var meta = chartInstance.controller.getDatasetMeta(i);
+                    //             meta.data.forEach(function(bar, index) {
+                    //                 var data = dataset.data[index];
+                    //                 ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                    //             });
+                    //         });
+                    //     }
+                    // },
                     responsive: true,
                     legend: {
-                        display: false,
+                        display: false
+                    },
+                    tooltips: {
+                        enabled: false
                     },
                     scales: {
                         xAxes: [{

@@ -81,7 +81,7 @@ export default class Users {
     }
 
     /**
-     * Renders th epage that displays the user's first place scores
+     * Renders the page that displays the user's first place scores
      * @param req
      * @param res
      * @param user

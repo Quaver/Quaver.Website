@@ -66,20 +66,18 @@
                             <canvas class="chartScore_[$table$]_[$id$]"></canvas>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="widget widget-game" style=" margin-bottom: 0;" style="min-height: 400px;">
-                            <img src="https://cdn.quavergame.com/banners/[$map.id$]_banner.jpg" alt="">
+                    <div class="col-sm-4" style="min-height: 400px;">
+                        <div class="widget widget-game" style="margin-bottom: 0; height: 100%;">
+                            <img src="https://cdn.quavergame.com/banners/[$map.mapset_id$]_banner.jpg" alt="">
                             <div class="widget-body">
-                                <h6>Performance Rating</h6>
-                                <span class="font-weight-light font-size-md"></span>
                                 <h6 class="mt-4">Score</h6>
-                                <span class="font-weight-light font-size-md"></span>
+                                <span class="font-weight-light font-size-md">[$total_score$]</span>
                                 <h6 class="mt-4">Scroll Speed</h6>
-                                <span class="font-weight-light font-size-md">35</span>
+                                <span class="font-weight-light font-size-md">[$scroll_speed$]</span>
                                 <h6 class="mt-4">Max Combo</h6>
-                                <span class="font-weight-light font-size-md">x</span>
+                                <span class="font-weight-light font-size-md">[$max_combo$]x</span>
                                 <h6 class="mt-4">Ratio</h6>
-                                <span class="font-weight-light font-size-md">0.0 - 1.1</span>
+                                <span class="font-weight-light font-size-md">[$ratio$]</span>
                             </div>
                         </div>
                     </div>
@@ -166,6 +164,7 @@
                 $.each(response.scores, function (key, value) {
                     value['accuracy'] = value['accuracy'].toFixed(2);
                     value['performance_rating'] = value['performance_rating'].toFixed(2);
+                    value['ratio'] = value['ratio'].toFixed(2);
                     value['time'] = durationParse(value['time']);
                 });
                 response.table = table;

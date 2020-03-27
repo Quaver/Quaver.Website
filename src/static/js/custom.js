@@ -16,6 +16,7 @@ $(window).on('hashchange', function (event) {
 const search = $('#search');
 let searchHasResults = false;
 let searchTimer = null;
+let mouse_is_inside = false;
 
 search.on('keyup', function () {
     clearTimeout(searchTimer);
@@ -29,7 +30,7 @@ search.on('keyup', function () {
     searchTimer = setTimeout(function () {
         $.ajax({
             type: 'GET',
-            url: siteLink() + `/v1/users/search/${searchText}`,
+            url: apiBaseUrl() + `/v1/users/search/${searchText}`,
             success: function (response) {
                 console.log(response);
                 if (response.users.length !== 0) {
@@ -39,13 +40,12 @@ search.on('keyup', function () {
                     $('.searchBox ul').html('');
                     response.users.forEach(function (user) {
                         $('.searchBox ul').append('<li class="list-group-item align-items-center">' +
-                            '<a href="#">' +
+                            `<a href="${baseUrl()}/user/${user.id}">` +
                             `<img src="${user.avatar_url}" width="50px" height="50px" onerror="this.src='/img/noavatar.jpg'">` +
                             `<b>${user.username}</b>` +
                             '</a>' +
                             '</li>');
-                    })
-
+                    });
                 } else {
                     searchHasResults = false;
                 }
@@ -58,8 +58,15 @@ search.on('keyup', function () {
     }, 300);
 });
 
+$('.searchBox').hover(function () {
+    mouse_is_inside = true;
+}, function () {
+    mouse_is_inside = false;
+});
+
 search.blur(function () {
-    $('.searchBox').hide();
+    if (!mouse_is_inside)
+        $('.searchBox').hide();
 });
 
 search.focus(function () {

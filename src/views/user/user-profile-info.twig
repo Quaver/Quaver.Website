@@ -3,7 +3,9 @@
             <div class="avatar-fixed d-none d-lg-block" style="width: 220px"></div>
             <div class="widget">
                 {% for badge in user.profile_badges %}
-                    <img src="https://quaver.blob.core.windows.net/badges/{{ badge.id }}.png" width="80px" height="40px" data-toggle="tooltip" title="{{ badge.name }}{{ badge.description }}">
+                    <img src="https://quaver.blob.core.windows.net/badges/{{ badge.id }}.png" width="80px" height="40px" data-toggle="tooltip" title="{{ badge.name }}
+
+{{ badge.description }}">
                 {% endfor %}
             </div>
     </div>

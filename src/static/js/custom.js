@@ -40,7 +40,7 @@ search.on('keyup', function () {
                     response.users.forEach(function (user) {
                         $('.searchBox ul').append('<li class="list-group-item align-items-center">' +
                             '<a href="#">' +
-                            `<img src="${user.avatar_url}" width="50px" height="50px">` +
+                            `<img src="${user.avatar_url}" width="50px" height="50px" onerror="this.src='/img/noavatar.jpg'">` +
                             `<b>${user.username}</b>` +
                             '</a>' +
                             '</li>');

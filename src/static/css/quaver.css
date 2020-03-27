@@ -526,7 +526,7 @@ body {
 /* Navigation search */
 
 .search {
-    margin-right: 5px;
+    margin-right: -10px;
 }
 
 .custom-search {

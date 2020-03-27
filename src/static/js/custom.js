@@ -16,7 +16,7 @@ $(window).on('hashchange', function (event) {
 const search = $('#search');
 let searchHasResults = false;
 let searchTimer = null;
-let mouse_is_inside = false;
+let isHovering = false;
 
 search.on('keyup', function () {
     clearTimeout(searchTimer);
@@ -59,13 +59,13 @@ search.on('keyup', function () {
 });
 
 $('.searchBox').hover(function () {
-    mouse_is_inside = true;
+    isHovering = true;
 }, function () {
-    mouse_is_inside = false;
+    isHovering = false;
 });
 
 search.blur(function () {
-    if (!mouse_is_inside)
+    if (!isHovering)
         $('.searchBox').hide();
 });
 

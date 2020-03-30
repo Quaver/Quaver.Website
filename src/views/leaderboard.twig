@@ -29,13 +29,13 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <ul class="pagination">
-                        {% for i in page+1..pages+1 if page < pages %}
-                            <li>
-                                <a href="/leaderboard?page={{ i }}">{{ i }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    {% include 'helpers/pagination.twig' with {
+                        currentFilters: {  },
+                        currentPage: page,
+                        paginationPath: "leaderboard?page=",
+                        lastPage: pages,
+                        showAlwaysFirstAndLast: false
+                    } only %}
 
                     <div class="table-responsive" id="leaderboard">
                         <table class="table align-items-center">

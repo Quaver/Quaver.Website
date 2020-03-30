@@ -32,7 +32,7 @@
                     {% include 'helpers/pagination.twig' with {
                         currentFilters: {  },
                         currentPage: page,
-                        paginationPath: "leaderboard?page=",
+                        paginationPath: slug~"?page=",
                         lastPage: pages,
                         showAlwaysFirstAndLast: false
                     } only %}
@@ -76,7 +76,7 @@
                     {% include 'helpers/pagination.twig' with {
                         currentFilters: {  },
                         currentPage: page,
-                        paginationPath: "leaderboard?page=",
+                        paginationPath: slug~"?page=",
                         lastPage: pages,
                         showAlwaysFirstAndLast: false
                     } only %}

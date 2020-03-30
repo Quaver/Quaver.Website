@@ -17,16 +17,18 @@
 
     <section class="py-lg-5">
         <div class="container">
+            {% if slug != "hits" %}
             <div class="nav-tab-scroll" id="mode-tabs">
                 <div class="nav nav-tabs {% if mode == 1 %} keys4 {% else %} keys7 {% endif %}" id="tab" role="tablist">
-                    <a class="nav-item nav-link {% if mode == 1 %} active-keys4 {% else %}tab-keys4{% endif %}" href="/leaderboard?mode=1">
+                    <a class="nav-item nav-link {% if mode == 1 %} active-keys4 {% else %}tab-keys4{% endif %}" href="{% if slug == "multiplayer" %}/leaderboard/multiplayer?mode=1{% else %}/leaderboard?mode=1{% endif %}">
                         4 Keys
                     </a>
-                    <a class="nav-item nav-link {% if mode == 2 %} active-keys7 {% else %}tab-keys7{% endif %}" href="/leaderboard?mode=2">
+                    <a class="nav-item nav-link {% if mode == 2 %} active-keys7 {% else %}tab-keys7{% endif %}" href="{% if slug == "multiplayer" %}/leaderboard/multiplayer?mode=2{% else %}/leaderboard?mode=2{% endif %}">
                         7 Keys
                     </a>
                 </div>
             </div>
+            {% endif %}
             <div class="card">
                 <div class="card-body">
                     {% include 'helpers/pagination.twig' with {
@@ -37,41 +39,7 @@
                         showAlwaysFirstAndLast: false
                     } only %}
 
-                    <div class="table-responsive" id="leaderboard">
-                        <table class="table align-items-center">
-                            <thead>
-                            <tr>
-                                <th scope="col">Rank</th>
-                                <th scope="col" style="width: 35%">Player</th>
-                                <th scope="col">Overall Rating</th>
-                                <th scope="col">Score</th>
-                                <th scope="col">Accuracy</th>
-                                <th scope="col">Max Combo</th>
-                                <th scope="col">Play Count</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for player in leaderboard %}
-                                <tr>
-                                    <td>{{ player.stats.rank }}</td>
-                                    <td>
-                                        <a href="#">
-                                            <img src="/img/flags/{{ player.country }}.png" alt="{{ player.country }}">
-                                        </a>
-                                        <a href="/user/{{ player.id }}">
-                                            {{ player.username }}
-                                        </a>
-                                    </td>
-                                    <td>{{ player.stats.overall_performance_rating|number_format(2) }}</td>
-                                    <td>{{ player.stats.ranked_score|number_format(0, '.', ',') }}</td>
-                                    <td>{{ player.stats.overall_accuracy|number_format(2) }}%</td>
-                                    <td>{{ player.stats.max_combo|number_format(0, '.', ',') }}</td>
-                                    <td>{{ player.stats.play_count|number_format(0, '.', ',') }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                    {% include 'leaderboard/'~slug~'.twig' %}
 
                     {% include 'helpers/pagination.twig' with {
                         currentFilters: {  },

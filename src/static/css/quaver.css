@@ -156,11 +156,13 @@ body {
 #mode-tabs .tab-keys4:hover {
     background: #0587e5;
     color: #ffffff;
+    border-color: transparent;
 }
 
 #mode-tabs .tab-keys7:hover {
     background: #9B51E0;
     color: #ffffff;
+    border-color: transparent;
 }
 
 #mode-tabs .active-keys4 {

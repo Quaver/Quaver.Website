@@ -225,9 +225,11 @@ body {
 }
 
 .pagination > li > a, .pagination > li > span {
-    border-radius: 50% !important;
     margin: 0 5px;
     color: #FFE76B;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 14px;
 }
 
 .pagination>li>a, .pagination>li>span {

@@ -42,7 +42,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Rank</th>
-                                <th scope="col">Player</th>
+                                <th scope="col" style="width: 35%">Player</th>
                                 <th scope="col">Overall Rating</th>
                                 <th scope="col">Score</th>
                                 <th scope="col">Accuracy</th>
@@ -72,21 +72,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-md-flex">
-                        <div class="btn-group mr-auto">
-                            <a class="btn btn-default btn-icon" href="">
-                                <i class="ya ya-small-left"></i>
-                                Previous
-                            </a>
 
-                        </div>
-                        <div class="btn-group ml-auto mr-2">
-                            <a class="btn btn-default btn-icon" href="">
-                                Next
-                                <i class="ya ya-small-right"></i>
-                            </a>
-                        </div>
-                    </div>
+                    {% include 'helpers/pagination.twig' with {
+                        currentFilters: {  },
+                        currentPage: page,
+                        paginationPath: "leaderboard?page=",
+                        lastPage: pages,
+                        showAlwaysFirstAndLast: false
+                    } only %}
                 </div>
             </div>
         </div>

@@ -187,6 +187,10 @@ body {
     border-bottom: 1px solid #9B51E0;
 }
 
+.nav-tab-scroll .nav-tabs {
+    box-shadow: none;
+}
+
 /* Leaderboard Table */
 
 #leaderboard table {

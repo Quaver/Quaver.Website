@@ -2,8 +2,14 @@
 <script src="/js/theme.min.js"></script>
 <script src="/plugins/parallax/parallax.min.js"></script>
 
+<script src="/js/custom.js"></script>
+
 <script>
-    function siteLink() {
+    function baseUrl() {
+        return '{{ baseUrl }}';
+    }
+
+    function apiBaseUrl() {
         return '{{ apiBaseUrl }}';
     }
 </script>

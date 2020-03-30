@@ -13,6 +13,8 @@ $(window).on('hashchange', function (event) {
     }, 400, 'swing');
 });
 
+// Search
+
 const search = $('#search');
 let searchHasResults = false;
 let searchTimer = null;
@@ -32,7 +34,6 @@ search.on('keyup', function () {
             type: 'GET',
             url: apiBaseUrl() + `/v1/users/search/${searchText}`,
             success: function (response) {
-                console.log(response);
                 if (response.users.length !== 0) {
                     $('.searchBox').show();
                     searchHasResults = true;
@@ -42,15 +43,13 @@ search.on('keyup', function () {
                         $('.searchBox ul').append('<li class="list-group-item align-items-center">' +
                             `<a href="${baseUrl()}/user/${user.id}">` +
                             `<img src="${user.avatar_url}" width="50px" height="50px" onerror="this.src='/img/noavatar.jpg'">` +
-                            `<b>${user.username}</b>` +
-                            '</a>' +
-                            '</li>');
+                            `<b>${user.username}</b></a></li>`);
                     });
                 } else {
                     searchHasResults = false;
                 }
             },
-            error: function (err) {
+            error: function () {
                 $('.searchBox').hide();
                 searchHasResults = false;
             }
@@ -73,6 +72,8 @@ search.focus(function () {
     if (searchHasResults)
         $('.searchBox').show();
 });
+
+// Parse duration
 
 function durationParse(time) {
     if (time) {

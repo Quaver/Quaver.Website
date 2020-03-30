@@ -189,6 +189,7 @@ body {
 
 #leaderboard table {
     color: #CACACA;
+    margin-top: 1rem;
 }
 
 #leaderboard table thead tr {
@@ -216,12 +217,17 @@ body {
     border-top: 1px solid #5B5B5B;
 }
 
+#leaderboard table tbody tr:last-child {
+    border-bottom: 1px solid #5B5B5B;
+}
+
 #leaderboard a {
     color: #45D6F5;
 }
 
 .pagination {
     justify-content: center;
+    margin-bottom: 0;
 }
 
 .pagination > li > a, .pagination > li > span {

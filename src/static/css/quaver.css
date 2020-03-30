@@ -601,14 +601,28 @@ body {
     min-width: 200px;
 }
 
-.search .searchBox .list-group-item {
+.searchBox .list-group-item {
     background-color: #1a1a1a;
 }
 
-.search .searchBox .list-group-item b {
+.searchBox .list-group-item b {
     margin-left: 15px;
 }
 
 .search .searchBox .list-group-item a:hover, .search .searchBox .list-group-item:hover {
     color: #45D6F5;
+}
+
+#mobile-search {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    #navbar-search {
+        display: none;
+    }
+
+    #mobile-search {
+        display: block;
+    }
 }

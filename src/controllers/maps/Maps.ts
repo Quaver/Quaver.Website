@@ -10,11 +10,13 @@ export default class Maps {
      */
     public static async MapsetGET(req: any, res: any): Promise<void> {
         try {
-            const mapset = await Maps.FetchMapset(req, req.params.id);
-
+            let mapset = await Maps.FetchMapset(req, req.params.id);
             // Mapset doesn't exist or is hidden, so return a 404.
             if (!mapset)
                 return res.status(404).json({ status: 404, error: "Mapset not found"});
+
+            // Sort difficulties
+            mapset.maps = await Maps.SortDifficulties(mapset.maps);
 
             // The selected map in this case is the top difficulty
             const map = mapset.maps[mapset.maps.length - 1];
@@ -137,5 +139,11 @@ export default class Maps {
             Logger.Error(err);
             return [];
         }
+    }
+
+    public static async SortDifficulties(arr: any): Promise<any[]> {
+        return arr.slice().sort(function(a:any, b:any) {
+            return a.difficulty_rating - b.difficulty_rating;
+        });
     }
 }

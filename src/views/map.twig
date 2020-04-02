@@ -1,17 +1,196 @@
 {% extends "layouts/app.twig" %}
 {% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(57, 58, 62) !important;">
+        <img class="background" src="https://cdn.quavergame.com/banners/{{ mapset.id }}_banner.jpg" alt="">
+        <div class="container text-center position-relative" style="z-index: 5">
+            <h1 class="display-2 font-weight-bold text-white">
+                {{ mapset.title }}
+                <div class="display-4 font-weight-bold">
+                    {{ mapset.artist }}
+                </div>
+            </h1>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ map.difficulty_name }} {{ map.game_mode }}
+                        </button>
+                        <div class="dropdown-menu" x-placement="bottom-start">
+                            {% for diff in mapset.maps %}
+                                <a class="dropdown-item" href="#">{{ diff.difficulty_name }} {{ diff.game_mode }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+{#                    <span class="btn btn-success" style="background-color: #5B5B5B; border: none;">Blacklisted</span>#}
+{#                    <span class="btn btn-success" style="background-color: #F2994A; border: none;">Pending</span>#}
+{#                    <span class="btn btn-success" style="background-color: #F2994A; border: none;">Unranked</span>#}
+                </div>
+                <div>
+                    <a type="button" href="#" class="btn btn-success">Create playlist</a>
+                    <a type="button" href="#" class="btn btn-info" style="background-color: #45D6F5; border: none;">Submit For Rank</a>
+                    <a type="button" href="#" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Modding Discussion</a>
+                    <a type="button" href="#" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                                <b>Song:</b>{{ mapset.artist }} - {{ mapset.title }}</div>
+                            <div>
+                                <b>Created by:</b>
+                                <a href="#">
+                                    {{ mapset.creator_username }}
+                                </a>
+                            </div>
+                            <div>
+                                <b>Submitted:</b>
+                                {{ formatDate(mapset.date_submitted) }}
+                            </div>
+                            <div>
+                                <b>Last updated:</b>
+                                {{ formatDate(mapset.date_last_updated) }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <b>Source:</b>
+                                {{ (map.source) ? map.source : 'n/a' }}
+                            </div>
+                            <div>
+                                <b>Tags</b>
+                            </div>
+                            <div>{{ (map.tags) ? map.tags : 'n/a' }}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <b>BPM:</b>
+                                {{ map.bpm }}
+                            </div>
+                            <div>
+                                <b>Length:</b>
+                                {{ formatTime(map.length) }}
+                            </div>
+                            <div>
+                                <b>Difficulty:</b>
+                                {{ map.difficulty_rating|number_format(2) }}
+                            </div>
+                            <div>
+                                <b>Passes/Fails:</b>
+                                {{ map.play_count-map.fail_count }} / {{ map.fail_count }}
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            {{ mapset.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget">
+                <div class="widget-header d-flex justify-content-between">
+                    Leaderboard
+                    {% if map.ranked_status == 2 %}
+                        <span class="mapset-buttons ranked">Ranked</span>
+                    {% else %}
+                        <span class="mapset-buttons unranked">Unranked</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card" id="leaderboard">
+                <div class="card-body table-responsive" style="padding: 0;">
+                    <table class="table align-items-center">
+                        <thead>
+                        <tr style="font-size: 14px;">
+                            <th scope="col">#</th>
+                            <th scope="col">Grade</th>
+                            <th scope="col">Player</th>
+                            <th scope="col">Perf. Rating</th>
+                            <th scope="col">Score</th>
+                            <th scope="col">Accuracy</th>
+                            <th scope="col">Max Combo</th>
+                            <th scope="col">Marvelous</th>
+                            <th scope="col">Perfect</th>
+                            <th scope="col">Great</th>
+                            <th scope="col">Good</th>
+                            <th scope="col">Okay</th>
+                            <th scope="col">Miss</th>
+                            <th scope="col">Mods</th>
+                        </tr>
+                        </thead>
+                        <tbody style="font-size: 14px;">
+                        {% for score in scores %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>
+                                    <img src="/img/grades/{{ score.grade }}.png" alt="{{ score.grade }}" title="{{ score.grade }}" width="30px" height="30px">
+                                </td>
+                                <td style="text-align: left;">
+                                    <a href="#">
+                                        <img src="/img/flags/{{ score.user.country }}.png" alt="{{ score.user.country }}">
+                                    </a>
+                                    <a href="/user/{{ score.user.id }}">{{ score.user.username }}</a>
+                                </td>
+                                <td><b>{{ score.performance_rating|number_format(2) }}</b></td>
+                                <td>{{ score.total_score|number_format(0, '.', ',') }}</td>
+                                <td>{{ score.accuracy|number_format(2) }}%</td>
+                                <td>{{ score.max_combo|number_format(0, '.', ',') }}x</td>
+                                <td style="color: rgba(251, 255, 182, 1);">{{ score.count_marv|number_format(0, '.', ',') }}</td>
+                                <td style="color: rgba(242, 201, 76, 1);">{{ score.count_perf|number_format(0, '.', ',') }}</td>
+                                <td style="color: rgba(86, 254, 110,1);">{{ score.count_great|number_format(0, '.', ',') }}</td>
+                                <td style="color: rgba(15, 186, 229, 1);">{{ score.count_good|number_format(0, '.', ',') }}</td>
+                                <td style="color: rgba(238, 95, 172, 1);">{{ score.count_okay|number_format(0, '.', ',') }}</td>
+                                <td style="color: rgba(249, 100, 93, 1);">{{ score.count_miss|number_format(0, '.', ',') }}</td>
+                                <td>{{ score.mods_string }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="widget">
+                <div class="widget-header">
+                    Queue comments
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div id="comments" class="comments">
+                        {% for comment in comments %}
+                            <div class="media">
+                                <div class="avatar avatar-badge">
+                                    <img src="{{ comment.user.avatar_url }}" alt="{{ comment.user.username }}">
+                                </div>
+                                <div class="media-body">
+                                    <div class="d-flex">
+                                        <div class="d-flex">
+                                            <a class="h6" href="#">{{ comment.user.username }}</a>
+                                            <div class="media-meta">User group... {{ comment.user.usergroups }}</div>
+                                            <div class="media-meta">{{ comment.timestamp }}</div>
+                                        </div>
+                                    </div>
+                                    <p>{{ comment.comment }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <h1>MAPSET</h1>
     {{ dump(mapset) }}
 
     <h1>MAP</h1>
     {{ dump(map) }}
-
-    <h1>SCORES</h1>
-    {{ dump(scores) }}
-
-    <h1>COMMENTS</h1>
-    {{ dump(comments) }}
 
 {% endblock %}
 

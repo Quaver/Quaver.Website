@@ -613,6 +613,50 @@ body {
     color: #45D6F5;
 }
 
+/* Maps */
+
+.comments .media {
+    border-color: #5B5B5B;
+}
+
+.comments .media p {
+    white-space: pre-wrap;
+}
+
+.mapset-buttons {
+    display: inline-block;
+    text-align: center;
+    /*width: 71px;*/
+    height: 24px;
+    border-radius: 14px;
+    padding: 0 10px 0 10px;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 12px;
+    line-height: 2;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.mapset-buttons.ranked {
+    background: #27B06E;
+}
+
+.mapset-buttons.unranked {
+    background: #F2994A;
+}
+
+.mapset-buttons.denied {
+    background: #F9645D;
+}
+
+.mapset-buttons.pending {
+    background: #F2994A;
+}
+
+.mapset-buttons.blacklisted {
+    background: #5B5B5B;
+}
+
 #mobile-search {
     display: none;
 }

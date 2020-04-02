@@ -39,7 +39,6 @@ export default class Server {
      * @constructor
      */
     private InitializeServer(): void {
-        this.ExpressApp.use(express.static(path.join(__dirname, "../src/static")));
         this.ExpressApp.set("views", path.join(__dirname, "../src/views"));
         this.ExpressApp.set("twig options", {
             allow_async: true
@@ -48,8 +47,11 @@ export default class Server {
         this.ExpressApp.set("view engine", "twig");
         this.ExpressApp.set("view options", { layout: false });
 
-        if (this.ExpressApp.get('env') === 'development') {
+        if (config.environment === "development") {
+            // Disable twig cache
             twig.cache(false);
+            // Allow static to be accessed only in development mode
+            this.ExpressApp.use(express.static(path.join(__dirname, "../src/static")));
         }
         
         this.ExpressApp.use(bodyParser.json());

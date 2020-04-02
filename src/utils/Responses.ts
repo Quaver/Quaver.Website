@@ -2,6 +2,7 @@ import * as express from "express";
 import UserHelper from "./UserHelper";
 import UserGroups from "../enums/Usergroups";
 import TimeHelper from "./TimeHelper";
+import EnvironmentHelper from "./EnvironmentHelper";
 
 const config = require("../config/config.json");
 
@@ -19,12 +20,14 @@ export default class Responses {
         const templateData = { 
             baseUrl: config.baseUrl,
             apiBaseUrl: config.apiBaseUrl,
+            assets: EnvironmentHelper.assets,
             title, 
             currentUser: req.user,
             HasGroup: UserHelper.HasGroup,
             UserGroups: UserGroups,
             formatDateDistance: TimeHelper.formatDateDistance,
-            formatDate: TimeHelper.formatDate
+            formatDate: TimeHelper.formatDate,
+            formatTime: TimeHelper.formatTime
         };
 
         Object.assign(templateData, data);

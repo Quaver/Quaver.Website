@@ -31,10 +31,10 @@ export default class Router {
 
         // Redirect old routes
         router.get('/profile/*', function(req, res){
-            res.redirect('/user/' + req.params[0], 301);
+            res.redirect(301, '/user/' + req.params[0], );
         });
-        router.get('/mapsets/*', function(req, res){
-            res.redirect('/mapset/' + req.params[0], 301);
+        router.get('/maps/*', function(req, res){
+            res.redirect(301, '/mapset/' + req.params[0]);
         });
 
         router.route("*").get((req, res) => res.send("404"));

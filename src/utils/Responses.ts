@@ -4,8 +4,6 @@ import UserGroups from "../enums/Usergroups";
 import TimeHelper from "./TimeHelper";
 import EnvironmentHelper from "./EnvironmentHelper";
 
-const config = require("../config/config.json");
-
 export default class Responses {
     /**
      * 
@@ -18,8 +16,8 @@ export default class Responses {
     public static Send(req: any, res: express.Response, template: string, title: string, data: any) {
         // Build the object of data that will be sent to be use in the template.
         const templateData = { 
-            baseUrl: config.baseUrl,
-            apiBaseUrl: config.apiBaseUrl,
+            baseUrl: EnvironmentHelper.baseUrl,
+            apiBaseUrl: EnvironmentHelper.apiBaseUrl,
             assets: EnvironmentHelper.assets,
             title, 
             currentUser: req.user,

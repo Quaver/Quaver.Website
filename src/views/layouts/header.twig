@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="{{ baseUrl('/') }}">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
@@ -23,28 +23,28 @@
                         <a class="dropdown-item" href="https://github.com/Quaver">GitHub</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Rules</a>
-                        <a class="dropdown-item" href="/team">Team</a>
+                        <a class="dropdown-item" href="{{ baseUrl('/team') }}">Team</a>
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://store.steampowered.com/app/980610/Quaver/">Download</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle-hover" href="/leaderboard">Leaderboard</a>
+                    <a class="nav-link dropdown-toggle-hover" href="{{ baseUrl('/leaderboard') }}">Leaderboard</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/leaderboard">Overall Rating</a>
-                        <a class="dropdown-item" href="/leaderboard/hits">Total Hits</a>
-                        <a class="dropdown-item" href="/leaderboard/multiplayer">Multiplayer</a>
+                        <a class="dropdown-item" href="{{ baseUrl('/leaderboard') }}">Overall Rating</a>
+                        <a class="dropdown-item" href="{{ baseUrl('/leaderboard/hits') }}">Total Hits</a>
+                        <a class="dropdown-item" href="{{ baseUrl('/leaderboard/multiplayer') }}">Multiplayer</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/maps">Maps</a>
+                    <a class="nav-link" href="{{ baseUrl('/maps') }}">Maps</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/playlists">Playlists</a>
+                    <a class="nav-link" href="{{ baseUrl('/playlists') }}">Playlists</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/multiplayer/games">Multiplayer</a>
+                    <a class="nav-link" href="{{ baseUrl('/multiplayer/games') }}">Multiplayer</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Wiki</a>
@@ -72,7 +72,7 @@
             </li>
             {% if not currentUser %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="{{ baseUrl('/login') }}">Login</a>
                 </li>
             {% else %}
                 <li class="nav-item dropdown">
@@ -82,20 +82,19 @@
                         <span class="d-none d-xl-inline-block">{{ currentUser.username }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="/user/{{ currentUser.id }}">Profile</a>
+                        <a class="dropdown-item" href="{{ baseUrl('/user/'~currentUser.id) }}">Profile</a>
                         <a class="dropdown-item" href="https://a.quavergame.com/">Upload Mapset</a>
                         {% if not UserHelper.HasPrivilege(user.info, Privileges.Normal) %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Dashboard</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/logout">Logout</a>
+                        <a class="dropdown-item" href="{{ baseUrl('/logout') }}">Logout</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown dropdown-notification d-none d-lg-block">
                     <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i
-                                class="ya ya-bell"></i>
+                        <i class="ya ya-bell"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right bg-white">
                         <div class="dropdown-header mb-0">

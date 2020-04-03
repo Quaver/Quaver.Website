@@ -18,35 +18,33 @@
     <section class="py-lg-5">
         <div class="container">
             {% if slug != "hits" %}
-            <div class="nav-tab-scroll" id="mode-tabs">
-                <div class="nav nav-tabs {% if mode == 1 %} keys4 {% else %} keys7 {% endif %}" id="tab" role="tablist">
-                    <a class="nav-item nav-link {% if mode == 1 %} active-keys4 {% else %}tab-keys4{% endif %}" href="{% if slug == "multiplayer" %}/leaderboard/multiplayer?mode=1{% else %}/leaderboard?mode=1{% endif %}">
-                        4 Keys
-                    </a>
-                    <a class="nav-item nav-link {% if mode == 2 %} active-keys7 {% else %}tab-keys7{% endif %}" href="{% if slug == "multiplayer" %}/leaderboard/multiplayer?mode=2{% else %}/leaderboard?mode=2{% endif %}">
-                        7 Keys
-                    </a>
+                <div class="nav-tab-scroll" id="mode-tabs">
+                    <div class="nav nav-tabs {% if mode == 1 %}keys4{% else %}keys7{% endif %}">
+                        <a class="nav-item nav-link {% if mode == 1 %}active-keys4{% else %}tab-keys4{% endif %}" href="/leaderboard{% if leaderboardType == 3 %}/multiplayer{% endif %}?mode=1">
+                            4 Keys
+                        </a>
+                        <a class="nav-item nav-link {% if mode == 2 %}active-keys7{% else %}tab-keys7{% endif %}" href="/leaderboard{% if leaderboardType == 3 %}/multiplayer{% endif %}?mode=2">
+                            7 Keys
+                        </a>
+                    </div>
                 </div>
-            </div>
             {% endif %}
             <div class="card">
                 <div class="card-body">
                     {% include 'helpers/pagination.twig' with {
-                        currentFilters: {  },
                         currentPage: page,
                         paginationPath: slug~"?page=",
-                        lastPage: pages,
-                        showAlwaysFirstAndLast: false
+                        paginationCountry: (country) ? country : '',
+                        lastPage: pages
                     } only %}
 
                     {% include 'leaderboard/'~slug~'.twig' %}
 
                     {% include 'helpers/pagination.twig' with {
-                        currentFilters: {  },
                         currentPage: page,
                         paginationPath: slug~"?page=",
-                        lastPage: pages,
-                        showAlwaysFirstAndLast: false
+                        paginationCountry: (country) ? country : '',
+                        lastPage: pages
                     } only %}
                 </div>
             </div>

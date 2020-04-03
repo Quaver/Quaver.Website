@@ -5,7 +5,7 @@ import LeaderboardType from "./LeaderboardType";
 
 export default class Leaderboard {
     /**
-     * Fetches and returns global/country leaderboards leaderboards
+     * Fetches and returns global/country leaderboards
      * @param req
      * @param res
      */
@@ -28,6 +28,7 @@ export default class Leaderboard {
                 mode: mode,
                 page: page,
                 pages: pages - 1,
+                country: country,
                 slug: 'leaderboard'
             });
         } catch (err) {
@@ -44,7 +45,7 @@ export default class Leaderboard {
     public static async TotalHitsGET(req: any, res: any): Promise<void> {
         try {
             const mode = req.query.mode || 1;
-            const page = req.query.page || 0;
+            const page = req.query.page || 1;
 
             const leaderboard = await API.GET(req, `v1/leaderboard/hits?page=${page - 1}`);
 

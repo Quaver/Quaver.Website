@@ -25,7 +25,7 @@ export default class Server {
     public ExpressApp: express.Application;
 
     /**
-     * @param port 
+     * @param port
      */
     constructor(port: number) {
         this.Port = port;
@@ -45,7 +45,7 @@ export default class Server {
         });
 
         this.ExpressApp.set("view engine", "twig");
-        this.ExpressApp.set("view options", { layout: false });
+        this.ExpressApp.set("view options", {layout: false});
 
         if (config.environment === "development") {
             // Disable twig cache
@@ -53,20 +53,25 @@ export default class Server {
             // Allow static to be accessed only in development mode
             this.ExpressApp.use(express.static(path.join(__dirname, "../src/static")));
         }
-        
+
         this.ExpressApp.use(bodyParser.json());
         this.ExpressApp.use(bodyParser.urlencoded({extended: true}));
 
-        this.ExpressApp.use(require('express-session')({ secret: config.expressSessionSecret, resave: true, saveUninitialized: true, store: new RedisStore({ client: client, prefix: config.expressSessionSecretRedis }) }));
-        
+        this.ExpressApp.use(require('express-session')({
+            secret: config.expressSessionSecret,
+            resave: true,
+            saveUninitialized: true,
+            store: new RedisStore({client: client, prefix: config.expressSessionPrefixRedis, ttl: 86400})
+        }));
+
         Login.Initialize();
         Login.ConfigurePassport();
-        
+
         this.ExpressApp.use(passport.initialize());
         this.ExpressApp.use(passport.session());
 
         this.ExpressApp.disable('x-powered-by');
-        
+
         this.ExpressApp.use("/", Router.InitializeRouter(this.ExpressApp));
         this.ExpressApp.listen(this.Port, () => Logger.Success(`Quaver.Website server has started on port: ${config.port}`));
     }

@@ -14,11 +14,16 @@ export default class Leaderboard {
             const mode = req.query.mode || 1;
             const page = req.query.page || 1;
             const country = req.query.country ? `&country=${req.query.country}` : "";
-
-            const stats = await API.GET(req, "v1/stats");
             const limit = 50;
-            const totalUsers = stats.stats.total_users;
-            const pages = Math.ceil(totalUsers / limit);
+
+            let pages;
+            if(country !== "") {
+                const stats = await API.GET(req, "v1/stats/country");
+                pages = Math.ceil(stats.countries[req.query.country.toLowerCase()] / limit) + 1;
+            } else {
+                const stats = await API.GET(req, "v1/stats");
+                pages = Math.ceil(stats.stats.total_users / limit);
+            }
 
             const leaderboard = await API.GET(req, `v1/leaderboard?mode=${mode}&page=${page - 1}${country}`);
 

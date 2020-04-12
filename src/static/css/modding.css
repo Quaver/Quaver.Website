@@ -1,0 +1,146 @@
+.comments .media p {
+    white-space: normal;
+}
+
+.comments .media:first-child {
+    margin-top: 0;
+}
+
+.comments .media {
+    padding-bottom: 15px;
+    margin-top: 15px;
+}
+
+.comments > ul li .comment > div.comment-post .comment-action .dropdown {
+    display: block !important;
+}
+
+.comments > ul li .comment > div.comment-post .comment-author > span {
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+}
+
+.comments > .media {
+    border-bottom: 1px solid #afafaf;
+}
+
+.comments {
+    color: black;
+}
+
+.comments > ul li .comment {
+    border-bottom: 1px solid #afafaf;
+}
+
+.comments > ul li .comment > div.comment-avatar {
+    width: 80px;
+    text-align: center;
+}
+
+.comments > ul li .comment > div.comment-avatar img {
+    width: 70px;
+}
+
+.comments > ul li .comment > div.comment-avatar .badge {
+    position: static;
+    top: 0;
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+    padding: 6px 12px 6px 12px;
+    line-height: 1;
+    border-radius: 12px;
+}
+
+.mod {
+    padding: 18px !important;
+}
+
+.mod-accepted {
+    /*background: rgba(65, 158, 28, .6) !important;*/
+    border-left: 4px solid rgba(65, 158, 28, 1) !important;
+}
+
+.mod-ignored {
+    /*background: rgba(243, 126, 23, .6) !important;*/
+    border-left: 4px solid rgba(243, 126, 23, 1) !important;
+}
+
+.mod-pending {
+    /*background: rgba(150, 150, 150, .6) !important;*/
+    border-left: 4px solid rgba(150, 150, 150, 1) !important;
+}
+
+.mod-denied {
+    /*background: rgba(222, 81, 66, .6) !important;*/
+    border-left: 4px solid rgba(222, 81, 66, 1) !important;
+}
+
+.comments .card-body {
+    border-top-left-radius: 0;
+}
+
+.mod-type {
+    display: inline;
+    padding: 4px 10px 4px 10px;
+    border-radius: 8px 8px 0 0;
+    margin-top: 1px;
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.mod-type-accepted {
+    background: rgba(65, 158, 28, 1) !important;
+}
+
+.mod-type-ignored {
+    background: rgba(243, 126, 23, 1) !important;
+}
+
+.mod-type-pending {
+    background: rgba(150, 150, 150, 1) !important;
+}
+
+.mod-type-denied {
+    background: rgba(222, 81, 66, 1) !important;
+}
+
+.timestamp {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 1px 5px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: .5s;
+}
+
+.timestamp:hover {
+    background: rgba(0, 0, 0, 1);
+}
+
+.comments > ul {
+    margin: 0;
+}
+
+.badge {
+    text-transform: none;
+}
+
+.btn i {
+    margin-left: 0;
+}
+
+hr {
+    padding: 10px 0;
+    border: none;
+}
+
+hr:before {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    max-width: 100%;
+    width: 100%;
+    border: .5px solid grey;
+}

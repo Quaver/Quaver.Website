@@ -1,0 +1,114 @@
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        {% if modding %}
+            <a type="button" href="{{ baseUrl('/mapset/map/'~map.id~'') }}" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Back To Mapset Page</a>
+        {% endif %}
+        {% if map.difficulty_rating < 1 %}
+            {% set difficulty_color_current = 'difficulty-rating-beginner' %}
+        {% elseif map.difficulty_rating < 3.5 %}
+            {% set difficulty_color_current = 'difficulty-rating-easy' %}
+        {% elseif map.difficulty_rating < 8 %}
+            {% set difficulty_color_current = 'difficulty-rating-normal' %}
+        {% elseif map.difficulty_rating < 19 %}
+            {% set difficulty_color_current = 'difficulty-rating-hard' %}
+        {% elseif map.difficulty_rating < 28 %}
+            {% set difficulty_color_current = 'difficulty-rating-insane' %}
+        {% else %}
+            {% set difficulty_color_current = 'difficulty-rating-expert' %}
+        {% endif %}
+        <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle {{ difficulty_color_current }}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                [{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }}  - {{ map.difficulty_name }}
+            </button>
+            <div class="dropdown-menu" x-placement="bottom-start">
+                {% for diff in mapset.maps %}
+                    {% if diff.difficulty_rating < 1 %}
+                        {% set difficulty_color = 'difficulty-rating-beginner' %}
+                    {% elseif diff.difficulty_rating < 3.5 %}
+                        {% set difficulty_color = 'difficulty-rating-easy' %}
+                    {% elseif diff.difficulty_rating < 8 %}
+                        {% set difficulty_color = 'difficulty-rating-normal' %}
+                    {% elseif diff.difficulty_rating < 19 %}
+                        {% set difficulty_color = 'difficulty-rating-hard' %}
+                    {% elseif diff.difficulty_rating < 28 %}
+                        {% set difficulty_color = 'difficulty-rating-insane' %}
+                    {% else %}
+                        {% set difficulty_color = 'difficulty-rating-expert' %}
+                    {% endif %}
+                    <a class="dropdown-item {{ difficulty_color }}" href="{{ baseUrl('/mapset/map/'~diff.id) }}">[{{ gameMode(diff.game_mode) }}] {{ diff.difficulty_rating|number_format(2) }} - {{ diff.difficulty_name }} </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div>
+        {% if currentUser %}
+            <a type="button" href="#" class="btn btn-success">Create playlist</a>
+            {% if currentUser.id == map.creator_id %}
+                <a type="button" href="#" class="btn btn-info" style="background-color: #45D6F5; border: none;">Submit For Rank</a>
+            {% endif %}
+        {% endif %}
+        {% if not modding %}
+            <a type="button" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Modding Discussion</a>
+            <a type="button" href="#" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
+        {% else %}
+            sorting..
+        {% endif %}
+    </div>
+</div>
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <b>Song:</b> {{ mapset.artist }} - {{ mapset.title }}</div>
+                <div>
+                    <b>Created by:</b>
+                    <a href="#">
+                        {{ mapset.creator_username }}
+                    </a>
+                </div>
+                <div>
+                    <b>Submitted:</b>
+                    {{ formatDate(mapset.date_submitted) }}
+                </div>
+                <div>
+                    <b>Last updated:</b>
+                    {{ formatDate(mapset.date_last_updated) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <b>Source:</b>
+                    {{ (map.source) ? map.source : 'n/a' }}
+                </div>
+                <div>
+                    <b>Tags</b>
+                </div>
+                <div>{{ (map.tags) ? map.tags : 'n/a' }}</div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <b>BPM:</b>
+                    {{ map.bpm }}
+                </div>
+                <div>
+                    <b>Length:</b>
+                    {{ formatTime(map.length) }}
+                </div>
+                <div>
+                    <b>Difficulty:</b>
+                    {{ map.difficulty_rating|number_format(2) }}
+                </div>
+                <div>
+                    <b>Passes/Fails:</b>
+                    {{ map.play_count-map.fail_count }} / {{ map.fail_count }}
+                </div>
+            </div>
+            {% if mapset.description %}
+                <div class="col-md-12 mt-4">
+                    {{ mapset.description }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

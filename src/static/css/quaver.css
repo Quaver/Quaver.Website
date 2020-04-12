@@ -5,12 +5,34 @@ html {
 }
 
 body {
-    background: url("/img/triangles.png"), rgba(26, 26, 26, 1);
+    /*background: url("/img/triangles.png"), rgba(26, 26, 26, 1);*/
+    background:  rgba(26, 26, 26, 1);
 }
 
-.navbar-nav .dropdown-menu {
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.dropdown-menu {
     background-color: unset;
     background: linear-gradient(180deg, #242424 0%, #1B1B1B 100%);
+}
+
+.dropdown-menu .dropdown-item:hover {
+    color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .navbar-brand {
@@ -95,9 +117,14 @@ body {
 }
 
 .card, .widget-secondary {
-    border: 1px solid #353434;
+    /*border: 1px solid #353434;*/
+    border: none;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
-    border-radius: 0.30rem;
+    background: transparent;
+}
+
+.card .card-body, .widget-secondary .widget-body {
+    border-radius: 6px;
 }
 
 .card-header, .card-footer, .widget-secondary .widget-header {
@@ -290,7 +317,6 @@ body {
 .status .circle {
     width: 15px;
     height: 15px;
-    background: red;
     border-radius: 50%;
     display: inline-block;
     margin-right: 8px;
@@ -623,10 +649,13 @@ body {
     white-space: pre-wrap;
 }
 
+.comments .media a {
+    color: #45D6F5;
+}
+
 .mapset-buttons {
     display: inline-block;
     text-align: center;
-    /*width: 71px;*/
     height: 24px;
     border-radius: 14px;
     padding: 0 10px 0 10px;
@@ -655,6 +684,76 @@ body {
 
 .mapset-buttons.blacklisted {
     background: #5B5B5B;
+}
+
+.queue-comment-textarea {
+    background: #393939;
+    border: #393939;
+}
+
+.queue-comment-textarea:focus {
+    background: #393939;
+    border: none;
+    box-shadow: none;
+    color: #ffffff;
+}
+
+/* Group Colors */
+
+.text-color-swan {
+    color: #db88c2;
+}
+
+.text-color-developer {
+    color: #bb79e5;
+}
+
+.text-color-admin {
+    color: #708df9;
+}
+
+.text-color-moderator {
+    color: #0094FF;
+}
+
+.text-color-ranking-supervisor {
+    color: #6EF7F7;
+}
+
+.text-color-supporter {
+    color: #ffd3fb;
+}
+
+.text-color-bot {
+    color: #ffeb67;
+}
+
+.text-color-contributor {
+    color: #56FE6E;
+}
+
+.difficulty-rating-beginner {
+    color: #D1FFFA;
+}
+
+.difficulty-rating-easy {
+    color: #5EFF75;
+}
+
+.difficulty-rating-normal {
+    color: #5EC4FF;
+}
+
+.difficulty-rating-hard {
+    color: #F5B25B;
+}
+
+.difficulty-rating-insane {
+    color: #F9645D;
+}
+
+.difficulty-rating-expert {
+    color: #D761EB;
 }
 
 #mobile-search {

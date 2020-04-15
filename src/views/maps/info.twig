@@ -18,7 +18,7 @@
         {% endif %}
         <div class="dropdown">
             <button class="btn btn-dark dropdown-toggle {{ difficulty_color_current }}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                [{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }}  - {{ map.difficulty_name }}
+                [{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }} - {{ map.difficulty_name }}
             </button>
             <div class="dropdown-menu" x-placement="bottom-start">
                 {% for diff in mapset.maps %}
@@ -42,7 +42,9 @@
     </div>
     <div>
         {% if currentUser %}
-            <a type="button" href="#" class="btn btn-success">Create playlist</a>
+            {% if not modding %}
+                <a type="button" href="#" class="btn btn-success">Create playlist</a>
+            {% endif %}
             {% if currentUser.id == map.creator_id %}
                 <a type="button" href="#" class="btn btn-info" style="background-color: #45D6F5; border: none;">Submit For Rank</a>
             {% endif %}
@@ -51,7 +53,17 @@
             <a type="button" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Modding Discussion</a>
             <a type="button" href="#" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
         {% else %}
-            sorting..
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort by: None
+                </button>
+                <div class="dropdown-menu" x-placement="bottom-start">
+                    <a class="dropdown-item text-white" href="{{ baseUrl('/') }}">None</a>
+                    <a class="dropdown-item text-white" href="{{ baseUrl('/') }}">Most Recent</a>
+                    <a class="dropdown-item text-white" href="{{ baseUrl('/') }}">Status</a>
+                    <a class="dropdown-item text-white" href="{{ baseUrl('/') }}">Type</a>
+                </div>
+            </div>
         {% endif %}
     </div>
 </div>
@@ -105,7 +117,8 @@
                 </div>
             </div>
             {% if mapset.description %}
-                <div class="col-md-12 mt-4">
+                <div class="col-md-12">
+                    <hr>
                     {{ mapset.description }}
                 </div>
             {% endif %}

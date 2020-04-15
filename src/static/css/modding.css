@@ -144,3 +144,25 @@ hr:before {
     width: 100%;
     border: .5px solid grey;
 }
+
+.comments .media:first-child {
+    border: none;
+}
+
+.form-control {
+    background: #393939;
+    border-color: #393939;
+    color: #ffffff;
+}
+
+textarea.form-control {
+    background: #393939;
+    border-color: #393939;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    background: #393939;
+    color: #ffffff;
+    border-color: #393939;
+}

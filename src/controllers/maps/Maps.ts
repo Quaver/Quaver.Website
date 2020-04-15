@@ -22,6 +22,8 @@ export default class Maps {
             // Sort difficulties
             mapset.maps = await Maps.SortDifficulties(mapset.maps);
 
+            mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
+
             // The selected map in this case is the top difficulty
             const map = mapset.maps[mapset.maps.length - 1];
             const scores = await Maps.FetchMapScores(req, map.id);
@@ -52,7 +54,9 @@ export default class Maps {
             if (!map)
                 return res.status(404).json({ status: 404, error: "Map not found" });
 
-            const mapset = await Maps.FetchMapset(req, map.mapset_id);
+            let mapset = await Maps.FetchMapset(req, map.mapset_id);
+
+            mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 
             if (!mapset)
                 return res.status(404).json({ status: 404, error: "Mapset not found"});
@@ -85,7 +89,9 @@ export default class Maps {
             if (!map)
                 return res.status(404).json({ status: 404, error: "Map not found" });
 
-            const mapset = await Maps.FetchMapset(req, map.mapset_id);
+            let mapset = await Maps.FetchMapset(req, map.mapset_id);
+
+            mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 
             if (!mapset)
                 return res.status(404).json({ status: 404, error: "Mapset not found"});

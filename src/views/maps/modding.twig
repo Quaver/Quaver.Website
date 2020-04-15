@@ -21,7 +21,15 @@
 
                         <div>
                             <div class="mod-type mod-type-{{ type }}" style="">
-                                {{ mod.mod.type }}
+                                {% if mod.mod.status == 'Accepted' %}
+                                    Accepted
+                                {% elseif mod.mod.status == 'Ignored' %}
+                                    Ignored
+                                {% elseif mod.mod.status == 'Pending' %}
+                                    Pending
+                                {% else %}
+                                    Denied
+                                {% endif %}
                             </div>
                             <div class="card" id="mod_{{ mod.mod.id }}">
                                 <div class="card-body mod-{{ type }}">
@@ -52,15 +60,9 @@
                                             </div>
                                             <div class="comment-action" style="float: right;">
                                                 <div class="dropdown float-right">
-                                                    {% if mod.mod.status == 'Accepted' %}
-                                                        <span class="mapset-buttons ranked">Accepted</span>
-                                                    {% elseif mod.mod.status == 'Ignored' %}
-                                                        <span class="mapset-buttons badge-warning">Ignored</span>
-                                                    {% elseif mod.mod.status == 'Pending' %}
-                                                        <span class="mapset-buttons pending">Pending</span>
-                                                    {% else %}
-                                                        <span class="mapset-buttons denied">Denied</span>
-                                                    {% endif %}
+                                                    <div class="mapset-buttons mod-type-{{ mod.mod.type|lower }}">
+                                                        {{ mod.mod.type }}
+                                                    </div>
                                                 </div>
                                             </div>
                                             {% if mod.mod.map_timestamp %}

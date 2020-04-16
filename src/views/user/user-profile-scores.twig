@@ -60,26 +60,25 @@
     <tr>
         <td colspan="7" style="padding: 0;">
             <div class="accordian-body collapse" data-parent="#scores" id="score_[$table$]_[$id$]" style="overflow: hidden">
-                <div class="row">
-                    <div class="col-sm-8 my-auto">
-                        <div style="padding: 12px; margin: auto 0;">
-                            <canvas class="chartScore_[$table$]_[$id$]"></canvas>
-                        </div>
+                <div class="row" style="min-height: 500px;">
+                    <div class="col-md-3">
+                        <h6 class="mt-4">Score</h6>
+                        <span class="font-weight-light font-size-md">[$total_score$]</span>
                     </div>
-                    <div class="col-sm-4" style="min-height: 400px;">
-                        <div class="widget widget-game" style="margin-bottom: 0; height: 100%;">
-                            <img src="https://cdn.quavergame.com/banners/[$map.mapset_id$]_banner.jpg" alt="">
-                            <div class="widget-body">
-                                <h6 class="mt-4">Score</h6>
-                                <span class="font-weight-light font-size-md">[$total_score$]</span>
-                                <h6 class="mt-4">Scroll Speed</h6>
-                                <span class="font-weight-light font-size-md">[$scroll_speed$]</span>
-                                <h6 class="mt-4">Max Combo</h6>
-                                <span class="font-weight-light font-size-md">[$max_combo$]x</span>
-                                <h6 class="mt-4">Ratio</h6>
-                                <span class="font-weight-light font-size-md">[$ratio$]</span>
-                            </div>
-                        </div>
+                    <div class="col-md-3">
+                        <h6 class="mt-4">Scroll Speed</h6>
+                        <span class="font-weight-light font-size-md">[$scroll_speed$]</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6 class="mt-4">Max Combo</h6>
+                        <span class="font-weight-light font-size-md">[$max_combo$]x</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6 class="mt-4">Ratio</h6>
+                        <span class="font-weight-light font-size-md">[$ratio$]</span>
+                    </div>
+                    <div class="col-sm-8 mx-auto">
+                        <canvas class="chartScore_[$table$]_[$id$]"></canvas>
                     </div>
                 </div>
             </div>
@@ -99,56 +98,6 @@
             getMoreScoresEvent($(this).data('table'));
         });
     });
-
-    function durationParse(time) {
-        if (time) {
-            const now = new moment();
-            const secondDiff = now.diff(new moment(time), "seconds");
-            const minuteDiff = now.diff(new moment(time), "minutes");
-            const hourDiff = now.diff(new moment(time), "hours");
-            const dayDiff = now.diff(new moment(time), "days");
-            const monthDiff = now.diff(new moment(time), "months");
-            const yearDiff = now.diff(new moment(time), "years");
-
-            if (yearDiff === 1)
-                return `${yearDiff} year ago`;
-
-            if (yearDiff > 1)
-                return `${yearDiff} years ago`;
-
-            if (monthDiff === 1)
-                return `${monthDiff} month ago`;
-
-            if (monthDiff > 1 && monthDiff < 12)
-                return `${monthDiff} months ago`;
-
-            if (dayDiff === 1)
-                return `${dayDiff} day ago`;
-
-            if (dayDiff > 1 && dayDiff < 31)
-                return `${dayDiff} days ago`;
-
-            if (hourDiff === 1)
-                return `${hourDiff} hour ago`;
-
-            if (hourDiff > 1 && hourDiff < 24)
-                return `${hourDiff} hours ago`;
-
-            if (minuteDiff === 1)
-                return `${minuteDiff} minute ago`;
-
-            if (minuteDiff >= 1 && minuteDiff < 60)
-                return `${minuteDiff} minutes ago`;
-
-            if (secondDiff === 1)
-                return `${secondDiff} second ago`;
-
-            if (secondDiff < 60)
-                return `${secondDiff} seconds ago`;
-
-            return "An eternity ago";
-        }
-    }
 
     let pages = {
         "best": 1,

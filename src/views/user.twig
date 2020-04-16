@@ -134,34 +134,109 @@
                 else if (absVal > 0) miss.push({x: key, y: 0});
                 else miss.push({x: key, y: value});
             });
-            return [{data: marv}, {data: perf}, {data: great}, {data: good}, {data: okay}, {data: miss}];
+            
+            return [{data: marv, name: "Marvelous"}, {data: perf, name: "Perfect"}, {data: great, name: "Great"}, {data: good, name: "Good"}, {data: okay, name: "Okay"}, {data: miss, name: "Miss"}];
         }
 
         function loadScatter(table_class, score_id) {
             let sc = document.getElementsByClassName('scatterScore_' + table_class + '_' + score_id)[0];
 
             Highcharts.getJSON(`{{ apiBaseUrl }}/v1/scores/data/${score_id}`, function (data) {
-                Highcharts.stockChart({
-                    chart: {renderTo: sc, animation: false, backgroundColor: 'transparent', draggableY: false,},
+                Highcharts.chart({
+                    chart: {renderTo: sc, animation: false, backgroundColor: 'transparent', draggableY: false},
+                    title: {text: null},
                     rangeSelector: {enabled: false},
                     navigator: {enabled: false},
                     credits: {enabled: false},
                     xAxis: {visible: false},
-                    yAxis: {visible: true, gridLineWidth: 0},
-                    scrollbar: {enabled: false, liveRedraw: false},
+                    yAxis: {
+                        height: 230,
+                        visible: true,
+                        gridLineWidth: 0,
+                        labels: {enabled: true},
+                        title: {text: null},
+                        tickPositions: [-164, 0, 164],
+                        plotBands: [
+                            {
+                                from: 164,
+                                to: 127,
+                                color: "rgba(249, 100, 93, 0.1)"
+                            },
+                            {
+                                from: 127,
+                                to: 106,
+                                color: "rgba(238, 95, 172, 0.1)"
+                            },
+                            {
+                                from: 106,
+                                to: 76,
+                                color: "rgba(15, 186, 229, 0.1)"
+                            },
+                            {
+                                from: 76,
+                                to: 43,
+                                color: "rgba(86, 254, 110, 0.1)"
+                            },
+                            {
+                                from: 43,
+                                to: 18,
+                                color: "rgba(242, 201, 76, 0.1)"
+                            },
+                            {
+                                from: 18,
+                                to: 0,
+                                color: "rgba(251, 255, 182, 0.1)"
+                            },
+                            {
+                                from: 0,
+                                to: -18,
+                                color: "rgba(251, 255, 182, 0.1)"
+                            },
+                            {
+                                from: -18,
+                                to: -43,
+                                color: "rgba(242, 201, 76, 0.1)"
+                            },
+                            {
+                                from: -43,
+                                to: -76,
+                                color: "rgba(86, 254, 110, 0.1)"
+                            },
+                            {
+                                from: -76,
+                                to: -106,
+                                color: "rgba(15, 186, 229, 0.1)"
+                            },
+                            {
+                                from: -106,
+                                to: -127,
+                                color: "rgba(238, 95, 172, 0.1)"
+                            },
+                            {
+                                from: -127,
+                                to: -164,
+                                color: "rgba(249, 100, 93, 0.1)"
+                            }
+                        ]
+                    },
+                    legend: {enabled: false},
                     plotOptions: {
                         series: {
-                            enableMouseTracking: false,
-                            animation: {duration: 0},
+                            enableMouseTracking: true,
+                            animation: false,
                             lineWidth: 0,
                             marker: {
                                 symbol: 'circle',
                                 enabled: true,
                                 radius: 1
                             },
-                            tooltip: {valueDecimals: 2},
+                            tooltip: {
+                                pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}</b> ms<br/>'
+                                },
+                            turboThreshold: data.hits.length,
                             states: {
-                                hover: {lineWidthPlus: 0}
+                                hover: {lineWidthPlus: 0},
+                                inactive: {enabled: false}
                             }
                         }
                     },
@@ -205,81 +280,81 @@
             //     colors: ['#FBFFB6', '#F2C94C', '#56FE6E', '#0FBAE5', '#EE5FAC', '#F9645D'],
             //     series: sortData(data.hits)
             // });
-            // new Chart(chartJudgements, {
-            //     type: 'bar',
-            //     data: {
-            //         labels: ['Marv', 'Perf', 'Great', 'Good', 'Okay', 'Miss'],
-            //         datasets: [{
-            //             label: '',
-            //             borderColor: 'rgb(255, 99, 132)',
-            //             data: [
-            //                 total_marv,
-            //                 total_perf,
-            //                 total_great,
-            //                 total_good,
-            //                 total_okay,
-            //                 total_miss,
-            //             ],
-            //             backgroundColor: [
-            //                 '#FBFFB6',
-            //                 '#F2C94C',
-            //                 '#56FE6E',
-            //                 '#0FBAE5',
-            //                 '#EE5FAC',
-            //                 '#F9645D'
-            //             ],
-            //         }],
-            //     },
-            //     options: {
-            //         layout: {
-            //             padding: {
-            //                 left: 0,
-            //                 right: 0,
-            //                 top: 10,
-            //                 bottom: 10
-            //             }
-            //         },
-            //         plugins: {
-            //             datalabels: {
-            //                 display: true,
-            //                 align: 'end',
-            //                 anchor: 'end',
-            //                 offset: '0',
-            //                 color: [
-            //                     '#FBFFB6',
-            //                     '#F2C94C',
-            //                     '#56FE6E',
-            //                     '#0FBAE5',
-            //                     '#EE5FAC',
-            //                     '#F9645D'
-            //                 ],
-            //                 textShadowColor: 'black',
-            //                 textShadowBlur: 4
-            //                 // color: '#CACACA'
-            //             }
-            //         },
-            //         responsive: true,
-            //         legend: {
-            //             display: false
-            //         },
-            //         tooltips: {
-            //             enabled: false
-            //         },
-            //         scales: {
-            //             xAxes: [{
-            //                 stacked: true,
-            //                 gridLines: {
-            //                     display: false
-            //                 }
-            //             }],
-            //             yAxes: [{
-            //                 ticks: {
-            //                     beginAtZero: true
-            //                 }
-            //             }]
-            //         }
-            //     }
-            // });
+            new Chart(chartJudgements, {
+                type: 'bar',
+                data: {
+                    labels: ['Marv', 'Perf', 'Great', 'Good', 'Okay', 'Miss'],
+                    datasets: [{
+                        label: '',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [
+                            total_marv,
+                            total_perf,
+                            total_great,
+                            total_good,
+                            total_okay,
+                            total_miss,
+                        ],
+                        backgroundColor: [
+                            '#FBFFB6',
+                            '#F2C94C',
+                            '#56FE6E',
+                            '#0FBAE5',
+                            '#EE5FAC',
+                            '#F9645D'
+                        ],
+                    }],
+                },
+                options: {
+                    layout: {
+                        padding: {
+                            left: 0,
+                            right: 0,
+                            top: 10,
+                            bottom: 0
+                        }
+                    },
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            align: 'end',
+                            anchor: 'end',
+                            offset: '0',
+                            color: [
+                                '#FBFFB6',
+                                '#F2C94C',
+                                '#56FE6E',
+                                '#0FBAE5',
+                                '#EE5FAC',
+                                '#F9645D'
+                            ],
+                            textShadowColor: 'black',
+                            textShadowBlur: 4
+                            // color: '#CACACA'
+                        }
+                    },
+                    responsive: true,
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        enabled: false
+                    },
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            gridLines: {
+                                display: false
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
         }
     </script>
 {% endblock %}

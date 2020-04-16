@@ -1,8 +1,8 @@
 import Logger from "../../logging/Logger";
 import Responses from "../../utils/Responses";
 import API from "../../api/API";
-import bbobHTML from '@bbob/html';
-import presetHTML5 from '@bbob/preset-html5';
+//import bbobHTML from '@bbob/html';
+//import presetHTML5 from '@bbob/preset-html5';
 import sanitizeHtml = require("sanitize-html");
 
 export default class Users {
@@ -29,18 +29,18 @@ export default class Users {
             const mapSetsRanked = await Users.GetUploadedMapSetsRanked(req, res, user);
             const mapSetsUnRanked = await Users.GetUploadedMapSetsUnRanked(req, res, user);
             const playLists = await Users.GetPlaylists(req, res, user);
-            const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
+            /* const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
                 allowedTags: ['span', 'a'],
                 allowedAttributes: {
                     'a': ['href'],
                     'span': ['style']
                 }
-            }), presetHTML5());
+            }), presetHTML5()); */
 
             Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
                 user,
                 mode,
-                bio,
+                //bio,
                 best,
                 recent,
                 firstPlace,

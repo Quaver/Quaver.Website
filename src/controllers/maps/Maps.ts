@@ -123,6 +123,7 @@ export default class Maps {
                 map: map,
                 mods: mods,
                 modding: true,
+                filter: filter,
                 gameMode: GameModeHelper.gameMode
             });
         } catch (err) {

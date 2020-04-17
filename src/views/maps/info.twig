@@ -55,7 +55,7 @@
         {% else %}
             <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort by: None
+                    Sort by: {% if not filter %} None {% elseif filter == "time" %} Most Recent {% elseif filter == "status" %} Status {% elseif filter == "type" %} Type {% endif %}
                 </button>
                 <div class="dropdown-menu" x-placement="bottom-start">
                     <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}">None</a>

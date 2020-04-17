@@ -112,6 +112,12 @@ export default class Maps {
                 }
             }
 
+            const filter = req.query.filter ? req.query.filter : null;
+
+            if(filter != null) {
+                await Maps.SortMods(mods, filter);
+            }
+
             Responses.Send(req, res, "maps/modding", `${mapset.artist} - ${mapset.title} by: ${mapset.creator_username} | Quaver`, {
                 mapset: mapset,
                 map: map,
@@ -123,6 +129,32 @@ export default class Maps {
             Logger.Error(err);
             Responses.Return500(req, res);
         }
+    }
+
+    private static async SortMods(mods: any, filter: any): Promise<any> {
+        const statuses : any =  {
+                "Pending": 0,
+                "Accepted": 1,
+                "Denied": 2,
+                "Ignored": 3
+        };
+
+        switch (filter) {
+            case 'status':
+                mods.sort((a:any, b:any) => statuses[a.mod.status] - statuses[b.mod.status]);
+                break;
+            case 'time':
+                mods.sort((a:any, b:any) => b.mod.id - a.mod.id);
+                break;
+            case 'type':
+                mods.sort((a:any, b:any) => statuses[a.mod.type] - statuses[b.mod.type]);
+                break;
+            default:
+                mods.sort((a:any, b:any) => a.mod.id - b.mod.id);
+                break;
+        }
+
+        return mods;
     }
 
     private static async ReplaceCode(timestamp: any): Promise<any> {

@@ -35,7 +35,7 @@
                     {% else %}
                         {% set difficulty_color = 'difficulty-rating-expert' %}
                     {% endif %}
-                    <a class="dropdown-item {{ difficulty_color }}" href="{{ baseUrl('/mapset/map/'~diff.id) }}">[{{ gameMode(diff.game_mode) }}] {{ diff.difficulty_rating|number_format(2) }} - {{ diff.difficulty_name }} </a>
+                    <a class="dropdown-item {{ difficulty_color }}" href="{{ baseUrl((modding)?'/mapset/map/'~diff.id~'/mods':'/mapset/map/'~diff.id) }}">[{{ gameMode(diff.game_mode) }}] {{ diff.difficulty_rating|number_format(2) }} - {{ diff.difficulty_name }} </a>
                 {% endfor %}
             </div>
         </div>
@@ -58,10 +58,10 @@
                     Sort by: None
                 </button>
                 <div class="dropdown-menu" x-placement="bottom-start">
-                    <a class="dropdown-item text-white" href="{{ baseUrl('/') }}">None</a>
-                    <a class="dropdown-item text-white" href="{{ baseUrl('/') }}">Most Recent</a>
-                    <a class="dropdown-item text-white" href="{{ baseUrl('/') }}">Status</a>
-                    <a class="dropdown-item text-white" href="{{ baseUrl('/') }}">Type</a>
+                    <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}">None</a>
+                    <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods?filter=time') }}">Most Recent</a>
+                    <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods?filter=status') }}">Status</a>
+                    <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods?filter=type') }}">Type</a>
                 </div>
             </div>
         {% endif %}

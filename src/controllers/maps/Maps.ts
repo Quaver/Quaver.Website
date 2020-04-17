@@ -56,6 +56,9 @@ export default class Maps {
 
             let mapset = await Maps.FetchMapset(req, map.mapset_id);
 
+            // Sort difficulties
+            mapset.maps = await Maps.SortDifficulties(mapset.maps);
+
             mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 
             if (!mapset)
@@ -90,6 +93,9 @@ export default class Maps {
                 return res.status(404).json({ status: 404, error: "Map not found" });
 
             let mapset = await Maps.FetchMapset(req, map.mapset_id);
+
+            // Sort difficulties
+            mapset.maps = await Maps.SortDifficulties(mapset.maps);
 
             mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 

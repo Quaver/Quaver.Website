@@ -164,12 +164,54 @@ export default class Maps {
         return mods;
     }
 
+
+    public static async HandlePost(req: any, res: any): Promise<any> {
+        if (typeof req.body.submit_mod !== 'undefined') {
+            await API.POST(req, `v1/maps/${req.params.id}/mods`, {
+                type: req.body.type,
+                timestamp: req.body.timestamp,
+                comment: req.body.comment
+            });
+        }
+
+        if (typeof req.body.submit_comment !== 'undefined') {
+            await API.POST(req, `v1/maps/mods/${req.body.mod_id}/comment`, {
+                comment: req.body.comment
+            });
+        }
+
+        if (typeof req.body.mod_accept !== 'undefined') {
+            await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
+                status: 1
+            });
+        }
+
+        if (typeof req.body.mod_deny !== 'undefined') {
+            await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
+                status: 2
+            });
+        }
+
+        if (typeof req.body.mod_ignore !== 'undefined') {
+            await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
+                status: 3
+            });
+        }
+
+        res.redirect(303, `/mapset/map/${req.params.id}/mods`);
+    }
+
+    /**
+     *
+     * @param timestamp
+     * @constructor
+     */
+
     private static async ReplaceCode(timestamp: any): Promise<any> {
         const regex_code = new RegExp(/<code>((\d+\|\d)(,(\d+\|\d))*)<\/code>/g);
 
         return timestamp.replace(regex_code, function (p:any) {
             const matches = p.split(regex_code);
-            console.log(matches);
             return `<a href="quaver://editor/${matches[1]}"><span>${matches[1]}</span></a>`;
         });
     }

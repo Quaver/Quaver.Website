@@ -103,7 +103,7 @@
                                                             </div>
                                                             {% if currentUser and map.creator_id == currentUser.id %}
                                                                 <div class="media-tools" style="display: block;">
-                                                                    <a class="btn btn-link btn-icon btn-xs" onclick="commentSpam(this)" data-id="{{ comment.message.id }}" data-spam="{{ comment.message.spam }}" data-comment="{{ comment.message.comment }}" data-toggle="tooltip" title="" data-original-title="Mark as spam">
+                                                                    <a class="btn btn-link btn-icon btn-xs" onclick="commentSpam(this)" data-id="{{ comment.message.id }}" data-spam="{{ comment.message.spam }}" data-comment="ToDo think better way..." data-toggle="tooltip" title="" data-original-title="Mark as spam">
                                                                         <i class="ya ya-flag"></i>
                                                                     </a>
                                                                 </div>
@@ -114,7 +114,7 @@
                                                             {% if not comment.message.spam %}
                                                                 {{ comment.message.comment }}
                                                             {% else %}
-                                                                <a data-id="{{ comment.message.id }}" data-comment="{{ comment.message.comment }}" onclick="readSpam(this)">This comment was marked as spam, click here to view the content</a>
+                                                                <a data-id="{{ comment.message.id }}" data-comment="ToDo think better way..." onclick="readSpam(this)">This comment was marked as spam, click here to view the content</a>
                                                             {% endif %}
                                                         </div>
                                                         </p>
@@ -129,16 +129,17 @@
                                                 <div class="mb-3 d-flex justify-content-between">
                                                     {% if currentUser.id == map.creator_id %}
                                                         <div>
-                                                            <form >
-                                                                <button type="button" class="btn btn-success btn-xs">
+                                                            <form method="POST" accept-charset="UTF-8">
+                                                                <input type="hidden" name="mod_id" value="{{ mod.mod.id }}">
+                                                                <button type="submit" name="mod_accept" class="btn btn-success btn-xs">
                                                                     <i class="fas fa-check"></i>
                                                                     Accept
                                                                 </button>
-                                                                <button type="button" class="btn btn-danger btn-xs">
+                                                                <button type="submit" name="mod_deny" class="btn btn-danger btn-xs">
                                                                     <i class="fas fa-times"></i>
                                                                     Deny
                                                                 </button>
-                                                                <button type="button" class="btn btn-warning btn-xs">
+                                                                <button type="submit" name="mod_ignore" class="btn btn-warning btn-xs">
                                                                     <i class="fas fa-times-circle"></i>
                                                                     Ignore
                                                                 </button>
@@ -153,11 +154,12 @@
                                                 </div>
 
                                                 <div class="collapse" data-parent="#comments" id="comment_{{ mod.mod.id }}">
-                                                    <form>
+                                                    <form method="POST" accept-charset="UTF-8">
                                                         <div class="form-group">
-                                                            <textarea class="form-control" rows="5"></textarea>
+                                                            <input type="hidden" name="mod_id" value="{{ mod.mod.id }}">
+                                                            <textarea class="form-control" name="comment" rows="5"></textarea>
                                                         </div>
-                                                        <button type="button" class="btn btn-primary">Submit comment</button>
+                                                        <button type="submit" name="submit_comment" class="btn btn-primary">Submit comment</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -176,25 +178,25 @@
                         Submit a Mod
                     </div>
                 </div>
-                <div class="card">
+                <div class="card modding-form">
                     <div class="card-body">
-                        <form>
+                        <form method="POST" accept-charset="UTF-8">
                             <div class="form-group">
                                 <label>The type of mod you want to give the user</label>
-                                <select name="" class="form-control">
+                                <select name="type" class="form-control">
                                     <option>Issue</option>
                                     <option>Suggestion</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Copy objects in the editor with CTRL+C to highlight specific points in the map</label>
-                                <input type="text" name="" class="form-control" placeholder="234873284|1,234234|2,23423|3">
+                                <input type="text" name="timestamp" class="form-control" placeholder="234873284|1,234234|2,23423|3">
                             </div>
                             <div class="form-group">
                                 <label>Comment</label>
-                                <textarea name="" rows="5" placeholder="Your Comment" class="form-control" required></textarea>
+                                <textarea name="comment" rows="5" placeholder="Your Comment" class="form-control" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit" name="submit_mod" class="btn btn-success">Submit</button>
                         </form>
                     </div>
                 </div>

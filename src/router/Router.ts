@@ -15,7 +15,7 @@ export default class Router {
         const router: express.Router = express.Router();
 
         router.route("/").get(Home.GET);
-        router.route("/leaderboard").get(LeaderBoard.GET)
+        router.route("/leaderboard").get(LeaderBoard.GET);
         router.route("/leaderboard/hits").get(LeaderBoard.TotalHitsGET);
         router.route("/leaderboard/multiplayer").get(LeaderBoard.MultiplayerGET);
         router.route("/mapset/:id").get(Maps.MapsetGET);
@@ -29,6 +29,8 @@ export default class Router {
         router.route("/login/verify").get(Login.VerifyGET);
         router.route("/logout").get(Login.LogoutGET);
         router.route("/team").get(Team.GET);
+
+        router.route("/mapset/map/:id/mods").post(Maps.HandlePost);
 
         // Redirect old routes
         router.get('/profile/*', function(req, res){

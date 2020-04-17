@@ -157,18 +157,18 @@ hr:before {
     border: none;
 }
 
-.comments .form-control {
+.modding-form .form-control {
     background: #393939;
     border-color: #393939;
     color: #ffffff;
 }
 
-.comments textarea.form-control {
+.modding-form textarea.form-control {
     background: #393939;
     border-color: #393939;
 }
 
-.comments .form-control:focus {
+.modding-form .form-control:focus {
     box-shadow: none;
     background: #393939;
     color: #ffffff;

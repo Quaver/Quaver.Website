@@ -101,9 +101,9 @@ export default class Maps {
 
 
             for (let mod in mods) {
-                mods[mod].mod.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[m].mod.comment));
+                mods[mod].mod.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[mod].mod.comment));
                 // Replace <code> with link to editor
-                mods[mod].mod.comment = await Maps.ReplaceCode(mods[m].mod.comment);
+                mods[mod].mod.comment = await Maps.ReplaceCode(mods[mod].mod.comment);
 
                 // Mod replies
                 for (let reply in mods[mod].mod.replies) {

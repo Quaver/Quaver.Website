@@ -113,8 +113,6 @@
     background: #F9645D;
 }
 
-
-
 .timestamp {
     background: rgba(0, 0, 0, 0.7);
     color: white;
@@ -159,18 +157,18 @@ hr:before {
     border: none;
 }
 
-.form-control {
+.comments .form-control {
     background: #393939;
     border-color: #393939;
     color: #ffffff;
 }
 
-textarea.form-control {
+.comments textarea.form-control {
     background: #393939;
     border-color: #393939;
 }
 
-.form-control:focus {
+.comments .form-control:focus {
     box-shadow: none;
     background: #393939;
     color: #ffffff;

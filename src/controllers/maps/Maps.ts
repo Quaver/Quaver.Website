@@ -98,8 +98,6 @@ export default class Maps {
 
             let mods = await Maps.FetchMods(req, map.id);
 
-
-
             for (let mod in mods) {
                 mods[mod].mod.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[mod].mod.comment));
                 // Replace <code> with link to editor

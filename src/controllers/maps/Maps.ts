@@ -98,16 +98,19 @@ export default class Maps {
 
             let mods = await Maps.FetchMods(req, map.id);
 
-            const regex_code = new RegExp(/<code>((\d+\|\d)(,(\d+\|\d))*)<\/code>/g);
 
-            for (let m in mods) {
-                mods[m].mod.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[m].mod.comment));
-                mods[m].mod.comment.replace(regex_code, function (p:any) {
-                    const matches = p.split(regex_code);
-                    return `<a href="quaver://editor/${matches[1]}"><span>${matches[1]}</span></a>`;
-                });
-                for (let r in mods[m].mod.replies) {
-                    mods[m].mod.replies[r].message.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[m].mod.replies[r].message.comment));
+
+            for (let mod in mods) {
+                mods[mod].mod.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[m].mod.comment));
+                // Replace <code> with link to editor
+                mods[mod].mod.comment = await Maps.ReplaceCode(mods[m].mod.comment);
+
+                // Mod replies
+                for (let reply in mods[mod].mod.replies) {
+                    mods[mod].mod.replies[reply].message.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[mod].mod.replies[reply].message.comment));
+
+                    // Replace <code> with link to editor
+                    mods[mod].mod.replies[reply].message.comment = await Maps.ReplaceCode(mods[mod].mod.replies[reply].message.comment);
                 }
             }
 
@@ -122,6 +125,16 @@ export default class Maps {
             Logger.Error(err);
             Responses.Return500(req, res);
         }
+    }
+
+    private static async ReplaceCode(timestamp: any): Promise<any> {
+        const regex_code = new RegExp(/<code>((\d+\|\d)(,(\d+\|\d))*)<\/code>/g);
+
+        return timestamp.replace(regex_code, function (p:any) {
+            const matches = p.split(regex_code);
+            console.log(matches);
+            return `<a href="quaver://editor/${matches[1]}"><span>${matches[1]}</span></a>`;
+        });
     }
 
     /**

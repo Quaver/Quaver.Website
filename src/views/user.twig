@@ -143,7 +143,7 @@
 
             Highcharts.getJSON(`{{ apiBaseUrl }}/v1/scores/data/${score_id}`, function (data) {
                 Highcharts.chart({
-                    chart: {renderTo: sc, animation: false, backgroundColor: 'transparent', draggableY: false},
+                    chart: {renderTo: sc, animation: false, backgroundColor: 'transparent', draggableY: false, type: "scatter"},
                     title: {text: null},
                     rangeSelector: {enabled: false},
                     navigator: {enabled: false},
@@ -231,8 +231,9 @@
                                 radius: 1
                             },
                             tooltip: {
-                                pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}</b> ms<br/>'
-                                },
+                                pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}</b> ms<br/>',
+                                headerFormat: '<span style="font-size: 10px">{point.x}</span><br/>'
+                            },
                             turboThreshold: data.hits.length,
                             states: {
                                 hover: {lineWidthPlus: 0},

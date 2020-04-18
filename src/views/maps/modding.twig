@@ -123,11 +123,11 @@
                                             {% endfor %}
                                         </div>
                                     </div>
-                                    {% if currentUser and mod.mod.status == 'Pending' and map.ranked_status != 2 %}
+                                    {% if currentUser and map.ranked_status != 2 %}
                                         <div class="row">
                                             <div class="col-md-11 ml-auto">
                                                 <div class="mb-3 d-flex justify-content-between">
-                                                    {% if currentUser.id == map.creator_id %}
+                                                    {% if currentUser.id == map.creator_id and mod.mod.status == 'Pending' %}
                                                         <div>
                                                             <form method="POST" accept-charset="UTF-8">
                                                                 <input type="hidden" name="mod_id" value="{{ mod.mod.id }}">
@@ -145,12 +145,21 @@
                                                                 </button>
                                                             </form>
                                                         </div>
+                                                        {% else %}
+                                                    <div>
+                                                        <form method="POST" accept-charset="UTF-8">
+                                                            <input type="hidden" name="mod_id" value="{{ mod.mod.id }}">
+                                                            <button type="submit" name="mod_revert" class="btn btn-warning btn-xs">
+                                                                <i class="fas fa-undo"></i>
+                                                                Revert
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                     {% endif %}
                                                     <button type="button" data-toggle="collapse" data-target="#comment_{{ mod.mod.id }}" class="btn btn-primary btn-xs collapsed" aria-expanded="false">
                                                         <i class="fas fa-reply"></i>
                                                         Reply
                                                     </button>
-
                                                 </div>
 
                                                 <div class="collapse" data-parent="#comments" id="comment_{{ mod.mod.id }}">
@@ -172,7 +181,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-            {% if currentUser and map.ranked_status != 2 and map.creator_id != currentUser.id %}
+            {% if currentUser and map.ranked_status != 2 %}
                 <div class="widget mt-4">
                     <div class="widget-header">
                         Submit a Mod
@@ -184,6 +193,7 @@
                             <div class="form-group">
                                 <label>The type of mod you want to give the user</label>
                                 <select name="type" class="form-control">
+                                    <option>None</option>
                                     <option>Issue</option>
                                     <option>Suggestion</option>
                                 </select>

@@ -43,10 +43,14 @@
     <div>
         {% if currentUser %}
             {% if not modding %}
-                <a type="button" href="#" class="btn btn-success">Create playlist</a>
+                <a type="button" href="#" class="btn btn-success">Add in Playlist</a>
             {% endif %}
             {% if currentUser.id == map.creator_id %}
-                <a type="button" href="#" class="btn btn-info" style="background-color: #45D6F5; border: none;">Submit For Rank</a>
+                <form method="POST" accept-charset="UTF-8" style="display: inline-block;">
+                    <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
+                    <button type="submit" name="submit_rank" class="btn btn-info" style="background-color: #45D6F5; border: none;">Submit For Rank</button>
+                    <button type="submit" name="submit_delete" class="btn btn-danger">Delete Mapset</button>
+                </form>
             {% endif %}
         {% endif %}
         {% if not modding %}

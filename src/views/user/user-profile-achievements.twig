@@ -4,10 +4,9 @@
             <div class="widget-header">Achievements</div>
         </div>
         <div class="widget widget-secondary">
-            <div class="widget-body">
-                <div class="row">
+            <div class="widget-body text-center">
                     {% for achievement in user.achievements %}
-                        <div class="col-lg-1 col-md-1 col-sm-1 mt-2 mb-2">
+                        <div class="mt-2 mb-2 mr-2 ml-1 d-inline-block">
                             <img src="/img/achievements/{{ achievement.id~(achievement.unlocked ? '' : '-locked') }}.png"
                                     width="67px" height="67px" data-toggle="tooltip" title="{{ achievement.name }}
 {{ achievement.difficulty }}
@@ -16,7 +15,6 @@
                         </div>
                     {% endfor %}
                 </div>
-            </div>
         </div>
     </div>
 </div>

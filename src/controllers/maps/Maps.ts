@@ -2,6 +2,7 @@ import Logger from "../../logging/Logger";
 import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import GameModeHelper from "../../utils/GameModeHelper";
+import ModStatus from "../../enums/ModStatus";
 
 const showdown  = require('showdown');
 const sanitizeHtml = require('sanitize-html');
@@ -166,39 +167,53 @@ export default class Maps {
 
 
     public static async HandlePost(req: any, res: any): Promise<any> {
-        if (typeof req.body.submit_mod !== 'undefined') {
-            await API.POST(req, `v1/maps/${req.params.id}/mods`, {
-                type: req.body.type,
-                timestamp: req.body.timestamp,
-                comment: req.body.comment
-            });
-        }
-
-        if (typeof req.body.submit_comment !== 'undefined') {
-            await API.POST(req, `v1/maps/mods/${req.body.mod_id}/comment`, {
-                comment: req.body.comment
-            });
-        }
-
-        if (typeof req.body.mod_accept !== 'undefined') {
-            await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
-                status: 1
-            });
-        }
-
-        if (typeof req.body.mod_deny !== 'undefined') {
-            await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
-                status: 2
-            });
-        }
-
-        if (typeof req.body.mod_ignore !== 'undefined') {
-            await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
-                status: 3
-            });
+        try {
+            if (typeof req.body.submit_mod !== 'undefined') {
+                await API.POST(req, `v1/maps/${req.params.id}/mods`, {
+                    type: req.body.type,
+                    timestamp: req.body.timestamp,
+                    comment: req.body.comment
+                });
+            } else if (typeof req.body.submit_comment !== 'undefined') {
+                await API.POST(req, `v1/maps/mods/${req.body.mod_id}/comment`, {
+                    comment: req.body.comment
+                });
+            } else if (typeof req.body.mod_accept !== 'undefined') {
+                await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
+                    status: ModStatus.Accepted
+                });
+            } else if (typeof req.body.mod_deny !== 'undefined') {
+                await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
+                    status: ModStatus.Denied
+                });
+            } else if (typeof req.body.mod_ignore !== 'undefined') {
+                await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
+                    status: ModStatus.Ignored
+                });
+            } else if (typeof req.body.mod_revert !== 'undefined') {
+                await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
+                    status: ModStatus.Pending
+                });
+            }
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
         }
 
         res.redirect(303, `/mapset/map/${req.params.id}/mods`);
+    }
+
+    public static async DeleteMapset(req: any, res: any): Promise<any> {
+        try {
+            if (typeof req.body.submit_delete !== 'undefined') {
+                await API.POST(req, `v1/mapsets/${req.body.mapset_id}/delete`);
+            }
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
+
+        res.redirect(303, `/`);
     }
 
     /**
@@ -257,7 +272,7 @@ export default class Maps {
     private static async FetchMap(req: any, id: number): Promise<any> {
         try {
             const response = await API.GET(req, `v1/maps/${id}`);
-
+            console.log(response.status);
             if (response.status != 200)
                 return null;
 

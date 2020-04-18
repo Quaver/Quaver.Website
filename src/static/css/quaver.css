@@ -435,6 +435,10 @@ body {
     padding: 15px 20px 15px 20px;
 }
 
+.mapset a:hover {
+    color: #45D6F5;
+}
+
 .mapset-info {
     display: flex;
     justify-content: space-between;

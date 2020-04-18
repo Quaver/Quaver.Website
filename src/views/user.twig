@@ -104,11 +104,11 @@
 {% block style %}{% endblock %}
 
 {% block scripts %}
-    <script src="/js/mustache.js"></script>
-    <script defer src="/js/moment.min.js"></script>
-    <script defer src="/js/user.js"></script>
-    <script src="https://code.highcharts.com/stock/highstock.js"></script>
-    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+    <script src="{{ assets('/js/plugins/mustache.js') }}"></script>
+    <script defer src="{{ assets('/js/plugins/moment.min.js') }}"></script>
+    <script defer src="{{ assets('/js/user.js') }}"></script>
+    <script defer src="{{ assets('/js/plugins/highstock.js') }}"></script>
+    <script defer src="{{ assets('/js/plugins/data.js') }}"></script>
 {% endblock %}
 
 {% block page_scripts %}{% endblock %}

@@ -3,10 +3,74 @@
         <div class="widget">
             <div class="widget-header">Uploaded Mapsets</div>
         </div>
-        <div class="widget widget-secondary">
-            <div class="widget-body">
-                {% include '../helpers/mapsets.twig' with {'status': 'ranked', 'show': 10} %}
+        <div class="card">
+            <div class="card-header transparent p-0 border-0">
+                <div class="nav-tab-scroll">
+                    <div class="nav nav-tabs" id="tab_maps" role="tablist">
+                        <a class="nav-item nav-link active" id="ranked-tab" data-toggle="tab" href="#ranked" role="tab" aria-controls="ranked" aria-selected="false">Ranked</a>
+                        <a class="nav-item nav-link" id="unranked-tab" data-toggle="tab" href="#unranked" role="tab" aria-controls="unranked" aria-selected="false">Unranked</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="tab">
+                    <div class="tab-pane fade show active" id="ranked" role="tabpanel" aria-labelledby="ranked-tab">
+                        {% include '../helpers/mapsets.twig' with {'table': 'ranked', 'data': mapSetsRanked} %}
+                    </div>
+                    <div class="tab-pane fade show" id="unranked" role="tabpanel" aria-labelledby="unranked-tab">
+                        {% include '../helpers/mapsets.twig' with {'table': 'unranked', 'data': mapSetsUnRanked} %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script type="x-tmpl-mustache" id="maps-template" type="text/template">
+    <div class="mapset" style="background: linear-gradient(0deg, rgba(47, 47, 47, 0.2), rgba(47, 47, 47, 0.2)), linear-gradient(0deg, rgba(10, 9, 9, 0.5), rgba(10, 9, 9, 0.5)), url('https://cdn.quavergame.com/banners/[[id]]_banner.jpg');background-size: cover;">
+        <div class="mapset-info">
+            <div>
+                <div class="mapset-song">
+                    {#                    Worldwide Choppers - Tech N9ne ft. Busta Rhymes, Yelawolf, Twisted Insane, Ceza, JL, Twista, U$O, & D-Loc#}
+                    Title
+                </div>
+                <div class="mapset-difficulty">
+                    <i class="fas fa-chart-line"></i> 1.69 - 7.69
+                </div>
+            </div>
+            <div>
+                <div class="mapset-info-right">
+                    <div class="mapset-4k-7k">4K/7K</div>
+                    <div class="mapset-ranked">Ranked</div>
+                </div>
+                <div class="mapset-info-download">
+                    <a href="#">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    let template_maps = null;
+
+    window.addEventListener('DOMContentLoaded', () => {
+        template_maps = $('#maps-template').html();
+
+        $('.getMoreMapsEvent').on('click', function () {
+            getMoreMapsEvent($(this).data('table'));
+        });
+    });
+
+    let pages_maps = {
+        "ranked": 1,
+        "unranked": 1
+    };
+
+    function getMoreMapsEvent(table) {
+
+    }
+
+</script>

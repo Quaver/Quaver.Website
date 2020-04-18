@@ -112,7 +112,7 @@ export default class Users {
      * @param user
      */
     private static async GetUploadedMapSetsUnRanked(req: any, res: any, user: any): Promise<any> {
-        const unranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=2`);
+        const unranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=1`);
 
         return unranked.mapsets;
     }

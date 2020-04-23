@@ -13,120 +13,107 @@ function sortData(data) {
         else miss.push({x: key, y: value});
     });
 
-    return [{data: marv, name: "Marvelous"}, {data: perf, name: "Perfect"}, {data: great, name: "Great"}, {data: good, name: "Good"}, {data: okay, name: "Okay"}, {data: miss, name: "Miss"}];
+    return {
+        datasets: [
+        {
+            pointRadius: 1,
+            label: 'Marv',
+            borderColor: '#FBFFB6',
+            backgroundColor: '#FBFFB6',
+            data: marv
+        },
+        {
+            pointRadius: 1,
+            label: 'Perf',
+            borderColor: '#F2C94C',
+            backgroundColor: '#F2C94C',
+            data: perf
+        },
+        {
+            pointRadius: 1,
+            label: 'Great',
+            borderColor: '#56FE6E',
+            backgroundColor: '#56FE6E',
+            data: great
+        },
+        {
+            pointRadius: 1,
+            label: 'Good',
+            borderColor: '#0FBAE5',
+            backgroundColor: '#0FBAE5',
+            data: good
+        },
+        {
+            pointRadius: 1,
+            label: 'Okay',
+            borderColor: '#EE5FAC',
+            backgroundColor: '#EE5FAC',
+            data: okay
+        },
+        {
+            pointRadius: 1,
+            label: 'Miss',
+            borderColor: '#F9645D',
+            backgroundColor: '#F9645D',
+            data: miss
+        }
+    ]};
 }
 
 function loadChart(table_class, score_id, total_marv, total_perf, total_great, total_good, total_okay, total_miss) {
-    loadScatter(table_class, score_id);
-    loadJudgements(table_class, score_id, total_marv, total_perf, total_great, total_good, total_okay, total_miss);
+    $.ajax({
+        type: 'GET',
+        url: apiBaseUrl() + `/v1/scores/data/${score_id}`,
+        success: function (response) {
+            loadScatter(table_class, score_id, response.hits);
+            loadJudgements(table_class, score_id, total_marv, total_perf, total_great, total_good, total_okay, total_miss);
+        }
+    })
 }
 
-function loadScatter(table_class, score_id) {
+function loadScatter(table_class, score_id, data) {
     let sc = document.getElementsByClassName('scatterScore_' + table_class + '_' + score_id)[0];
 
-    Highcharts.getJSON(apiBaseUrl() + `/v1/scores/data/${score_id}`, function (data) {
-        Highcharts.chart({
-            chart: {renderTo: sc, animation: false, backgroundColor: 'transparent', draggableY: false, type: "scatter"},
-            title: {text: null},
-            rangeSelector: {enabled: false},
-            navigator: {enabled: false},
-            credits: {enabled: false},
-            xAxis: {visible: false},
-            yAxis: {
-                height: 230,
-                visible: true,
-                gridLineWidth: 0,
-                labels: {enabled: true},
-                title: {text: null},
-                tickPositions: [-164, 0, 164],
-                plotBands: [
-                    {
-                        from: 164,
-                        to: 127,
-                        color: "rgba(249, 100, 93, 0.1)"
-                    },
-                    {
-                        from: 127,
-                        to: 106,
-                        color: "rgba(238, 95, 172, 0.1)"
-                    },
-                    {
-                        from: 106,
-                        to: 76,
-                        color: "rgba(15, 186, 229, 0.1)"
-                    },
-                    {
-                        from: 76,
-                        to: 43,
-                        color: "rgba(86, 254, 110, 0.1)"
-                    },
-                    {
-                        from: 43,
-                        to: 18,
-                        color: "rgba(242, 201, 76, 0.1)"
-                    },
-                    {
-                        from: 18,
-                        to: 0,
-                        color: "rgba(251, 255, 182, 0.1)"
-                    },
-                    {
-                        from: 0,
-                        to: -18,
-                        color: "rgba(251, 255, 182, 0.1)"
-                    },
-                    {
-                        from: -18,
-                        to: -43,
-                        color: "rgba(242, 201, 76, 0.1)"
-                    },
-                    {
-                        from: -43,
-                        to: -76,
-                        color: "rgba(86, 254, 110, 0.1)"
-                    },
-                    {
-                        from: -76,
-                        to: -106,
-                        color: "rgba(15, 186, 229, 0.1)"
-                    },
-                    {
-                        from: -106,
-                        to: -127,
-                        color: "rgba(238, 95, 172, 0.1)"
-                    },
-                    {
-                        from: -127,
-                        to: -164,
-                        color: "rgba(249, 100, 93, 0.1)"
-                    }
-                ]
-            },
-            legend: {enabled: false},
-            plotOptions: {
-                series: {
-                    enableMouseTracking: true,
-                    animation: false,
-                    lineWidth: 0,
-                    marker: {
-                        symbol: 'circle',
-                        enabled: true,
-                        radius: 1
-                    },
-                    tooltip: {
-                        pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}</b> ms<br/>',
-                        headerFormat: '<span style="font-size: 10px">{point.x}</span><br/>'
-                    },
-                    turboThreshold: data.hits.length,
-                    states: {
-                        hover: {lineWidthPlus: 0},
-                        inactive: {enabled: false}
-                    }
+    new Chart(sc, {
+        type: 'scatter',
+        data: sortData(data),
+        options: {
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 10,
+                    bottom: 10
                 }
             },
-            colors: ['#FBFFB6', '#F2C94C', '#56FE6E', '#0FBAE5', '#EE5FAC', '#F9645D'],
-            series: sortData(data.hits)
-        });
+            responsive: true,
+            legend: {
+                display: false
+            },    
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: true
+                    },
+                    ticks: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 3,
+                        min: -164,
+                        max: 164,
+                        beginAtZero: true,
+                        display: true
+                    }
+                }]
+            }
+        }
     });
 }
 

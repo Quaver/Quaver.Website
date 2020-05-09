@@ -36,14 +36,14 @@ export default class Router {
         router.route("/mapset/map/:id/mods").post(Maps.HandlePost);
 
         // Redirect old routes
-        router.get('/profile/*', function(req, res){
+        router.get('/profile/*', function(req:any, res:any){
             res.redirect(301, '/user/' + req.params[0], );
         });
-        router.get('/maps/*', function(req, res){
+        router.get('/maps/*', function(req:any, res:any){
             res.redirect(301, '/mapset/' + req.params[0]);
         });
 
-        router.route("*").get((req, res) => res.send("404"));
+        router.route("*").get((req:any, res:any) => res.send("404"));
 
         return router;
     }

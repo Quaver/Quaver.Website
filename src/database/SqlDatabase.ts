@@ -1,4 +1,5 @@
-import * as mysql from "mysql";
+// @ts-ignore
+import * as mysql from "mysql2";
 import Logger from "../logging/Logger";
 
 export default class SqlDatabase {

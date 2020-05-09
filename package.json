@@ -36,6 +36,7 @@
     "connect-redis": "^4.0.4",
     "cookie-parser": "^1.4.5",
     "date-fns": "^2.13.0",
+    "domelementtype": "^2.0.1",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",

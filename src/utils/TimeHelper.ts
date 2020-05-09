@@ -1,15 +1,15 @@
-import { format, formatDistance, subDays, parseISO } from 'date-fns'
+import * as fs from 'date-fns'
 
 export default class TimeHelper {
 
     public static formatDateDistance(time: any): string {
-        return formatDistance(subDays(parseISO(time), 0), new Date(), {
+        return fs.formatDistance(fs.subDays(fs.parseISO(time), 0), new Date(), {
             addSuffix: true
         });
     }
 
     public static formatDate(time: any): string {
-        return format(new Date(parseISO(time)), "dd.MM.yyyy");
+        return fs.format(new Date(fs.parseISO(time)), "dd.MM.yyyy");
     }
 
     public static formatTime(millis: any): string {

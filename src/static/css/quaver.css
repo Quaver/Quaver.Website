@@ -431,8 +431,13 @@ body {
 .mapset {
     border-radius: 6px;
     height: 96px;
+    color: #ffffff;
     margin-bottom: 10px;
     padding: 15px 20px 15px 20px;
+}
+
+.mapset a {
+    color: #ffffff;
 }
 
 .mapset a:hover {
@@ -480,7 +485,17 @@ body {
 .mapset-song {
     font-size: 20px;
     font-weight: 600;
-    letter-spacing: 0.05em;font-family: 'Lato', sans-serif;
+    letter-spacing: 0.05em;
+    font-family: 'Lato', sans-serif;
+    display: inline;
+}
+
+.mapset-song.longboy span{
+    width: 80%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .mapset-difficulty {
@@ -776,4 +791,41 @@ body {
     #mobile-search {
         display: block;
     }
+}
+
+/* Maps search */
+
+#filters input {
+    background-color: transparent;
+    border: 1px solid #393939;
+    border-radius: 4px;
+    padding: 10px 20px 12px 20px;
+    transition: .5s;
+}
+
+#filters input::placeholder {
+    color: #666;
+}
+
+#filters input:focus {
+    background-color: #393939;
+    border-color: #393939;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: white;
+}
+
+#filters input::-webkit-outer-spin-button,
+#filters input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#filters input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#filters .custom-control-label::before {
+    background-color: transparent;
+    border-color: #393939;
 }

@@ -18,6 +18,8 @@ export default class Router {
         router.route("/leaderboard").get(LeaderBoard.GET);
         router.route("/leaderboard/hits").get(LeaderBoard.TotalHitsGET);
         router.route("/leaderboard/multiplayer").get(LeaderBoard.MultiplayerGET);
+        router.route('/maps').get(Maps.MapsGET);
+        router.route('/maps/more').get(Maps.MapsSearchGET);
         router.route("/mapset/:id").get(Maps.MapsetGET);
         router.route("/mapset/map/:id").get(Maps.MapGET);
         router.route("/mapset/map/:id/mods").get(Maps.ModsGET);

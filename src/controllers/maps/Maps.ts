@@ -3,11 +3,54 @@ import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import GameModeHelper from "../../utils/GameModeHelper";
 import ModStatus from "../../enums/ModStatus";
+import GameMode from "../../enums/GameMode";
+import RankedStatus from "../../enums/RankedStatus";
 
 const showdown  = require('showdown');
 const sanitizeHtml = require('sanitize-html');
 
 export default class Maps {
+
+    /**
+     * Fetches and returns maps
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static async MapsGET(req: any, res: any): Promise<void> {
+        try {
+            const maps = await Maps.FetchMaps(req);
+            const search = (req.query.search) ? req.query.search : '';
+            const status = (req.query.status) ? req.query.status : 2;
+            const mode = (req.query.mode) ? req.query.mode : 1;
+
+            Responses.Send(req, res, "maps", `Maps | Quaver`, {
+                maps: maps,
+                search: search,
+                status: status,
+                mode: mode
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
+    }
+
+    /**
+     * Fetches and returns maps
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static async MapsSearchGET(req: any, res: any): Promise<void> {
+        try {
+            res.json(await Maps.FetchMaps(req));
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
+    }
+
     /**
      *  Fetches and returns the page which displays an individual mapset
      * @param req 
@@ -201,6 +244,35 @@ export default class Maps {
         }
 
         res.redirect(303, `/mapset/map/${req.params.id}/mods`);
+    }
+
+    private static async FetchMaps(req: any): Promise<any> {
+        try {
+
+            console.log(req);
+
+            const search: string = (req.query.search) ? req.query.search : '';
+            const modes: number[] = (req.query.mode) ? req.query.mode : 1;
+            const status: number[] = (req.query.status) ? req.query.status : 2;
+            const page: number = (!isNaN(req.query.page) && req.query.page >= 0) ? req.query.page : 0;
+            const limit: number = (req.query.limit && req.query.limit <= 50 && req.query.limit > 0 && !isNaN(req.query.limit))
+                ? req.query.limit : 50;
+
+            const response = await API.GET(req, `v1/mapsets/maps/search`, {
+                search,
+                modes,
+                status,
+                page,
+                limit
+            });
+
+            if (response.status != 200)
+                return null;
+            return response.mapsets;
+        } catch (err) {
+            Logger.Error(err);
+            return null;
+        }
     }
 
     public static async DeleteMapset(req: any, res: any): Promise<any> {

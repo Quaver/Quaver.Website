@@ -51,6 +51,5 @@
     "string.prototype.matchall": "^4.0.0",
     "twig": "^1.15.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

@@ -1,7 +1,9 @@
 import Logger from "../../logging/Logger";
 import Responses from "../../utils/Responses";
 import API from "../../api/API";
+// @ts-ignore
 import bbobHTML from '@bbob/html';
+// @ts-ignore
 import presetHTML5 from '@bbob/preset-html5';
 import sanitizeHtml = require("sanitize-html");
 

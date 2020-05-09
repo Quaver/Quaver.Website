@@ -10,6 +10,7 @@ const config = require("./config/config.json");
 const twig = require("twig");
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
+const cookieParser = require('cookie-parser');
 const redis = require('redis');
 const client = redis.createClient();
 
@@ -46,6 +47,8 @@ export default class Server {
 
         this.ExpressApp.set("view engine", "twig");
         this.ExpressApp.set("view options", {layout: false});
+
+        this.ExpressApp.use(cookieParser());
 
         if (config.environment === "development") {
             // Disable twig cache

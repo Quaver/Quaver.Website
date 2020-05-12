@@ -3,6 +3,7 @@ import UserHelper from "./UserHelper";
 import UserGroups from "../enums/Usergroups";
 import TimeHelper from "./TimeHelper";
 import EnvironmentHelper from "./EnvironmentHelper";
+import Privileges from "../enums/Privileges";
 
 export default class Responses {
     /**
@@ -22,7 +23,9 @@ export default class Responses {
             title, 
             currentUser: req.user,
             HasGroup: UserHelper.HasGroup,
+            HasPrivilege: UserHelper.HasPrivilege,
             UserGroups: UserGroups,
+            Privileges: Privileges,
             formatDateDistance: TimeHelper.formatDateDistance,
             formatDate: TimeHelper.formatDate,
             formatTime: TimeHelper.formatTime

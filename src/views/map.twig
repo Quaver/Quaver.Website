@@ -99,7 +99,7 @@
                                 <span class="mapset-buttons pending">Not Submitted</span>
                             {% endif %}
                         {% else %}
-                            <span class="mapset-buttons ranked">Ranked</span>
+{#                            <span class="mapset-buttons ranked">Ranked</span>#}
                         {% endif %}
                     </div>
                 </div>
@@ -107,6 +107,7 @@
             <div class="card">
                 <div class="card-body">
                     <div id="comments" class="comments">
+                        {% if not comments|length %} No Comments{% endif %}
                         {% for comment in comments %}
                             <div class="media">
                                 <div class="avatar">
@@ -139,24 +140,26 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <h5 class="mt-5">Leave a comment</h5>
-                    <form>
-                        <div class="form-group mb-4">
-                            <textarea class="form-control queue-comment-textarea" rows="5"></textarea>
-                            <small class="form-text text-muted">Your comment must be between 0 and 2,000 characters!</small>
-                        </div>
-                        <button type="button" class="btn btn-primary">Submit comment</button>
-                    </form>
+                    {% if currentUser and map.ranked_status != 2 and UserHelper.HasPrivilege(user.info, Privileges.RankMapsets) %}
+                        <h5 class="mt-5">Leave a comment</h5>
+                        <form>
+                            <div class="form-group mb-4">
+                                <textarea class="form-control queue-comment-textarea" rows="5"></textarea>
+                                <small class="form-text text-muted">Your comment must be between 0 and 2,000 characters!</small>
+                            </div>
+                            <button type="button" class="btn btn-primary">Submit comment</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </section>
 
-{#    <h1>MAPSET</h1>#}
-{#    {{ dump(mapset) }}#}
+    {#    <h1>MAPSET</h1>#}
+    {#    {{ dump(mapset) }}#}
 
-{#    <h1>MAP</h1>#}
-{#    {{ dump(map) }}#}
+    {#    <h1>MAP</h1>#}
+    {#    {{ dump(map) }}#}
 
 {% endblock %}
 

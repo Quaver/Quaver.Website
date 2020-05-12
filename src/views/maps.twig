@@ -17,8 +17,8 @@
     <section>
         <div class="container">
             <form method="GET">
-                <input type="hidden" name="mode" value="{{ mode }}">
-                <input type="hidden" name="status" value="{{ status }}">
+{#                <input type="hidden" name="mode" value="{{ mode }}">#}
+{#                <input type="hidden" name="status" value="{{ status }}">#}
 
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ search }}">
@@ -39,13 +39,13 @@
                             <div class="col-sm-10">
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="mode[]" class="custom-control-input" id="mode1">
+                                        <input type="checkbox" name="mode" class="custom-control-input" id="mode1" value="1">
                                         <label class="custom-control-label" for="mode1">4 Keys</label>
                                     </div>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="mode[]" class="custom-control-input" id="mode2">
+                                        <input type="checkbox" name="mode" class="custom-control-input" id="mode2" value="2">
                                         <label class="custom-control-label" for="mode2">7 Keys</label>
                                     </div>
                                 </div>
@@ -56,13 +56,13 @@
                             <div class="col-sm-10">
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="status[]" class="custom-control-input" id="ranked">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="ranked">
                                         <label class="custom-control-label" for="ranked">Ranked</label>
                                     </div>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="status[]" class="custom-control-input" id="unranked">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="unranked">
                                         <label class="custom-control-label" for="unranked">Unranked</label>
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" name="submit_advanced">Search</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </div>
                 </div>
             </form>

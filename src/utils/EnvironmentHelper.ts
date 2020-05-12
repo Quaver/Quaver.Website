@@ -21,9 +21,9 @@ export default class EnvironmentHelper {
             return path;
         } else if (config.environment === "production") {
             if (rev)
-                return `${config.baseUrl}${path}?v=${revision}`;
+                return `${config.staticUrl}${path}?v=${revision}`;
             else
-                return `${config.baseUrl}${path}`;
+                return `${config.staticUrl}${path}`;
         } else {
             // Fall back use static
             return path;

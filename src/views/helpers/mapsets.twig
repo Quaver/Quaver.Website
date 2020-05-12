@@ -8,7 +8,7 @@
             <div class="mapset-info">
                 <div>
                     <div class="mapset-song">
-                        <a href="{{ baseUrl('/mapset/'~map.id) }}">{{ map.artist }} - {{ map.title }}</a>
+                        <a href="{{ baseUrl('/mapset/'~map.id) }}">{{ (map.artist ~ ' - ' ~ map.title)|slice(0, 50) }}</a>
                     </div>
                     <div class="mapset-difficulty">
                         <i class="fas fa-chart-line"></i>

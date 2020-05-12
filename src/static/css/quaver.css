@@ -490,13 +490,13 @@ body {
     display: inline;
 }
 
-.mapset-song.longboy span{
-    width: 80%;
-    display: inline-block;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
+/*.mapset-song.longboy span{*/
+/*    width: 80%;*/
+/*    display: inline-block;*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
+/*    overflow: hidden;*/
+/*}*/
 
 .mapset-difficulty {
     margin-top: 15px;

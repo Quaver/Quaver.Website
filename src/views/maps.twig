@@ -157,7 +157,7 @@
                         <div style="display: inline">
                             <div class="mapset-song {% if (map.artist~map.title)|length > 60 %}longboy{% endif %}">
                                 <a href="{{ baseUrl('/mapset/'~map.id) }}">
-                                    <span>{{ map.artist }} - {{ map.title }}</span>
+                                    <span>{{ (map.artist ~ ' - ' ~ map.title)|slice(0, 80) }}</span>
                                 </a>
                             </div>
                             <div class="mapset-difficulty">

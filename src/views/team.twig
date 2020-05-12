@@ -17,14 +17,13 @@
         <div class="container">
             <div class="widget">
                 <div class="widget-header">
-                    Developers<br>
+                    Developers
+                    <br>
                     <small>Developers are responsible for adding new features, fixing existing bugs, and maintaining Quaver's game and web servers.</small>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body text-center">
-{#                    <h3>Developers</h3>#}
-{#                    <p>Developers are responsible for adding new features, fixing existing bugs, and maintaining Quaver's game and web servers.</p>#}
                     <div class="row team-center">
                         {% for user in team.developers %}
                             <div class="col-sm-3">
@@ -41,7 +40,9 @@
                                     <br>
                                     <div class="team-text">
                                         <div class="team-name">
-                                            <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            </a>
                                             <a href="/profile/{{ user.id }}">{{ user.username }}</a>
                                         </div>
                                         <div class="team-description">
@@ -61,15 +62,14 @@
 
             <div class="widget">
                 <div class="widget-header">
-                    Administrator<br>
+                    Administrator
+                    <br>
                     <small>Administrators are responsible for handling bans, mutes, and player support. They also involve themselves directly in the community to keep Quaver up and running.</small>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body text-center">
-{#                    <h3>Administrator</h3>#}
-{#                    <p>Administrators are responsible for handling bans, mutes, and player support. They also involve themselves directly in the community to keep Quaver up and running.</p>#}
                     <div class="row team-center">
                         {% for user in team.admins %}
                             <div class="col-sm-3">
@@ -86,7 +86,9 @@
                                     <br>
                                     <div class="team-text">
                                         <div class="team-name">
-                                            <img src="/img/flags/{{ user.country }}.png" alt="{{ user.country }}">
+                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            </a>
                                             <a href="/profile/{{ user.id }}">{{ user.username }}</a>
                                         </div>
                                         <div class="team-description">
@@ -106,14 +108,13 @@
 
             <div class="widget">
                 <div class="widget-header">
-                    Moderators<br>
+                    Moderators
+                    <br>
                     <small>Moderators are responsible for handling mutes and keeping the in-game and Discord chats clean and free of spam.</small>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body text-center">
-{#                    <h3>Moderators</h3>#}
-{#                    <p>Moderators are responsible for handling mutes and keeping the in-game and Discord chats clean and free of spam.</p>#}
                     <div class="row team-center">
                         {% for user in team.moderators %}
                             <div class="col-sm-2">
@@ -130,7 +131,9 @@
                                     <br>
                                     <div class="team-text">
                                         <div class="team-name">
-                                            <img src="/img/flags/{{ user.country }}.png" alt="{{ user.country }}">
+                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            </a>
                                             <a href="/profile/{{ user.id }}">{{ user.username }}</a>
                                         </div>
                                         <div class="team-description">
@@ -150,14 +153,13 @@
 
             <div class="widget">
                 <div class="widget-header">
-                    Ranking Supervisors<br>
+                    Ranking Supervisors
+                    <br>
                     <small>Ranking Supervisors are responsible for reviewing maps in the ranking queue.</small>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body text-center">
-{#                    <h3>Ranking Supervisors</h3>#}
-{#                    <p>Ranking Supervisors are responsible for reviewing maps in the ranking queue.</p>#}
                     <div class="row team-center">
                         {% for user in team.rankingSupervisors %}
                             <div class="col-sm-2">
@@ -174,7 +176,9 @@
                                     <br>
                                     <div class="team-text">
                                         <div class="team-name">
-                                            <img src="/img/flags/{{ user.country }}.png" alt="{{ user.country }}">
+                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            </a>
                                             <a href="/profile/{{ user.id }}">{{ user.username }}</a>
                                         </div>
                                         <div class="team-description">

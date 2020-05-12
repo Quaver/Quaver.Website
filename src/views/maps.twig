@@ -56,13 +56,13 @@
                             <div class="col-sm-10">
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="status" class="custom-control-input" id="ranked">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="ranked" value="2">
                                         <label class="custom-control-label" for="ranked">Ranked</label>
                                     </div>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="status" class="custom-control-input" id="unranked">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="unranked" value="1">
                                         <label class="custom-control-label" for="unranked">Unranked</label>
                                     </div>
                                 </div>
@@ -71,19 +71,19 @@
                         <div class="form-group row">
                             <label class="col-sm-2">Difficulty rating:</label>
                             <div class="col-sm-3">
-                                <input class="form-control" type="number" value="" placeholder="Min Rating">
+                                <input class="form-control" type="number" name="mindiff" value="" placeholder="Min Rating">
                             </div>
                             <div class="col-sm-3">
-                                <input class="form-control" type="number" value="" placeholder="Max Rating">
+                                <input class="form-control" type="number" name="maxdiff" value="" placeholder="Max Rating">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Length:</label>
                             <div class="col-sm-3">
-                                <input class="form-control" type="number" value="" placeholder="Min Length">
+                                <input class="form-control" type="number" name="minlen" value="" placeholder="Min Length">
                             </div>
                             <div class="col-sm-3">
-                                <input class="form-control" type="number" value="" placeholder="Max Length">
+                                <input class="form-control" type="number" name="maxlen" value="" placeholder="Max Length">
                             </div>
                         </div>
                         <div class="text-center mb-3">
@@ -93,55 +93,55 @@
                             <div class="form-group row">
                                 <label class="col-sm-2">BPM:</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="number" value="" placeholder="Min BPM">
+                                    <input class="form-control" type="number" name="minbpm" value="" placeholder="Min BPM">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="number" value="" placeholder="Max BPM">
+                                    <input class="form-control" type="number" name="maxbpm" value="" placeholder="Max BPM">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Long Note %:</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="number" value="" placeholder="Min LN%">
+                                    <input class="form-control" type="number" name="minnote" value="" placeholder="Min LN%">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="number" value="" placeholder="Max LN%">
+                                    <input class="form-control" type="number" name="maxnote" value="" placeholder="Max LN%">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Ranked Play Count:</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="number" value="" placeholder="Min Plays">
+                                    <input class="form-control" type="number" name="minpc" value="" placeholder="Min Plays">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="number" value="" placeholder="Max Plays">
+                                    <input class="form-control" type="number" name="maxpc" value="" placeholder="Max Plays">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Max Combo:</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="number" value="" placeholder="Min Combo">
+                                    <input class="form-control" type="number" name="mixcombo" value="" placeholder="Min Combo">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="number" value="" placeholder="Max Combo">
+                                    <input class="form-control" type="number" name="maxcombo" value="" placeholder="Max Combo">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Upload Date:</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="date" value="" placeholder="Start Date">
+                                    <input class="form-control" type="date" name="mindateu" value="" placeholder="Start Date">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="date" value="" placeholder="End Date">
+                                    <input class="form-control" type="date" name="maxdateu" value="" placeholder="End Date">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Last Uploaded Date:</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="date" value="" placeholder="Start Date">
+                                    <input class="form-control" type="date" name="mindatelu" value="" placeholder="Start Date">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="date" value="" placeholder="End Date">
+                                    <input class="form-control" type="date" name="maxdatelu" value="" placeholder="End Date">
                                 </div>
                             </div>
                         </div>

@@ -283,7 +283,7 @@ export default class Maps {
                 maxcombo: req.query.maxcombo,
                 mindate: minDate,
                 maxdate: maxDate,
-                mindatelastupdated: minUpdateDate
+                mindatelastupdated: minUpdateDate,
                 maxdatelastupdated: maxUpdateDate
             });
 

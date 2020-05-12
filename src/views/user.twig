@@ -10,7 +10,7 @@
                     </a>
                     <h2 class="h4 text-white mb-0 ml-2 pl-lg-8">
                         <a href="#">
-                            <img src="/img/flags/{{ user.info.country }}.png" alt="{{ user.info.country }}">
+                            <img src="{{ assets('/img/flags/'~user.info.country~'.png') }}" alt="{{ user.info.country }}">
                         </a>
                         {{ user.info.username }}
                         <div class="status">

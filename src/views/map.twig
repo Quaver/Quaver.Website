@@ -41,7 +41,7 @@
                             <tr>
                                 <td>{{ loop.index }}</td>
                                 <td>
-                                    <img src="/img/grades/{{ score.grade }}.png" alt="{{ score.grade }}" title="{{ score.grade }}" width="30px" height="30px">
+                                    <img src="{{ assets('/img/grades/'~score.grade~'.png') }}" alt="{{ score.grade }}" title="{{ score.grade }}" width="30px" height="30px">
                                 </td>
                                 <td style="text-align: left;">
                                     <a href="{{ baseUrl('/leaderboard?country='~score.user.country|lower) }}">

@@ -1,7 +1,7 @@
 {% extends "layouts/app.twig" %}
 {% block content %}
     <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
-        <img class="background" src="{{ assets('img/cover.jpg') }}" alt="">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
         <div class="container">
             <div class="row align-items-center text-center">
                 <div class="col-md-8 mx-auto">
@@ -34,14 +34,14 @@
                                             {% if user.avatar_url %}
                                                 <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
                                             {% else %}
-                                                <img src="/img/noavatar.jpg" alt="{{ user.username }}">
+                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
                                             {% endif %}
                                         </a>
                                     </div>
                                     <br>
                                     <div class="team-text">
                                         <div class="team-name">
-                                            <img src="/img/flags/{{ user.country }}.png" alt="{{ user.country }}">
+                                            <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
                                             <a href="/profile/{{ user.id }}">{{ user.username }}</a>
                                         </div>
                                         <div class="team-description">

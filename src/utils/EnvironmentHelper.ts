@@ -16,7 +16,7 @@ export default class EnvironmentHelper {
         return config.apiBaseUrl + path;
     }
 
-    public static assets(path: string, rev?: boolean): string {
+    public static assets(path: string, rev: boolean = false): string {
         if (config.environment === "development") {
             return path;
         } else if (config.environment === "production") {

@@ -829,3 +829,15 @@ body {
     background-color: transparent;
     border-color: #393939;
 }
+
+.card-bottom {
+    margin-bottom: 50px;
+}
+
+.modding-bottom {
+    margin-bottom: 35px;
+}
+
+.mg-bottom {
+    margin-bottom: 30px;
+}

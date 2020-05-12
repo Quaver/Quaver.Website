@@ -36,7 +36,7 @@
     [$#scores$]
     <tr style="text-align: center">
         <td>
-            <img src="/img/grades/[$grade$].png" alt="[$grade$]" title="[$grade$]" width="30px" height="30px">
+            <img src="[$grade_url$]" alt="[$grade$]" title="[$grade$]" width="30px" height="30px">
         </td>
         <td>
             <a href="#">[$map.artist$] - [$map.title$] [[$ map.difficulty_name $]]</a>
@@ -117,6 +117,7 @@
                     value['performance_rating'] = value['performance_rating'].toFixed(2);
                     value['ratio'] = value['ratio'].toFixed(2);
                     value['time'] = durationParse(value['time']);
+                    value['grade_url'] = assetsUrl('/img/grades/' + value['grade'] + ".png");
                 });
                 response.table = table;
                 let info = Mustache.render(template, response);

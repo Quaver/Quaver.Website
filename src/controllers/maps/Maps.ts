@@ -29,7 +29,8 @@ export default class Maps {
                 maps: maps,
                 search: search,
                 status: status,
-                mode: mode
+                mode: mode,
+                form: req.query
             });
         } catch (err) {
             Logger.Error(err);
@@ -258,7 +259,6 @@ export default class Maps {
 
             let minDate = Maps.GetUnixTimestampFromDate(req.query.mindateu);
             let maxDate = Maps.GetUnixTimestampFromDate(req.query.maxdateu);
-
 
             let minUpdateDate = Maps.GetUnixTimestampFromDate(req.query.mindatelu);
             let maxUpdateDate = Maps.GetUnixTimestampFromDate(req.query.maxdatelu);

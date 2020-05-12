@@ -17,7 +17,7 @@
                 <td>{{ player.stats.rank }}</td>
                 <td>
                     <a href="{{ baseUrl('/leaderboard?country='~player.country|lower~'&mode='~mode) }}">
-                        <img src="/img/flags/{{ player.country }}.png" alt="{{ player.country }}">
+                        <img src="{{ assets('/img/flags/'~player.country~'.png') }}" alt="{{ player.country }}">
                     </a>
                     <a href="/user/{{ player.id }}">
                         {{ player.username }}

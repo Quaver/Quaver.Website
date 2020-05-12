@@ -16,9 +16,9 @@
 
     <section>
         <div class="container">
-            <form method="GET">
-{#                <input type="hidden" name="mode" value="{{ mode }}">#}
-{#                <input type="hidden" name="status" value="{{ status }}">#}
+            <form method="GET" id="maps_search">
+                {#                <input type="hidden" name="mode" value="{{ mode }}">#}
+                {#                <input type="hidden" name="status" value="{{ status }}">#}
 
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ search }}">
@@ -145,7 +145,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="button" class="btn btn-primary">Search</button>
                     </div>
                 </div>
             </form>
@@ -206,15 +206,15 @@
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
             $('button').on('click', function () {
-                const mode = $(this).data('mode');
-                const status = $(this).data('status');
-                if (mode) {
-                    $('input[name=mode]').val(mode);
-                }
+                console.log('hi');
+                event.preventDefault();
 
-                if (status) {
-                    $('input[name=status]').val(status);
-                }
+                $('#maps_search input').each(function () {
+                    const input = $(this);
+                    if (input.val() === "") {
+                        input.prop('disabled', true);
+                    }
+                });
 
                 $('form').submit();
             });

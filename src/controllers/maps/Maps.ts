@@ -8,6 +8,7 @@ import RankedStatus from "../../enums/RankedStatus";
 
 const showdown  = require('showdown');
 const sanitizeHtml = require('sanitize-html');
+const moment = require("moment");
 
 export default class Maps {
 
@@ -248,22 +249,42 @@ export default class Maps {
 
     private static async FetchMaps(req: any): Promise<any> {
         try {
-
-            console.log(req);
-
             const search: string = (req.query.search) ? req.query.search : '';
-            const modes: number[] = (req.query.mode) ? req.query.mode : 1;
+            const mode: number[] = (req.query.mode) ? req.query.mode : 1;
             const status: number[] = (req.query.status) ? req.query.status : 2;
             const page: number = (!isNaN(req.query.page) && req.query.page >= 0) ? req.query.page : 0;
             const limit: number = (req.query.limit && req.query.limit <= 50 && req.query.limit > 0 && !isNaN(req.query.limit))
                 ? req.query.limit : 50;
 
+            let minDate = Maps.GetUnixTimestampFromDate(req.query.mindateu);
+            let maxDate = Maps.GetUnixTimestampFromDate(req.query.maxdateu);
+
+
+            let minUpdateDate = Maps.GetUnixTimestampFromDate(req.query.mindatelu);
+            let maxUpdateDate = Maps.GetUnixTimestampFromDate(req.query.maxdatelu);
+
             const response = await API.GET(req, `v1/mapsets/maps/search`, {
                 search,
-                modes,
+                mode,
                 status,
                 page,
-                limit
+                limit,
+                mindiff : req.query.mindiff,
+                maxdiff: req.query.maxdiff,
+                minlength: req.query.minlen,
+                maxlength: req.query.maxlen,
+                minbpm: req.query.minbpm,
+                maxbpm: req.query.maxbpm,
+                minlns: req.query.minnote,
+                maxlns: req.query.maxnote,
+                minplaycount: req.query.minpc,
+                maxplaycount: req.query.maxpc,
+                mincombo: req.query.mincombo,
+                maxcombo: req.query.maxcombo,
+                mindate: minDate,
+                maxdate: maxDate,
+                mindatelastupdated: minUpdateDate
+                maxdatelastupdated: maxUpdateDate
             });
 
             if (response.status != 200)
@@ -344,7 +365,7 @@ export default class Maps {
     private static async FetchMap(req: any, id: number): Promise<any> {
         try {
             const response = await API.GET(req, `v1/maps/${id}`);
-            console.log(response.status);
+
             if (response.status != 200)
                 return null;
 
@@ -397,5 +418,16 @@ export default class Maps {
         return arr.slice().sort(function(a:any, b:any) {
             return a.difficulty_rating - b.difficulty_rating;
         });
+    }
+
+    /**
+     * Returns a unix timestamp from a YYYY-MM-DD formatted date
+     * @param date 
+     */
+    private static GetUnixTimestampFromDate(date: any): any {
+        if (!date)
+            return null;
+
+        return moment(date, 'YYYY/MM/DD').unix() * 1000;
     }
 }

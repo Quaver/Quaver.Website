@@ -99,7 +99,7 @@
                                 <span class="mapset-buttons pending">Not Submitted</span>
                             {% endif %}
                         {% else %}
-{#                            <span class="mapset-buttons ranked">Ranked</span>#}
+                            {#                            <span class="mapset-buttons ranked">Ranked</span>#}
                         {% endif %}
                     </div>
                 </div>
@@ -140,15 +140,17 @@
                             </div>
                         {% endfor %}
                     </div>
-                    {% if currentUser and map.ranked_status != 2 and (HasPrivilege(currentUser, Privileges.RankMapsets) or (currentUser.id == map.creator_id and mapset.ranking_queue_status != 1 )) %}
-                        <h5 class="mt-5">Leave a comment</h5>
-                        <form>
-                            <div class="form-group mb-4">
-                                <textarea class="form-control queue-comment-textarea" rows="5"></textarea>
-                                <small class="form-text text-muted">Your comment must be between 0 and 2,000 characters!</small>
-                            </div>
-                            <button type="button" class="btn btn-primary">Submit comment</button>
-                        </form>
+                    {% if currentUser %}
+                        {% if map.ranked_status != 2 and (HasPrivilege(currentUser, Privileges.RankMapsets) or (currentUser.id == map.creator_id and mapset.ranking_queue_status != 1 )) %}
+                            <h5 class="mt-5">Leave a comment</h5>
+                            <form>
+                                <div class="form-group mb-4">
+                                    <textarea class="form-control queue-comment-textarea" rows="5"></textarea>
+                                    <small class="form-text text-muted">Your comment must be between 0 and 2,000 characters!</small>
+                                </div>
+                                <button type="button" class="btn btn-primary">Submit comment</button>
+                            </form>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

@@ -13,7 +13,7 @@ export default class EnvironmentHelper {
 
     public static apiBaseUrl(path?: string): string {
         if(path === undefined) path = '';
-        return config.apiBaseUrl + path;
+        return config.apiBaseUrlPublic + path;
     }
 
     public static assets(path: string, rev: boolean = false): string {

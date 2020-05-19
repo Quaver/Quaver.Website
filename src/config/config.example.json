@@ -3,6 +3,7 @@
     "port": 8084,
     "baseUrl": "http://localhost:8084",
     "apiBaseUrl": "https://api.quavergame.com",
+    "apiBaseUrlPublic": "http://localhost:8082",
     "staticUrl": "",
     "expressSessionSecret": "",
     "expressSessionSecretRedis": "",

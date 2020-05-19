@@ -1,13 +1,14 @@
 import Logger from "../../logging/Logger";
 import Responses from "../../utils/Responses";
 import API from "../../api/API";
+
 const axios = require("axios");
 
 export default class Home {
     /**
      * Fetches the homepage of the website
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public static async GET(req: any, res: any): Promise<void> {
         try {
@@ -28,10 +29,10 @@ export default class Home {
 
     /**
      * Gets the recently ranked mapsets from the API
-     * @param req 
+     * @param req
      */
-    private static async FetchRecentlyRanked(req: any) : Promise<any[]> {
-        let recentlyRanked = [];
+    private static async FetchRecentlyRanked(req: any): Promise<any[]> {
+        let recentlyRanked: any = [];
 
         try {
             recentlyRanked = await API.GET(req, "v1/mapsets/maps/search?mode=1&mode=2");

@@ -145,16 +145,18 @@
                                                                 </button>
                                                             </form>
                                                         </div>
-                                                        {% else %}
-                                                    <div>
-                                                        <form method="POST" accept-charset="UTF-8">
-                                                            <input type="hidden" name="mod_id" value="{{ mod.mod.id }}">
-                                                            <button type="submit" name="mod_revert" class="btn btn-warning btn-xs">
-                                                                <i class="fas fa-undo"></i>
-                                                                Revert
-                                                            </button>
-                                                        </form>
-                                                    </div>
+                                                    {% else %}
+                                                        {% if currentUser.id == map.creator_id %}
+                                                            <div>
+                                                                <form method="POST" accept-charset="UTF-8">
+                                                                    <input type="hidden" name="mod_id" value="{{ mod.mod.id }}">
+                                                                    <button type="submit" name="mod_revert" class="btn btn-warning btn-xs">
+                                                                        <i class="fas fa-undo"></i>
+                                                                        Revert
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        {% endif %}
                                                     {% endif %}
                                                     <button type="button" data-toggle="collapse" data-target="#comment_{{ mod.mod.id }}" class="btn btn-primary btn-xs collapsed" aria-expanded="false">
                                                         <i class="fas fa-reply"></i>

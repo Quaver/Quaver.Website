@@ -23,7 +23,7 @@ export default class API {
             params: params,
             headers: headers
         }).catch((e: { response: any; }) => {
-            console.log(e.response.data)
+            console.log(e.response)
         });
 
         return response.data;
@@ -47,7 +47,7 @@ export default class API {
         const response = await axios.post(`${config.apiBaseUrl}/${endpoint}`, data, {
             headers: headers
         }).catch((e: { response: any; }) => {
-            console.log(e.response.data)
+            console.log(e.response)
         });
 
         return response.data;

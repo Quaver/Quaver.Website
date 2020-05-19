@@ -850,3 +850,9 @@ body {
 .mg-bottom {
     margin-bottom: 30px;
 }
+
+/* News */
+
+.post-news-date a {
+    color: #45D6F5;
+}

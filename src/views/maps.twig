@@ -14,36 +14,31 @@
         </div>
     </section>
 
-    <section>
+    <section id="filters">
         <div class="container">
             <form method="GET" id="maps_search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ search }}">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-light border-left-0">
-                            <i class="ya ya-search m-0"></i>
-                        </button>
-                    </div>
-                </div>
-{#                {{ dump(form) }}#}
-                {% if 1 in form.mode %} yes {% endif %}
                 <div class="widget mt-4">
                     <div class="widget-header">Filters</div>
                 </div>
-                <div class="card" id="filters">
+                <div class="card">
                     <div class="card-body">
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ search }}">
+                        </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Mode:</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-4">
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="mode" class="custom-control-input" id="mode1" value="1" >
+                                        <input type="checkbox" name="mode" class="custom-control-input" id="mode1" value="1"
+                                                {% if form.mode == "1" or form.mode[0] == "1" %} checked {% endif %}>
                                         <label class="custom-control-label" for="mode1">4 Keys</label>
                                     </div>
                                 </div>
-                                <div class="form-check form-check-inline">
+                                <div class="form-check form-check-inline ml-4">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="mode" class="custom-control-input" id="mode2" value="2">
+                                        <input type="checkbox" name="mode" class="custom-control-input" id="mode2" value="2"
+                                                {% if form.mode == "2" or form.mode[1] == "2" %} checked {% endif %}>
                                         <label class="custom-control-label" for="mode2">7 Keys</label>
                                     </div>
                                 </div>
@@ -51,16 +46,18 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Status:</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-4">
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="status" class="custom-control-input" id="ranked" value="2">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="ranked" value="2"
+                                                {% if form.status == "2" or form.status[0] == "2" %} checked {% endif %}>
                                         <label class="custom-control-label" for="ranked">Ranked</label>
                                     </div>
                                 </div>
-                                <div class="form-check form-check-inline">
+                                <div class="form-check form-check-inline ml-4">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="status" class="custom-control-input" id="unranked" value="1">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="unranked" value="1"
+                                                {% if form.status == "1" or form.status[1] == "1" %} checked {% endif %}>
                                         <label class="custom-control-label" for="unranked">Unranked</label>
                                     </div>
                                 </div>
@@ -68,82 +65,75 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Difficulty rating:</label>
-                            <div class="col-sm-3">
-                                <input class="form-control" type="number" name="mindiff" value="" placeholder="Min Rating">
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" name="mindiff" value="{{ form.mindiff }}" placeholder="Min Rating">
                             </div>
-                            <div class="col-sm-3">
-                                <input class="form-control" type="number" name="maxdiff" value="" placeholder="Max Rating">
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" name="maxdiff" value="{{ form.maxdiff }}" placeholder="Max Rating">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Length:</label>
-                            <div class="col-sm-3">
-                                <input class="form-control" type="number" name="minlen" value="" placeholder="Min Length">
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" name="minlen" value="{{ form.minlen }}" placeholder="Min Length">
                             </div>
-                            <div class="col-sm-3">
-                                <input class="form-control" type="number" name="maxlen" value="" placeholder="Max Length">
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" name="maxlen" value="{{ form.maxlen }}" placeholder="Max Length">
                             </div>
                         </div>
-                        <div class="text-center mb-3">
-                            <a data-toggle="collapse" href="#advancedSearch" role="button" aria-expanded="false">Advanced Search</a>
-                        </div>
+
                         <div class="collapse" id="advancedSearch">
                             <div class="form-group row">
                                 <label class="col-sm-2">BPM:</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="number" name="minbpm" value="" placeholder="Min BPM">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="minbpm" value="{{ form.minbpm }}" placeholder="Min BPM">
                                 </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="number" name="maxbpm" value="" placeholder="Max BPM">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="maxbpm" value="{{ form.maxbpm }}" placeholder="Max BPM">
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-sm-2">Long Note %:</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="number" name="minnote" value="" placeholder="Min LN%">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="minnote" value="{{ form.minnote }}" placeholder="Min LN%">
                                 </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="number" name="maxnote" value="" placeholder="Max LN%">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="maxnote" value="{{ form.maxnote }}" placeholder="Max LN%">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Ranked Play Count:</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="number" name="minpc" value="" placeholder="Min Plays">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="minpc" value="{{ form.minpc }}" placeholder="Min Plays">
                                 </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="number" name="maxpc" value="" placeholder="Max Plays">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="maxpc" value="{{ form.maxpc }}" placeholder="Max Plays">
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-sm-2">Max Combo:</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="number" name="mincombo" value="" placeholder="Min Combo">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="mincombo" value="{{ form.mincombo }}" placeholder="Min Combo">
                                 </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="number" name="maxcombo" value="" placeholder="Max Combo">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="maxcombo" value="{{ form.maxcombo }}" placeholder="Max Combo">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Upload Date:</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="date" name="mindateu" value="" placeholder="Start Date">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="date" name="mindateu" value="{{ form.mindateu }}" placeholder="Start Date">
                                 </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="date" name="maxdateu" value="" placeholder="End Date">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="date" name="maxdateu" value="{{ form.maxdateu }}" placeholder="End Date">
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-sm-2">Last Updated Date:</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="date" name="mindatelu" value="" placeholder="Start Date">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="date" name="mindatelu" value="{{ form.mindatelu }}" placeholder="Start Date">
                                 </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="date" name="maxdatelu" value="" placeholder="End Date">
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="date" name="maxdatelu" value="{{ form.maxdatelu }}" placeholder="End Date">
                                 </div>
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary">Search</button>
+                            <a data-toggle="collapse" href="#advancedSearch" role="button" aria-expanded="false" class="btn btn-link">Advanced Search</a>
                     </div>
                 </div>
             </form>
@@ -153,11 +143,11 @@
             {% for map in maps %}
                 <div class="mapset" style="background: linear-gradient(0deg, rgba(47, 47, 47, 0.2), rgba(47, 47, 47, 0.2)),
                         linear-gradient(0deg, rgba(10, 9, 9, 0.5), rgba(10, 9, 9, 0.5)), url('https://cdn.quavergame.com/banners/{{ map.id }}_banner.jpg');background-size: cover;">
-                    <div class="mapset-info">
-                        <div style="display: inline">
-                            <div class="mapset-song {% if (map.artist~map.title)|length > 60 %}longboy{% endif %}">
-                                <a href="{{ baseUrl('/mapset/'~map.id) }}">
-                                    <span>{{ (map.artist ~ ' - ' ~ map.title)|slice(0, 80) }}</span>
+                    <div class="row">
+                        <div class="col-md-9 overflow">
+                            <div class="mapset-song">
+                                <a href="{{ baseUrl('/mapset/'~map.id) }}" data-toggle="tooltip" data-placement="top" data-original-title="{{ map.artist ~ ' - ' ~ map.title }}">
+                                    <span>{{ map.artist ~ ' - ' ~ map.title }}</span>
                                 </a>
                             </div>
                             <div class="mapset-difficulty">
@@ -167,19 +157,19 @@
                                 {{ min(map.difficulty_range)|number_format(2) }} - {{ max(map.difficulty_range)|number_format(2) }}
                             </div>
                         </div>
-                        <div>
+                        <div class="col-md-3">
                             <div class="mapset-info-right">
                                 {% if map.game_modes|length == 2 %}
-                                    <div class="mapset-4k-7k">4K/7K</div>
+                                    <span class="mapset-4k-7k">4K/7K</span>
                                 {% elseif map.game_modes[0] == 1 %}
-                                    <div class="mapset-4k">4K</div>
+                                    <span class="mapset-4k">4K</span>
                                 {% else %}
-                                    <div class="mapset-7k">7K</div>
+                                    <span class="mapset-7k">7K</span>
                                 {% endif %}
                                 {% if map.ranked_status == 2 %}
-                                    <div class="mapset-ranked">Ranked</div>
+                                    <span class="mapset-ranked">Ranked</span>
                                 {% else %}
-                                    <div class="mapset-unranked">Unranked</div>
+                                    <span class="mapset-unranked">Unranked</span>
                                 {% endif %}
                             </div>
                             <div class="mapset-info-download">
@@ -202,16 +192,27 @@
 
 {% block scripts %}
     <script>
+        function submitForm() {
+            $('#maps_search input').each(function () {
+                const input = $(this);
+                if (input.val() === "") {
+                    input.prop('disabled', true);
+                }
+            });
+            $('form').submit();
+        }
+
         document.addEventListener("DOMContentLoaded", function (event) {
             $('button').on('click', function () {
                 event.preventDefault();
-                $('#maps_search input').each(function () {
-                    const input = $(this);
-                    if (input.val() === "") {
-                        input.prop('disabled', true);
-                    }
-                });
-                $('form').submit();
+                submitForm();
+            });
+
+            $('#filters input[name=search]').on('keypress', function (event) {
+                if (event.which === 13) {
+                    event.preventDefault();
+                    submitForm();
+                }
             });
         });
     </script>

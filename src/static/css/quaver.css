@@ -430,10 +430,16 @@ body {
 
 .mapset {
     border-radius: 6px;
-    height: 96px;
+    height: auto;
     color: #ffffff;
     margin-bottom: 10px;
     padding: 15px 20px 15px 20px;
+}
+
+.mapset .overflow {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .mapset a {
@@ -444,12 +450,11 @@ body {
     color: #45D6F5;
 }
 
-.mapset-info {
-    display: flex;
-    justify-content: space-between;
+.mapset-info-right {
+    text-align: right;
 }
 
-.mapset-info-right > div {
+.mapset-info-right > span {
     display: inline-block;
     text-align: center;
     width: 71px;
@@ -795,9 +800,13 @@ body {
 
 /* Maps search */
 
+#filters label {
+    margin: auto 0;
+}
+
 #filters input {
-    background-color: transparent;
-    border: 1px solid #393939;
+    background-color: #181818;
+    border: none;
     border-radius: 4px;
     padding: 10px 20px 12px 20px;
     transition: .5s;
@@ -826,8 +835,8 @@ body {
 }
 
 #filters .custom-control-label::before {
-    background-color: transparent;
-    border-color: #393939;
+    background-color: #181818;
+    border-color: transparent;
 }
 
 .card-bottom {

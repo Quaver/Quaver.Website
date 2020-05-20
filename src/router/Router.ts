@@ -6,6 +6,8 @@ import LeaderBoard from "../controllers/leaderboard/Leaderboard";
 import Maps from "../controllers/maps/Maps";
 import Users from "../controllers/users/Users";
 import Playlists from "../controllers/playlists/Playlists";
+import Download from "../controllers/download/Download";
+import Authentication from "../middleware/Authentication";
 
 export default class Router {
     /**
@@ -34,6 +36,8 @@ export default class Router {
 
         router.route("/mapset/map/:id").post(Maps.DeleteMapset);
         router.route("/mapset/map/:id/mods").post(Maps.HandlePost);
+
+        router.route("/download/:type/:id").get(Authentication.RequireLogin, Download.GET);
 
         // Redirect old routes
         router.get('/profile/*', function(req:any, res:any){

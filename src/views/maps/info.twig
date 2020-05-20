@@ -57,7 +57,7 @@
         {% endif %}
         {% if not modding %}
             <a type="button" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Modding Discussion</a>
-            <a type="button" href="#" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
+            <a type="button" href="{{ baseUrl('/download/mapset/'~mapset.id) }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
         {% else %}
             <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

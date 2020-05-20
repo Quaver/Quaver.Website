@@ -47,7 +47,7 @@
         <td>[$accuracy$]%</td>
         <td>[$mods_string$]</td>
         <td>
-            <a href="http://api.quavergame.com/d/web/replay/[$id$]">
+            <a href="[$download$]">
                 <i class="fas fa-download" data-toggle="tooltip" title="Download" data-original-title="Download"></i>
             </a>
         </td>
@@ -119,6 +119,7 @@
                     value['time'] = durationParse(value['time']);
                     value['grade_url'] = assetsUrl('/img/grades/' + value['grade'] + ".png");
                     value['url'] = baseUrl() + '/mapset/map/' + value['map']['id'];
+                    value['download'] = baseUrl() + '/download/mapset/' + value['map']['id'];
                 });
                 response.table = table;
                 let info = Mustache.render(template, response);

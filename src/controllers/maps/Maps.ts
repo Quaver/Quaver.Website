@@ -23,7 +23,7 @@ export default class Maps {
             const maps = await Maps.FetchMaps(req);
             const search = (req.query.search) ? req.query.search : '';
             const status = (req.query.status) ? req.query.status : 2;
-            const mode = (req.query.mode) ? req.query.mode : 1;
+            const mode = (req.query.mode) ? req.query.mode : [1, 2];
 
             Responses.Send(req, res, "maps", `Maps | Quaver`, {
                 maps: maps,
@@ -251,7 +251,7 @@ export default class Maps {
     private static async FetchMaps(req: any): Promise<any> {
         try {
             const search: string = (req.query.search) ? req.query.search : '';
-            const mode: number[] = (req.query.mode) ? req.query.mode : 1;
+            const mode: number[] = (req.query.mode) ? req.query.mode : [1, 2];
             const status: number[] = (req.query.status) ? req.query.status : 2;
             const page: number = (!isNaN(req.query.page) && req.query.page >= 0) ? req.query.page : 0;
             const limit: number = (req.query.limit && req.query.limit <= 50 && req.query.limit > 0 && !isNaN(req.query.limit))

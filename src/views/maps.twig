@@ -31,26 +31,27 @@
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="mode" class="custom-control-input" id="mode1" value="1"
-                                                {% if form.mode == "1" or form.mode[0] == "1" %} checked {% endif %}>
+                                                {% if not form|length or (form.mode == "1" or form.mode[0] == "1") %} checked {% endif %}>
                                         <label class="custom-control-label" for="mode1">4 Keys</label>
                                     </div>
                                 </div>
                                 <div class="form-check form-check-inline ml-4">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="mode" class="custom-control-input" id="mode2" value="2"
-                                                {% if form.mode == "2" or form.mode[1] == "2" %} checked {% endif %}>
+                                                {% if not form|length or (form.mode == "2" or form.mode[1] == "2") %} checked {% endif %}>
                                         <label class="custom-control-label" for="mode2">7 Keys</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label class="col-sm-2">Status:</label>
                             <div class="col-sm-4">
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="status" class="custom-control-input" id="ranked" value="2"
-                                                {% if form.status == "2" or form.status[0] == "2" %} checked {% endif %}>
+                                                {% if not form|length or (form.status == "2" or form.status[0] == "2") %} checked {% endif %}>
                                         <label class="custom-control-label" for="ranked">Ranked</label>
                                     </div>
                                 </div>

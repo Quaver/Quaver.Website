@@ -79,7 +79,7 @@
                     {% for feed in user.activity_feed %}
                         <li>
                             {% set u = "<a href='/user/" ~ user.info.id ~ "'>" ~ user.info.username ~ "</a>" %}
-                            {% set map = "<a href='" ~ feed.map.id ~ "'>" ~ feed.map.name ~ "</a>" %}
+                            {% set map = "<a href='/mapset/" ~ feed.map.id ~ "'>" ~ feed.map.name ~ "</a>" %}
                             {% if feed.type == 0 %}
                                 <div class="feed-icon">
                                     <i class="fa fa-user-plus"></i>

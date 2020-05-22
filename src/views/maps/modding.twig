@@ -102,11 +102,11 @@
                                                                 <div class="media-meta">{{ formatDateDistance(comment.message.timestamp) }}</div>
                                                             </div>
                                                             {% if currentUser and map.creator_id == currentUser.id %}
-                                                                <div class="media-tools" style="display: block;">
-                                                                    <a class="btn btn-link btn-icon btn-xs" onclick="commentSpam(this)" data-id="{{ comment.message.id }}" data-spam="{{ comment.message.spam }}" data-comment="ToDo think better way..." data-toggle="tooltip" title="" data-original-title="Mark as spam">
-                                                                        <i class="ya ya-flag"></i>
-                                                                    </a>
-                                                                </div>
+{#                                                                <div class="media-tools" style="display: block;">#}
+{#                                                                    <a class="btn btn-link btn-icon btn-xs" onclick="commentSpam(this)" data-id="{{ comment.message.id }}" data-spam="{{ comment.message.spam }}" data-comment="ToDo think better way..." data-toggle="tooltip" title="" data-original-title="Mark as spam">#}
+{#                                                                        <i class="ya ya-flag"></i>#}
+{#                                                                    </a>#}
+{#                                                                </div>#}
                                                             {% endif %}
                                                         </div>
                                                         <p>

@@ -240,12 +240,12 @@ export default class Maps {
                     status: ModStatus.Pending
                 });
             }
+
+            res.redirect(303, `/mapset/map/${req.params.id}/mods`);
         } catch (err) {
             Logger.Error(err);
             Responses.Return500(req, res);
         }
-
-        res.redirect(303, `/mapset/map/${req.params.id}/mods`);
     }
 
     private static async FetchMaps(req: any): Promise<any> {

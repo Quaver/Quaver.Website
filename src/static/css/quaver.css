@@ -457,7 +457,7 @@ body {
 .mapset-info-right > span {
     display: inline-block;
     text-align: center;
-    width: 71px;
+    width: 80px;
     height: 24px;
     border-radius: 14px;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -483,7 +483,7 @@ body {
 }
 
 .mapset-unranked {
-
+    background: #5B5B5B;
 }
 
 .mapset-info-download {

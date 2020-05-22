@@ -482,6 +482,10 @@ body {
     background: #27B06E;
 }
 
+.mapset-unranked {
+
+}
+
 .mapset-info-download {
     margin-top: 15px;
     text-align: right;
@@ -851,8 +855,49 @@ body {
     margin-bottom: 30px;
 }
 
+.mapset-download {
+    background: #2575dc;
+    display: inline-block;
+    text-align: center;
+    width: 40px;
+    height: 24px;
+    border-radius: 14px;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 12px;
+    line-height: 2;
+    text-transform: uppercase;
+}
+
 /* News */
 
 .post-news-date a {
     color: #45D6F5;
+}
+
+/* Mobile optimizations */
+
+@media (max-width: 575px) {
+
+    #filters label {
+        margin-bottom: 5px !important;
+    }
+
+    #filters .form-control {
+        margin-top: 5px;
+    }
+
+    .mapset-info-right, .mapset-info-download {
+        display: inline-block;
+        margin-top: 0 !important;
+        margin-bottom: 30px;
+    }
+
+    .mapset-info-download {
+
+    }
+
+    .mapset-info-right, .mapset-rating {
+        float: right;
+    }
+
 }

@@ -874,6 +874,27 @@ body {
     color: #45D6F5;
 }
 
+
+/* Footer */
+
+.site-footer {
+    padding: 0;
+}
+
+.site-footer a, .footer-copyright {
+    color: #FFFFFF !important;
+}
+
+.site-footer a:hover {
+    color: #45D6F5 !important;
+    text-decoration: none;
+}
+
+.footer-bottom {
+    background: #242424;
+    color: #FFFFFF;
+}
+
 /* Mobile optimizations */
 
 @media (max-width: 575px) {

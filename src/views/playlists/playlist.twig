@@ -22,16 +22,16 @@
                             <img class="card-img-top" src="https://cdn.quavergame.com/playlists/{{ playlist.id }}.jpg" onerror="this.src='{{ assets("/img/inf.jpg") }}'">
                         </div>
                         {% if currentUser and currentUser.id == playlist.user_id %}
-{#                            <div class="mt-4">#}
-{#                                <a href="">#}
-{#                                    <a class="btn btn-info btn-xs download text-white ml-2">#}
-{#                                        Edit Map Pool#}
-{#                                    </a>#}
-{#                                </a>#}
-{#                                <button type="button" class="btn btn-danger btn-xs download move-right mr-2">#}
-{#                                    Delete Map Pool#}
-{#                                </button>#}
-{#                            </div>#}
+                            {#                            <div class="mt-4">#}
+                            {#                                <a href="">#}
+                            {#                                    <a class="btn btn-info btn-xs download text-white ml-2">#}
+                            {#                                        Edit Map Pool#}
+                            {#                                    </a>#}
+                            {#                                </a>#}
+                            {#                                <button type="button" class="btn btn-danger btn-xs download move-right mr-2">#}
+                            {#                                    Delete Map Pool#}
+                            {#                                </button>#}
+                            {#                            </div>#}
                         {% endif %}
                         <div class="card-block">
                             <p class="card-text font-size-md">{{ playlist.description }}</p>
@@ -87,9 +87,9 @@
                                         {% for map in difficulties %}
                                             <div class="list-group-item">
                                                 {% if currentUser and currentUser.id == playlist.user_id %}
-{#                                                    <a class="text-white btn btn-danger btn-xs download mt-2" style="display: inline-block;float: right; margin-right: -11px; margin-left: 25px;">#}
-{#                                                        <i class="far fa-trash-alt"></i>#}
-{#                                                    </a>#}
+                                                    {#                                                    <a class="text-white btn btn-danger btn-xs download mt-2" style="display: inline-block;float: right; margin-right: -11px; margin-left: 25px;">#}
+                                                    {#                                                        <i class="far fa-trash-alt"></i>#}
+                                                    {#                                                    </a>#}
                                                 {% endif %}
                                                 <a href="{{ baseUrl('/mapset/map/'~map.id) }}" class="justify-content-between align-items-center d-flex"
                                                         style="{% if currentUser and currentUser.id == playlist.user_id %}width: 95%;{% else %}width: 100%;{% endif %}">
@@ -113,6 +113,12 @@
                             </div>
                         </div>
                     {% endfor %}
+                    <div>
+                        {% if page != 0 %}
+                            <a href="{{ baseUrl('/playlist/'~playlist.id~'?page='~(page-1)) }}" class="btn btn-primary text-white">Back</a>
+                        {% endif %}
+                        <a href="{{ baseUrl('/playlist/'~playlist.id~'?page='~(page+1)) }}" class="btn btn-primary text-white">Next</a>
+                    </div>
                 </div>
             </div>
         </div>

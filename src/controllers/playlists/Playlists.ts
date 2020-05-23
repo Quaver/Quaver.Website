@@ -65,7 +65,8 @@ export default class Playlists {
             Responses.Send(req, res, "playlists/playlist", `${playlist.playlist.name} | Quaver`, {
                 playlist: playlist.playlist,
                 orderedPlaylist: sorted,
-                convertTime: TimeHelper.convertTime
+                convertTime: TimeHelper.convertTime,
+                page: page
             });
         } catch (err) {
             if (err.message.includes("404"))

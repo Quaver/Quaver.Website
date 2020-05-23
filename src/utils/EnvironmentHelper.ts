@@ -7,12 +7,13 @@ const revision = require('child_process')
 export default class EnvironmentHelper {
 
     public static baseUrl(path?: string): string {
-        if(path === undefined) path = '';
+        if(path === undefined) return config.baseUrl;
         return config.baseUrl + path;
     }
 
     public static apiBaseUrl(path?: string): string {
-        if(path === undefined) path = '';
+        if(path === undefined)
+            return config.apiBaseUrlPublic;
         return config.apiBaseUrlPublic + path;
     }
 

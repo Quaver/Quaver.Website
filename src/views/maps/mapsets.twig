@@ -1,0 +1,43 @@
+{% for map in maps %}
+    <div class="mapset lazy" data-bg-multi="linear-gradient(0deg, rgba(47, 47, 47, 0.2), rgba(47, 47, 47, 0.2)),
+                        linear-gradient(0deg, rgba(10, 9, 9, 0.5), rgba(10, 9, 9, 0.5)), url('https://cdn.quavergame.com/banners/{{ map.id }}_banner.jpg')" style="background-size: cover;">
+        <div class="row">
+            <div class="col-md-9 col-sm-6 order-md-1 order-2 overflow">
+                <div class="mapset-song">
+                    <a href="{{ baseUrl('/mapset/'~map.id) }}" data-toggle="tooltip" data-placement="top" data-original-title="{{ map.artist ~ ' - ' ~ map.title }}">
+                        <span>{{ map.artist ~ ' - ' ~ map.title }}</span>
+                    </a>
+                </div>
+                <div class="mapset-difficulty">
+                    By:
+                    <a href="{{ baseUrl('/user/'~map.creator_id) }}" class="mr-4">{{ map.creator_username }}</a>
+                    <span class="mapset-rating">
+                                    <i class="fas fa-chart-line"></i>
+                                    {{ min(map.difficulty_range)|number_format(2) }} - {{ max(map.difficulty_range)|number_format(2) }}
+                                </span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 order-md-2 order-1">
+                <div class="mapset-info-right">
+                    {% if map.game_modes|length == 2 %}
+                        <span class="mapset-4k-7k">4K/7K</span>
+                    {% elseif map.game_modes[0] == 1 %}
+                        <span class="mapset-4k">4K</span>
+                    {% else %}
+                        <span class="mapset-7k">7K</span>
+                    {% endif %}
+                    {% if map.ranked_status == 2 %}
+                        <span class="mapset-ranked">Ranked</span>
+                    {% else %}
+                        <span class="mapset-unranked">Unranked</span>
+                    {% endif %}
+                </div>
+                <div class="mapset-info-download">
+                    <a href="{{ baseUrl('/download/mapset/'~map.id) }}" class="mapset-download">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

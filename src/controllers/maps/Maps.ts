@@ -30,7 +30,8 @@ export default class Maps {
                 search: search,
                 status: status,
                 mode: mode,
-                form: req.query
+                form: req.query,
+                query: JSON.stringify(req.query)
             });
         } catch (err) {
             Logger.Error(err);
@@ -44,9 +45,13 @@ export default class Maps {
      * @param res
      * @constructor
      */
-    public static async MapsSearchGET(req: any, res: any): Promise<void> {
+    public static async MapsSearchPOST(req: any, res: any): Promise<void> {
         try {
-            res.json(await Maps.FetchMaps(req));
+            req.query = req.body;
+            const maps = await Maps.FetchMaps(req);
+            Responses.Send(req, res, "maps/mapsets", ``, {
+                maps: maps
+            });
         } catch (err) {
             Logger.Error(err);
             Responses.Return500(req, res);

@@ -21,7 +21,7 @@ export default class Router {
         router.route("/leaderboard/hits").get(LeaderBoard.TotalHitsGET);
         router.route("/leaderboard/multiplayer").get(LeaderBoard.MultiplayerGET);
         router.route('/maps').get(Maps.MapsGET);
-        router.route('/maps/more').get(Maps.MapsSearchGET);
+        router.route('/maps/load').post(Maps.MapsSearchPOST);
         router.route("/mapset/:id").get(Maps.MapsetGET);
         router.route("/mapset/map/:id").get(Maps.MapGET);
         router.route("/mapset/map/:id/mods").get(Maps.ModsGET);
@@ -43,7 +43,7 @@ export default class Router {
         router.get('/profile/*', function(req:any, res:any){
             res.redirect(301, '/user/' + req.params[0], );
         });
-        router.get('/maps/*', function(req:any, res:any){
+        router.get('/mapsets/*', function(req:any, res:any){
             res.redirect(301, '/mapset/' + req.params[0]);
         });
 

@@ -10,7 +10,7 @@
                 </div>
                 <div class="mapset-difficulty">
                     By:
-                    <a href="{{ baseUrl('/user/'~map.creator_id) }}" class="mr-4">{{ map.creator_username }}</a>
+                        <a href="{{ baseUrl('/user/'~map.creator_id) }}" class="mr-4">{{ map.creator_username }}</a>
                     <span class="mapset-rating">
                                     <i class="fas fa-chart-line"></i>
                                     {{ min(map.difficulty_range)|number_format(2) }} - {{ max(map.difficulty_range)|number_format(2) }}

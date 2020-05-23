@@ -25,6 +25,8 @@ export default class Router {
         router.route("/mapset/:id").get(Maps.MapsetGET);
         router.route("/mapset/map/:id").get(Maps.MapGET);
         router.route("/mapset/map/:id/mods").get(Maps.ModsGET);
+        router.route("/playlists").get(Playlists.PlaylistsGET);
+        router.route("/playlists/load").post(Playlists.PlaylistsMoreGET);
         router.route("/playlist/:id").get(Playlists.GET);
         router.route("/user/:id").get(Users.GET);
         // router.route("/wiki").get(Wiki.HomeGET);

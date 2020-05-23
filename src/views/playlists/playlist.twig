@@ -1,0 +1,128 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        {{ playlist.name }}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="playlists">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="card card-sm sticky-top">
+                        <div class="image">
+                            <img class="card-img-top" src="https://cdn.quavergame.com/playlists/{{ playlist.id }}.jpg" onerror="this.src='{{ assets("/img/inf.jpg") }}'">
+                        </div>
+                        {% if currentUser and currentUser.id == playlist.user_id %}
+{#                            <div class="mt-4">#}
+{#                                <a href="">#}
+{#                                    <a class="btn btn-info btn-xs download text-white ml-2">#}
+{#                                        Edit Map Pool#}
+{#                                    </a>#}
+{#                                </a>#}
+{#                                <button type="button" class="btn btn-danger btn-xs download move-right mr-2">#}
+{#                                    Delete Map Pool#}
+{#                                </button>#}
+{#                            </div>#}
+                        {% endif %}
+                        <div class="card-block">
+                            <p class="card-text font-size-md">{{ playlist.description }}</p>
+                            <p class="card-text font-size-md">Created by
+                                <a href="">{{ playlist.owner_username }}</a>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <span data-tooltip="Last Updated"><i class="fas fa-clock"></i> <b>{{ formatDate(playlist.time_last_updated) }}</b></span>
+                            <div class="ml-auto">
+                                <span data-tooltip="Maps count"><i class="fas fa-music"></i> <b>{{ playlist.map_count }}</b></span>
+                                <span data-tooltip="Likes count"><i class="fas fa-heart"></i> <b>{{ playlist.like_count }}</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9" id="playlist">
+                    {% for difficulties in orderedPlaylist %}
+                        <div class="card mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="post post-medium">
+                                        <div class="post-thumbnail mt-1 mb-2 ml-2 mb-md-0">
+                                            <a href="{{ baseUrl('/mapset/'~difficulties[0].mapset_id) }}">
+                                                <img class="post-img" src="https://cdn.quavergame.com/banners/{{ difficulties[0].mapset_id }}_banner.jpg">
+                                            </a>
+                                        </div>
+                                        <div class="post-body">
+                                            <div class="text-right">
+                                                <a href="{{ baseUrl('/download/mapset/'~map.id) }}" class="btn btn-primary btn-xs ml-1 text-white">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                                {% if difficulties[0].ranked_status == 1 %}
+                                                    <span class="btn btn-dark move-right btn-xs">Unranked</span>
+                                                {% elseif difficulties[0].ranked_status == 2 %}
+                                                    <span class="btn btn-success move-right btn-xs">Ranked</span>
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <a href="{{ baseUrl('/mapset/'~difficulties[0].mapset_id) }}">
+                                                    <b>{{ difficulties[0].artist }} - {{ difficulties[0].title }}</b>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <b>Length:</b> {{ convertTime(difficulties[0].length) }}</div>
+                                            <div>
+                                                <b>Creator:</b>
+                                                <a href="{{ baseUrl('/user/'~difficulties[0].creator_username) }}">{{ difficulties[0].creator_username }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group">
+                                        {% for map in difficulties %}
+                                            <div class="list-group-item">
+                                                {% if currentUser and currentUser.id == playlist.user_id %}
+{#                                                    <a class="text-white btn btn-danger btn-xs download mt-2" style="display: inline-block;float: right; margin-right: -11px; margin-left: 25px;">#}
+{#                                                        <i class="far fa-trash-alt"></i>#}
+{#                                                    </a>#}
+                                                {% endif %}
+                                                <a href="{{ baseUrl('/mapset/map/'~map.id) }}" class="justify-content-between align-items-center d-flex"
+                                                        style="{% if currentUser and currentUser.id == playlist.user_id %}width: 95%;{% else %}width: 100%;{% endif %}">
+                                                    <b>
+                                                        <span class="text-white">{{ loop.index }}.</span> {{ map.difficulty_name }}
+                                                    </b>
+                                                    <div class="text-right text-white">
+                                                        <div>
+                                                            <strong>Game Mode:</strong>
+                                                            {% if map.game_mode == 1 %} 4K {% else %} 7K {% endif %}
+                                                        </div>
+                                                        <div>
+                                                            <strong>Difficulty Rating:</strong> {{ map.difficulty_rating|number_format(2) }}
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

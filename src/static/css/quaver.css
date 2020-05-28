@@ -511,6 +511,15 @@ body {
     margin-top: 15px;
 }
 
+.modding-timestamp {
+    padding: 1px 4px 1px 4px;
+    border: 1px solid #1A1A1A;
+    background: #1A1A1A;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
 /* Border fixes */
 
 .avatar-thumbnail img {

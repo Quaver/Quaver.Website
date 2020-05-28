@@ -45,18 +45,6 @@
                                 </a>
                             </div>
                             <div class="body-text">
-                                <b>Type:</b>
-                                <span>
-                                    {% if game.type == 0 %}
-                                        Friendly
-                                    {% elseif game.type == 1 %}
-                                        Friendly
-                                    {% else %}
-                                        Competitive
-                                    {% endif %}
-                                </span>
-                            </div>
-                            <div class="body-text">
                                 <b>Map:</b>
                                 {% if game.map.id != "-1" %}
                                     <a href="{{ baseUrl('/mapset/map/'~game.map.id) }}">
@@ -101,18 +89,6 @@
                                 <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
                                     <b>{{ game.name }}</b>
                                 </a>
-                            </div>
-                            <div class="body-text">
-                                <b>Type:</b>
-                                <span>
-                                    {% if game.type == 0 %}
-                                        Friendly
-                                    {% elseif game.type == 1 %}
-                                        Friendly
-                                    {% else %}
-                                        Competitive
-                                    {% endif %}
-                                </span>
                             </div>
                             <div class="body-text">
                                 <b>Map:</b>

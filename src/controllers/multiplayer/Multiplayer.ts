@@ -5,6 +5,7 @@ import GameModeHelper from "../../utils/GameModeHelper";
 import ModStatus from "../../enums/ModStatus";
 import GameMode from "../../enums/GameMode";
 import RankedStatus from "../../enums/RankedStatus";
+import MultiplayerGameRuleset from "../../enums/MultiplayerGameRuleset";
 
 export default class Multiplayer {
 
@@ -37,12 +38,13 @@ export default class Multiplayer {
      */
     public static async MutliplayerGameGET(req: any, res: any): Promise<void> {
         try {
-            const games = await Multiplayer.FetchMultiplayerGames(req);
-            const search = (req.query.search) ? req.query.search : '';
+            const gameId = req.params.id;
+            const game = await Multiplayer.FetchMultiplayerGame(req, gameId);
 
             Responses.Send(req, res, "multiplayer/game", `Multiplayer | Quaver`, {
-                games: games,
-                search: search
+                gameId: gameId,
+                game: game,
+                rulesets: MultiplayerGameRuleset
             });
         } catch (err) {
             Logger.Error(err);
@@ -53,6 +55,19 @@ export default class Multiplayer {
     private static async FetchMultiplayerGames(req: any): Promise<any> {
         try {
             const response = await API.GET(req, `v1/multiplayer/games`, {});
+
+            if (response.status != 200)
+                return null;
+            return response.matches;
+        } catch(err) {
+            Logger.Error(err);
+            return null;
+        }
+    }
+
+    private static async FetchMultiplayerGame(req: any, id: number): Promise<any> {
+        try {
+            const response = await API.GET(req, `v1/multiplayer/games/${id}`, {});
 
             if (response.status != 200)
                 return null;

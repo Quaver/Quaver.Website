@@ -232,6 +232,10 @@ export default class Maps {
                 await API.POST(req, `v1/maps/mods/${req.body.mod_id}/comment`, {
                     comment: req.body.comment
                 });
+
+                res.redirect(303, `/mapset/map/${req.params.id}/mods#mod_${req.body.mod_id}`);
+
+                return;
             } else if (typeof req.body.mod_accept !== 'undefined') {
                 await API.POST(req, `v1/maps/mods/${req.body.mod_id}/status`, {
                     status: ModStatus.Accepted

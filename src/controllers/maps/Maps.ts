@@ -219,11 +219,15 @@ export default class Maps {
     public static async HandlePost(req: any, res: any): Promise<any> {
         try {
             if (typeof req.body.submit_mod !== 'undefined') {
-                await API.POST(req, `v1/maps/${req.params.id}/mods`, {
+                const mod = await API.POST(req, `v1/maps/${req.params.id}/mods`, {
                     type: req.body.type,
                     timestamp: req.body.timestamp,
                     comment: req.body.comment
                 });
+
+                res.redirect(303, `/mapset/map/${req.params.id}/mods#mod_${mod.mod_id}`);
+
+                return;
             } else if (typeof req.body.submit_comment !== 'undefined') {
                 await API.POST(req, `v1/maps/mods/${req.body.mod_id}/comment`, {
                     comment: req.body.comment

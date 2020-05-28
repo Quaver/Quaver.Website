@@ -8,6 +8,7 @@ import Users from "../controllers/users/Users";
 import Playlists from "../controllers/playlists/Playlists";
 import Download from "../controllers/download/Download";
 import Authentication from "../middleware/Authentication";
+import Multiplayer from "../controllers/multiplayer/Multiplayer";
 
 export default class Router {
     /**
@@ -28,6 +29,8 @@ export default class Router {
         router.route("/playlists").get(Playlists.PlaylistsGET);
         router.route("/playlists/load").post(Playlists.PlaylistsMoreGET);
         router.route("/playlist/:id").get(Playlists.GET);
+        router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);
+        router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
         router.route("/user/:id").get(Users.GET);
         // router.route("/wiki").get(Wiki.HomeGET);
         // router.route("/wiki/*").get(Wiki.WikiPageGET);

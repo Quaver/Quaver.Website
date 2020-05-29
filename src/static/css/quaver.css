@@ -819,13 +819,20 @@ body {
     display: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1150px) {
     #navbar-search {
         display: none;
     }
 
     #mobile-search {
         display: block;
+    }
+}
+
+@media (max-width: 1275px) {
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-right: 10px;
+        padding-left: 10px;
     }
 }
 
@@ -909,11 +916,11 @@ body {
 }
 
 .site-footer a, .footer-copyright {
-    color: #FFFFFF !important;
+    color: #45D6F5 !important;
 }
 
 .site-footer a:hover {
-    color: #45D6F5 !important;
+    color: #FFFFFF !important;
     text-decoration: none;
 }
 

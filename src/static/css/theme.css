@@ -4212,7 +4212,7 @@ input[type="button"].btn-block {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1150px) {
   .navbar-expand-lg {
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -4224,8 +4224,8 @@ input[type="button"].btn-block {
     position: absolute;
   }
   .navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
   .navbar-expand-lg > .container,
   .navbar-expand-lg > .container-fluid {
@@ -14826,7 +14826,7 @@ section > .divider path {
   }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 1150px) {
   .navbar {
     height: 52px;
     padding: 0;

@@ -20,14 +20,14 @@ initLazy();
 let page = 1;
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    $('#searchMap').on('click', function () {
-        event.preventDefault();
+    $('#searchMap').on('click', function (e) {
+        e.preventDefault();
         submitForm();
     });
 
-    $('#filters input[name=search]').on('keypress', function (event) {
-        if (event.which === 13) {
-            event.preventDefault();
+    $('#filters input').on('keypress', function (e) {
+        if(e.keyCode === 13) {
+            e.preventDefault();
             submitForm();
         }
     });
@@ -39,5 +39,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
             initLazy();
         });
         page += 1;
+    });
+
+    $('input[type=checkbox]').change(function() {
+        submitForm();
     });
 });

@@ -43,7 +43,7 @@
     <div>
         {% if currentUser %}
             {% if not modding %}
-                <a type="button" href="#" class="btn btn-success">Add in Playlist</a>
+                <a type="button" href="#" class="btn btn-success">Add To Playlist</a>
             {% endif %}
             {% if currentUser.id == map.creator_id %}
                 <form method="POST" accept-charset="UTF-8" style="display: inline-block;">

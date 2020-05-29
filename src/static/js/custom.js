@@ -23,7 +23,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let searchHasResults = false;
     let isHovering = false;
 
-    search.on('keyup', function () {
+    search.on('keyup', function (e) {
+        if(e.keyCode === 13) {
+            window.location.href = baseUrl() + '/profile/' + $(this).val().trim();
+        }
         searchUser($(this).val().trim());
     });
 

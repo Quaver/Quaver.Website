@@ -25,6 +25,14 @@ body {
     background: #555;
 }
 
+a {
+    color: #45D6F5;
+}
+
+a:hover {
+    color: #FFFFFF;
+}
+
 .dropdown-menu {
     background-color: unset;
     background: linear-gradient(180deg, #242424 0%, #1B1B1B 100%);

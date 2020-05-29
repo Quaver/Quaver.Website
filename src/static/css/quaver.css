@@ -75,10 +75,19 @@ body {
     }
 }
 
+.home-stats {
+    /*padding-left: 0 !important;*/
+    /*padding-right: 0 !important;*/
+    padding: 14px 14px 14px 25px;
+}
+
 .category {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+}
+
+.test {
+    padding: 0;
 }
 
 .category span:first-child {
@@ -87,12 +96,13 @@ body {
     font-size: 14px;
     color: #FFFFFF;
     margin-bottom: -5px;
+    text-align: left;
 }
 
 .category span:last-child {
     font-size: 30px;
     font-weight: 500;
-    color: #45D6F5;
+    color: #45D6F5;text-align: left;
 }
 
 .dropdown-menu {
@@ -336,6 +346,10 @@ body {
 
 .status .circle.offline {
     background: #dc3545;
+}
+
+.profile-badges {
+    margin-top: -10px;
 }
 
 /*This breaks scrolling*/

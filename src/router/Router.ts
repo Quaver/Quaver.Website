@@ -42,7 +42,7 @@ export default class Router {
         router.route("/mapset/map/:id").post(Maps.DeleteMapset);
         router.route("/mapset/map/:id/mods").post(Maps.HandlePost);
 
-        router.route("/download/:type/:id").get(Authentication.RequireLogin, Download.GET);
+        router.route("/download/:type/:id").get(Download.GET);
 
         // Redirect old routes
         router.get('/profile/*', function(req:any, res:any){

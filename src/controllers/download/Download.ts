@@ -1,6 +1,8 @@
 import Logger from "../../logging/Logger";
 import Responses from "../../utils/Responses";
 import API from "../../api/API";
+import Authentication from "../../middleware/Authentication";
+import EnvironmentHelper from "../../utils/EnvironmentHelper";
 
 export default class Download {
     /**
@@ -12,7 +14,16 @@ export default class Download {
         try {
             const type = req.params.type;
             const id = req.params.id;
-            let link: any = await Download.FetchDownloadLink(req, res, type, id);
+
+            if(type === "replay" || type === "map") {
+                res.redirect(EnvironmentHelper.apiBaseUrl(`/d/web/${type}/${id}`));
+                return;
+            }
+
+            if(type === "mapset" && !req.user)
+                return res.redirect("/login");
+
+            let link: any = await Download.FetchMapsetDownloadLink(req, res, id);
             if (link !== undefined)
                 res.redirect(link);
             else
@@ -24,15 +35,16 @@ export default class Download {
     }
 
     /**
-     * Gets download link for mapset/map/replay
+     * Gets download link for mapset
      * @param req
      * @param res
      * @param path
      * @param id
      */
-    private static async FetchDownloadLink(req: any, res: any, path: string, id: number): Promise<void> {
+    private static async FetchMapsetDownloadLink(req: any, res: any, id: number): Promise<void> {
         try {
-            const link = await API.GET(req, `d/web/${path}/${id}`);
+            const link = await API.GET(req, `d/web/mapset/${id}`);
+
             return link.download;
         } catch (err) {
             Logger.Error(`Error fetching: ` + err);

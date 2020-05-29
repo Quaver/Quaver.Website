@@ -109,7 +109,9 @@
                         {% for comment in comments %}
                             <div class="media">
                                 <div class="avatar">
-                                    <img src="{{ comment.user.avatar_url }}" alt="{{ comment.user.username }}">
+                                    <a class="h6" href="{{ baseUrl('/user/'~comment.user.id) }}">
+                                        <img src="{{ comment.user.avatar_url }}" alt="{{ comment.user.username }}">
+                                    </a>
                                 </div>
                                 <div class="media-body">
                                     <div class="d-flex">

@@ -64,8 +64,7 @@
                     Sort by: {% if not filter %} None {% elseif filter == "time" %} Most Recent {% elseif filter == "status" %} Status {% elseif filter == "type" %} Type {% endif %}
                 </button>
                 <div class="dropdown-menu" x-placement="bottom-start">
-                    <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}">None</a>
-                    <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods?filter=time') }}">Most Recent</a>
+                    <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}">Most Recent</a>
                     <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods?filter=status') }}">Status</a>
                     <a class="dropdown-item text-white" href="{{ baseUrl('/mapset/map/'~map.id~'/mods?filter=type') }}">Type</a>
                 </div>

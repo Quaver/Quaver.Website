@@ -169,7 +169,7 @@ export default class Maps {
                 }
             }
 
-            const filter = req.query.filter ? req.query.filter : null;
+            const filter = req.query.filter ? req.query.filter : '';
 
             if(filter != null) {
                 await Maps.SortMods(mods, filter);
@@ -208,8 +208,10 @@ export default class Maps {
                 mods.sort((a:any, b:any) => statuses[a.mod.type] - statuses[b.mod.type]);
                 break;
             default:
-                mods.sort((a:any, b:any) => a.mod.id - b.mod.id);
+                mods.sort((a:any, b:any) => b.mod.id - a.mod.id);
                 break;
+                // mods.sort((a:any, b:any) => a.mod.id - b.mod.id);
+                // break;
         }
 
         return mods;

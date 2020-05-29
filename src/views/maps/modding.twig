@@ -4,6 +4,36 @@
     <section>
         <div class="container">
             {% include 'maps/info.twig' %}
+            {% if currentUser and map.ranked_status != 2 %}
+                <div class="widget mt-4">
+                    <div class="widget-header">
+                        Submit a Mod
+                    </div>
+                </div>
+                <div class="card modding-form">
+                    <div class="card-body">
+                        <form method="POST" accept-charset="UTF-8">
+                            <div class="form-group">
+                                <label>The type of mod you want to give the user</label>
+                                <select name="type" class="form-control">
+                                    <option value="2">None</option>
+                                    <option value="0">Issue</option>
+                                    <option value="1">Suggestion</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Copy objects in the editor with CTRL+C to highlight specific points in the map</label>
+                                <input type="text" name="timestamp" class="form-control" placeholder="234873284|1,234234|2,23423|3">
+                            </div>
+                            <div class="form-group">
+                                <label>Comment</label>
+                                <textarea name="comment" rows="5" placeholder="Your Comment" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" name="submit_mod" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
             <div class="comments" id="comments">
                 {% if not mods %}
                     <div class="card-body">There are currently no mods for this map.</div>
@@ -183,36 +213,6 @@
                     {% endfor %}
                 {% endif %}
             </div>
-            {% if currentUser and map.ranked_status != 2 %}
-                <div class="widget mt-4">
-                    <div class="widget-header">
-                        Submit a Mod
-                    </div>
-                </div>
-                <div class="card modding-form">
-                    <div class="card-body">
-                        <form method="POST" accept-charset="UTF-8">
-                            <div class="form-group">
-                                <label>The type of mod you want to give the user</label>
-                                <select name="type" class="form-control">
-                                    <option value="2">None</option>
-                                    <option value="0">Issue</option>
-                                    <option value="1">Suggestion</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Copy objects in the editor with CTRL+C to highlight specific points in the map</label>
-                                <input type="text" name="timestamp" class="form-control" placeholder="234873284|1,234234|2,23423|3">
-                            </div>
-                            <div class="form-group">
-                                <label>Comment</label>
-                                <textarea name="comment" rows="5" placeholder="Your Comment" class="form-control" required></textarea>
-                            </div>
-                            <button type="submit" name="submit_mod" class="btn btn-success">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            {% endif %}
         </div>
     </section>
 {% endblock %}

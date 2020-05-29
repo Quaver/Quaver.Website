@@ -12,7 +12,7 @@
                 {% endfor %}
 
                 {% if extremePagesLimit + 1 < currentPage - nearbyPagesLimit %}
-                    <li class="disabled"><a href="#">...</a></li>
+                    <li class="disabled"><a>...</a></li>
                 {% endif %}
 
                 {% for i in range(currentPage-nearbyPagesLimit, currentPage-1) if ( i > 0 ) %}
@@ -28,7 +28,7 @@
                 {% endfor %}
 
                 {% if  (lastPage - extremePagesLimit) > (currentPage + nearbyPagesLimit) %}
-                    <li class="disabled"><a href="#">...</a></li>
+                    <li class="disabled"><a>...</a></li>
                 {% endif %}
 
                 {% for i in range(lastPage - extremePagesLimit+1, lastPage) if ( i > currentPage + nearbyPagesLimit ) %}

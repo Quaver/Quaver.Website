@@ -633,7 +633,11 @@ body {
     font-size: 18px;
     line-height: 25px;
     font-weight: bold;
-    color: #3a77dc;
+    color: #45D6F5;
+}
+
+.team-card .team-text .team-name a:hover {
+    color: #FFFFFF;
 }
 
 .col-lg-2 .team-card .team-text .team-name {

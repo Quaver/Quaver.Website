@@ -255,12 +255,8 @@ a:hover {
     background: #242424;
 }
 
-#leaderboard table tbody tr:nth-child(odd):hover {
+#leaderboard table tbody tr:hover {
     background: #2F2F2F;
-}
-
-#leaderboard table tbody tr:nth-child(even):hover {
-    background: transparent;
 }
 
 #leaderboard table thead th {

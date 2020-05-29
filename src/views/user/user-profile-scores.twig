@@ -120,6 +120,7 @@
                     value['grade_url'] = assetsUrl('/img/grades/' + value['grade'] + ".png");
                     value['url'] = baseUrl() + '/mapset/map/' + value['map']['id'];
                     value['download'] = baseUrl() + '/download/mapset/' + value['map']['id'];
+                    value['scroll_speed'] = (value['scroll_speed'] > 99) ? value['scroll_speed']/10 : value['scroll_speed'];
                 });
                 response.table = table;
                 let info = Mustache.render(template, response);

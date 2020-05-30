@@ -615,16 +615,13 @@ a:hover {
     margin-bottom: 10px;
 }
 
-.team-card:hover {
-    /*border: 1px solid #aaaaaa;*/
-    border-radius: 5px;
-    padding: 2px;
+.team-card:hover > .team-image img {
+    border-radius: 8px;
+    padding: 1px;
 }
 
 .team-card .team-image {
     margin-bottom: -20px;
-    /*border: 1px solid #E4E4E4;*/
-
 }
 
 .team-card .team-badges {
@@ -632,7 +629,7 @@ a:hover {
 }
 
 .team-card .team-image img {
-    width: 100%;
+    width: 70%;
     height: 100%;
     box-shadow: 1px 1px 5px #000;
     border-radius: 8px;
@@ -644,7 +641,7 @@ a:hover {
 }
 
 .team-card .team-text .team-name {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 25px;
     font-weight: bold;
     color: #45D6F5;
@@ -660,6 +657,35 @@ a:hover {
 
 .team-card .team-text .team-name img {
     padding-bottom: 5px;
+}
+
+
+#teams .developers {
+    border-color: #F2C94C;
+}
+
+#teams .administrators {
+    border-color: #708DF9;
+}
+
+#teams .moderators {
+    border-color: #0094FF;
+}
+
+#teams .supervisors {
+
+}
+
+#teams small {
+    font-weight: 500;
+    color: #808080;
+}
+
+@media (max-width: 767px) {
+    .team-card .team-image img {
+        width: auto;
+        height: auto;
+    }
 }
 
 /* Navigation search */
@@ -929,8 +955,12 @@ a:hover {
     padding: 0;
 }
 
-.site-footer a, .footer-copyright {
+.site-footer a {
     color: #45D6F5 !important;
+}
+
+.footer-copyright, .footer-social a {
+    color: #FFFFFF !important;
 }
 
 .site-footer a:hover {

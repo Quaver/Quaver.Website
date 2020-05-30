@@ -13,10 +13,10 @@
         </div>
     </section>
 
-    <section>
+    <section id="teams">
         <div class="container">
             <div class="widget">
-                <div class="widget-header">
+                <div class="widget-header developers">
                     Developers
                     <br>
                     <small>responsible for adding new features, fixing existing bugs, and maintaining Quaver's game and web servers.</small>
@@ -26,6 +26,52 @@
                 <div class="card-body text-center">
                     <div class="row team-center">
                         {% for user in team.developers %}
+                            <div class="col-md-3">
+                                <div class="team-card">
+                                    <div class="team-image">
+                                        <a href="{{ baseUrl('/user/'~user.id) }}">
+                                            {% if user.avatar_url %}
+                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
+                                            {% else %}
+                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <br>
+                                    <div class="team-text">
+                                        <div class="team-name">
+                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            </a>
+                                            <a href="/profile/{{ user.id }}">{{ user.username }}</a>
+                                        </div>
+                                        <div class="team-description">
+                                            {% if user.title %}
+                                                <p>{{ user.title }}</p>
+                                            {% else %}
+                                                <p>Developer</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-header administrators">
+                    Administrators
+                    <br>
+                    <small>Responsible for enforcing the rules and player support. They also involve themselves directly in the community to keep Quaver up and running.</small>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="row team-center">
+                        {% for user in team.admins %}
                             <div class="col-sm-3">
                                 <div class="team-card">
                                     <div class="team-image">
@@ -49,7 +95,7 @@
                                             {% if user.title %}
                                                 <p>{{ user.title }}</p>
                                             {% else %}
-                                                <p>Moderator</p>
+                                                <p>Administrator</p>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -61,53 +107,7 @@
             </div>
 
             <div class="widget">
-                <div class="widget-header">
-                    Administrators
-                    <br>
-                    <small>Responsible for handling bans, mutes, and player support. They also involve themselves directly in the community to keep Quaver up and running.</small>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-body text-center">
-                    <div class="row team-center">
-                        {% for user in team.admins %}
-                            <div class="col-sm-3">
-                                <div class="team-card">
-                                    <div class="team-image">
-                                        <a href="{{ baseUrl('/user/'~user.id) }}">
-                                            {% if user.avatar_url %}
-                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
-                                            {% else %}
-                                                <img src="/img/noavatar.jpg" alt="{{ user.username }}">
-                                            {% endif %}
-                                        </a>
-                                    </div>
-                                    <br>
-                                    <div class="team-text">
-                                        <div class="team-name">
-                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
-                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
-                                            </a>
-                                            <a href="/profile/{{ user.id }}">{{ user.username }}</a>
-                                        </div>
-                                        <div class="team-description">
-                                            {% if user.title %}
-                                                <p>{{ user.title }}</p>
-                                            {% else %}
-                                                <p>Moderator</p>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="widget">
-                <div class="widget-header">
+                <div class="widget-header moderators">
                     Moderators
                     <br>
                     <small>Responsible for handling mutes and keeping the in-game and Discord chats clean and free of spam.</small>
@@ -124,7 +124,7 @@
                                             {% if user.avatar_url %}
                                                 <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
                                             {% else %}
-                                                <img src="/img/noavatar.jpg" alt="{{ user.username }}">
+                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
                                             {% endif %}
                                         </a>
                                     </div>
@@ -169,7 +169,7 @@
                                             {% if user.avatar_url %}
                                                 <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
                                             {% else %}
-                                                <img src="/img/noavatar.jpg" alt="{{ user.username }}">
+                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
                                             {% endif %}
                                         </a>
                                     </div>

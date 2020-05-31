@@ -371,6 +371,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .profile-badges {
+    margin-top: -10px;
+}
+
+.profile-groups {
     margin-bottom: -5px;
 }
 

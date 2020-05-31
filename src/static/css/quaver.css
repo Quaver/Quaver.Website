@@ -501,8 +501,8 @@ a:hover {
     font-size: 14px;
 }
 
-.mapsets .cover .song-name .creator span {
-
+.mapsets .cover .song-name .creator .cr {
+    color: #45D6F5;
 }
 
 .mapsets .cover .status {

@@ -2,6 +2,32 @@
 <div class="row" id="mapsets_{{ status }}">
     {% endif %}
     {% for map in maps %}
+        {% if min(map.difficulty_range) < 1 %}
+            {% set rating_min = 'difficulty-rating-beginner' %}
+        {% elseif min(map.difficulty_range) < 3.5 %}
+            {% set rating_min = 'difficulty-rating-easy' %}
+        {% elseif min(map.difficulty_range) < 8 %}
+            {% set rating_min = 'difficulty-rating-normal' %}
+        {% elseif min(map.difficulty_range) < 19 %}
+            {% set rating_min = 'difficulty-rating-hard' %}
+        {% elseif min(map.difficulty_range) < 28 %}
+            {% set rating_min = 'difficulty-rating-insane' %}
+        {% else %}
+            {% set rating_min = 'difficulty-rating-expert' %}
+        {% endif %}
+        {% if max(map.difficulty_range) < 1 %}
+            {% set rating_max = 'difficulty-rating-beginner' %}
+        {% elseif max(map.difficulty_range) < 3.5 %}
+            {% set rating_max = 'difficulty-rating-easy' %}
+        {% elseif max(map.difficulty_range) < 8 %}
+            {% set rating_max = 'difficulty-rating-normal' %}
+        {% elseif max(map.difficulty_range) < 19 %}
+            {% set rating_max = 'difficulty-rating-hard' %}
+        {% elseif max(map.difficulty_range) < 28 %}
+            {% set rating_max = 'difficulty-rating-insane' %}
+        {% else %}
+            {% set rating_max = 'difficulty-rating-expert' %}
+        {% endif %}
         <div class="col-md-6 d-flex mapsets-space">
             <div class="mapsets">
                 <div class="status-right">
@@ -32,15 +58,16 @@
                             <div class="artist">{{ map.artist }}</div>
                             <div class="d-flex justify-content-between">
                                 <div class="creator">Created by
-                                    <span>{{ map.creator_username }}</span>
+                                    <span class="color: #45D6F5;">{{ map.creator_username }}</span>
                                 </div>
                                 <div class="creator" style="text-align: right">
                                     {% if map.difficulty_range %}
                                         <i class="fas fa-chart-line"></i>
                                         {% if min(map.difficulty_range) == max(map.difficulty_range) %}
-                                            {{ min(map.difficulty_range)|number_format(2) }}
+                                            <span class="{{ rating_min }}">{{ min(map.difficulty_range)|number_format(2) }}</span>
                                         {% else %}
-                                            {{ min(map.difficulty_range)|number_format(2) }} - {{ max(map.difficulty_range)|number_format(2) }}
+                                            <span>{{ min(map.difficulty_range)|number_format(2) }}</span> -
+                                            <span class="{{ rating_max }}">{{ max(map.difficulty_range)|number_format(2) }}</span>
                                         {% endif %}
                                     {% endif %}
                                 </div>

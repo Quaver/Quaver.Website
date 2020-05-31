@@ -29,7 +29,7 @@ export default class Users {
             const recent = await Users.GetRecentScores(req, res, user, mode);
             const firstPlace = await Users.GetFirstPlaceScores(req, res, user, mode);
             const mapSetsRanked = await Users.GetUploadedMapSetsRanked(req, res, user.info.id, 0);
-            console.log(mapSetsRanked[0]);
+
             const mapSetsUnRanked = await Users.GetUploadedMapSetsUnRanked(req, res, user.info.id, 0);
             const playLists = await Users.GetPlaylists(req, res, user);
             const bio = bbobHTML(sanitizeHtml(user.info.userpage, {

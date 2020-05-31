@@ -2,7 +2,7 @@
 <div class="row" id="mapsets_{{ status }}">
     {% endif %}
     {% for map in maps %}
-        {% if data != "profile" %}
+        {% if map.difficulty_range %}
             {% if min(map.difficulty_range) < 1 %}
                 {% set rating_min = 'difficulty-rating-beginner' %}
             {% elseif min(map.difficulty_range) < 3.5 %}
@@ -42,9 +42,18 @@
                 <a href="{{ baseUrl('/mapset/'~map.id) }}">
                     <div class="cover" style="background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://cdn.quavergame.com/banners/{{ map.id }}_banner.jpg')">
                         <div class="status">
-                            {% if map.game_modes|length == 2 %}
+                            {% set game_modes = map.game_modes %}
+                            {% if not map.game_modes %}
+                                {% set game_modes = [] %}
+                                {% for m in map.maps %}
+                                    {% if m.game_mode not in game_modes %}
+                                        {% set game_modes = game_modes|merge([m.game_mode]) %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if game_modes|length == 2 %}
                                 <div class="qadge mapset-4k-7k">4K / 7K</div>
-                            {% elseif map.game_modes[0] == 1 %}
+                            {% elseif game_modes[0] == 1 %}
                                 <div class="qadge mapset-4k">4K</div>
                             {% else %}
                                 <div class="qadge mapset-7k">7K</div>

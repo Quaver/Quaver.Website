@@ -141,7 +141,7 @@
         </div>
         <div class="container">
             <div class="row" id="maps">
-                {% include 'maps/mapsets.twig' %}
+                {% include 'maps/mapsets.twig' with {'data': 'maps'} %}
             </div>
             <div class="text-center mt-4">
                 <button type="button" class="btn btn-primary w-25" id="more">Load More</button>

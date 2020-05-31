@@ -1,5 +1,5 @@
 {% if data == "profile" %}
-<div class="row" id="mapsets_{{ mode }}">
+<div class="row" id="mapsets_{{ status }}">
     {% endif %}
     {% for map in maps %}
         <div class="col-md-6 d-flex mapsets-space">
@@ -54,23 +54,24 @@
 
     {% if data == "profile" %}
 </div>
-    <a href="javascript:void(0)" id="mapsets_more_{{ mode }}">
+    <a href="javascript:void(0)" id="mapsets_more_{{ status }}">
         <div class="load-more">
             <i class="fas fa-angle-down"></i>
         </div>
     </a>
 
     <script>
-        mapsPages['page_{{ mode }}'] = 1;
-        console.log(mapsPages);
-        $('#mapsets_more_{{ mode }}').on('click', function () {
-            console.log(mapsPages['page_{{ mode }}']);
-            $.get(apiBaseUrl() + `/v1/users/mapsets/{{ user.info.id }}?status={{ status }}&page=${mapsPages['page_{{ mode }}']}` ,function(data) {
-                console.log(data);
-                $(data).appendTo("#mapsets_{{ mode }}");
+        $('#mapsets_more_{{ status }}').on('click', function () {
+            let query = {};
+            query['id'] = parseInt("{{ user.info.id }}");
+            query['status'] = parseInt("{{ status }}");
+            query['page'] = mapsPages['page_{{ status }}'];
+
+            $.post(baseUrl() + `/user/maps/load` , query, function(data) {
+                $(data).appendTo("#mapsets_{{ status }}");
                 initLazy();
             });
-            mapsPages['page_{{ mode }}']++;
+            mapsPages['page_{{ status }}']++;
         });
     </script>
 {% endif %}

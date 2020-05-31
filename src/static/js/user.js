@@ -1,3 +1,11 @@
+function initLazy() {
+    new LazyLoad({
+        elements_selector: ".lazy"
+    });
+}
+
+initLazy();
+
 function sortData(data) {
     let marv = [], perf = [], great = [], good = [], okay = [], miss = [];
     $.each(data, function (key, value) {

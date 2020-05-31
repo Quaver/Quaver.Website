@@ -1,6 +1,8 @@
 import Logger from "../../logging/Logger";
 import Responses from "../../utils/Responses";
 import API from "../../api/API";
+import GameMode from "../../enums/GameMode";
+import RankedStatus from "../../enums/RankedStatus";
 import bbobHTML from '@bbob/html';
 import presetHTML5 from '@bbob/preset-html5';
 import sanitizeHtml = require("sanitize-html");
@@ -26,8 +28,8 @@ export default class Users {
             const best = await Users.GetBestScores(req, res, user, mode);
             const recent = await Users.GetRecentScores(req, res, user, mode);
             const firstPlace = await Users.GetFirstPlaceScores(req, res, user, mode);
-            const mapSetsRanked = await Users.GetUploadedMapSetsRanked(req, res, user);
-            const mapSetsUnRanked = await Users.GetUploadedMapSetsUnRanked(req, res, user);
+            const mapSetsRanked = await Users.GetUploadedMapSetsRanked(req, res, user.info.id, 0);
+            const mapSetsUnRanked = await Users.GetUploadedMapSetsUnRanked(req, res, user.info.id, 0);
             const playLists = await Users.GetPlaylists(req, res, user);
             const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
                 allowedTags: ['span', 'a'],
@@ -46,7 +48,9 @@ export default class Users {
                 firstPlace,
                 mapSetsRanked,
                 mapSetsUnRanked,
-                playLists
+                playLists,
+                GameMode,
+                RankedStatus
             });
         } catch (err) {
             Logger.Error(err);
@@ -99,8 +103,8 @@ export default class Users {
      * @param res
      * @param user
      */
-    private static async GetUploadedMapSetsRanked(req: any, res: any, user: any): Promise<any> {
-        const ranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=2`);
+    private static async GetUploadedMapSetsRanked(req: any, res: any, user: any, page: number): Promise<any> {
+        const ranked = await API.GET(req, `v1/users/mapsets/${user}?status=2&page=${page}`);
 
         return ranked.mapsets;
     }
@@ -111,8 +115,8 @@ export default class Users {
      * @param res
      * @param user
      */
-    private static async GetUploadedMapSetsUnRanked(req: any, res: any, user: any): Promise<any> {
-        const unranked = await API.GET(req, `v1/users/mapsets/${user.info.id}?status=1`);
+    private static async GetUploadedMapSetsUnRanked(req: any, res: any, user: any, page: number): Promise<any> {
+        const unranked = await API.GET(req, `v1/users/mapsets/${user}?status=1&page=${page}`);
 
         return unranked.mapsets;
     }
@@ -148,5 +152,35 @@ export default class Users {
         response.user.achievements = achievementsResponse.achievements;
 
         return response.user;
+    }
+
+    /**
+     * Fetches and returns maps
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static async UserMapssetsPOST(req: any, res: any): Promise<void> {
+        try {
+            req.query = req.body;
+
+            const userId: number[] = (req.query.id) ? req.query.id : 0;
+            const status: RankedStatus = (req.query.status) ? req.query.status : RankedStatus.Ranked;
+            const page: number = (!isNaN(req.query.page) && req.query.page >= 0) ? req.query.page : 0;
+
+            let maps = null;
+
+            if(status == RankedStatus.Ranked)
+                 maps = await Users.GetUploadedMapSetsRanked(req, res, userId, page);
+            else
+                maps = await Users.GetUploadedMapSetsUnRanked(req, res, userId, page);
+
+            Responses.Send(req, res, "maps/mapsets", ``, {
+                maps: maps
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
     }
 }

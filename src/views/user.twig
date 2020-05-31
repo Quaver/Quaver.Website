@@ -93,6 +93,8 @@
                                             Ranking Supervisor
                                         {% elseif HasGroup(user.info, UserGroups.Contributor) %}
                                             Contributor
+                                        {% elseif HasGroup(user.info, UserGroups.Donator) %}
+                                            Donator
                                         {% endif %}
                                     </span>
                                 </div>

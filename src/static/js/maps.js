@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     $('#filters input').on('keypress', function (e) {
-        if(e.keyCode === 13) {
+        if (e.keyCode === 13) {
             e.preventDefault();
             submitForm();
         }
@@ -34,14 +34,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     $('#more').on('click', function () {
         query['page'] = page;
-        $.post(baseUrl() + '/maps/load', query ,function(data) {
-            $(data).appendTo("#maps");
-            initLazy();
+        $.post(baseUrl() + '/maps/load', query, function (data) {
+            if (data.trim() === "") {
+                $("#more").hide();
+            } else {
+                $(data).appendTo("#maps");
+                initLazy();
+            }
         });
         page += 1;
     });
 
-    $('input[type=checkbox]').change(function() {
+    $('input[type=checkbox]').change(function () {
         submitForm();
     });
 });

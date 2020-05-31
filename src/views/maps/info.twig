@@ -115,12 +115,19 @@
                     {{ map.play_count-map.fail_count }} / {{ map.fail_count }}
                 </div>
             </div>
-            {% if mapset.description %}
-                <div class="col-md-12">
-                    <hr>
-                    {{ mapset.description }}
-                </div>
-            {% endif %}
         </div>
     </div>
 </div>
+
+{% if not modding and mapset.description %}
+    <div class="widget">
+        <div class="widget-header">
+            Description
+        </div>
+    </div>
+<div class="card mt-4">
+    <div class="card-body">
+        {{ mapset.description }}
+    </div>
+</div>
+{% endif %}

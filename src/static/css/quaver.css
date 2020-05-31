@@ -414,6 +414,75 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border-color: #75e475;
 }
 
+.mode-switch {
+    vertical-align: middle;
+    text-shadow: none;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.mode-switch a {
+    border-radius: 9.5px;
+    color: #808080;
+}
+
+.mode-switch a:hover {
+    text-decoration: none;
+}
+
+.mode-switch .active {
+    color: #FFFFFF;
+}
+
+.mode-switch a div {
+    border-radius: 9.5px;
+    width: 48px;
+    height: 19px;
+    display: inline-block;
+    text-align: center;
+}
+
+.mode-switch a {
+    background: #242424;
+    padding: 4px 0 4px 0;
+    position: relative;
+}
+
+.mode-switch .mode-4 {
+    background: #0587E5;
+    box-shadow: none;
+    z-index: 4;
+}
+
+.mode-switch .mode-7 {
+    background: #9B51E0;
+    box-shadow: none;
+    z-index: 4;
+}
+
+.mode-switch a:not(.active):not(.mode-4) {
+    background: #242424;
+    padding-left: 15px;
+    margin-left: -20px;
+    z-index: 3;
+    -webkit-box-shadow:inset 0px 0px 0px 2px #9B51E0;
+    -moz-box-shadow:inset 0px 0px 0px 2px #9B51E0;
+    box-shadow:inset 0px 0px 0px 2px #9B51E0;
+}
+
+.mode-switch a:not(.active):not(.mode-7) {
+    background: #242424;
+    padding-right: 15px;
+    margin-right: -20px;
+    z-index: 3;
+    -webkit-box-shadow:inset 0px 0px 0px 2px #0587E5;
+    -moz-box-shadow:inset 0px 0px 0px 2px #0587E5;
+    box-shadow:inset 0px 0px 0px 2px #0587E5;
+}
+
 /*This breaks scrolling*/
 /*.avatar-thumbnail.position-absolute {*/
 /*    margin-top: -68px;*/

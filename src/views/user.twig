@@ -39,6 +39,23 @@
                                 <span class="circle offline"></span>Offline
                             {% endif %}
                         </div>
+                        <div class="profile-badges">
+                            <small>
+                                {% if HasGroup(user.info, UserGroups.Developer) %}
+                                    <span class="badge badge-custom-developer"><i class="fa fa-code fa-1"></i> Developer</span>
+                                {% elseif HasGroup(user.info, UserGroups.Admin) %}
+                                    <span class="badge badge-custom-admin"><i class="fa fa-gavel fa-1"></i> Administrator</span>
+                                {% elseif HasGroup(user.info, UserGroups.Moderator) %}
+                                    <span class="badge badge-custom-moderator"><i class="fa fa-ban fa-1"></i> Moderator</span>
+                                {% elseif HasGroup(user.info, UserGroups.RankingSupervisor) %}
+                                    <span class="badge badge-custom-ranking-supervisor"><i class="fa fa-gavel fa-1"></i> Ranking Supervisor</span>
+                                {% elseif HasGroup(user.info, UserGroups.Contributor) %}
+                                    <span class="badge badge-custom-contributor"><i class="fa fa-wrench fa-1"></i> Contributor</span>
+                                {% elseif HasGroup(user.info, UserGroups.Donator) %}
+                                    <span class="badge badge-custom-donator"><i class="fa fa-heart fa-1"></i> Donator</span>
+                                {% endif %}
+                            </small>
+                        </div>
                     </h2>
                     {% if currentUser %}
                         {#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}

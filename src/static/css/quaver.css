@@ -371,7 +371,47 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .profile-badges {
-    margin-top: -10px;
+    margin-bottom: -5px;
+}
+
+[class*="badge-custom-"] {
+    font-weight: 600;
+    border-radius: 3px;
+    color: #fff;
+    border: 1px solid;
+    padding: 5px 5px !important;
+}
+
+.badge-custom-swan {
+    border-color: #db88c2;
+}
+
+.badge-custom-developer {
+    border-color: #bb79e5;
+}
+
+.badge-custom-admin {
+    border-color: #708df9;
+}
+
+.badge-custom-moderator {
+    border-color: #4cb0f7;
+}
+
+.badge-custom-ranking-supervisor {
+    border-color: #49e6ef;
+}
+
+.badge-custom-donator {
+    border-color: #ffd3fb;
+}
+
+.badge-custom-bot {
+    border-color: #ffeb67;
+}
+
+.badge-custom-contributor {
+    border-color: #75e475;
 }
 
 /*This breaks scrolling*/

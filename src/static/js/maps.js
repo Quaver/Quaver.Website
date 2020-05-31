@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $('#more').on('click', function () {
         query['page'] = page;
         $.post(baseUrl() + '/maps/load', query ,function(data) {
-            $("#maps").append(data);
+            $(data).appendTo("#maps");
             initLazy();
         });
         page += 1;

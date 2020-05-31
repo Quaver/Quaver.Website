@@ -140,8 +140,9 @@
             </form>
         </div>
         <div class="container">
-            {% include 'maps/mapsets.twig' %}
-            <div id="maps"></div>
+            <div class="row" id="maps">
+                {% include 'maps/mapsets.twig' %}
+            </div>
             <div class="text-center mt-4">
                 <button type="button" class="btn btn-primary w-25" id="more">Load More</button>
             </div>

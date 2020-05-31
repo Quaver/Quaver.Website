@@ -6,7 +6,7 @@ html {
 
 body {
     /*background: url("/img/triangles.png"), rgba(26, 26, 26, 1);*/
-    background:  rgba(26, 26, 26, 1);
+    background: rgba(26, 26, 26, 1);
 }
 
 ::-webkit-scrollbar {
@@ -120,7 +120,8 @@ a:hover {
 .category span:last-child {
     font-size: 30px;
     font-weight: 500;
-    color: #45D6F5;text-align: left;
+    color: #45D6F5;
+    text-align: left;
 }
 
 .dropdown-menu {
@@ -298,7 +299,7 @@ a:hover {
     font-size: 14px;
 }
 
-.pagination>li>a, .pagination>li>span {
+.pagination > li > a, .pagination > li > span {
     position: relative;
     float: left;
     padding: 6px 12px;
@@ -396,7 +397,7 @@ a:hover {
     color: #808080;
 }
 
-.feed li{
+.feed li {
     padding-top: 5px;
     padding-bottom: 5px;
     border-bottom: 1px solid #363636;
@@ -456,76 +457,205 @@ a:hover {
     width: 100%;
 }
 
-.mapset {
-    border-radius: 6px;
-    height: auto;
-    color: #ffffff;
-    margin-bottom: 10px;
-    padding: 15px 20px 15px 20px;
+.mapsets-space {
+    margin-bottom: 20px;
 }
 
-.mapset .overflow {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+.mapsets .cover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    min-height: 160px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    transition: .5s ease;
+    width: 100%;
 }
 
-.mapset a {
-    color: #ffffff;
+.mapsets .cover:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+    cursor: pointer;
 }
 
-.mapset a:hover {
+.mapsets .cover .song-name {
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    padding: 10px;
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 1);
+}
+
+.mapsets .cover .song-name .artist {
+    font-size: 16px;
+}
+
+.mapsets .cover .song-name .title {
+    font-size: 18px;
+}
+
+.mapsets .cover .song-name .creator {
+    font-size: 14px;
+}
+
+.mapsets .cover .song-name .creator span {
     color: #45D6F5;
 }
 
-.mapset-info-right {
-    text-align: right;
-}
-
-.mapset-info-right > span {
+.mapsets .cover .status {
+    float: left;
     display: inline-block;
-    text-align: center;
-    width: 80px;
-    height: 24px;
+    margin: 5px 0 0 5px;
+    padding: 2px 4px 2px 4px;
+    width: 100%;
+}
+
+.mapsets .status-right {
+    position: absolute;
+    right: 25px;
+    top: 5px;
+    z-index: 4;
+}
+
+.mapsets .cover .status .badge {
+    margin-bottom: 3px;
+}
+
+.mapsets .status .qadge {
+    padding: 4px 8px;
     border-radius: 14px;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
     font-size: 12px;
-    line-height: 2;
-    text-transform: uppercase;
+    z-index: 3;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    display: inline-block;
 }
 
-.mapset-4k {
-    background: #0587E5;
-}
-
-.mapset-7k {
-    background: #9B51E0;
-}
-
-.mapset-4k-7k {
-    background: linear-gradient(90deg, #9B51E0 35.92%, #0587E5 100%);
-}
-
-.mapset-ranked {
+.mapsets .status .status-ranked {
     background: #27B06E;
 }
 
-.mapset-unranked {
-    background: #5B5B5B;
+.mapsets .status .status-unranked {
+    background: #F9645D;
 }
 
-.mapset-info-download {
-    margin-top: 15px;
-    text-align: right;
+.mapsets .status .mapset-4k {
+    background: #0587E5;
 }
 
-.mapset-song {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    font-family: 'Lato', sans-serif;
-    display: inline;
+.mapsets .status .mapset-7k {
+    background: #9B51E0;
 }
+
+.mapsets .status .mapset-4k-7k {
+    background: linear-gradient(270deg, #9B51E0 35.92%, #0587E5 100%);
+}
+
+.mapsets .download {
+    background: #2575dc;
+    font-size: 11px;
+    width: 25px;
+    height: 25px;
+    border-radius: 14px;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+@media (max-width: 768px) {
+    .mapsets .cover .song-name .artist {
+        font-size: 13px;
+    }
+
+    .mapsets .cover .song-name .title {
+        font-size: 15px;
+    }
+
+    .mapsets .cover .song-name .creator {
+        font-size: 14px;
+    }
+}
+
+/*.mapsets {*/
+/*    width: 100%;*/
+/*}*/
+
+/*.mapset {*/
+/*    border-radius: 6px;*/
+/*    height: auto;*/
+/*    color: #ffffff;*/
+/*    margin-bottom: 10px;*/
+/*    padding: 15px 20px 15px 20px;*/
+/*}*/
+
+/*.mapset .overflow {*/
+/*    white-space: nowrap;*/
+/*    text-overflow: ellipsis;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.mapset a {*/
+/*    color: #ffffff;*/
+/*}*/
+
+/*.mapset a:hover {*/
+/*    color: #45D6F5;*/
+/*}*/
+
+/*.mapset-info-right {*/
+/*    text-align: right;*/
+/*}*/
+
+/*.mapset-info-right > span {*/
+/*    display: inline-block;*/
+/*    text-align: center;*/
+/*    width: 80px;*/
+/*    height: 24px;*/
+/*    border-radius: 14px;*/
+/*    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+/*    font-size: 12px;*/
+/*    line-height: 2;*/
+/*    text-transform: uppercase;*/
+/*}*/
+
+/*.mapset-4k {*/
+/*    background: #0587E5;*/
+/*}*/
+
+/*.mapset-7k {*/
+/*    background: #9B51E0;*/
+/*}*/
+
+/*.mapset-4k-7k {*/
+/*    background: linear-gradient(90deg, #9B51E0 35.92%, #0587E5 100%);*/
+/*}*/
+
+/*.mapset-ranked {*/
+/*    background: #27B06E;*/
+/*}*/
+
+/*.mapset-unranked {*/
+/*    background: #5B5B5B;*/
+/*}*/
+
+/*.mapset-info-download {*/
+/*    margin-top: 15px;*/
+/*    text-align: right;*/
+/*}*/
+
+/*.mapset-song {*/
+/*    font-size: 20px;*/
+/*    font-weight: 600;*/
+/*    letter-spacing: 0.05em;*/
+/*    font-family: 'Lato', sans-serif;*/
+/*    display: inline;*/
+/*}*/
 
 /*.mapset-song.longboy span{*/
 /*    width: 80%;*/
@@ -596,7 +726,7 @@ a:hover {
 /* Tooltips newline */
 
 .tooltip-inner {
-    white-space:pre;
+    white-space: pre;
     max-width: none;
 }
 
@@ -1061,9 +1191,11 @@ a:hover {
 #playlist a {
     color: #45D6F5;
 }
+
 #playlist a b {
     color: #45D6F5;
 }
+
 #playlist .text-white {
     color: white;
 }
@@ -1072,42 +1204,53 @@ a:hover {
     max-width: 100%;
     max-height: 100%;
 }
+
 #playlist .post-medium .post-thumbnail {
     width: 50%;
     min-height: 0 !important;
     margin-top: 0;
 }
+
 #playlist .post {
     padding-bottom: 0;
     padding: 2px;
     margin-bottom: -5px;
 }
+
 #playlist .post-body {
     margin-top: -3px;
 }
+
 #playlist .image {
     width: 260px;
     height: 260px;
 }
+
 #playlist .image img {
     width: 100%;
     height: 100%;
 }
+
 #playlist .card-footer span:nth-child(2) {
     margin-left: 8px;
 }
+
 #playlist .list-group {
     margin-top: 10px;
 }
+
 #playlist .list-group a {
     border: none;
 }
+
 #playlist .map-border {
     border-top: 1px solid #ccc;
 }
+
 #playlist .post-body div {
     padding: 6px;
 }
+
 .sticky-top {
     top: 90px;
 }

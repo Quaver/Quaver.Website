@@ -14,20 +14,39 @@
                         </a>
                         {{ user.info.username }}
                         <div class="status">
-                            {% if user.info.online %}
-                                <span class="circle online"></span>Online
+                            {% if user.online_status.is_online %}
+                                <span class="circle online"></span>
+                                {% if user.online_status.current_status %}
+                                    {% if user.online_status.current_status.status == 0 %}
+                                        In menus
+                                    {% elseif user.online_status.current_status.status == 1 %}
+                                        Selecting a Song
+                                    {% elseif user.online_status.current_status.status == 2 %}
+                                        Playing {{ user_status.current_status.content.split('/\[\w*\]$/')[0] }}
+                                    {% elseif user.online_status.current_status.status == 3 %}
+                                        Paused
+                                    {% elseif user.online_status.current_status.status == 4 %}
+                                        Watching {{ user.online_status.current_status.content }}
+                                    {% elseif user.online_status.current_status.status == 5 %}
+                                        Editing {{ user.online_status.current_status.content }}
+                                    {% elseif user.online_status.current_status.status == 6 %}
+                                        In Multiplayer Lobby
+                                    {% elseif user.online_status.current_status.status == 7 %}
+                                        Playing Multiplayer {{ user.online_status.current_status.content }}
+                                    {% endif %}
+                                {% endif %}
                             {% else %}
                                 <span class="circle offline"></span>Offline
                             {% endif %}
                         </div>
                     </h2>
                     {% if currentUser %}
-{#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
-{#                            <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">#}
-{#                                <i class="ya ya-user-add"></i>#}
-{#                                Add friend#}
-{#                            </a>#}
-{#                        </div>#}
+                        {#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
+                        {#                            <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">#}
+                        {#                                <i class="ya ya-user-add"></i>#}
+                        {#                                Add friend#}
+                        {#                            </a>#}
+                        {#                        </div>#}
                     {% endif %}
                 </div>
             </div>
@@ -44,7 +63,7 @@
                         <div class="avatar-fixed d-none d-lg-block">
                             <a class="avatar-tile" href="#">
                                 <img src="{{ user.info.avatar_url }}" alt="" width="50" height="50">
-                                <div>
+                                <div class="text-white">
                                     <strong>{{ user.info.username }}</strong>
                                     <span class="d-block">
                                         {% if HasGroup(user.info, UserGroups.Developer) %}

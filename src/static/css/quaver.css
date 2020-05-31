@@ -33,6 +33,13 @@ a:hover {
     color: #FFFFFF;
 }
 
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #FFFFFF;
+}
+
 .dropdown-menu {
     background: #242424 !important;
     border: 1px solid #252525;
@@ -676,6 +683,10 @@ a:hover {
     border-radius: 4px;
     overflow: hidden;
     margin-top: 20px;
+}
+
+.map-description {
+    color: #FFFFFF;
 }
 
 /* Border fixes */

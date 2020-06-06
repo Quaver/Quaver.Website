@@ -40,8 +40,9 @@ export default class Router {
         router.route("/logout").get(Login.LogoutGET);
         router.route("/team").get(Team.GET);
 
-        router.route("/mapset/map/:id").post(Maps.DeleteMapset);
-        router.route("/mapset/map/:id/mods").post(Maps.HandlePost);
+        router.route("/mapset/:id").post(Maps.HandlePost);
+        router.route("/mapset/map/:id").post(Maps.HandlePost);
+        router.route("/mapset/map/:id/mods").post(Maps.HandlePostMods);
 
         router.route("/download/:type/:id").get(Download.GET);
 

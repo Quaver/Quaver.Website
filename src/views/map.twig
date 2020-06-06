@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
+            <div class="card" id="comments">
                 <div class="card-body">
                     <div id="comments" class="comments">
                         {% if not comments|length %} No Comments{% endif %}
@@ -141,12 +141,13 @@
                     {% if currentUser %}
                         {% if map.ranked_status != 2 and (HasPrivilege(currentUser, Privileges.RankMapsets) or (currentUser.id == map.creator_id and mapset.ranking_queue_status != 1 )) %}
                             <h5 class="mt-5">Leave a comment</h5>
-                            <form>
+                            <form method="post" accept-charset="UTF-8">
+                                <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
                                 <div class="form-group mb-4">
-                                    <textarea class="form-control queue-comment-textarea" rows="5"></textarea>
+                                    <textarea class="form-control queue-comment-textarea" rows="5" name="comment"></textarea>
                                     <small class="form-text text-muted">Your comment must be between 0 and 2,000 characters!</small>
                                 </div>
-                                <button type="button" class="btn btn-primary">Submit comment</button>
+                                <input type="submit" class="btn btn-primary" name="submit_comment" value="Submit comment">
                             </form>
                         {% endif %}
                     {% endif %}

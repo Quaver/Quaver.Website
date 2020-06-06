@@ -6,7 +6,7 @@ import ModStatus from "../../enums/ModStatus";
 import GameMode from "../../enums/GameMode";
 import RankedStatus from "../../enums/RankedStatus";
 
-const showdown  = require('showdown');
+const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
 const moment = require("moment");
 
@@ -60,15 +60,15 @@ export default class Maps {
 
     /**
      *  Fetches and returns the page which displays an individual mapset
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public static async MapsetGET(req: any, res: any): Promise<void> {
         try {
             let mapset = await Maps.FetchMapset(req, req.params.id);
             // Mapset doesn't exist or is hidden, so return a 404.
             if (!mapset)
-                return res.status(404).json({ status: 404, error: "Mapset not found"});
+                return res.status(404).json({status: 404, error: "Mapset not found"});
 
             // Sort difficulties
             mapset.maps = await Maps.SortDifficulties(mapset.maps);
@@ -82,7 +82,7 @@ export default class Maps {
 
             Responses.Send(req, res, "map", `${mapset.artist} - ${mapset.title} by: ${mapset.creator_username} | Quaver`, {
                 mapset: mapset,
-                map: map, 
+                map: map,
                 scores: scores,
                 comments: comments,
                 gameMode: GameModeHelper.gameMode
@@ -95,15 +95,15 @@ export default class Maps {
 
     /**
      * Fetches and returns the page for an individual map (same as the mapset page, but selects an individual map)
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public static async MapGET(req: any, res: any): Promise<void> {
         try {
             const map = await Maps.FetchMap(req, req.params.id);
 
             if (!map)
-                return res.status(404).json({ status: 404, error: "Map not found" });
+                return res.status(404).json({status: 404, error: "Map not found"});
 
             let mapset = await Maps.FetchMapset(req, map.mapset_id);
 
@@ -113,14 +113,14 @@ export default class Maps {
             mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 
             if (!mapset)
-                return res.status(404).json({ status: 404, error: "Mapset not found"});
+                return res.status(404).json({status: 404, error: "Mapset not found"});
 
             const scores = await Maps.FetchMapScores(req, map.id);
             const comments = await Maps.FetchSupervisorComments(req, mapset.id);
-    
+
             Responses.Send(req, res, "map", `${mapset.artist} - ${mapset.title} by: ${mapset.creator_username} | Quaver`, {
                 mapset: mapset,
-                map: map, 
+                map: map,
                 scores: scores,
                 comments: comments,
                 gameMode: GameModeHelper.gameMode
@@ -141,7 +141,7 @@ export default class Maps {
             const map = await Maps.FetchMap(req, req.params.id);
 
             if (!map)
-                return res.status(404).json({ status: 404, error: "Map not found" });
+                return res.status(404).json({status: 404, error: "Map not found"});
 
             let mapset = await Maps.FetchMapset(req, map.mapset_id);
 
@@ -151,7 +151,7 @@ export default class Maps {
             mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 
             if (!mapset)
-                return res.status(404).json({ status: 404, error: "Mapset not found"});
+                return res.status(404).json({status: 404, error: "Mapset not found"});
 
             let mods = await Maps.FetchMods(req, map.id);
 
@@ -171,7 +171,7 @@ export default class Maps {
 
             const filter = req.query.filter ? req.query.filter : '';
 
-            if(filter != null) {
+            if (filter != null) {
                 await Maps.SortMods(mods, filter);
             }
 
@@ -190,35 +190,35 @@ export default class Maps {
     }
 
     private static async SortMods(mods: any, filter: any): Promise<any> {
-        const statuses : any =  {
-                "Pending": 0,
-                "Accepted": 1,
-                "Denied": 2,
-                "Ignored": 3
+        const statuses: any = {
+            "Pending": 0,
+            "Accepted": 1,
+            "Denied": 2,
+            "Ignored": 3
         };
 
         switch (filter) {
             case 'status':
-                mods.sort((a:any, b:any) => statuses[a.mod.status] - statuses[b.mod.status]);
+                mods.sort((a: any, b: any) => statuses[a.mod.status] - statuses[b.mod.status]);
                 break;
             case 'time':
-                mods.sort((a:any, b:any) => b.mod.id - a.mod.id);
+                mods.sort((a: any, b: any) => b.mod.id - a.mod.id);
                 break;
             case 'type':
-                mods.sort((a:any, b:any) => statuses[a.mod.type] - statuses[b.mod.type]);
+                mods.sort((a: any, b: any) => statuses[a.mod.type] - statuses[b.mod.type]);
                 break;
             default:
-                mods.sort((a:any, b:any) => b.mod.id - a.mod.id);
+                mods.sort((a: any, b: any) => b.mod.id - a.mod.id);
                 break;
-                // mods.sort((a:any, b:any) => a.mod.id - b.mod.id);
-                // break;
+            // mods.sort((a:any, b:any) => a.mod.id - b.mod.id);
+            // break;
         }
 
         return mods;
     }
 
 
-    public static async HandlePost(req: any, res: any): Promise<any> {
+    public static async HandlePostMods(req: any, res: any): Promise<any> {
         try {
             if (typeof req.body.submit_mod !== 'undefined') {
                 const mod = await API.POST(req, `v1/maps/${req.params.id}/mods`, {
@@ -284,7 +284,7 @@ export default class Maps {
                 status,
                 page,
                 limit,
-                mindiff : req.query.mindiff,
+                mindiff: req.query.mindiff,
                 maxdiff: req.query.maxdiff,
                 minlength: req.query.minlen,
                 maxlength: req.query.maxlen,
@@ -311,17 +311,28 @@ export default class Maps {
         }
     }
 
-    public static async DeleteMapset(req: any, res: any): Promise<any> {
+    public static async HandlePost(req: any, res: any): Promise<any> {
         try {
             if (typeof req.body.submit_delete !== 'undefined') {
                 await API.POST(req, `v1/mapsets/${req.body.mapset_id}/delete`);
+            } else if (typeof req.body.submit_for_rank !== 'undefined') {
+                await API.POST(req, `v1/mapsets/${req.body.mapset_id}/submitrank`);
+            } else if (typeof req.body.add_to_playlist !== 'undefined') {
+                //    handle playlist add
+            } else if (typeof req.body.submit_comment !== 'undefined') {
+                if (req.body.comment !== "")
+                    await API.POST(req, `v1/mapsets/${req.body.mapset_id}/comment`, {
+                        comment: req.body.comment
+                    });
+
+                res.redirect(303, `/mapset/${req.body.mapset_id}#comments`);
+                return;
             }
+            res.redirect(303, `/mapset/${req.body.mapset_id}`);
         } catch (err) {
             Logger.Error(err);
             Responses.Return500(req, res);
         }
-
-        res.redirect(303, `/`);
     }
 
     /**
@@ -333,7 +344,7 @@ export default class Maps {
     private static async ReplaceCode(timestamp: any): Promise<any> {
         const regex_code = new RegExp(/<code>((\d+\|\d)(,(\d+\|\d))*)<\/code>/g);
 
-        return timestamp.replace(regex_code, function (p:any) {
+        return timestamp.replace(regex_code, function (p: any) {
             const matches = p.split(regex_code);
             return `<a href="quaver://editor/${matches[1]}"><span>${matches[1]}</span></a>`;
         });
@@ -374,8 +385,8 @@ export default class Maps {
 
     /**
      * Fetches information aboout an individual map
-     * @param req 
-     * @param id 
+     * @param req
+     * @param id
      */
     private static async FetchMap(req: any, id: number): Promise<any> {
         try {
@@ -393,8 +404,8 @@ export default class Maps {
 
     /**
      * Fetches scores for an individual map
-     * @param req 
-     * @param id 
+     * @param req
+     * @param id
      */
     private static async FetchMapScores(req: any, id: number): Promise<any[]> {
         try {
@@ -402,7 +413,7 @@ export default class Maps {
 
             if (response.status != 200)
                 return [];
-            
+
             return response.scores;
         } catch (err) {
             Logger.Error(err);
@@ -412,8 +423,8 @@ export default class Maps {
 
     /**
      * Fetches ranking supervisor comments on an individual mapset
-     * @param req 
-     * @param id 
+     * @param req
+     * @param id
      */
     private static async FetchSupervisorComments(req: any, id: number): Promise<any[]> {
         try {
@@ -430,14 +441,14 @@ export default class Maps {
     }
 
     public static async SortDifficulties(arr: any): Promise<any[]> {
-        return arr.slice().sort(function(a:any, b:any) {
+        return arr.slice().sort(function (a: any, b: any) {
             return a.difficulty_rating - b.difficulty_rating;
         });
     }
 
     /**
      * Returns a unix timestamp from a YYYY-MM-DD formatted date
-     * @param date 
+     * @param date
      */
     private static GetUnixTimestampFromDate(date: any): any {
         if (!date)

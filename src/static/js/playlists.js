@@ -33,10 +33,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     $('#more').on('click', function () {
-        query['page'] = page;
-        $.post(baseUrl() + '/playlists/load', query ,function(data) {
-            $("#maps").append(data);
-            initLazy();
+        $.post(baseUrl() + '/playlists/load', {
+            'page': page
+        } ,function(data) {
+            if (data.trim() === "") {
+                $("#more").hide();
+            } else {
+                $("#maps").append(data);
+                initLazy();
+            }
         });
         page += 1;
     });

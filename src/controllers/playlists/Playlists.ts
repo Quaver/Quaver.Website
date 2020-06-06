@@ -36,6 +36,7 @@ export default class Playlists {
      */
     public static async PlaylistsMoreGET(req: any, res: any): Promise<void> {
         try {
+            req.query = req.body;
             const page: number = (!isNaN(req.query.page) && req.query.page >= 0) ? req.query.page : 0;
             const search = (req.query.search) ? req.query.search : null;
 
@@ -52,8 +53,8 @@ export default class Playlists {
 
     /**
      * Fetches and renders the page which displays a user playlist
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public static async GET(req: any, res: any): Promise<void> {
         try {
@@ -70,7 +71,7 @@ export default class Playlists {
             });
         } catch (err) {
             if (err.message.includes("404"))
-                return res.status(404).json({ status: 404, error: "Playlist was not found!" });
+                return res.status(404).json({status: 404, error: "Playlist was not found!"});
 
             Logger.Error(err);
             Responses.Return500(req, res);
@@ -92,7 +93,7 @@ export default class Playlists {
     }
 
     public static async SortDifficulties(arr: any): Promise<any[]> {
-        return arr.reduce(function(rv, x) {
+        return arr.reduce(function (rv, x) {
             (rv[x["mapset_id"]] = rv[x["mapset_id"]] || []).push(x);
             return rv;
         }, {});

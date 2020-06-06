@@ -43,6 +43,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .dropdown-menu {
     background: #242424 !important;
     border: 1px solid #252525;
+    z-index: 999;
 }
 
 .dropdown-menu .dropdown-item:hover {
@@ -1377,6 +1378,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .sticky-top {
     top: 90px;
+    z-index: 1;
 }
 
 #playlist .list-group-item {

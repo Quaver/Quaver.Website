@@ -33,8 +33,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     $('#more').on('click', function () {
-        query['page'] = page;
-        $.post(baseUrl() + '/maps/load', query, function (data) {
+        $.post(baseUrl() + '/maps/load', {
+            'page': page
+        }, function (data) {
             if (data.trim() === "") {
                 $("#more").hide();
             } else {

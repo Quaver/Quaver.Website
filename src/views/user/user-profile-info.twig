@@ -66,10 +66,10 @@
                         <span>{{ user[game_mode].stats.multiplayer_wins }}W - {{ user[game_mode].stats.multiplayer_losses }}L - {{ user[game_mode].stats.multiplayer_ties }}T</span>
                     </li>
                     <li>Date Registered
-                        <span>{{ formatDate(user.info.time_registered) }}</span>
+                        <span data-toggle="tooltip" title="{{ formatDate(user.info.time_registered) }}">{{ formatDateDistance(user.info.time_registered) }}</span>
                     </li>
                     <li>Last Seen
-                        <span>{{ formatDateDistance(user.info.latest_activity) }}</span>
+                        <span data-toggle="tooltip" title="{{ formatDate(user.info.latest_activity) }}">{{ formatDateDistance(user.info.latest_activity) }}</span>
                     </li>
                 </ul>
             </div>
@@ -139,7 +139,8 @@
                                 </div>
                                 {{ u|raw }} has received a gift for donator perks!
                             {% endif %}
-                            <div class="timestamp">{{ formatDateDistance(feed.timestamp) }}</div>
+                            <div class="timestamp">
+                                <span data-toggle="tooltip" title="{{ formatDate(feed.timestamp) }}">{{ formatDateDistance(feed.timestamp) }}</span></div>
                         </li>
                     {% endfor %}
                 </ul>

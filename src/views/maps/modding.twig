@@ -84,7 +84,7 @@
                                                     <span>User</span>
                                                 {% endif %}
                                             </div>
-                                            <div class="media-meta">{{ formatDateDistance(mod.mod.timestamp) }}</div>
+                                            <div class="media-meta" data-toggle="tooltip" title="{{ formatDate(mod.mod.timestamp) }}">{{ formatDateDistance(mod.mod.timestamp) }}</div>
                                             <div class="media-meta">
                                                 <a href="#mod_{{ mod.mod.id }}">Permalink</a>
                                             </div>

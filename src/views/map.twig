@@ -130,7 +130,7 @@
                                                     <span>User</span>
                                                 {% endif %}
                                             </div>
-                                            <div class="media-meta">{{ formatDateDistance(comment.timestamp) }}</div>
+                                            <div class="media-meta" data-toggle="tooltip" title="{{ formatDate(comment.timestamp) }}">{{ formatDateDistance(comment.timestamp) }}</div>
                                         </div>
                                     </div>
                                     <p>{{ comment.comment }}</p>

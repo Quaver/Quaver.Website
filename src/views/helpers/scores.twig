@@ -22,7 +22,7 @@
                         <td>
                             <a href="{{ baseUrl('/mapset/map/'~score.map.id) }}">{{ score.map.artist }} - {{ score.map.title }} [{{ score.map.difficulty_name }}]</a>
                             <br>
-                            {{ formatDateDistance(score.time) }}
+                            <span data-toggle="tooltip" title="{{ formatDate(score.time) }}">{{ formatDateDistance(score.time) }}</span>
                         </td>
                         <td>{{ score.performance_rating|number_format(2) }}</td>
                         <td>{{ score.accuracy|number_format(2) }}%</td>

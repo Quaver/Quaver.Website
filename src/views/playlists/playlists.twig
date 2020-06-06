@@ -18,7 +18,7 @@
                 </p>
             </div>
             <div class="card-footer">
-                <span><i class="fas fa-clock"></i> {{ formatDate(playlist.time_last_updated) }}</span>
+                <span data-toggle="tooltip" title="{{ formatDate(playlist.time_last_updated) }}"><i class="fas fa-clock"></i> {{ formatDateDistance(playlist.time_last_updated) }}</span>
                 <div class="ml-auto">
                     <span><i class="fas fa-music"></i> {{ playlist.map_count }}</span>
                 </div>

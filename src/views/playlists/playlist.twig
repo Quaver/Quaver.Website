@@ -40,7 +40,7 @@
                             </p>
                         </div>
                         <div class="card-footer">
-                            <span data-tooltip="Last Updated"><i class="fas fa-clock"></i> <b>{{ formatDate(playlist.time_last_updated) }}</b></span>
+                            <span data-tooltip="Last Updated" data-toggle="tooltip" title="{{ formatDate(playlist.time_last_updated) }}"><i class="fas fa-clock"></i> <b>{{ formatDateDistance(playlist.time_last_updated) }}</b></span>
                             <div class="ml-auto">
                                 <span data-tooltip="Maps count"><i class="fas fa-music"></i> <b>{{ playlist.map_count }}</b></span>
                             </div>

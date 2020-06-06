@@ -103,11 +103,11 @@
                 </div>
                 <div>
                     <b>Submitted:</b>
-                    {{ formatDate(mapset.date_submitted) }}
+                    <span data-toggle="tooltip" title="{{ formatDate(mapset.date_submitted) }}">{{ formatDateDistance(mapset.date_submitted) }}</span>
                 </div>
                 <div>
                     <b>Last updated:</b>
-                    {{ formatDate(mapset.date_last_updated) }}
+                    <span data-toggle="tooltip" title="{{ formatDate(mapset.date_last_updated) }}">{{ formatDateDistance(mapset.date_last_updated) }}</span>
                 </div>
             </div>
             <div class="col-md-4">

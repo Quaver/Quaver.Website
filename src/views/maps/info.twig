@@ -42,15 +42,15 @@
     </div>
     <div>
         {% if currentUser %}
-            {% if not modding %}
-                <a type="button" href="#" class="btn btn-success">Add To Playlist</a>
-            {% endif %}
+            {#            {% if not modding %}#}
+            {#                <a type="button" href="#" class="btn btn-success">Add To Playlist</a>#}
+            {#            {% endif %}#}
             {% if currentUser.id == map.creator_id %}
                 <form method="POST" accept-charset="UTF-8" style="display: inline-block;">
                     <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
-{#                    <button type="submit" name="submit_rank" class="btn btn-info" style="background-color: #45D6F5; border: none;">Submit For Rank</button>#}
+                    {#                    <button type="submit" name="submit_rank" class="btn btn-info" style="background-color: #45D6F5; border: none;">Submit For Rank</button>#}
                     {% if map.ranked_status != 2 %}
-{#                        <button type="submit" name="submit_delete" class="btn btn-danger">Delete Mapset</button>#}
+                        {#                        <button type="submit" name="submit_delete" class="btn btn-danger">Delete Mapset</button>#}
                     {% endif %}
                 </form>
             {% endif %}
@@ -70,6 +70,23 @@
                 </div>
             </div>
         {% endif %}
+        <form method="POST" accept-charset="UTF-8" style="display: inline-block;">
+            <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
+            <div class="dropdown">
+                <button class="btn btn-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ya ya-gear"></i>
+                </button>
+                <div class="dropdown-menu" x-placement="bottom-start">
+                    <button class="dropdown-item text-success">Add to Playlist</button>
+                    {% if currentUser.id == map.creator_id %}
+                        <button class="dropdown-item text-info">Submit For Rank</button>
+                        {% if map.ranked_status != 2 %}
+                            <button class="dropdown-item text-danger">Delete Mapset</button>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <div class="card mt-4">
@@ -125,9 +142,9 @@
             Description
         </div>
     </div>
-<div class="card mt-4">
-    <div class="card-body map-description">
-        {{ mapset.description }}
+    <div class="card mt-4">
+        <div class="card-body map-description">
+            {{ mapset.description }}
+        </div>
     </div>
-</div>
 {% endif %}

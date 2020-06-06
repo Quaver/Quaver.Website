@@ -74,20 +74,18 @@
                 <div class="widget-header d-flex justify-content-between">
                     Ranking Queue Comments
                     <div>
-                        {% if mapset.ranking_queue_status != null %}
-                            <span class="mapset-buttons ranked">
+                        <span class="mapset-buttons btn-info">
                             {% if map.ranked_status == 2 %}
-                                2/2
+                                1/1
                             {% else %}
                                 {% if mapset.ranking_queue_vote_count %}
-                                    {{ mapset.ranking_queue_vote_count }}/2
+                                    {{ mapset.ranking_queue_vote_count }}/1
                                 {% else %}
                                     0/0
                                 {% endif %}
                             {% endif %}
-                            RANKING SUPERVISOR VOTES
+                            Supervisor Votes
                         </span>
-                        {% endif %}
                         {% if not map.ranked_status == 2 %}
                             {% if mapset.ranking_queue_status == 0 %}
                                 <span class="mapset-buttons pending" style="background-color: #F2994A;">Pending</span>

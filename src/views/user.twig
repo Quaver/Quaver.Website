@@ -13,7 +13,7 @@
                             <img src="{{ assets('/img/flags/'~user.info.country~'.png') }}" alt="{{ user.info.country }}">
                         </a>
                         {{ user.info.username }}
-                        <div class="profile-groups d-inline-block">
+                        <div class="profile-groups">
                             <small>
                                 {% if HasGroup(user.info, UserGroups.Developer) %}
                                     <span class="badge badge-custom-developer"><i class="fa fa-code fa-1"></i> Developer</span>

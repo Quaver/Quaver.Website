@@ -393,30 +393,37 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .badge-custom-developer {
     border-color: #bb79e5;
+    background: #353434;
 }
 
 .badge-custom-admin {
     border-color: #708df9;
+    background: #353434;
 }
 
 .badge-custom-moderator {
     border-color: #4cb0f7;
+    background: #353434;
 }
 
 .badge-custom-ranking-supervisor {
     border-color: #49e6ef;
+    background: #353434;
 }
 
 .badge-custom-donator {
     border-color: #ffd3fb;
+    background: #353434;
 }
 
 .badge-custom-bot {
     border-color: #ffeb67;
+    background: #353434;
 }
 
 .badge-custom-contributor {
     border-color: #75e475;
+    background: #353434;
 }
 
 .mode-switch {

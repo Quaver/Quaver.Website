@@ -17,13 +17,13 @@
                 <div class="card-body" style="padding: 0;">
                     <div class="tab-content" id="tab">
                         <div class="tab-pane fade show active" id="best" role="tabpanel" aria-labelledby="best-tab">
-                            {% include '../helpers/scores.twig' with {'table': 'best', 'data': best} %}
+                            {% include './user-scores.twig' with {'table': 'best', 'data': best} %}
                         </div>
                         <div class="tab-pane fade show" id="recent" role="tabpanel" aria-labelledby="recent-tab">
-                            {% include '../helpers/scores.twig' with {'table': 'recent', 'data': recent} %}
+                            {% include './user-scores.twig' with {'table': 'recent', 'data': recent} %}
                         </div>
                         <div class="tab-pane fade show" id="first" role="tabpanel" aria-labelledby="first-tab">
-                            {% include '../helpers/scores.twig' with {'table': 'first', 'data': firstPlace} %}
+                            {% include './user-scores.twig' with {'table': 'firstplace', 'data': firstPlace} %}
                         </div>
                     </div>
                 </div>
@@ -32,101 +32,30 @@
     </div>
 </div>
 
-<script type="x-tmpl-mustache" id="score-template" type="text/template">
-    [$#scores$]
-    <tr style="text-align: center">
-        <td>
-            <img src="[$grade_url$]" alt="[$grade$]" title="[$grade$]" width="30px" height="30px">
-        </td>
-        <td>
-            <a href="[$url$]">[$map.artist$] - [$map.title$] [[$ map.difficulty_name $]]</a>
-            <br>
-            [$time$]
-        </td>
-        <td>[$performance_rating$]</td>
-        <td>[$accuracy$]%</td>
-        <td>[$mods_string$]</td>
-        <td>
-            <a href="[$download$]">
-                <i class="fas fa-download" data-toggle="tooltip" title="Download" data-original-title="Download"></i>
-            </a>
-        </td>
-        <td>
-            <a data-toggle="collapse" href="#score_[$table$]_[$id$]" data-target="#score_[$table$]_[$id$]" onclick="loadChart('[$table$]', [$id$], [$count_marv$], [$count_perf$], [$count_great$], [$count_good$], [$count_okay$], [$count_miss$]);">
-                <i class="fas fa-angle-down"></i>
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="7" style="padding: 0;">
-            <div class="accordian-body collapse" data-parent="#scores" id="score_[$table$]_[$id$]" style="overflow: hidden">
-                <div class="row" style="min-height: 500px;">
-                    <div class="col-md-3">
-                        <h6 class="mt-4">Score</h6>
-                        <span class="font-weight-light font-size-md">[$total_score$]</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6 class="mt-4">Scroll Speed</h6>
-                        <span class="font-weight-light font-size-md">[$scroll_speed$]</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6 class="mt-4">Max Combo</h6>
-                        <span class="font-weight-light font-size-md">[$max_combo$]x</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6 class="mt-4">Ratio</h6>
-                        <span class="font-weight-light font-size-md">[$ratio$]</span>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="chartScore_[$table$]_[$id$]" style="height: 269px;"></div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="scatterScore_[$table$]_[$id$]" style="height: 269px;"></div>
-                    </div>
-                </div>
-            </div>
-        </td>
-    </tr>
-    [$/scores$]
-</script>
-
 <script>
-    Mustache.tags = ["[$", "$]"];
-    let template = null;
-    window.addEventListener('DOMContentLoaded', () => {
-        template = $('#score-template').html();
-
-        $('.getMoreScoresEvent').on('click', function () {
-            getMoreScoresEvent($(this).data('table'));
-        });
-    });
-
-    let pages = {
-        "best": 1,
-        "recent": 1,
-        "first": 1
-    };
-
-    function getMoreScoresEvent(table) {
-        $.ajax({
-            type: 'GET',
-            url: `{{ apiBaseUrl }}/v1/users/scores/best?id={{ user.info.id }}&mode={{ mode }}&page=${pages[table]}&limit=15`,
-            success: function (response) {
-                $.each(response.scores, function (key, value) {
-                    value['accuracy'] = value['accuracy'].toFixed(2);
-                    value['performance_rating'] = value['performance_rating'].toFixed(2);
-                    value['ratio'] = value['ratio'].toFixed(2);
-                    value['time'] = durationParse(value['time']);
-                    value['grade_url'] = assetsUrl('/img/grades/' + value['grade'] + ".png");
-                    value['url'] = baseUrl() + '/mapset/map/' + value['map']['id'];
-                    value['download'] = baseUrl() + '/download/mapset/' + value['map']['id'];
-                    value['scroll_speed'] = (value['scroll_speed'] > 99) ? value['scroll_speed']/10 : value['scroll_speed'];
-                });
-                response.table = table;
-                let info = Mustache.render(template, response);
-                $(`#table_${table} tbody:last`).append(info);
-                pages[table]++;
-            }
-        });
+    let scorePages = {
+        'best': 1,
+        'recent': 1,
+        'firstplace': 1
     }
+
+    $('.scores_more').on('click', function () {
+        const table = $(this).data('table');
+        let query = {};
+
+        query['table'] = table;
+        query['page'] = scorePages[table];
+        query['mode'] = "{{ mode }}";
+        query['id'] = "{{ user.info.id }}";
+
+        $.post(baseUrl() + `/user/scores/load`, query, function (data) {
+            if (data.trim() === "") {
+                $(`a[data-table=${table}]`).hide()
+            } else {
+                $(data).appendTo(`#${table}_scores`);
+            }
+            initLazy();
+        });
+        scorePages[table]++;
+    });
 </script>

@@ -99,6 +99,20 @@ export default class Users {
     }
 
     /**
+     * Renders the page that displays the user's scores
+     * @param req
+     * @param res
+     * @param type
+     * @param user
+     * @param mode
+     */
+    private static async GetScores(req: any, res: any, type: any, user: any, mode: number, page: number): Promise<any> {
+        const apiScores = await API.GET(req, `v1/users/scores/${type}?id=${user}&mode=${mode}&page=${page}&limit=15`);
+
+        return apiScores.scores;
+    }
+
+    /**
      * Renders the page which displays the user's uploaded mapsets
      * @param req
      * @param res
@@ -153,6 +167,32 @@ export default class Users {
         response.user.achievements = achievementsResponse.achievements;
 
         return response.user;
+    }
+
+    /**
+     * Fetches and returns scores
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static async UserScoresPOST(req: any, res: any): Promise<void> {
+        try {
+            req.query = req.body;
+console.log(req.query);
+            const userId: number = (req.query.id) ? req.query.id : 0;
+            const type: any = (req.query.table) ? req.query.table : 'recent';
+            const mode: GameMode = (req.query.mode) ? req.query.mode : GameMode.Keys4;
+            const page: number = (!isNaN(req.query.page) && req.query.page >= 0) ? req.query.page : 0;
+
+            const scores = await Users.GetScores(req, res, type, userId, mode, page);
+
+            Responses.Send(req, res, "user/scores", ``, {
+                data: scores
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
     }
 
     /**

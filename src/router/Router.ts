@@ -33,6 +33,7 @@ export default class Router {
         router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
         router.route("/user/:id").get(Users.GET);
         router.route("/user/maps/load").post(Users.UserMapssetsPOST);
+        router.route("/user/scores/load").post(Users.UserScoresPOST);
         // router.route("/wiki").get(Wiki.HomeGET);
         // router.route("/wiki/*").get(Wiki.WikiPageGET);
         router.route("/login").get(Login.GET);

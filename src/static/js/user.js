@@ -23,60 +23,68 @@ function sortData(data) {
 
     return {
         datasets: [
-        {
-            pointRadius: 1,
-            label: 'Marv',
-            borderColor: '#FBFFB6',
-            backgroundColor: '#FBFFB6',
-            data: marv
-        },
-        {
-            pointRadius: 1,
-            label: 'Perf',
-            borderColor: '#F2C94C',
-            backgroundColor: '#F2C94C',
-            data: perf
-        },
-        {
-            pointRadius: 1,
-            label: 'Great',
-            borderColor: '#56FE6E',
-            backgroundColor: '#56FE6E',
-            data: great
-        },
-        {
-            pointRadius: 1,
-            label: 'Good',
-            borderColor: '#0FBAE5',
-            backgroundColor: '#0FBAE5',
-            data: good
-        },
-        {
-            pointRadius: 1,
-            label: 'Okay',
-            borderColor: '#EE5FAC',
-            backgroundColor: '#EE5FAC',
-            data: okay
-        },
-        {
-            pointRadius: 1,
-            label: 'Miss',
-            borderColor: '#F9645D',
-            backgroundColor: '#F9645D',
-            data: miss
-        }
-    ]};
+            {
+                pointRadius: 1,
+                label: 'Marv',
+                borderColor: '#FBFFB6',
+                backgroundColor: '#FBFFB6',
+                data: marv
+            },
+            {
+                pointRadius: 1,
+                label: 'Perf',
+                borderColor: '#F2C94C',
+                backgroundColor: '#F2C94C',
+                data: perf
+            },
+            {
+                pointRadius: 1,
+                label: 'Great',
+                borderColor: '#56FE6E',
+                backgroundColor: '#56FE6E',
+                data: great
+            },
+            {
+                pointRadius: 1,
+                label: 'Good',
+                borderColor: '#0FBAE5',
+                backgroundColor: '#0FBAE5',
+                data: good
+            },
+            {
+                pointRadius: 1,
+                label: 'Okay',
+                borderColor: '#EE5FAC',
+                backgroundColor: '#EE5FAC',
+                data: okay
+            },
+            {
+                pointRadius: 1,
+                label: 'Miss',
+                borderColor: '#F9645D',
+                backgroundColor: '#F9645D',
+                data: miss
+            }
+        ]
+    };
 }
 
+let cached = [];
+
 function loadChart(table_class, score_id, total_marv, total_perf, total_great, total_good, total_okay, total_miss) {
-    $.ajax({
-        type: 'GET',
-        url: apiBaseUrl() + `/v1/scores/data/${score_id}`,
-        success: function (response) {
-            loadScatter(table_class, score_id, response.hits);
-            loadJudgements(table_class, score_id, total_marv, total_perf, total_great, total_good, total_okay, total_miss);
-        }
-    })
+    if (cached.includes(score_id)) {
+
+    } else {
+        cached.push(score_id);
+        $.ajax({
+            type: 'GET',
+            url: apiBaseUrl() + `/v1/scores/data/${score_id}`,
+            success: function (response) {
+                loadScatter(table_class, score_id, response.hits);
+                loadJudgements(table_class, score_id, total_marv, total_perf, total_great, total_good, total_okay, total_miss);
+            }
+        });
+    }
 }
 
 function loadScatter(table_class, score_id, data) {
@@ -97,7 +105,7 @@ function loadScatter(table_class, score_id, data) {
             responsive: true,
             legend: {
                 display: false
-            },    
+            },
             scales: {
                 xAxes: [{
                     gridLines: {
@@ -152,7 +160,7 @@ function loadJudgements(table_class, score_id, total_marv, total_perf, total_gre
             column: {
                 dataLabels: {
                     enabled: true,
-                    formatter:function() {
+                    formatter: function () {
                         return '<tspan style="color:' + this.point.color + '; text-shadow: 0px 0px 4px black">' + this.point.y + '</tspan>';
                     },
                     style: {

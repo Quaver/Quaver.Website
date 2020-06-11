@@ -96,25 +96,25 @@
                                     <div class="col-lg-6 mb-3 mx-auto">
                                         <div class="category">
                                             <span>Total users</span>
-                                            <span>{{ stats.total_users|number_format(0, '.', ',') }}</span>
+                                            <span class="count">{{ (stats.total_users) ?:0 }}</span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="category">
                                             <span>Online users</span>
-                                            <span>{{ stats.total_online_users|number_format(0, '.', ',') }}</span>
+                                            <span class="count">{{ (stats.total_online_users) ?:0 }}</span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="category">
                                             <span>Total mapsets</span>
-                                            <span>{{ stats.total_mapsets|number_format(0, '.', ',') }}</span>
+                                            <span class="count">{{ (stats.total_mapsets) ?: 0 }}</span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="category">
                                             <span>Total scores</span>
-                                            <span>{{ stats.total_scores|number_format(0, '.', ',') }}</span>
+                                            <span class="count">{{ (stats.total_scores) ?: 0 }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -146,35 +146,5 @@
 {% endblock %}
 
 {% block page_scripts %}
-    <script>
-        let page = 0;
-        const tabs = $('.tab-pane');
-        let pages = tabs.length - 1;
-
-        $('.next-tab').on('click', function () {
-            if (page === pages) page = 0; else page += 1;
-
-            $.each(tabs, function (key, value) {
-                if ($(value).hasClass('show active')) {
-                    $(value).removeClass('show active');
-                    $(tabs[page]).addClass('show active');
-                    return false;
-                }
-            });
-        });
-
-        $('.previous-tab').on('click', function () {
-            if (page !== 0) {
-                page -= 1;
-
-                $.each(tabs, function (key, value) {
-                    if ($(value).hasClass('show active')) {
-                        $(value).removeClass('show active');
-                        $(tabs[page]).addClass('show active');
-                        return false;
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="{{ assets('/js/home.js') }}"></script>
 {% endblock %}

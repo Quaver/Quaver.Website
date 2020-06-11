@@ -9,7 +9,7 @@ export default class TimeHelper {
     }
 
     public static formatDate(time: any): string {
-        return fs.format(new Date(fs.parseISO(time)), "dd.MM.yyyy");
+        return fs.format(new Date(fs.parseISO(time)), "dd.MM.yyyy HH:MM:ss");
     }
 
     public static formatTime(millis: any): string {

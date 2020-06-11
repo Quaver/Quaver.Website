@@ -41,20 +41,6 @@
         </div>
     </div>
     <div>
-        {% if currentUser %}
-            {#            {% if not modding %}#}
-            {#                <a type="button" href="#" class="btn btn-success">Add To Playlist</a>#}
-            {#            {% endif %}#}
-            {% if currentUser.id == map.creator_id %}
-                <form method="POST" accept-charset="UTF-8" style="display: inline-block;">
-                    <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
-                    {#                    <button type="submit" name="submit_rank" class="btn btn-info" style="background-color: #45D6F5; border: none;">Submit For Rank</button>#}
-                    {% if map.ranked_status != 2 %}
-                        {#                        <button type="submit" name="submit_delete" class="btn btn-danger">Delete Mapset</button>#}
-                    {% endif %}
-                </form>
-            {% endif %}
-        {% endif %}
         {% if not modding %}
             <a type="button" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Modding Discussion</a>
             <a type="button" href="{{ baseUrl('/download/mapset/'~mapset.id) }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
@@ -70,13 +56,13 @@
                 </div>
             </div>
         {% endif %}
-        <form method="POST" accept-charset="UTF-8" style="display: inline-block;">
-            <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
-            <div class="dropdown">
-                <button class="btn btn-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="ya ya-gear"></i>
-                </button>
-                <div class="dropdown-menu" x-placement="bottom-start">
+        <div class="dropdown">
+            <button class="btn btn-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="ya ya-gear"></i>
+            </button>
+            <div class="dropdown-menu ml-auto">
+                <form method="POST" accept-charset="UTF-8">
+                    <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
                     <button class="dropdown-item text-success" name="add_to_playlist">Add to Playlist</button>
                     {% if currentUser.id == map.creator_id %}
                         {% if mapset.ranking_queue_status == null or mapset.ranking_queue_status == 1 %}
@@ -86,9 +72,9 @@
                             <button class="dropdown-item text-danger" name="submit_delete">Delete Mapset</button>
                         {% endif %}
                     {% endif %}
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 <div class="card mt-4">
@@ -116,9 +102,8 @@
                     {{ (map.source) ? map.source : 'n/a' }}
                 </div>
                 <div>
-                    <b>Tags</b> {{ (map.tags) ? '' : 'n/a' }}
+                    <b>Tags: </b> {{ map.tags }}
                 </div>
-                <div>{{ (map.tags) ? map.tags : '' }}</div>
             </div>
             <div class="col-md-4">
                 <div>

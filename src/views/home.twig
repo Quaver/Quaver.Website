@@ -29,17 +29,24 @@
             </div>
         </div>
     </section>
-    {#    <section class="py-lg-4">#}
-    {#        <div class="container">WIP maps...#}
-    {#            #}{#            {% for x in recentlyRanked %}#}
-    {#            #}{#                {{ dump(x) }}#}
-    {#            #}{#            {% endfor %}#}
-    {#        </div>#}
-    {#    </section>#}
     <section class="py-lg-4">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+                    <div class="widget">
+                        <div class="widget-header d-flex justify-content-between">
+                            <div>Recently Ranked Maps</div>
+                            <div class="btn-group" role="group" aria-label="Mapsets" id="mapsetButtons">
+                                <button class="btn btn-primary btn-sm previous-tab">
+                                    Previous
+                                </button>
+                                <button class="btn btn-primary btn-sm next-tab">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% include "./home/recentlyRankedMaps.twig" with {'maps': recentlyRanked, 'data': 'home'} %}
                     <div class="widget" style="margin-bottom: 0;">
                         <div class="widget-header">
                             News
@@ -83,9 +90,9 @@
                                 Stats
                             </div>
                         </div>
-                        <div class="widget widget-secondary" style="padding: 0">
+                        <div class="widget widget-secondary p-0">
                             <div class="widget-body home-stats">
-                                <div class="row" style="margin: 0;">
+                                <div class="row m-0">
                                     <div class="col-lg-6 mb-3 mx-auto">
                                         <div class="category">
                                             <span>Total users</span>
@@ -138,6 +145,36 @@
 
 {% endblock %}
 
-{% block scripts %}
+{% block page_scripts %}
+    <script>
+        let page = 0;
+        const tabs = $('.tab-pane');
+        let pages = tabs.length - 1;
 
+        $('.next-tab').on('click', function () {
+            if (page === pages) page = 0; else page += 1;
+
+            $.each(tabs, function (key, value) {
+                if ($(value).hasClass('show active')) {
+                    $(value).removeClass('show active');
+                    $(tabs[page]).addClass('show active');
+                    return false;
+                }
+            });
+        });
+
+        $('.previous-tab').on('click', function () {
+            if (page !== 0) {
+                page -= 1;
+
+                $.each(tabs, function (key, value) {
+                    if ($(value).hasClass('show active')) {
+                        $(value).removeClass('show active');
+                        $(tabs[page]).addClass('show active');
+                        return false;
+                    }
+                });
+            }
+        });
+    </script>
 {% endblock %}

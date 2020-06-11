@@ -139,7 +139,8 @@
                         {% endfor %}
                     </div>
                     {% if currentUser %}
-                        {% if map.ranked_status != 2 and (HasPrivilege(currentUser, Privileges.RankMapsets) or (currentUser.id == map.creator_id and mapset.ranking_queue_status != 1 )) %}
+                        {% if map.ranked_status != 2 and mapset.ranking_queue_status == 0 and (HasPrivilege(currentUser, Privileges.RankMapsets)
+                            or (currentUser.id == map.creator_id )) %}
                             <h5 class="mt-5">Leave a comment</h5>
                             <form method="post" accept-charset="UTF-8">
                                 <input type="hidden" name="mapset_id" value="{{ mapset.id }}">

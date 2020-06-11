@@ -57,6 +57,11 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item" id="mobile-search">
+                    <a class="nav-link" href="{{ baseUrl('/login') }}">
+                        <img src="{{ assets('/img/steam.png') }}" alt="Sign in through Steam">
+                    </a>
+                </li>
             </ul>
         </div>
         <ul class="navbar-nav navbar-right flex-row d-flex align-items-center">
@@ -71,7 +76,7 @@
                 </div>
             </li>
             {% if not currentUser %}
-                <li class="nav-item">
+                <li class="nav-item d-none d-md-block">
                     <a class="nav-link" href="{{ baseUrl('/login') }}">
                         <img src="{{ assets('/img/steam.png') }}" alt="Sign in through Steam">
                     </a>

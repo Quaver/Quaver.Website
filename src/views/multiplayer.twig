@@ -14,7 +14,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="multiplayer">
         <div class="container">
             <div class="widget mt-4">
                 <div class="widget-header">Live Games</div>
@@ -33,7 +33,7 @@
                             </a>
                         </div>
                         <div class="post-body mt-1">
-                            <div class="move-right mt-4 mr-2">
+                            <div class="float-right mt-4 mr-2">
                                 <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}" class="btn btn-youtube">
                                     <b class="text-white">Watch Live</b>
                                     <i class="fas fa-circle text-white"></i>
@@ -79,8 +79,8 @@
                             <div style="position: absolute;right:5px;bottom:5px; padding: 4px;" class="mr-2">
                                 <b>{{ formatDate(game.time_played) }}</b>
                             </div>
-                            <div class="move-right mr-2 mt-1">
-                                <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}" class="btn btn-primary">
+                            <div class="float-right mr-2 mt-1">
+                                <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}" class="btn btn-primary btn-sm">
                                     <b class="text-white">View Match History</b>
                                     <i class="far fa-eye text-white"></i>
                                 </a>
@@ -111,26 +111,6 @@
 
 {% block style %}
     <style>
-        a {
-            color: #2575dc;
-        }
-
-        a b {
-            color: #2575dc;
-        }
-
-        button b {
-            color: #fff;
-        }
-
-        .text-white {
-            color: #fff !important;
-        }
-
-        .move-right {
-            float: right;
-        }
-
         .post-medium .post-thumbnail img {
             max-width: 100%;
             max-height: 100%;
@@ -139,17 +119,14 @@
         .post-medium .post-thumbnail {
             width: 30%;
             min-height: 0 !important;
-            margin-top: 0;
         }
 
         .post {
-            padding-bottom: 0;
             padding: 2px;
             margin-bottom: 3px;
         }
 
         .post-body {
-            margin-top: -3px;
             padding: 4px;
         }
 

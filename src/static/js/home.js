@@ -3,7 +3,7 @@ const tabs = $('.tab-pane');
 let pages = tabs.length - 1;
 
 $('.next-tab').on('click', function () {
-    if (page === pages) page = 0; else page += 1;
+    if (page !== pages) page += 1;
 
     $.each(tabs, function (key, value) {
         if ($(value).hasClass('show active')) {

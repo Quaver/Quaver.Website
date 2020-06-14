@@ -19,7 +19,8 @@
             <div class="widget mt-4">
                 <div class="widget-header">Live Games</div>
             </div>
-            {% if not games.live %} <span class="text-white">There are no live games!</span> {% endif %}
+            {% if not games.live %}
+                <span class="text-white">There are no live games!</span> {% endif %}
             {% for game in games.live %}
                 <div class="card mb-3">
                     <div class="post post-medium">
@@ -75,30 +76,34 @@
                                 {% endif %}
                             </a>
                         </div>
-                        <div class="post-body mt-1">
-                            <div style="position: absolute;right:5px;bottom:5px; padding: 4px;" class="mr-2">
-                                <b>{{ formatDate(game.time_played) }}</b>
-                            </div>
-                            <div class="float-right mr-2 mt-1">
-                                <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}" class="btn btn-primary btn-sm">
-                                    <b class="text-white">View Match History</b>
-                                    <i class="far fa-eye text-white"></i>
-                                </a>
-                            </div>
-                            <div class="body-text">
-                                <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
-                                    <b>{{ game.name }}</b>
-                                </a>
-                            </div>
-                            <div class="body-text">
-                                <b>Map:</b>
-                                {% if game.map.id != "-1" %}
-                                    <a href="{{ baseUrl('/mapset/map/'~game.map.id) }}">
-                                        <a>{{ game.map.name|truncate(60) }}</a>
+                        <div class="post-body mt-1 d-flex justify-content-between align-items-center">
+                            <div>
+                                <div>
+                                    <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
+                                        <b>{{ game.name }}</b>
                                     </a>
-                                {% else %}
-                                    <span>{{ game.map.name }}</span>
-                                {% endif %}
+                                </div>
+                                <div class="mt-4">
+                                    <b>Map:</b>
+                                    {% if game.map.id != "-1" %}
+                                        <a href="{{ baseUrl('/mapset/map/'~game.map.id) }}">
+                                            <a>{{ game.map.name|truncate(60) }}</a>
+                                        </a>
+                                    {% else %}
+                                        <span>{{ game.map.name }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}" class="btn btn-primary btn-sm">
+                                        <b class="text-white">View Match History</b>
+                                        <i class="far fa-eye text-white"></i>
+                                    </a>
+                                </div>
+                                <div class="mt-3">
+                                    <b>{{ formatDate(game.time_played) }}</b>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -118,12 +123,14 @@
 
         .post-medium .post-thumbnail {
             width: 30%;
+            height: 100px;
             min-height: 0 !important;
         }
 
         .post {
-            padding: 2px;
+            padding: 14px 8px;
             margin-bottom: 3px;
+            border: none;
         }
 
         .post-body {

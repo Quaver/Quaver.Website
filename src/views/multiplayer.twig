@@ -19,7 +19,7 @@
             <div class="widget mt-4">
                 <div class="widget-header">Live Games</div>
             </div>
-            {% if not games.live %} There are no live games! {% endif %}
+            {% if not games.live %} <span class="text-white">There are no live games!</span> {% endif %}
             {% for game in games.live %}
                 <div class="card mb-3">
                     <div class="post post-medium">

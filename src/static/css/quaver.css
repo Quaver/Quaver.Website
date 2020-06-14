@@ -45,8 +45,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border: 1px solid #252525;
     z-index: 999;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.60);
-
-
+    margin: 0;
 }
 
 .dropdown-menu .dropdown-item:hover {

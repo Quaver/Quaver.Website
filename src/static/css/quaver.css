@@ -110,6 +110,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding: 14px 14px 14px 25px;
 }
 
+#home-mapsets .widget-header {
+    padding: 0 10px;
+}
+
+#home-mapsets .btn-sm {
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
 .category {
     display: flex;
     flex-direction: column;

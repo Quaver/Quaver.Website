@@ -26,7 +26,7 @@ export default class Multiplayer {
             });
         } catch (err) {
             Logger.Error(err);
-            Responses.Return500(req, res);
+            Responses.ReturnMultiplayerNotFound(req, res);
         }
     }
 
@@ -48,7 +48,7 @@ export default class Multiplayer {
             });
         } catch (err) {
             Logger.Error(err);
-            Responses.Return500(req, res);
+            Responses.ReturnMultiplayerNotFound(req, res);
         }
     }
 

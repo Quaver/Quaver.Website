@@ -9,6 +9,7 @@ import Playlists from "../controllers/playlists/Playlists";
 import Download from "../controllers/download/Download";
 import Authentication from "../middleware/Authentication";
 import Multiplayer from "../controllers/multiplayer/Multiplayer";
+import Error from "../controllers/error/Error";
 
 export default class Router {
     /**
@@ -55,7 +56,7 @@ export default class Router {
             res.redirect(301, '/mapset/' + req.params[0]);
         });
 
-        router.route("*").get((req:any, res:any) => res.send("404"));
+        router.route("*").get(Error.GET);
 
         return router;
     }

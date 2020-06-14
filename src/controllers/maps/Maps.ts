@@ -35,7 +35,7 @@ export default class Maps {
             });
         } catch (err) {
             Logger.Error(err);
-            Responses.Return500(req, res);
+            Responses.ReturnMapsetNotFound(req, res);
         }
     }
 
@@ -89,7 +89,7 @@ export default class Maps {
             });
         } catch (err) {
             Logger.Error(err);
-            Responses.Return500(req, res);
+            Responses.ReturnMapsetNotFound(req, res);
         }
     }
 
@@ -127,7 +127,7 @@ export default class Maps {
             });
         } catch (err) {
             Logger.Error(err);
-            Responses.Return500(req, res);
+            Responses.ReturnMapsetNotFound(req, res);
         }
     }
 
@@ -185,7 +185,7 @@ export default class Maps {
             });
         } catch (err) {
             Logger.Error(err);
-            Responses.Return500(req, res);
+            Responses.ReturnMapsetNotFound(req, res);
         }
     }
 

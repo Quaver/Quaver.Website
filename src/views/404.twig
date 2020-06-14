@@ -1,0 +1,20 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image text-center py-8 px-4 px-md-0 " style="background-color: rgb(37, 37, 37) !important; height: 94vh;">
+        <img class="background" src="{{ assets('/img/bg.jpg') }}" alt="">
+        <div class="container position-relative index-2 " style="top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%);">
+            <h1 class="display-0 font-weight-black text-white mb-0">{{ code }}</h1>
+            <p class="text-light mb-4">{{ text }}</p>
+            <a class="btn btn-primary btn-rounded btn-lg" href="{{ baseUrl('/') }}">Back to home</a>
+            <a class="btn btn-outline-light btn-rounded btn-lg ml-2" href="mailto:support@quavergame.com">Get in touch</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+    <style>
+        .footer-bottom {
+            margin-top: 0;
+        }
+    </style>
+{% endblock %}

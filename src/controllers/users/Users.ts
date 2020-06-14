@@ -55,7 +55,7 @@ export default class Users {
             });
         } catch (err) {
             Logger.Error(err);
-            Responses.Return500(req, res);
+            Responses.ReturnUserNotFound(req, res);
         }
     }
 

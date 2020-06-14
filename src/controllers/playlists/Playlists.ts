@@ -24,7 +24,7 @@ export default class Playlists {
             });
         } catch (err) {
             Logger.Error(err);
-            Responses.Return500(req, res);
+            Responses.ReturnPlaylistNotFound(req, res);
         }
     }
 
@@ -74,7 +74,7 @@ export default class Playlists {
                 return res.status(404).json({status: 404, error: "Playlist was not found!"});
 
             Logger.Error(err);
-            Responses.Return500(req, res);
+            Responses.ReturnPlaylistNotFound(req, res);
         }
     }
 

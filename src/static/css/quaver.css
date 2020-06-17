@@ -341,6 +341,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border-radius: 50%;
 }
 
+@media (max-width: 375px) {
+    .pagination > li > a, .pagination > li > span {
+        margin: 0 2px;
+        font-size: 12px;
+    }
+}
+
 /* Profile */
 
 .bg-quaver-nav {

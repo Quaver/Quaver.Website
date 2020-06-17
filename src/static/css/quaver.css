@@ -145,14 +145,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     text-align: left;
 }
 
-.dropdown-menu {
-    /*margin: 0;*/
-}
-
-.dropdown:hover > .dropdown-menu {
-    display: block;
-}
-
 .navbar-nav .dropdown-toggle-hover::after {
     display: inline-block;
     float: none;
@@ -1097,6 +1089,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     }
 
     #mobile-search {
+        display: block;
+    }
+}
+
+@media (min-width: 1150px) {
+    .dropdown:hover > .dropdown-menu {
         display: block;
     }
 }

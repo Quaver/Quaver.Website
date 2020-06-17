@@ -735,88 +735,29 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     }
 }
 
-/*.mapsets {*/
-/*    width: 100%;*/
-/*}*/
+@media (max-width: 576px) {
+    .d-sm-block {
+        display: block !important;
+    }
 
-/*.mapset {*/
-/*    border-radius: 6px;*/
-/*    height: auto;*/
-/*    color: #ffffff;*/
-/*    margin-bottom: 10px;*/
-/*    padding: 15px 20px 15px 20px;*/
-/*}*/
+    .mt-sm-3, .my-sm-3 {
+        margin-top: 1rem !important;
+    }
+}
 
-/*.mapset .overflow {*/
-/*    white-space: nowrap;*/
-/*    text-overflow: ellipsis;*/
-/*    overflow: hidden;*/
-/*}*/
+@media (max-width: 425px) {
+    .comments .media-meta::before {
+        content: "";
+        margin: 0;
+        display: block;
+    }
 
-/*.mapset a {*/
-/*    color: #ffffff;*/
-/*}*/
+    .comments .media-meta {
+        display: block;
+    }
+}
 
-/*.mapset a:hover {*/
-/*    color: #45D6F5;*/
-/*}*/
-
-/*.mapset-info-right {*/
-/*    text-align: right;*/
-/*}*/
-
-/*.mapset-info-right > span {*/
-/*    display: inline-block;*/
-/*    text-align: center;*/
-/*    width: 80px;*/
-/*    height: 24px;*/
-/*    border-radius: 14px;*/
-/*    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);*/
-/*    font-size: 12px;*/
-/*    line-height: 2;*/
-/*    text-transform: uppercase;*/
-/*}*/
-
-/*.mapset-4k {*/
-/*    background: #0587E5;*/
-/*}*/
-
-/*.mapset-7k {*/
-/*    background: #9B51E0;*/
-/*}*/
-
-/*.mapset-4k-7k {*/
-/*    background: linear-gradient(90deg, #9B51E0 35.92%, #0587E5 100%);*/
-/*}*/
-
-/*.mapset-ranked {*/
-/*    background: #27B06E;*/
-/*}*/
-
-/*.mapset-unranked {*/
-/*    background: #5B5B5B;*/
-/*}*/
-
-/*.mapset-info-download {*/
-/*    margin-top: 15px;*/
-/*    text-align: right;*/
-/*}*/
-
-/*.mapset-song {*/
-/*    font-size: 20px;*/
-/*    font-weight: 600;*/
-/*    letter-spacing: 0.05em;*/
-/*    font-family: 'Lato', sans-serif;*/
-/*    display: inline;*/
-/*}*/
-
-/*.mapset-song.longboy span{*/
-/*    width: 80%;*/
-/*    display: inline-block;*/
-/*    text-overflow: ellipsis;*/
-/*    white-space: nowrap;*/
-/*    overflow: hidden;*/
-/*}*/
+/* Mapsets */
 
 .mapset-difficulty {
     margin-top: 15px;

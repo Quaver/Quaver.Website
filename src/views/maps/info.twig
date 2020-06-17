@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between align-items-center">
+<div class="d-flex d-md-flex d-sm-block justify-content-between align-items-center">
     <div>
         {% if modding %}
             <a type="button" href="{{ baseUrl('/mapset/map/'~map.id~'') }}" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Back To Mapset Page</a>
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="mt-md-0 mt-sm-3">
         {% if not modding %}
             <a type="button" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Modding Discussion</a>
             <a type="button" href="{{ baseUrl('/download/mapset/'~mapset.id) }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>

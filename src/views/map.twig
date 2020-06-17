@@ -112,26 +112,24 @@
                                     </a>
                                 </div>
                                 <div class="media-body">
-                                    <div class="d-flex">
-                                        <div class="d-flex">
-                                            <a class="h6" href="{{ baseUrl('/user/'~comment.user.id) }}">{{ comment.user.username }}</a>
-                                            <div class="media-meta">
-                                                {% if map.creator_id == comment.user.id %}
-                                                    <span>Creator</span>
-                                                {% elseif HasGroup(comment.user, UserGroups.Developer) %}
-                                                    <span class="text-color-developer">Developer</span>
-                                                {% elseif HasGroup(comment.user, UserGroups.Admin) %}
-                                                    <span class="text-color-admin">Administrator</span>
-                                                {% elseif HasGroup(comment.user, UserGroups.Moderator) %}
-                                                    <span class="text-color-moderator">Moderator</span>
-                                                {% elseif HasGroup(comment.user, UserGroups.RankingSupervisor) %}
-                                                    <span class="text-color-ranking-supervisor">Ranking Supervisor</span>
-                                                {% else %}
-                                                    <span>User</span>
-                                                {% endif %}
-                                            </div>
-                                            <div class="media-meta" data-toggle="tooltip" title="{{ formatDate(comment.timestamp) }}">{{ formatDateDistance(comment.timestamp) }}</div>
+                                    <div class="d-md-flex d-sm-block">
+                                        <a class="h6" href="{{ baseUrl('/user/'~comment.user.id) }}">{{ comment.user.username }}</a>
+                                        <div class="media-meta">
+                                            {% if map.creator_id == comment.user.id %}
+                                                <span>Creator</span>
+                                            {% elseif HasGroup(comment.user, UserGroups.Developer) %}
+                                                <span class="text-color-developer">Developer</span>
+                                            {% elseif HasGroup(comment.user, UserGroups.Admin) %}
+                                                <span class="text-color-admin">Administrator</span>
+                                            {% elseif HasGroup(comment.user, UserGroups.Moderator) %}
+                                                <span class="text-color-moderator">Moderator</span>
+                                            {% elseif HasGroup(comment.user, UserGroups.RankingSupervisor) %}
+                                                <span class="text-color-ranking-supervisor">Ranking Supervisor</span>
+                                            {% else %}
+                                                <span>User</span>
+                                            {% endif %}
                                         </div>
+                                        <div class="media-meta" data-toggle="tooltip" title="{{ formatDate(comment.timestamp) }}">{{ formatDateDistance(comment.timestamp) }}</div>
                                     </div>
                                     <p>{{ comment.comment }}</p>
                                 </div>

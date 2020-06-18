@@ -811,10 +811,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     text-align: left;
 }
 
-#leaderboard table .song, #leaderboard table .player {
-    white-space: nowrap;
-}
-
 .load-more {
     background: #242424;
     width: 45px;
@@ -946,7 +942,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-size: 20px 20px;
     background-position: 10px 8px;
     background-repeat: no-repeat;
-    border: 1px solid #393939;
+    border: 1px solid #474747;
     border-radius: 4px;
     padding: 10px 20px 12px 40px;
     transition: .5s;
@@ -1402,6 +1398,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 @media (max-width: 768px) {
     #playlists .fix-height {
         height: auto;
+    }
+
+    #leaderboard table .song, #leaderboard table .player {
+        white-space: nowrap;
     }
 }
 

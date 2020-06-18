@@ -15,10 +15,18 @@
             <div class="card-body">
                 <div class="tab-content" id="tab">
                     <div class="tab-pane fade show active" id="ranked" role="tabpanel" aria-labelledby="ranked-tab">
-                        {% include '../maps/mapsets.twig' with {'data': 'profile', 'status': RankedStatus.Ranked, 'maps': mapSetsRanked} %}
+                        {% if mapSetsRanked %}
+                            {% include '../maps/mapsets.twig' with {'data': 'profile', 'status': RankedStatus.Ranked, 'maps': mapSetsRanked} %}
+                        {% else %}
+                            No Ranked Mapsets
+                        {% endif %}
                     </div>
                     <div class="tab-pane fade show" id="unranked" role="tabpanel" aria-labelledby="unranked-tab">
+                        {% if mapSetsUnRanked %}
                         {% include '../maps/mapsets.twig' with {'data': 'profile', 'status': RankedStatus.Unranked, 'maps': mapSetsUnRanked} %}
+                        {% else %}
+                            No Unranked Mapsets
+                        {% endif %}
                     </div>
                 </div>
             </div>

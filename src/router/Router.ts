@@ -10,6 +10,8 @@ import Download from "../controllers/download/Download";
 import Authentication from "../middleware/Authentication";
 import Multiplayer from "../controllers/multiplayer/Multiplayer";
 import Error from "../controllers/error/Error";
+import Friends from "../controllers/users/Friends";
+import Settings from "../controllers/users/Settings";
 
 export default class Router {
     /**
@@ -35,6 +37,10 @@ export default class Router {
         router.route("/user/:id").get(Users.GET);
         router.route("/user/maps/load").post(Users.UserMapssetsPOST);
         router.route("/user/scores/load").post(Users.UserScoresPOST);
+
+        router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
+        router.route("/settings").get(Authentication.RequireLogin, Settings.GET);
+
         // router.route("/wiki").get(Wiki.HomeGET);
         // router.route("/wiki/*").get(Wiki.WikiPageGET);
         router.route("/login").get(Login.GET);

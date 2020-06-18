@@ -84,14 +84,15 @@
                 </li>
             {% else %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle dropdown-toggle-none py-0" href="#" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle dropdown-toggle-none py-0" href="{{ baseUrl('/user/'~currentUser.id) }}" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <img class="avatar avatar-xs rounded-circle mr-xl-2" src="{{ currentUser.avatar_url }}" alt="{{ currentUser.username }}">
                         <span class="d-none d-xl-inline-block">{{ currentUser.username }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="{{ baseUrl('/user/'~currentUser.id) }}">Profile</a>
-{#                        <a class="dropdown-item" href="https://a.quavergame.com/">Upload Mapset</a>#}
+                        <a class="dropdown-item" href="{{ baseUrl('/friends') }}">Friends</a>
+                        <a class="dropdown-item" href="{{ baseUrl('/settings') }}">Settings</a>
                         {% if HasPrivilege(currentUser, Privileges.Normal) %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="https://a.quavergame.com/">Dashboard</a>

@@ -720,6 +720,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     display: table-cell;
 }
 
+.score-info {
+    min-height: 400px;
+}
+
 @media (max-width: 768px) {
     .mapsets .cover .song-name .artist {
         font-size: 13px;
@@ -731,6 +735,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
     .mapsets .cover .song-name .creator {
         font-size: 14px;
+    }
+
+    .score-info {
+        flex-wrap: unset;
     }
 }
 
@@ -909,6 +917,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 #teams small {
     font-weight: 500;
+    font-size: 13px;
+    text-transform: none;
     color: #808080;
 }
 

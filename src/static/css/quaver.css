@@ -721,7 +721,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .score-info {
-    min-height: 400px;
+    /*min-height: 400px;*/
 }
 
 @media (max-width: 768px) {

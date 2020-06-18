@@ -3,7 +3,7 @@
         <thead>
         <tr>
             <th scope="col">Rank</th>
-            <th scope="col" style="width: 35%">Player</th>
+            <th scope="col" style="width: 35%" class="player">Player</th>
             <th scope="col">Overall Rating</th>
             <th scope="col">Score</th>
             <th scope="col">Accuracy</th>
@@ -15,7 +15,7 @@
         {% for player in leaderboard %}
             <tr>
                 <td>{{ player.stats.rank }}</td>
-                <td>
+                <td class="player">
                     <a href="{{ baseUrl('/leaderboard?country='~player.country|lower~'&mode='~mode) }}">
                         <img src="{{ assets('/img/flags/'~player.country~'.png') }}" alt="{{ player.country }}">
                     </a>

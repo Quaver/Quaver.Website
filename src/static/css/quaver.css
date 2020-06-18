@@ -811,6 +811,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     text-align: left;
 }
 
+#leaderboard table .song {
+    white-space: nowrap;
+}
+
 .load-more {
     background: #242424;
     width: 45px;

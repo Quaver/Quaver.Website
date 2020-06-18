@@ -3,7 +3,7 @@
         <td>
             <img src="{{ assets('/img/grades/'~score.grade~'.png') }}" alt="{{ score.grade }}" title="{{ score.grade }}" width="30px" height="30px">
         </td>
-        <td>
+        <td class="song">
             <a href="{{ baseUrl('/mapset/map/'~score.map.id) }}">{{ score.map.artist }} - {{ score.map.title }} [{{ score.map.difficulty_name }}]</a>
             <br>
             <span data-toggle="tooltip" title="{{ formatDate(score.time) }}">{{ formatDateDistance(score.time) }}</span>
@@ -30,24 +30,24 @@
     <tr>
         <td colspan="7" style="padding: 0;">
             <div class="accordian-body collapse" data-parent="#scores" id="score_{{ table }}_{{ score.id }}" style="overflow: hidden">
-                <div class="row" style="min-height: 400px;">
-                    <div class="col-md-3">
+                <div class="row score-info">
+                    <div class="col-sm-3">
                         <h6 class="mt-4">Score</h6>
                         <span class="font-weight-light font-size-md">{{ score.total_score|number_format(0, '.', ',') }}</span>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <h6 class="mt-4">Scroll Speed</h6>
                         <span class="font-weight-light font-size-md">{{ (score.scroll_speed > 99) ? score.scroll_speed/10 : score.scroll_speed }}</span>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <h6 class="mt-4">Max Combo</h6>
                         <span class="font-weight-light font-size-md">{{ score.max_combo }}x</span>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <h6 class="mt-4">Ratio</h6>
                         <span class="font-weight-light font-size-md">{{ score.ratio|number_format(2) }}</span>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 d-sm-block">
                         <div class="chartScore_{{ table }}_{{ score.id }}" style="height: 269px;"></div>
                     </div>
                     <div class="col-sm-6">

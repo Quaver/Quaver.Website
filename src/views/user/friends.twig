@@ -24,13 +24,13 @@
                         {% for friend in friends %}
                             <div class="col-3 mb-3">
                                 <div class="avatar-card {{ (friend.online ? 'friend-online' : 'friend-offline') }}">
-                                    <div class="position-relative">
+                                    <div>
                                         <a href="{{ baseUrl('/user/'~friend.user_id) }}" class="avatar-title">
                                             <img src="{{ assets('/img/flags/'~friend.country~'.png') }}" alt="{{ friend.country }}">
                                             {{ friend.username }}
                                         </a>
-                                        <p class="avatar-text position-absolute">
-                                            <button class="btn btn-primary btn-xs ">
+                                        <p class="avatar-text">
+                                            <button class="btn btn-primary btn-xs">
                                                 {{ (friend.mutual) ? 'Mutual' : 'Friend' }}
                                             </button>
                                         </p>

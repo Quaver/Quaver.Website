@@ -178,7 +178,7 @@ export default class Users {
     public static async UserScoresPOST(req: any, res: any): Promise<void> {
         try {
             req.query = req.body;
-console.log(req.query);
+
             const userId: number = (req.query.id) ? req.query.id : 0;
             const type: any = (req.query.table) ? req.query.table : 'recent';
             const mode: GameMode = (req.query.mode) ? req.query.mode : GameMode.Keys4;

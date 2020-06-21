@@ -6,6 +6,8 @@ function initLazy() {
 
 initLazy();
 
+
+
 function sortData(data) {
     let marv = [], perf = [], great = [], good = [], okay = [], miss = [];
     $.each(data, function (key, value) {

@@ -61,7 +61,15 @@ export default class Playlists {
             const page = req.query.page || 0;
             let playlist = await API.GET(req, `v1/playlist/${req.params.id}?page=${page}`);
 
-            const sorted = await Playlists.SortDifficulties(playlist.playlist.maps)
+            let sorted = await Playlists.SortDifficulties(playlist.playlist.maps);
+
+            for (let p in sorted) {
+                sorted[p].game_modes = [];
+                for (let m in sorted[p]) {
+                    if (!sorted[p].game_modes.includes(sorted[p][m].game_mode) && sorted[p][m].game_mode !== undefined)
+                        sorted[p].game_modes.push(sorted[p][m].game_mode)
+                }
+            }
 
             Responses.Send(req, res, "playlists/playlist", `${playlist.playlist.name} | Quaver`, {
                 playlist: playlist.playlist,

@@ -77,7 +77,7 @@
                                         {% if min(map.difficulty_range) == max(map.difficulty_range) %}
                                             <span class="{{ rating_min }}">{{ min(map.difficulty_range)|number_format(2) }}</span>
                                         {% else %}
-                                            <span>{{ min(map.difficulty_range)|number_format(2) }}</span> -
+                                            <span class="{{ rating_min }}">{{ min(map.difficulty_range)|number_format(2) }}</span> -
                                             <span class="{{ rating_max }}">{{ max(map.difficulty_range)|number_format(2) }}</span>
                                         {% endif %}
                                     {% endif %}

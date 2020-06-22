@@ -202,7 +202,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .post-news-date {
-    color: #5B5B5B;
+    color: rgb(186, 181, 171);
     font-size: 14px;
 }
 
@@ -919,7 +919,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-weight: 500;
     font-size: 13px;
     text-transform: none;
-    color: #808080;
+    color: rgb(186, 181, 171);
 }
 
 @media (max-width: 767px) {
@@ -1222,10 +1222,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 /* Playlists */
-
-#playlists a {
-    color: #45D6F5;
-}
 
 #playlists .card:hover {
     box-shadow: none;

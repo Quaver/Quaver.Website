@@ -103,13 +103,12 @@
                                         {% set rating = 'difficulty-rating-expert' %}
                                     {% endif %}
                                     <div class="list-group-item justify-content-between">
-                                        <a href="{{ baseUrl('/mapset/map/'~map.id) }}" class="align-items-center ">
+                                        <a href="{{ baseUrl('/mapset/map/'~map.id) }}" class="align-items-center {{ rating }}"  >
                                             <b>
-                                                <span class="text-white">{{ loop.index }}.</span> {{ map.difficulty_name }}
+                                                {{ map.difficulty_name }}
                                             </b>
                                             <div class="text-white">
-                                                <i class="fas fa-chart-line"></i>
-                                                <span class="{{ rating }}">{{ map.difficulty_rating|number_format(2) }}</span>
+                                                <span>{{ map.difficulty_rating|number_format(2) }}</span>
                                                 {% if currentUser and currentUser.id == playlist.user_id %}
                                                     <a href="#" class="text-danger pl-3">
                                                         <i class="far fa-trash-alt"></i>

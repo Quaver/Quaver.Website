@@ -12,6 +12,8 @@ const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const cookieParser = require('cookie-parser');
 const redis = require('redis');
+const fileUpload = require('express-fileupload');
+
 const client = redis.createClient();
 
 export default class Server {
@@ -59,6 +61,11 @@ export default class Server {
 
         this.ExpressApp.use(bodyParser.json());
         this.ExpressApp.use(bodyParser.urlencoded({extended: true}));
+
+        this.ExpressApp.use(fileUpload({
+            safeFileNames: true,
+            preserveExtension: true
+        }));
 
         this.ExpressApp.use(require('express-session')({
             secret: config.expressSessionSecret,

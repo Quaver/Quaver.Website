@@ -15,7 +15,7 @@ import Settings from "../controllers/users/Settings";
 
 export default class Router {
     /**
-     * @param app 
+     * @param app
      */
     public static InitializeRouter(app: Express.Application): express.Router {
         const router: express.Router = express.Router();
@@ -31,6 +31,8 @@ export default class Router {
         router.route("/mapset/map/:id/mods").get(Maps.ModsGET);
         router.route("/playlists").get(Playlists.PlaylistsGET);
         router.route("/playlists/load").post(Playlists.PlaylistsMoreGET);
+        router.route("/playlist/create").get(Authentication.RequireLogin, Playlists.PlaylistCrate);
+        router.route("/playlist/create").post(Authentication.RequireLogin, Playlists.PlaylistCratePOST);
         router.route("/playlist/:id").get(Playlists.GET);
         router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);
         router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
@@ -55,10 +57,10 @@ export default class Router {
         router.route("/download/:type/:id").get(Download.GET);
 
         // Redirect old routes
-        router.get('/profile/*', function(req:any, res:any){
-            res.redirect(301, '/user/' + req.params[0], );
+        router.get('/profile/*', function (req: any, res: any) {
+            res.redirect(301, '/user/' + req.params[0],);
         });
-        router.get('/mapsets/*', function(req:any, res:any){
+        router.get('/mapsets/*', function (req: any, res: any) {
             res.redirect(301, '/mapset/' + req.params[0]);
         });
 

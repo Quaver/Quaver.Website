@@ -86,6 +86,48 @@ export default class Playlists {
         }
     }
 
+    /**
+     * Create Playlist
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static async PlaylistCrate(req: any, res: any): Promise<void> {
+        try {
+            Responses.Send(req, res, "playlists/create", `Create Playlist | Quaver`, {
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
+    }
+
+    /**
+     * Create Playlist
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static async PlaylistCratePOST(req: any, res: any): Promise<void> {
+        try {
+            const playlist = await API.POST(req, `v1/playlist/`, {
+                name: req.body.playlist_name,
+                description: req.body.playlist_description
+            });
+
+            // if(playlist.playlist.id && req.files.playlist_cover) {
+            //     await API.POST(req, `v1/playlist/${playlist.playlist.id}/cover`, {
+            //         cover: req.files.playlist_cover
+            //     });
+            // }
+
+            res.redirect(303, `/playlist/${playlist.playlist.id}`);
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
+    }
+
     private static async FetchPlayList(req: any, page: number, search: string) {
         try {
             const searchParam = (search) ? '&search=' + search : '';

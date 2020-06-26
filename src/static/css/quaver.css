@@ -499,9 +499,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding-left: 15px;
     margin-left: -20px;
     z-index: 3;
-    -webkit-box-shadow:inset 0px 0px 0px 2px #9B51E0;
-    -moz-box-shadow:inset 0px 0px 0px 2px #9B51E0;
-    box-shadow:inset 0px 0px 0px 2px #9B51E0;
+    -webkit-box-shadow: inset 0px 0px 0px 2px #9B51E0;
+    -moz-box-shadow: inset 0px 0px 0px 2px #9B51E0;
+    box-shadow: inset 0px 0px 0px 2px #9B51E0;
 }
 
 .mode-switch a:not(.active):not(.mode-7) {
@@ -509,9 +509,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding-right: 15px;
     margin-right: -20px;
     z-index: 3;
-    -webkit-box-shadow:inset 0px 0px 0px 2px #0587E5;
-    -moz-box-shadow:inset 0px 0px 0px 2px #0587E5;
-    box-shadow:inset 0px 0px 0px 2px #0587E5;
+    -webkit-box-shadow: inset 0px 0px 0px 2px #0587E5;
+    -moz-box-shadow: inset 0px 0px 0px 2px #0587E5;
+    box-shadow: inset 0px 0px 0px 2px #0587E5;
 }
 
 /*This breaks scrolling*/
@@ -1380,6 +1380,39 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .alert-darken-success {
     background: #27B06E;
     border-color: #27B06E;
+}
+
+/* Modals */
+
+.modal-content {
+    background: #1A1A1A;
+    border: none;
+}
+
+.modal-header {
+    background: #242424;
+    border: none;
+}
+
+.modal-header .close {
+    color: #FFFFFF;
+}
+
+#modalPlaylist .list-group-item {
+    background: #272727;
+}
+
+#modalPlaylist .list-group-item:hover {
+    color: #FFFFFF;
+}
+
+#modalPlaylist .list-buttons button {
+    color: #45D6F5;
+    padding: 0px;
+}
+
+#modalPlaylist .list-buttons button:hover {
+    color: #FFFFFF;
 }
 
 /* Mobile optimizations */

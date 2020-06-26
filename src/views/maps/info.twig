@@ -61,10 +61,7 @@
                 <i class="ya ya-gear"></i>
             </button>
             <div class="dropdown-menu ml-auto">
-                <form method="POST" accept-charset="UTF-8">
-                    <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
-                    <button class="dropdown-item text-success" name="add_to_playlist">Add to Playlist</button>
-                </form>
+                <button class="dropdown-item text-success" data-toggle="modal" data-target="#modalPlaylist">Add to Playlist</button>
                 {% if currentUser.id == map.creator_id %}
                     {% if mapset.ranking_queue_status == null or mapset.ranking_queue_status == 1 %}
                         <form method="POST" accept-charset="UTF-8" onsubmit="return confirm('Do you really want to submit for rank?');">
@@ -79,7 +76,6 @@
                         </form>
                     {% endif %}
                 {% endif %}
-
             </div>
         </div>
     </div>

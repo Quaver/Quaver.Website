@@ -13,6 +13,7 @@ const RedisStore = require('connect-redis')(session);
 const cookieParser = require('cookie-parser');
 const redis = require('redis');
 const fileUpload = require('express-fileupload');
+const flash = require('connect-flash')
 
 const client = redis.createClient();
 
@@ -73,6 +74,8 @@ export default class Server {
             saveUninitialized: true,
             store: new RedisStore({client: client, prefix: config.expressSessionPrefixRedis, ttl: 86400})
         }));
+
+        this.ExpressApp.use(flash());
 
         Login.Initialize();
         Login.ConfigurePassport();

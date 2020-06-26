@@ -315,6 +315,9 @@ export default class Maps {
         try {
             if (typeof req.body.submit_delete !== 'undefined') {
                 await API.POST(req, `v1/mapsets/${req.body.mapset_id}/delete`);
+                req.flash('success', 'Mapset successfully deleted!');
+                res.redirect(303, `/maps`);
+                return;
             } else if (typeof req.body.submit_for_rank !== 'undefined') {
                 await API.POST(req, `v1/mapsets/${req.body.mapset_id}/submitrank`);
             } else if (typeof req.body.add_to_playlist !== 'undefined') {

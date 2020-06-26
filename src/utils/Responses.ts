@@ -28,7 +28,8 @@ export default class Responses {
             Privileges: Privileges,
             formatDateDistance: TimeHelper.formatDateDistance,
             formatDate: TimeHelper.formatDate,
-            formatTime: TimeHelper.formatTime
+            formatTime: TimeHelper.formatTime,
+            flash: req.flash()
         };
 
         Object.assign(templateData, data);

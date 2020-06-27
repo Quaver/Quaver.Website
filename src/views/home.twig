@@ -12,14 +12,18 @@
                                     <img src="{{ assets('/img/logo.png') }}" height="60px">
                                 </h1>
                                 <p class="text-white ">
-                                    The ultimate community-driven, and open-source competitive rhythm game<br>coming to Steam on July 10th, 2020.
+                                    The ultimate community-driven, and open-source competitive rhythm game
+                                    <br>
+                                    coming to Steam on July 10th, 2020.
                                 </p>
                                 <div class="mt-4">
                                     <a class="btn btn-quaver-dark btn-rounded btn-lg" target="_blank" href="https://store.steampowered.com/app/980610/Quaver/" role="button">
-                                        <i class="fab fa-steam ml-0 mr-2"></i> Visit the Steam Page
+                                        <i class="fab fa-steam ml-0 mr-2"></i>
+                                        Visit the Steam Page
                                     </a>
                                     <a class="btn btn-rss btn-rounded btn-lg ml-2" href="https://store.steampowered.com/news/?appids=980610" role="button">
-                                        <i class="fas fa-rss ml-0 mr-2"></i> Dev Blog
+                                        <i class="fas fa-rss ml-0 mr-2"></i>
+                                        Dev Blog
                                     </a>
                                 </div>
                             </div>
@@ -93,25 +97,27 @@
                         <div class="widget widget-secondary p-0">
                             <div class="widget-body home-stats">
                                 <div class="row m-0">
-                                    <div class="col-lg-6 mb-3 mx-auto">
+                                    <div class="col-sm-6">
                                         <div class="category">
                                             <span>Total users</span>
                                             <span class="count">{{ (stats.total_users) ?:0 }}</span>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-sm-6">
                                         <div class="category">
                                             <span>Online users</span>
                                             <span class="count">{{ (stats.total_online_users) ?:0 }}</span>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                </div>
+                                <div class="row m-0">
+                                    <div class="col-sm-6">
                                         <div class="category">
                                             <span>Total mapsets</span>
                                             <span class="count">{{ (stats.total_mapsets) ?: 0 }}</span>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-sm-6">
                                         <div class="category">
                                             <span>Total scores</span>
                                             <span class="count">{{ (stats.total_scores) ?: 0 }}</span>

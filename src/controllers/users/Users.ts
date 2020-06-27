@@ -31,7 +31,7 @@ export default class Users {
             const mapSetsRanked = await Users.GetUploadedMapSetsRanked(req, res, user.info.id, 0);
 
             const mapSetsUnRanked = await Users.GetUploadedMapSetsUnRanked(req, res, user.info.id, 0);
-            const playLists = await Users.GetPlaylists(req, res, user);
+            const playlists = await Users.GetPlaylists(req, res, user);
             const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
                 allowedTags: ['span', 'a'],
                 allowedAttributes: {
@@ -49,7 +49,7 @@ export default class Users {
                 firstPlace,
                 mapSetsRanked,
                 mapSetsUnRanked,
-                playLists,
+                playlists,
                 GameMode,
                 RankedStatus
             });

@@ -26,9 +26,6 @@
                         <a class="dropdown-item" href="{{ baseUrl('/team') }}">Team</a>
                     </div>
                 </li>
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="https://store.steampowered.com/app/980610/Quaver/">Download</a>#}
-{#                </li>#}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ baseUrl('/leaderboard') }}" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">Leaderboard</a>
@@ -93,7 +90,7 @@
                         <a class="dropdown-item" href="{{ baseUrl('/user/'~currentUser.id) }}">Profile</a>
 {#                        <a class="dropdown-item" href="{{ baseUrl('/friends') }}">Friends</a>#}
 {#                        <a class="dropdown-item" href="{{ baseUrl('/settings') }}">Settings</a>#}
-                        {% if HasPrivilege(currentUser, Privileges.Normal) %}
+                        {% if CanAccessDashboard(currentUser.usergroups) %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="https://a.quavergame.com/">Dashboard</a>
                         {% endif %}

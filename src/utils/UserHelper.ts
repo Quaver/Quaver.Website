@@ -22,4 +22,22 @@ export default class UserHelper {
     public static HasPrivilege(user: any, privilege: Privileges): boolean {
         return (privilege & user.privileges) != 0;
     }
+
+    /**
+     * Checks if a user can access dashboard
+     * @constructor
+     * @param userGroups
+     */
+    public static CanAccessDashboard(userGroups: any): boolean {
+        if ((userGroups & Usergroups.Developer) != 0)
+            return true;
+        else if ((userGroups & Usergroups.Admin) != 0)
+            return true;
+        else if ((userGroups & Usergroups.Moderator) != 0)
+            return true;
+        else if ((userGroups & Usergroups.RankingSupervisor) != 0)
+            return true;
+
+        return false;
+    }
 }

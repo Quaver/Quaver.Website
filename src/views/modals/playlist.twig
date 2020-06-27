@@ -56,6 +56,15 @@
         });
     }
 
+    function removeFromPlaylist(id, map_id) {
+        $.post(baseUrl() + `/playlist/map/remove`, {
+            id: id,
+            map: map_id
+        }, function (data) {
+            console.log(data);
+        });
+    }
+
     document.addEventListener("DOMContentLoaded", function (event) {
         $(document).on('click', '.add_mapset', function () {
             const playlistId = $(this).data('id');
@@ -73,5 +82,22 @@
 
             addToPlaylist(playlistId, map);
         });
+
+        // $(document).on('click', '.remove_mapset', function () {
+        //     const playlistId = $(this).data('id');
+        //
+        //     const maps = mapsets.split(',');
+        //
+        //     maps.forEach(map => {
+        //         removeFromPlaylist(playlistId, map);
+        //     })
+        // });
+        //
+        // $(document).on('click', '.remove_map', function () {
+        //     const playlistId = $(this).data('id');
+        //     const map = $(this).data('map');
+        //
+        //     removeFromPlaylist(playlistId, map);
+        // });
     });
 </script>

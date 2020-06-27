@@ -69,6 +69,9 @@ export default class Router {
         router.get('/steam', function (req: any, res: any) {
             res.redirect(301, 'https://store.steampowered.com/app/980610/Quaver/');
         });
+        router.get('/wiki', function (req: any, res: any) {
+            res.redirect(301, 'https://old.quavergame.com/wiki/');
+        });
 
         router.route("/sitemap.xml").get(Sitemap.GET);
 

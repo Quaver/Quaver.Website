@@ -83,21 +83,21 @@
             addToPlaylist(playlistId, map);
         });
 
-        $(document).on('click', '.remove_mapset', function () {
-            const playlistId = $(this).data('id');
-
-            const maps = mapsets.split(',');
-
-            maps.forEach(map => {
-                removeFromPlaylist(playlistId, map);
-            })
-        });
-
-        $(document).on('click', '.remove_map', function () {
-            const playlistId = $(this).data('id');
-            const map = $(this).data('map');
-
-            removeFromPlaylist(playlistId, map);
-        });
+        // $(document).on('click', '.remove_mapset', function () {
+        //     const playlistId = $(this).data('id');
+        //
+        //     const maps = mapsets.split(',');
+        //
+        //     maps.forEach(map => {
+        //         removeFromPlaylist(playlistId, map);
+        //     })
+        // });
+        //
+        // $(document).on('click', '.remove_map', function () {
+        //     const playlistId = $(this).data('id');
+        //     const map = $(this).data('map');
+        //
+        //     removeFromPlaylist(playlistId, map);
+        // });
     });
 </script>

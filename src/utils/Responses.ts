@@ -24,6 +24,7 @@ export default class Responses {
             currentUser: req.user,
             HasGroup: UserHelper.HasGroup,
             HasPrivilege: UserHelper.HasPrivilege,
+            CanAccessDashboard: UserHelper.CanAccessDashboard,
             UserGroups: UserGroups,
             Privileges: Privileges,
             formatDateDistance: TimeHelper.formatDateDistance,

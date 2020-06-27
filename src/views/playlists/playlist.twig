@@ -24,14 +24,14 @@
 
                         <div class="card-block">
                             {% if currentUser and currentUser.id == playlist.user_id %}
-                                <div class="mb-3 d-flex justify-content-between">
-                                    <a href="#" class="btn btn-info btn-xs text-white">
-                                        Edit Playlist
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-xs">
-                                        Delete Playlist
-                                    </button>
-                                </div>
+{#                                <div class="mb-3 d-flex justify-content-between">#}
+{#                                    <a href="#" class="btn btn-info btn-xs text-white">#}
+{#                                        Edit Playlist#}
+{#                                    </a>#}
+{#                                    <button type="button" class="btn btn-danger btn-xs">#}
+{#                                        Delete Playlist#}
+{#                                    </button>#}
+{#                                </div>#}
                             {% endif %}
                             <p class="card-text font-size-md">{{ playlist.description }}</p>
                             <p class="card-text font-size-md">Created by
@@ -110,9 +110,9 @@
                                             <div class="text-white">
                                                 <span>{{ map.difficulty_rating|number_format(2) }}</span>
                                                 {% if currentUser and currentUser.id == playlist.user_id %}
-                                                    <a href="#" class="text-danger pl-3">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </a>
+{#                                                    <a href="#" class="text-danger pl-3">#}
+{#                                                        <i class="far fa-trash-alt"></i>#}
+{#                                                    </a>#}
                                                 {% else %}
                                                     <a></a>
                                                 {% endif %}

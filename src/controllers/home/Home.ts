@@ -19,7 +19,8 @@ export default class Home {
             return Responses.Send(req, res, "home", "Home | Quaver", {
                 recentlyRanked: recentlyRanked,
                 stats: stats.stats,
-                blog: blog.data
+                blog: blog.data,
+                description: 'The ultimate community-driven, and open-source competitive rhythm game coming to Steam on July 10th, 2020.'
             });
         } catch (err) {
             Logger.Error(err);

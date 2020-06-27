@@ -487,4 +487,38 @@ export default class Maps {
             return [];
         }
     }
+
+    public static async PlaylistAddPOST(req: any, res: any): Promise<any> {
+        try {
+            const id = req.body.id;
+            const map = req.body.map;
+
+            const response = await API.POST(req, `v1/playlist/${id}/add/${map}`);
+
+            if (response.status != 200)
+                return [];
+
+            return response;
+        } catch (err) {
+            Logger.Error(err);
+            return [];
+        }
+    }
+    
+    public static async PlaylistRemoveMapPOST(req: any, res: any): Promise<any> {
+        try {
+            const id = req.body.id;
+            const map = req.body.map;
+
+            const response = await API.POST(req, `v1/playlist/${id}/remove/${map}`);
+
+            if (response.status != 200)
+                return [];
+
+            return response;
+        } catch (err) {
+            Logger.Error(err);
+            return [];
+        }
+    }
 }

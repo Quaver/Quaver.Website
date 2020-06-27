@@ -29,7 +29,7 @@
     </tr>
     <tr>
         <td colspan="7" style="padding: 0;">
-            <div class="accordian-body collapse" data-parent="#scores" id="score_{{ table }}_{{ score.id }}" style="overflow: hidden">
+            <div class="accordian-body collapse" data-parent="#scores" id="score_{{ table }}_{{ score.id }}" style="overflow: hidden; margin-bottom: 25px;">
                 <div class="row score-info">
                     <div class="col-sm-3">
                         <h6 class="mt-4">Score</h6>
@@ -48,14 +48,14 @@
                         <span class="font-weight-light font-size-md">{{ score.ratio|number_format(2) }}</span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6 d-sm-block">
-                        <div class="chartScore_{{ table }}_{{ score.id }}" style="height: 269px;"></div>
-                    </div>
-                    <div class="col-sm-6">
-                        <canvas class="scatterScore_{{ table }}_{{ score.id }}" style="height: 269px;"></canvas>
-                    </div>
-                </div>
+{#                <div class="row">#}
+{#                    <div class="col-sm-6 d-sm-block">#}
+{#                        <div class="chartScore_{{ table }}_{{ score.id }}" style="height: 269px;"></div>#}
+{#                    </div>#}
+{#                    <div class="col-sm-6">#}
+{#                        <canvas class="scatterScore_{{ table }}_{{ score.id }}" style="height: 269px;"></canvas>#}
+{#                    </div>#}
+{#                </div>#}
             </div>
         </td>
     </tr>

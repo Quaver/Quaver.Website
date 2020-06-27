@@ -1398,6 +1398,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #FFFFFF;
 }
 
+.btn-rss {
+    background: #EB6E00;
+    color: #FFFFFF;
+}
+
+.btn-rss:hover, .btn-quaver-dark:hover {
+    color: #FFFFFF;
+}
+
 #modalPlaylist .list-group-item {
     background: #272727;
 }

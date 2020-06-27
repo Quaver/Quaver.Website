@@ -58,12 +58,12 @@
                         </div>
                     </h2>
                     {% if currentUser and currentUser.id != user.info.id %}
-                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">
-                            <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">
-                                <i class="ya ya-user-add"></i>
-                                Add friend
-                            </a>
-                        </div>
+{#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
+{#                            <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">#}
+{#                                <i class="ya ya-user-add"></i>#}
+{#                                Add friend#}
+{#                            </a>#}
+{#                        </div>#}
                     {% endif %}
                 </div>
             </div>
@@ -103,24 +103,24 @@
                         <div class="nav-scroll">
                             <div class="nav nav-list nav-list-profile">
                                 <a class="nav-item nav-link" href="#feed">Stats & Feed</a>
-                                <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a>
+{#                                <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a>#}
                                 <a class="nav-item nav-link" href="#scores">Scores</a>
-                                <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a>
+{#                                <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a>#}
                                 <a class="nav-item nav-link" href="#maps">Maps</a>
-                                <a class="nav-item nav-link" href="#playlists">Playlists</a>
+{#                                <a class="nav-item nav-link" href="#playlists">Playlists</a>#}
                                 <a class="nav-item nav-link" href="#achievements">Achievements</a>
                             </div>
                         </div>
                         {% if currentUser.id == user.info.id %}
-                            <div class="dropdown d-none d-xl-inline-block ml-auto">
-                                <button class="btn btn-quaver-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ya ya-gear"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right btn-quaver-dark dropdown-quaver">
-                                    <a class="dropdown-item" href="#">Change Cover</a>
-                                    <a class="dropdown-item" href="#">Settings</a>
-                                </div>
-                            </div>
+{#                            <div class="dropdown d-none d-xl-inline-block ml-auto">#}
+{#                                <button class="btn btn-quaver-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                                    <i class="ya ya-gear"></i>#}
+{#                                </button>#}
+{#                                <div class="dropdown-menu dropdown-menu-right btn-quaver-dark dropdown-quaver">#}
+{#                                    <a class="dropdown-item" href="#">Change Cover</a>#}
+{#                                    <a class="dropdown-item" href="#">Settings</a>#}
+{#                                </div>#}
+{#                            </div>#}
                         {% endif %}
                     </div>
                 </div>
@@ -133,7 +133,7 @@
 {#            {% include 'user/user-profile-graphs.twig' %}#}
             {% include 'user/user-profile-scores.twig' %}
             {% include 'user/user-profile-mapsets.twig' %}
-            {% include 'user/user-profile-playlists.twig' %}
+{#            {% include 'user/user-profile-playlists.twig' %}#}
             {% include 'user/user-profile-achievements.twig' %}
         </div>
     </section>
@@ -152,10 +152,10 @@
     <script src="{{ assets('/js/plugins/lazyload.min.js') }}"></script>
     <script defer src="{{ assets('/js/plugins/moment.min.js') }}"></script>
     <script defer src="{{ assets('/js/user.js') }}"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+{#    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>#}
     {# <script defer src="{{ assets('/js/plugins/Chart.min.js') }}"></script> #}
-    <script defer src="{{ assets('/js/plugins/highstock.js') }}"></script>
-    <script defer src="{{ assets('/js/plugins/data.js') }}"></script>
+{#    <script defer src="{{ assets('/js/plugins/highstock.js') }}"></script>#}
+{#    <script defer src="{{ assets('/js/plugins/data.js') }}"></script>#}
 {% endblock %}
 
 {% block page_scripts %}{% endblock %}

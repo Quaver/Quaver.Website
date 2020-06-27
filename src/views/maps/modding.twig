@@ -144,7 +144,7 @@
                                                             {% if not comment.message.spam %}
                                                                 {{ comment.message.comment }}
                                                             {% else %}
-                                                                <a data-id="{{ comment.message.id }}" data-comment="ToDo think better way..." onclick="readSpam(this)">This comment was marked as spam, click here to view the content</a>
+                                                                <a data-id="{{ comment.message.id }}" data-comment="" onclick="readSpam(this)">This comment was marked as spam, click here to view the content</a>
                                                             {% endif %}
                                                         </div>
                                                         </p>

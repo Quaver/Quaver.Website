@@ -11,16 +11,25 @@
                 <div class="list-group list-group-flush">
                     {% for playlist in playlists %}
                         <div class="list-group-item justify-content-between">
-                            <a href="#">
+                            <a href="{{ baseUrl('/playlist/'~playlist.id) }}">
                                 {{ playlist.name }}
                             </a>
                             <div class="list-buttons">
-                                <button class="btn btn-link btn-icon px-0 mr-2 add_mapset" data-toggle="tooltip" title="Add Mapset" data-id="{{ playlist.id }}">
-                                    <i class="fas fa-folder-plus"></i>
-                                </button>
-                                <button class="btn btn-link btn-icon px-0 add_map" data-toggle="tooltip" title="Add Map" data-id="{{ playlist.id }}" data-map="{{ map.id }}">
-                                    <i class="fas fa-plus"></i>
-                                </button>
+                                {% if playlist.has_map == map.id %}
+                                    <button class="btn btn-link btn-icon px-0 mr-2 remove_mapset text-danger" data-toggle="tooltip" title="Remove Mapset" data-id="{{ playlist.id }}">
+                                        <i class="fas fa-folder-minus"></i>
+                                    </button>
+                                    <button class="btn btn-link btn-icon px-0 remove_map text-danger" data-toggle="tooltip" title="Remove Map" data-id="{{ playlist.id }}" data-map="{{ map.id }}">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-link btn-icon px-0 mr-2 add_mapset" data-toggle="tooltip" title="Add Mapset" data-id="{{ playlist.id }}">
+                                        <i class="fas fa-folder-plus"></i>
+                                    </button>
+                                    <button class="btn btn-link btn-icon px-0 add_map" data-toggle="tooltip" title="Add Map" data-id="{{ playlist.id }}" data-map="{{ map.id }}">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
@@ -39,7 +48,10 @@
     const mapsets = "{{ mapsets_list }}";
 
     function addToPlaylist(id, map_id) {
-        $.post(apiBaseUrl() + `/v1/playlist/${id}/add/${map_id}`, {}, function (data) {
+        $.post(baseUrl() + `/playlist/map/add`, {
+            id: id,
+            map: map_id
+        }, function (data) {
             console.log(data);
         });
     }

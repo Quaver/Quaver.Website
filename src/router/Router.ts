@@ -34,14 +34,16 @@ export default class Router {
         router.route("/playlist/create").get(Authentication.RequireLogin, Playlists.PlaylistCrate);
         router.route("/playlist/create").post(Authentication.RequireLogin, Playlists.PlaylistCratePOST);
         router.route("/playlist/:id").get(Playlists.GET);
-        router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);
-        router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
+        router.route("/playlist/map/add").post(Authentication.RequireLogin, Maps.PlaylistAddPOST);
+        router.route("/playlist/map/remove").post(Authentication.RequireLogin, Maps.PlaylistRemoveMapPOST);
+        // router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);
+        // router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
         router.route("/user/:id").get(Users.GET);
         router.route("/user/maps/load").post(Users.UserMapssetsPOST);
         router.route("/user/scores/load").post(Users.UserScoresPOST);
 
-        router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
-        router.route("/settings").get(Authentication.RequireLogin, Settings.GET);
+        // router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
+        // router.route("/settings").get(Authentication.RequireLogin, Settings.GET);
 
         // router.route("/wiki").get(Wiki.HomeGET);
         // router.route("/wiki/*").get(Wiki.WikiPageGET);
@@ -63,6 +65,10 @@ export default class Router {
         router.get('/mapsets/*', function (req: any, res: any) {
             res.redirect(301, '/mapset/' + req.params[0]);
         });
+        router.get('/steam', function (req: any, res: any) {
+            res.redirect(301, 'https://store.steampowered.com/app/980610/Quaver/');
+        });
+
 
         router.route("*").get(Error.GET);
 

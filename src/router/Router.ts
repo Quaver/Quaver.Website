@@ -12,6 +12,7 @@ import Multiplayer from "../controllers/multiplayer/Multiplayer";
 import Error from "../controllers/error/Error";
 import Friends from "../controllers/users/Friends";
 import Settings from "../controllers/users/Settings";
+import Sitemap from "../controllers/sitemap/Sitemap";
 
 export default class Router {
     /**
@@ -69,6 +70,7 @@ export default class Router {
             res.redirect(301, 'https://store.steampowered.com/app/980610/Quaver/');
         });
 
+        router.route("/sitemap.xml").get(Sitemap.GET);
 
         router.route("*").get(Error.GET);
 

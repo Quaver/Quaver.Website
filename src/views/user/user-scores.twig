@@ -1,0 +1,33 @@
+<div>
+    <div class="table-responsive" id="leaderboard">
+        {% if data|length %}
+            <table class="table align-items-center" id="table_{{ table }}">
+                <thead>
+                <tr style="text-align: center">
+                    <th scope="col" style="width: 5%;">Grade</th>
+                    <th scope="col">Song</th>
+                    <th scope="col" style="width: 20%;">Performance Rating</th>
+                    <th scope="col" style="width: 5%;">Accuracy</th>
+                    <th scope="col" style="width: 5%;">Mods</th>
+                    <th scope="col" style="width: 5%;">Replay</th>
+                    <th scope="col" style="width: 5%;">Info</th>
+                </tr>
+                </thead>
+                <tbody id="{{ table }}_scores">
+                {% include './scores.twig' with {'data': data} %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="card-body">
+                No scores
+            </div>
+        {% endif %}
+    </div>
+    {% if data|length %}
+        <a href="javascript:void(0)" class="scores_more" data-table="{{ table }}">
+            <div class="load-more">
+                <i class="fas fa-angle-down"></i>
+            </div>
+        </a>
+    {% endif %}
+</div>

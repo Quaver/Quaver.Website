@@ -1,0 +1,251 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    {% include 'maps/cover.twig' %}
+    <section>
+        <div class="container">
+            {% include 'maps/info.twig' %}
+            {% if currentUser and map.ranked_status != 2 %}
+                <div class="widget mt-4">
+                    <div class="widget-header">
+                        Submit a Mod
+                    </div>
+                </div>
+                <div class="card modding-form">
+                    <div class="card-body">
+                        <form method="POST" accept-charset="UTF-8">
+                            <div class="form-group">
+                                <label>The type of mod you want to give the user</label>
+                                <select name="type" class="form-control">
+                                    <option value="2">None</option>
+                                    <option value="0">Issue</option>
+                                    <option value="1">Suggestion</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Copy objects in the editor with CTRL+C to highlight specific points in the map</label>
+                                <input type="text" name="timestamp" class="form-control" placeholder="234873284|1,234234|2,23423|3">
+                            </div>
+                            <div class="form-group">
+                                <label>Comment</label>
+                                <textarea name="comment" rows="5" placeholder="Your Comment" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" name="submit_mod" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="comments" id="comments">
+                {% if not mods %}
+                    <div class="card-body">There are currently no mods for this map.</div>
+                {% else %}
+                    {% for mod in mods %}
+                        {% if mod.mod.status == 'Accepted' %}
+                            {% set type = 'accepted' %}
+                        {% elseif mod.mod.status == 'Ignored' %}
+                            {% set type = 'ignored' %}
+                        {% elseif mod.mod.status == 'Pending' %}
+                            {% set type = 'pending' %}
+                        {% else %}
+                            {% set type = 'denied' %}
+                        {% endif %}
+
+                        <div class="modding-bottom">
+                            <div class="mod-type mod-type-{{ type }}" style="">
+                                {% if mod.mod.status == 'Accepted' %}
+                                    Accepted
+                                {% elseif mod.mod.status == 'Ignored' %}
+                                    Ignored
+                                {% elseif mod.mod.status == 'Pending' %}
+                                    Pending
+                                {% else %}
+                                    Denied
+                                {% endif %}
+                            </div>
+                            <div class="card" id="mod_{{ mod.mod.id }}">
+                                <div class="card-body mod-{{ type }}">
+                                    <div class="media">
+                                        <div class="avatar">
+                                            <img src="{{ mod.author.avatar_url }}" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <a class="h6" href="{{ baseUrl('/user/'~mod.author.id) }}">{{ mod.author.username }}</a>
+                                            <div class="media-meta">
+                                                {% if map.creator_id == mod.author.id %}
+                                                    <span>Creator</span>
+                                                {% elseif HasGroup(mod.author, UserGroups.Developer) %}
+                                                    <span class="text-color-developer">Developer</span>
+                                                {% elseif HasGroup(mod.author, UserGroups.Admin) %}
+                                                    <span class="text-color-admin">Administrator</span>
+                                                {% elseif HasGroup(mod.author, UserGroups.Moderator) %}
+                                                    <span class="text-color-moderator">Moderator</span>
+                                                {% elseif HasGroup(mod.author, UserGroups.RankingSupervisor) %}
+                                                    <span class="text-color-ranking-supervisor">Ranking Supervisor</span>
+                                                {% else %}
+                                                    <span>User</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="media-meta" data-toggle="tooltip" title="{{ formatDate(mod.mod.timestamp) }}">{{ formatDateDistance(mod.mod.timestamp) }}</div>
+                                            <div class="media-meta">
+                                                <a href="#mod_{{ mod.mod.id }}">Permalink</a>
+                                            </div>
+                                            <div class="comment-action" style="float: right;">
+                                                <div class="dropdown float-right">
+                                                    <div class="mapset-buttons mod-type-{{ mod.mod.type|lower }}">
+                                                        {{ mod.mod.type }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% if mod.mod.map_timestamp %}
+                                                <div class="modding-timestamp">
+                                                    <a href="quaver://editor/{{ mod.mod.map_timestamp }}">
+                                                        <span class="">{{ mod.mod.map_timestamp_readable }}</span>
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                            <p>{{ mod.mod.comment }}</p>
+                                            {% if mod.mod.replies %}
+                                                <hr>{% endif %}
+                                            {% for comment in mod.mod.replies %}
+                                                <div class="media">
+                                                    <div class="avatar">
+                                                        <img src="{{ comment.author.avatar_url }}" alt="">
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <div class="d-flex">
+                                                            <div class="d-flex">
+                                                                <a class="h6" href="{{ baseUrl('/user/'~comment.author.id) }}">{{ comment.author.username }}</a>
+                                                                <div class="media-meta">
+                                                                    {% if map.creator_id == comment.author.id %}
+                                                                        <span>Creator</span>
+                                                                    {% elseif HasGroup(comment.author, UserGroups.Developer) %}
+                                                                        <span class="text-color-developer">Developer</span>
+                                                                    {% elseif HasGroup(comment.author, UserGroups.Admin) %}
+                                                                        <span class="text-color-admin">Administrator</span>
+                                                                    {% elseif HasGroup(comment.author, UserGroups.Moderator) %}
+                                                                        <span class="text-color-moderator">Moderator</span>
+                                                                    {% elseif HasGroup(comment.author, UserGroups.RankingSupervisor) %}
+                                                                        <span class="text-color-ranking-supervisor">Ranking Supervisor</span>
+                                                                    {% else %}
+                                                                        <span>Something else?</span>
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="media-meta">{{ formatDateDistance(comment.message.timestamp) }}</div>
+                                                            </div>
+                                                            {% if currentUser and map.creator_id == currentUser.id %}
+{#                                                                <div class="media-tools" style="display: block;">#}
+{#                                                                    <a class="btn btn-link btn-icon btn-xs" onclick="commentSpam(this)" data-id="{{ comment.message.id }}" data-spam="{{ comment.message.spam }}" data-comment="ToDo think better way..." data-toggle="tooltip" title="" data-original-title="Mark as spam">#}
+{#                                                                        <i class="ya ya-flag"></i>#}
+{#                                                                    </a>#}
+{#                                                                </div>#}
+                                                            {% endif %}
+                                                        </div>
+                                                        <p>
+                                                        <div id="mod_comment_{{ comment.message.id }}">
+                                                            {% if not comment.message.spam %}
+                                                                {{ comment.message.comment }}
+                                                            {% else %}
+                                                                <a data-id="{{ comment.message.id }}" data-comment="" onclick="readSpam(this)">This comment was marked as spam, click here to view the content</a>
+                                                            {% endif %}
+                                                        </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% if currentUser and map.ranked_status != 2 %}
+                                        <div class="row">
+                                            <div class="col-md-11 ml-auto">
+                                                <div class="mb-3 d-flex justify-content-between">
+                                                    {% if currentUser.id == map.creator_id and mod.mod.status == 'Pending' %}
+                                                        <div>
+                                                            <form method="POST" accept-charset="UTF-8">
+                                                                <input type="hidden" name="mod_id" value="{{ mod.mod.id }}">
+                                                                <button type="submit" name="mod_accept" class="btn btn-success btn-xs">
+                                                                    <i class="fas fa-check"></i>
+                                                                    Accept
+                                                                </button>
+                                                                <button type="submit" name="mod_deny" class="btn btn-danger btn-xs">
+                                                                    <i class="fas fa-times"></i>
+                                                                    Deny
+                                                                </button>
+                                                                <button type="submit" name="mod_ignore" class="btn btn-warning btn-xs">
+                                                                    <i class="fas fa-times-circle"></i>
+                                                                    Ignore
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    {% else %}
+                                                        {% if currentUser.id == map.creator_id %}
+                                                            <div>
+                                                                <form method="POST" accept-charset="UTF-8">
+                                                                    <input type="hidden" name="mod_id" value="{{ mod.mod.id }}">
+                                                                    <button type="submit" name="mod_revert" class="btn btn-warning btn-xs">
+                                                                        <i class="fas fa-undo"></i>
+                                                                        Revert
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    <button type="button" data-toggle="collapse" data-target="#comment_{{ mod.mod.id }}" class="btn btn-primary btn-xs collapsed" aria-expanded="false">
+                                                        <i class="fas fa-reply"></i>
+                                                        Reply
+                                                    </button>
+                                                </div>
+
+                                                <div class="collapse" data-parent="#comments" id="comment_{{ mod.mod.id }}">
+                                                    <form method="POST" accept-charset="UTF-8">
+                                                        <div class="form-group">
+                                                            <input type="hidden" name="mod_id" value="{{ mod.mod.id }}">
+                                                            <textarea class="form-control" name="comment" rows="5"></textarea>
+                                                        </div>
+                                                        <button type="submit" name="submit_comment" class="btn btn-primary">Submit comment</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ assets('/css/modding.css') }}">
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function readSpam(element) {
+            const id = $(element).data('id');
+            const comment = $(element).data('comment');
+
+            $(`#mod_comment_${id}`).html(comment);
+        }
+
+        function commentSpam(element) {
+            const id = $(element).data('id');
+            const comment = $(element).data('comment');
+            const spam = $(element).data('spam');
+
+            if (spam === false) {
+                $(`#mod_comment_${id}`).html(`<a data-id="${id}" data-comment="${comment}" onclick="readSpam(this)">This comment was marked as spam, click here to view the content</a>`);
+                $(element).data('original-title', 'Unmark as spam');
+                $(element).data('spam', true);
+            } else {
+                $(`#mod_comment_${id}`).html(comment);
+                $(element).data('original-title', 'Mark as spam');
+                $(element).data('spam', false);
+            }
+
+            // ToDo post request
+        }
+    </script>
+{% endblock %}

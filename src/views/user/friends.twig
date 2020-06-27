@@ -1,0 +1,90 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        Friends
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="widget">
+                <div class="widget-header">Friends</div>
+            </div>
+            <div class="widget widget-secondary">
+                <div class="widget-body">
+                    <div class="row">
+                        {% for friend in friends %}
+                            <div class="col-3 mb-3">
+                                <div class="avatar-card {{ (friend.online ? 'friend-online' : 'friend-offline') }}">
+                                    <div>
+                                        <a href="{{ baseUrl('/user/'~friend.user_id) }}" class="avatar-title">
+                                            <img src="{{ assets('/img/flags/'~friend.country~'.png') }}" alt="{{ friend.country }}">
+                                            {{ friend.username }}
+                                        </a>
+                                        <p class="avatar-text">
+                                            <button class="btn btn-primary btn-xs">
+                                                {{ (friend.mutual) ? 'Mutual' : 'Friend' }}
+                                            </button>
+                                        </p>
+                                    </div>
+                                    {% if friend.avatar_url %}
+                                        <img src="{{ friend.avatar_url }}" alt="">
+                                    {% else %}
+                                        <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+    <style>
+        .avatar-card {
+            background: #1A1A1A;
+        }
+
+        .friend-online {
+            border-left-color: #28a745;
+        }
+
+        .friend-offline {
+            border-left-color: #dc3545;
+        }
+
+        .avatar-card img {
+            transition: none;
+        }
+
+        .avatar-card .avatar-title img {
+            width: auto;
+            height: auto;
+            border-radius: unset;
+        }
+
+        .avatar-card:hover {
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            border-right-color: transparent;
+            border-left-color: #45D6F5;
+            cursor: pointer;
+        }
+
+        .avatar-card .btn-xs {
+            padding: 0 8px;
+
+        }
+    </style>
+{% endblock %}

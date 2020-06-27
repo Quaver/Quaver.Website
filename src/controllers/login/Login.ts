@@ -28,6 +28,10 @@ export default class Login {
      */
     public static async GET(req: any, res: any): Promise<void> {
         try {
+            res.cookie('currentPage', req.header('Referer'), {
+                maxAge: 24 * 60 * 60
+            });
+
             const url = await Login.Authenticate();
             return res.redirect(url);
         } catch (err) {
@@ -76,14 +80,17 @@ export default class Login {
             // Prevent ban users from logging in
             if (!user.allowed)
                 return Responses.Return401(req, res);
-            
+
             req.login(user, (err: any)  => {
                 if (err) {
                     console.error(err);
                     return Responses.Return401(req,  res);
                 } 
-                
-                return res.redirect("/");
+
+                if(req.cookies.currentPage !== undefined)
+                    return res.redirect(req.cookies.currentPage);
+                else
+                    return res.redirect("/");
             });
             
         } catch (err) {

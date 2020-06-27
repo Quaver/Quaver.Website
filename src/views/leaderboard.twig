@@ -1,0 +1,62 @@
+{% extends "layouts/app.twig" %}
+
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        {% if leaderboardType == 0 %}Overall Rating{% elseif leaderboardType == 2 %}Total Hits{% elseif leaderboardType == 3 %}Multiplayer{% else %}Country{% endif %}<br>
+                        <small>Leaderboard</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-lg-5">
+        <div class="container">
+            {% if slug != "hits" %}
+                <div class="nav-tab-scroll" id="mode-tabs">
+                    <div class="nav nav-tabs {% if mode == 1 %}keys4{% else %}keys7{% endif %}">
+                        <a class="nav-item nav-link {% if mode == 1 %}active-keys4{% else %}tab-keys4{% endif %}" href="/leaderboard{% if leaderboardType == 3 %}/multiplayer{% endif %}?mode=1">
+                            4 Keys
+                        </a>
+                        <a class="nav-item nav-link {% if mode == 2 %}active-keys7{% else %}tab-keys7{% endif %}" href="/leaderboard{% if leaderboardType == 3 %}/multiplayer{% endif %}?mode=2">
+                            7 Keys
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="card">
+                <div class="card-body">
+                    {% include 'helpers/pagination.twig' with {
+                        currentPage: page,
+                        paginationPath: slug~"?page=",
+                        paginationCountry: (country) ? country : '',
+                        lastPage: pages
+                    } only %}
+
+                    {% include 'leaderboard/'~slug~'.twig' %}
+
+                    {% include 'helpers/pagination.twig' with {
+                        currentPage: page,
+                        paginationPath: slug~"?page=",
+                        paginationCountry: (country) ? country : '',
+                        lastPage: pages
+                    } only %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

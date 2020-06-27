@@ -1,0 +1,208 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        Team
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="teams">
+        <div class="container">
+            <div class="widget">
+                <div class="widget-header developers">
+                    Developers
+                    <br>
+                    <small>Responsible for adding new features, fixing existing bugs, and maintaining Quaver's game and web servers.</small>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="row team-center">
+                        {% for user in team.developers %}
+                            <div class="col-md-3">
+                                <div class="team-card">
+                                    <div class="team-image">
+                                        <a href="{{ baseUrl('/user/'~user.id) }}">
+                                            {% if user.avatar_url %}
+                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
+                                            {% else %}
+                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <br>
+                                    <div class="team-text">
+                                        <div class="team-name">
+                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            </a>
+                                            <a href="/profile/{{ user.id }}">{{ user.username }}</a>
+                                        </div>
+                                        <div class="team-description">
+                                            {% if user.title %}
+                                                <p>{{ user.title }}</p>
+                                            {% else %}
+                                                <p>Developer</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-header administrators">
+                    Administrators
+                    <br>
+                    <small>Responsible for enforcing the rules and player support. They also involve themselves directly in the community to keep Quaver up and running.</small>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="row team-center">
+                        {% for user in team.admins %}
+                            <div class="col-sm-3">
+                                <div class="team-card">
+                                    <div class="team-image">
+                                        <a href="{{ baseUrl('/user/'~user.id) }}">
+                                            {% if user.avatar_url %}
+                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
+                                            {% else %}
+                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <br>
+                                    <div class="team-text">
+                                        <div class="team-name">
+                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            </a>
+                                            <a href="/profile/{{ user.id }}">{{ user.username }}</a>
+                                        </div>
+                                        <div class="team-description">
+                                            {% if user.title %}
+                                                <p>{{ user.title }}</p>
+                                            {% else %}
+                                                <p>Administrator</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-header moderators">
+                    Moderators
+                    <br>
+                    <small>Responsible for handling mutes and keeping the in-game and Discord chats clean and free of spam.</small>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="row team-center">
+                        {% for user in team.moderators %}
+                            <div class="col-sm-2">
+                                <div class="team-card">
+                                    <div class="team-image">
+                                        <a href="{{ baseUrl('/user/'~user.id) }}">
+                                            {% if user.avatar_url %}
+                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
+                                            {% else %}
+                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <br>
+                                    <div class="team-text">
+                                        <div class="team-name">
+                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            </a>
+                                            <a href="/profile/{{ user.id }}">{{ user.username }}</a>
+                                        </div>
+                                        <div class="team-description">
+                                            {% if user.title %}
+                                                <p>{{ user.title }}</p>
+                                            {% else %}
+                                                <p>Moderator</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-header">
+                    Ranking Supervisors
+                    <br>
+                    <small>Responsible for reviewing maps in the ranking queue.</small>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="row team-center">
+                        {% for user in team.rankingSupervisors %}
+                            <div class="col-sm-2">
+                                <div class="team-card">
+                                    <div class="team-image">
+                                        <a href="{{ baseUrl('/user/'~user.id) }}">
+                                            {% if user.avatar_url %}
+                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
+                                            {% else %}
+                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <br>
+                                    <div class="team-text">
+                                        <div class="team-name">
+                                            <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                            </a>
+                                            <a href="/profile/{{ user.id }}">{{ user.username }}</a>
+                                        </div>
+                                        <div class="team-description">
+                                            {% if user.title %}
+                                                <p>{{ user.title }}</p>
+                                            {% else %}
+                                                <p>Supervisor</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

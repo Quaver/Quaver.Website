@@ -1,0 +1,13 @@
+<div class="tab-content" id="recentlyMapsets">
+    {% set first = 'show active' %}
+    {% for block in maps|batch(2) %}
+        <div class="tab-pane fade {{ first }}">
+            <div class="row">
+                {% set first = '' %}
+                {% for map in block %}
+                    {% include "../maps/mapsets.twig" with {'maps': [map]} %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>

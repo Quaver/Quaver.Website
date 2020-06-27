@@ -1,0 +1,88 @@
+<div id="{{ table }}_scores">
+    <div class="table-responsive" id="leaderboard">
+        {% if data|length %}
+            <table class="table align-items-center" id="table_{{ table }}">
+                <thead>
+                <tr style="text-align: center">
+                    <th scope="col" style="width: 5%;">Grade</th>
+                    <th scope="col">Song</th>
+                    <th scope="col" style="width: 20%;">Performance Rating</th>
+                    <th scope="col" style="width: 5%;">Accuracy</th>
+                    <th scope="col" style="width: 5%;">Mods</th>
+                    <th scope="col" style="width: 5%;">Replay</th>
+                    <th scope="col" style="width: 5%;">Info</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for score in data %}
+                    <tr style="text-align: center">
+                        <td>
+                            <img src="{{ assets('/img/grades/'~score.grade~'.png') }}" alt="{{ score.grade }}" title="{{ score.grade }}" width="30px" height="30px">
+                        </td>
+                        <td>
+                            <a href="{{ baseUrl('/mapset/map/'~score.map.id) }}">{{ score.map.artist }} - {{ score.map.title }} [{{ score.map.difficulty_name }}]</a>
+                            <br>
+                            <span data-toggle="tooltip" title="{{ formatDate(score.time) }}">{{ formatDateDistance(score.time) }}</span>
+                        </td>
+                        <td>{{ score.performance_rating|number_format(2) }}</td>
+                        <td>{{ score.accuracy|number_format(2) }}%</td>
+                        <td>{{ score.mods_string }}</td>
+                        <td>
+                            <a href="{{ baseUrl('/download/replay/'~score.id) }}">
+                                <i class="fas fa-download" data-toggle="tooltip" title="Download" data-original-title="Download"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a data-toggle="collapse" href="#score_{{ table }}_{{ score.id }}" data-target="#score_{{ table }}_{{ score.id }}"
+                                    onclick="loadChart('{{ table }}', {{ score.id }}, {{ score.count_marv }}, {{ score.count_perf }}, {{ score.count_great }}, {{ score.count_good }}, {{ score.count_okay }}, {{ score.count_miss }});">
+                                <i class="fas fa-angle-down"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="padding: 0; margin-bottom: 10px;">
+                            <div class="accordian-body collapse" data-parent="#scores" id="score_{{ table }}_{{ score.id }}" style="overflow: hidden">
+                                <div class="row" style="min-height: 400px;">
+                                    <div class="col-md-3">
+                                        <h6 class="mt-4">Score</h6>
+                                        <span class="font-weight-light font-size-md">{{ score.total_score|number_format(0, '.', ',') }}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h6 class="mt-4">Scroll Speed</h6>
+                                        <span class="font-weight-light font-size-md">{{ (score.scroll_speed > 99) ? score.scroll_speed/10 : score.scroll_speed }}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h6 class="mt-4">Max Combo</h6>
+                                        <span class="font-weight-light font-size-md">{{ score.max_combo }}x</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h6 class="mt-4">Ratio</h6>
+                                        <span class="font-weight-light font-size-md">{{ score.ratio|number_format(2) }}</span>
+                                    </div>
+{#                                    <div class="col-sm-6">#}
+{#                                        <div class="chartScore_{{ table }}_{{ score.id }}" style="height: 269px;"></div>#}
+{#                                    </div>#}
+{#                                    <div class="col-sm-6">#}
+{#                                        <canvas class="scatterScore_{{ table }}_{{ score.id }}" style="height: 269px;"></canvas>#}
+{#                                    </div>#}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="card-body">
+                No scores
+            </div>
+        {% endif %}
+    </div>
+{#    {% if data|length %}#}
+{#        <a href="javascript:void(0)" class="getMoreScoresEvent" data-table="{{ table }}">#}
+{#            <div class="load-more">#}
+{#                <i class="fas fa-angle-down"></i>#}
+{#            </div>#}
+{#        </a>#}
+{#    {% endif %}#}
+</div>

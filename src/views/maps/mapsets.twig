@@ -1,0 +1,119 @@
+{% if data == "profile" %}
+<div class="row" id="mapsets_{{ status }}">
+    {% endif %}
+    {% for map in maps %}
+        {% if map.difficulty_range %}
+            {% if min(map.difficulty_range) < 1 %}
+                {% set rating_min = 'difficulty-rating-beginner' %}
+            {% elseif min(map.difficulty_range) < 3.5 %}
+                {% set rating_min = 'difficulty-rating-easy' %}
+            {% elseif min(map.difficulty_range) < 8 %}
+                {% set rating_min = 'difficulty-rating-normal' %}
+            {% elseif min(map.difficulty_range) < 19 %}
+                {% set rating_min = 'difficulty-rating-hard' %}
+            {% elseif min(map.difficulty_range) < 28 %}
+                {% set rating_min = 'difficulty-rating-insane' %}
+            {% else %}
+                {% set rating_min = 'difficulty-rating-expert' %}
+            {% endif %}
+            {% if max(map.difficulty_range) < 1 %}
+                {% set rating_max = 'difficulty-rating-beginner' %}
+            {% elseif max(map.difficulty_range) < 3.5 %}
+                {% set rating_max = 'difficulty-rating-easy' %}
+            {% elseif max(map.difficulty_range) < 8 %}
+                {% set rating_max = 'difficulty-rating-normal' %}
+            {% elseif max(map.difficulty_range) < 19 %}
+                {% set rating_max = 'difficulty-rating-hard' %}
+            {% elseif max(map.difficulty_range) < 28 %}
+                {% set rating_max = 'difficulty-rating-insane' %}
+            {% else %}
+                {% set rating_max = 'difficulty-rating-expert' %}
+            {% endif %}
+        {% endif %}
+        <div class="col-md-6 d-flex mapsets-space">
+            <div class="mapsets">
+                <div class="status-right">
+                    <a href="{{ baseUrl('/download/mapset/'~map.id) }}">
+                        <div class="download">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </a>
+                </div>
+                <a href="{{ baseUrl('/mapset/'~map.id) }}">
+                    <div class="cover" style="background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://quaver.blob.core.windows.net/banners/{{ map.id }}_banner.jpg')">
+                        <div class="status">
+                            {% set game_modes = map.game_modes %}
+                            {% if not map.game_modes %}
+                                {% set game_modes = [] %}
+                                {% for m in map.maps %}
+                                    {% if m.game_mode not in game_modes %}
+                                        {% set game_modes = game_modes|merge([m.game_mode]) %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if game_modes|length == 2 %}
+                                <div class="qadge mapset-4k-7k">4K / 7K</div>
+                            {% elseif game_modes[0] == 1 %}
+                                <div class="qadge mapset-4k">4K</div>
+                            {% else %}
+                                <div class="qadge mapset-7k">7K</div>
+                            {% endif %}
+                            {% if map.ranked_status == 2 %}
+                                <div class="qadge status-ranked">Ranked</div>
+                            {% else %}
+                                <div class="qadge status-unranked">Unranked</div>
+                            {% endif %}
+                        </div>
+                        <div class="song-name">
+                            <span class="title">{{ (map.title) | truncate(55) }}</span>
+                            <div class="artist">{{ map.artist }}</div>
+                            <div class="d-flex justify-content-between">
+                                <div class="creator">Created by
+                                    <span class="cr">{{ map.creator_username }}</span>
+                                </div>
+                                <div class="creator" style="text-align: right">
+                                    {% if map.difficulty_range %}
+                                        <i class="fas fa-chart-line"></i>
+                                        {% if min(map.difficulty_range) == max(map.difficulty_range) %}
+                                            <span class="{{ rating_min }}">{{ min(map.difficulty_range)|number_format(2) }}</span>
+                                        {% else %}
+                                            <span class="{{ rating_min }}">{{ min(map.difficulty_range)|number_format(2) }}</span> -
+                                            <span class="{{ rating_max }}">{{ max(map.difficulty_range)|number_format(2) }}</span>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if data == "profile" %}
+</div>
+    <a href="javascript:void(0)" id="mapsets_more_{{ status }}">
+        <div class="load-more">
+            <i class="fas fa-angle-down"></i>
+        </div>
+    </a>
+
+    <script>
+        $('#mapsets_more_{{ status }}').on('click', function () {
+            let query = {};
+            query['id'] = parseInt("{{ user.info.id }}");
+            query['status'] = parseInt("{{ status }}");
+            query['page'] = mapsPages['page_{{ status }}'];
+
+            $.post(baseUrl() + `/user/maps/load`, query, function (data) {
+                if (data.trim() === "") {
+                    $("#mapsets_more_{{ status }}").hide();
+                } else {
+                    $(data).appendTo("#mapsets_{{ status }}");
+                }
+                initLazy();
+            });
+            mapsPages['page_{{ status }}']++;
+        });
+    </script>
+{% endif %}

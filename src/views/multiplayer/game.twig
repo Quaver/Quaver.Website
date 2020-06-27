@@ -1,0 +1,219 @@
+{% extends "layouts/app.twig" %}
+
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        Multiplayer - name..
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container" id="multiplayer">
+            {% for match in game %}
+                <div class="card mb-3">
+                    <div class="post post-medium">
+                        <div class="post-thumbnail mt-1 mb-2 ml-2 mb-md-0">
+                            <a href="{{ baseUrl('/mapset/map/'~match.map.id) }}">
+                                {% if match.map.mapset_id != "-1" %}
+                                    <img class="post-img" src="https://cdn.quavergame.com/banners/{{ match.map.mapset_id }}_banner.jpg">
+                                {% else %}
+                                    <img class="post-img" src="{{ assets('/img/inf.jpg') }}">
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="post-body mt-1">
+                        <a href="{{ baseUrl('/user/'~match.most_valuable_player.id) }}">
+                            <div class="move-right" style="min-width: 250px;margin-right: 10px;margin-top: 35px;">
+                                <div style="display: flex; color: #fff; font-size: 13px; align-items: flex-start;color: #000;justify-content: center;align-items: center;height: 100%;">
+                                    <img src="{{ match.most_valuable_player.avatar_url }}" style="border-radius: 50%;" width="60" height="60">
+                                    <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 10px;">
+                                        <div style="position: relative; box-sizing: border-box;">
+                                            <a href="{{ baseUrl('/leaderboard?country='~match.most_valuable_player.country|lower) }}">
+                                                <img src="{{ assets('/img/flags/'~match.most_valuable_player.country~'.png') }}" alt="{{ match.most_valuable_player.country }}">
+                                            </a>
+                                            {{ match.most_valuable_player.username }}
+                                            <img src="{{ assets('/img/crown-solid.svg') }}" width="20" height="20">
+                                        </div>
+                                        <div style="position: relative; box-sizing: border-box;">Rating: {{ match.most_valuable_player.score.performance_rating|number_format(2) }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <div class="body-text">
+                            <a href="{{ baseUrl('/mapset/map/'~match.map.id) }}">
+                                <a>
+                                    <b>{{ match.map.name | truncate(70) }}</b>
+                                </a>
+                            </a>
+                        </div>
+                        <div class="body-text">
+                            <b>Global Mods:</b> {{ match.rules.mods_string }}
+                        </div>
+                        <div class="body-text">
+                            <b>Ruleset:</b>
+                            <span>
+                                {% if match.rules.ruleset == rulesets.Free_For_All %}
+                                    Free-For-All
+                                {% elseif match.rules.ruleset == rulesets.Team %}
+                                    Team
+                                {% else %}
+                                    Battle Royale
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="body-text">
+                            <button type="button" class="btn btn-primary btn-xs">View Scores</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+    <style>
+        .table_scores {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 10pt;
+        }
+
+        .table_scores td,
+        .table_scores th {
+            border: 0;
+            padding: 5px;
+        }
+
+        .table_scores th {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            text-align: center;
+            color: black;
+        }
+
+        .table_scores td {
+            text-align: center;
+            color: black;
+        }
+
+        .table_scores .username {
+            text-align: center;
+        }
+
+        .text-white {
+            color: #fff !important;
+        }
+
+        .move-right {
+            float: right;
+        }
+
+        .widget img {
+            width: auto;
+        }
+
+        .post-medium .post-thumbnail img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .post-medium .post-thumbnail {
+            width: 30%;
+            min-height: 0 !important;
+            margin-top: 0;
+        }
+
+        .post {
+            padding-bottom: 0;
+            padding: 2px;
+            margin-bottom: 3px;
+        }
+
+        .post-body {
+            margin-top: -3px;
+            padding: 4px;
+        }
+
+        .body-text {
+            padding: 5px;
+        }
+
+        .grades img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .blue tr {
+            background: rgba(25, 104, 249, 0.9);
+        }
+
+        .blue tr:hover {
+            background: rgba(25, 104, 249, 1);
+        }
+
+        .red tr {
+            background: rgba(220, 20, 60, 0.9);
+        }
+
+        .red tr:hover {
+            background: rgba(220, 20, 60, 1);
+        }
+
+        .red td,
+        .blue td,
+        a {
+            color: black;
+        }
+
+        .teams {
+            padding: 2px;
+            background: linear-gradient(to right, #fd4d50, #32adf0);
+        }
+
+        .teams .row {
+            background: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin: 0 !important;
+            font-size: 18px;
+        }
+
+        .teams .team {
+            text-align: center;
+            color: black;
+        }
+
+        .teams .team .fa-crown {
+            color: #FFCD1B;
+        }
+
+        .teams .team .team_red_points {
+            float: right;
+            font-weight: bold;
+        }
+
+        .teams .team .team_blue_points {
+            float: left;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        let mpId = parseInt("{{ gameId }}");
+    </script>
+    <script src="{{ assets('/js/plugins/vue.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <script src="{{ assets('/js/multiplayer.js') }}"></script>
+{% endblock %}

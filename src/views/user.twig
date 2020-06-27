@@ -1,0 +1,161 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark d-flex align-items-end py-3" style="background-color: #3a3a3c !important;min-height: 320px;">
+        <img class="background" src="https://cdn.quavergame.com/profile-covers/{{ user.info.id }}.jpg" onerror="this.src='{{ assets("/img/cover.jpg") }}'" alt="" style="opacity: 0.25 !important;">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col d-flex flex-column flex-lg-row align-items-center position-absolute bottom left pl-lg-8">
+                    <a class="avatar-thumbnail avatar-lg d-lg-none bg-dark mb-3 mb-lg-0 border-0" href="#">
+                        <img src="{{ user.info.avatar_url }}" alt="">
+                    </a>
+                    <h2 class="h4 text-white mb-0 ml-2 pl-lg-8">
+                        <a href="{{ baseUrl('/leaderboard?country='~user.info.country|lower) }}">
+                            <img src="{{ assets('/img/flags/'~user.info.country~'.png') }}" alt="{{ user.info.country }}">
+                        </a>
+                        {{ user.info.username }}
+                        <div class="profile-groups">
+                            <small>
+                                {% if HasGroup(user.info, UserGroups.Developer) %}
+                                    <span class="badge badge-custom-developer"><i class="fa fa-code fa-1"></i> Developer</span>
+                                {% elseif HasGroup(user.info, UserGroups.Admin) %}
+                                    <span class="badge badge-custom-admin"><i class="fa fa-gavel fa-1"></i> Administrator</span>
+                                {% elseif HasGroup(user.info, UserGroups.Moderator) %}
+                                    <span class="badge badge-custom-moderator"><i class="fa fa-ban fa-1"></i> Moderator</span>
+                                {% elseif HasGroup(user.info, UserGroups.RankingSupervisor) %}
+                                    <span class="badge badge-custom-ranking-supervisor"><i class="fa fa-gavel fa-1"></i> Ranking Supervisor</span>
+                                {% elseif HasGroup(user.info, UserGroups.Contributor) %}
+                                    <span class="badge badge-custom-contributor"><i class="fa fa-wrench fa-1"></i> Contributor</span>
+                                {% elseif HasGroup(user.info, UserGroups.Donator) %}
+                                    <span class="badge badge-custom-donator"><i class="fa fa-heart fa-1"></i> Donator</span>
+                                {% endif %}
+                            </small>
+                        </div>
+                        <div class="status">
+                            {% if user.online_status.is_online %}
+                                <span class="circle online"></span>
+                                {% if user.online_status.current_status %}
+                                    {% if user.online_status.current_status.status == 0 %}
+                                        In menus
+                                    {% elseif user.online_status.current_status.status == 1 %}
+                                        Selecting a Song
+                                    {% elseif user.online_status.current_status.status == 2 %}
+                                        Playing {{ user_status.current_status.content.split('/\[\w*\]$/')[0] }}
+                                    {% elseif user.online_status.current_status.status == 3 %}
+                                        Paused
+                                    {% elseif user.online_status.current_status.status == 4 %}
+                                        Watching {{ user.online_status.current_status.content }}
+                                    {% elseif user.online_status.current_status.status == 5 %}
+                                        Editing {{ user.online_status.current_status.content }}
+                                    {% elseif user.online_status.current_status.status == 6 %}
+                                        In Multiplayer Lobby
+                                    {% elseif user.online_status.current_status.status == 7 %}
+                                        Playing Multiplayer {{ user.online_status.current_status.content }}
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                                <span class="circle offline"></span>Offline
+                            {% endif %}
+                        </div>
+                    </h2>
+                    {% if currentUser and currentUser.id != user.info.id %}
+{#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
+{#                            <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">#}
+{#                                <i class="ya ya-user-add"></i>#}
+{#                                Add friend#}
+{#                            </a>#}
+{#                        </div>#}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="sticky-wrapper" class="sticky-wrapper" style="height: 63px;">
+        <section class="bg-quaver-nav border-bottom nav-profile py-0" ya-sticky="" style="">
+            <div class="container">
+                <div class="row">
+                    <div class="col d-flex align-items-center">
+                        <a class="avatar-thumbnail avatar-xl position-absolute d-none d-lg-block" href="#">
+                            <img src="{{ user.info.avatar_url }}" alt="" width="188" height="188">
+                        </a>
+                        <div class="avatar-fixed d-none d-lg-block">
+                            <a class="avatar-tile" href="#">
+                                <img src="{{ user.info.avatar_url }}" alt="" width="50" height="50">
+                                <div class="text-white">
+                                    <strong>{{ user.info.username }}</strong>
+                                    <span class="d-block">
+                                        {% if HasGroup(user.info, UserGroups.Developer) %}
+                                            Developer
+                                        {% elseif HasGroup(user.info, UserGroups.Admin) %}
+                                            Administrator
+                                        {% elseif HasGroup(user.info, UserGroups.Moderator) %}
+                                            Moderator
+                                        {% elseif HasGroup(user.info, UserGroups.RankingSupervisor) %}
+                                            Ranking Supervisor
+                                        {% elseif HasGroup(user.info, UserGroups.Contributor) %}
+                                            Contributor
+                                        {% elseif HasGroup(user.info, UserGroups.Donator) %}
+                                            Donator
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="nav-scroll">
+                            <div class="nav nav-list nav-list-profile">
+                                <a class="nav-item nav-link" href="#feed">Stats & Feed</a>
+{#                                <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a>#}
+                                <a class="nav-item nav-link" href="#scores">Scores</a>
+{#                                <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a>#}
+                                <a class="nav-item nav-link" href="#maps">Maps</a>
+{#                                <a class="nav-item nav-link" href="#playlists">Playlists</a>#}
+                                <a class="nav-item nav-link" href="#achievements">Achievements</a>
+                            </div>
+                        </div>
+                        {% if currentUser.id == user.info.id %}
+{#                            <div class="dropdown d-none d-xl-inline-block ml-auto">#}
+{#                                <button class="btn btn-quaver-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                                    <i class="ya ya-gear"></i>#}
+{#                                </button>#}
+{#                                <div class="dropdown-menu dropdown-menu-right btn-quaver-dark dropdown-quaver">#}
+{#                                    <a class="dropdown-item" href="#">Change Cover</a>#}
+{#                                    <a class="dropdown-item" href="#">Settings</a>#}
+{#                                </div>#}
+{#                            </div>#}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <section class="py-lg-4">
+        <div class="container">
+            {% include 'user/user-profile-info.twig' %}
+{#            {% include 'user/user-profile-graphs.twig' %}#}
+            {% include 'user/user-profile-scores.twig' %}
+            {% include 'user/user-profile-mapsets.twig' %}
+{#            {% include 'user/user-profile-playlists.twig' %}#}
+            {% include 'user/user-profile-achievements.twig' %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}{% endblock %}
+
+{% block scripts %}
+    <script>
+        let mapsPages = {
+            "page_1": 1,
+            "page_2": 1
+        };
+    </script>
+    <script src="{{ assets('/js/plugins/mustache.js') }}"></script>
+    <script src="{{ assets('/js/plugins/lazyload.min.js') }}"></script>
+    <script defer src="{{ assets('/js/plugins/moment.min.js') }}"></script>
+    <script defer src="{{ assets('/js/user.js') }}"></script>
+{#    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>#}
+    {# <script defer src="{{ assets('/js/plugins/Chart.min.js') }}"></script> #}
+{#    <script defer src="{{ assets('/js/plugins/highstock.js') }}"></script>#}
+{#    <script defer src="{{ assets('/js/plugins/data.js') }}"></script>#}
+{% endblock %}
+
+{% block page_scripts %}{% endblock %}

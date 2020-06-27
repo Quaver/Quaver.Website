@@ -1,0 +1,21 @@
+{% if flash.success %}
+    {% for msg in flash.success %}
+        <div class="alert alert-darken-success alert-dismissible fade show" role="alert">
+            {{ msg }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if flash.success %}
+    {% for msg in flash.error %}
+        <div class="alert alert-darken-danger alert-dismissible fade show" role="alert">
+            {{ msg }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}

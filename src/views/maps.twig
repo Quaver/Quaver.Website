@@ -1,0 +1,169 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        Maps
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="filters">
+        <div class="container">
+            {% include "layouts/alert.twig" %}
+            <form method="GET" id="maps_search">
+                <div class="widget mt-4">
+                    <div class="widget-header">Filters</div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ search }}">
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2">Mode:</label>
+                            <div class="col-sm-4">
+                                <div class="form-check form-check-inline">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="mode" class="custom-control-input" id="mode1" value="1"
+                                                {% if not form|length or (form.mode == "1" or form.mode[0] == "1") %} checked {% endif %}>
+                                        <label class="custom-control-label" for="mode1">4 Keys</label>
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-inline ml-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="mode" class="custom-control-input" id="mode2" value="2"
+                                                {% if not form|length or (form.mode == "2" or form.mode[1] == "2") %} checked {% endif %}>
+                                        <label class="custom-control-label" for="mode2">7 Keys</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2">Status:</label>
+                            <div class="col-sm-4">
+                                <div class="form-check form-check-inline">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="ranked" value="2"
+                                                {% if not form|length or (form.status == "2" or form.status[0] == "2") %} checked {% endif %}>
+                                        <label class="custom-control-label" for="ranked">Ranked</label>
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-inline ml-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="unranked" value="1"
+                                                {% if form.status == "1" or form.status[1] == "1" %} checked {% endif %}>
+                                        <label class="custom-control-label" for="unranked">Unranked</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2">Difficulty Rating:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" name="mindiff" value="{{ form.mindiff }}" placeholder="Min Rating">
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" name="maxdiff" value="{{ form.maxdiff }}" placeholder="Max Rating">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2">Length:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" name="minlen" value="{{ form.minlen }}" placeholder="Min Length">
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" name="maxlen" value="{{ form.maxlen }}" placeholder="Max Length">
+                            </div>
+                        </div>
+
+                        <div class="collapse" id="advancedSearch">
+                            <div class="form-group row">
+                                <label class="col-sm-2">BPM:</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="minbpm" value="{{ form.minbpm }}" placeholder="Min BPM">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="maxbpm" value="{{ form.maxbpm }}" placeholder="Max BPM">
+                                </div>
+                                <label class="col-sm-2 mt-sm-3">Long Note %:</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="minnote" value="{{ form.minnote }}" placeholder="Min LN%">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="maxnote" value="{{ form.maxnote }}" placeholder="Max LN%">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2">Ranked Play Count:</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="minpc" value="{{ form.minpc }}" placeholder="Min Plays">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="maxpc" value="{{ form.maxpc }}" placeholder="Max Plays">
+                                </div>
+                                <label class="col-sm-2 mt-sm-3">Max Combo:</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="mincombo" value="{{ form.mincombo }}" placeholder="Min Combo">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" name="maxcombo" value="{{ form.maxcombo }}" placeholder="Max Combo">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2">Upload Date:</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="date" name="mindateu" value="{{ form.mindateu }}" placeholder="Start Date">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="date" name="maxdateu" value="{{ form.maxdateu }}" placeholder="End Date">
+                                </div>
+                                <label class="col-sm-2 mt-sm-3">Last Updated Date:</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="date" name="mindatelu" value="{{ form.mindatelu }}" placeholder="Start Date">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="date" name="maxdatelu" value="{{ form.maxdatelu }}" placeholder="End Date">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="searchMap">Search</button>
+                        <a data-toggle="collapse" href="#advancedSearch" role="button" aria-expanded="false" class="btn btn-link">Advanced Search</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row" id="maps">
+                {% include 'maps/mapsets.twig' with {'data': 'maps'} %}
+            </div>
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-primary w-25" id="more">Load More</button>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        let query = JSON.parse('{{ query }}');
+    </script>
+    <script src="{{ assets('/js/plugins/lazyload.min.js') }}"></script>
+    <script defer src="{{ assets('/js/maps.js') }}"></script>
+{% endblock %}
+
+{% block page_scripts %}
+
+{% endblock %}

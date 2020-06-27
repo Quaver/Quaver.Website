@@ -1,0 +1,77 @@
+<div class="modal fade" id="modalPlaylist" tabindex="-1" role="dialog" aria-labelledby="modalPlaylist" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPlaylist">Select Playlist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="list-group list-group-flush">
+                    {% for playlist in playlists %}
+                        <div class="list-group-item justify-content-between">
+                            <a href="{{ baseUrl('/playlist/'~playlist.id) }}">
+                                {{ playlist.name }}
+                            </a>
+                            <div class="list-buttons">
+                                {% if playlist.has_map == map.id %}
+                                    <button class="btn btn-link btn-icon px-0 mr-2 remove_mapset text-danger" data-toggle="tooltip" title="Remove Mapset" data-id="{{ playlist.id }}">
+                                        <i class="fas fa-folder-minus"></i>
+                                    </button>
+                                    <button class="btn btn-link btn-icon px-0 remove_map text-danger" data-toggle="tooltip" title="Remove Map" data-id="{{ playlist.id }}" data-map="{{ map.id }}">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-link btn-icon px-0 mr-2 add_mapset" data-toggle="tooltip" title="Add Mapset" data-id="{{ playlist.id }}">
+                                        <i class="fas fa-folder-plus"></i>
+                                    </button>
+                                    <button class="btn btn-link btn-icon px-0 add_map" data-toggle="tooltip" title="Add Map" data-id="{{ playlist.id }}" data-map="{{ map.id }}">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% set mapsets_list = [] %}
+{% for diff in mapset.maps %}
+    {% set mapsets_list = mapsets_list|merge([diff.id]) %}
+{% endfor %}
+
+<script>
+    const mapsets = "{{ mapsets_list }}";
+
+    function addToPlaylist(id, map_id) {
+        $.post(baseUrl() + `/playlist/map/add`, {
+            id: id,
+            map: map_id
+        }, function (data) {
+            console.log(data);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $(document).on('click', '.add_mapset', function () {
+            const playlistId = $(this).data('id');
+
+            const maps = mapsets.split(',');
+
+            maps.forEach(map => {
+                addToPlaylist(playlistId, map);
+            })
+        });
+
+        $(document).on('click', '.add_map', function () {
+            const playlistId = $(this).data('id');
+            const map = $(this).data('map');
+
+            addToPlaylist(playlistId, map);
+        });
+    });
+</script>

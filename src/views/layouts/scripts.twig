@@ -1,0 +1,19 @@
+<script src="{{ assets('/js/vendor.js') }}"></script>
+<script src="{{ assets('/js/theme.min.js') }}"></script>
+<script src="{{ assets('/js/plugins/parallax.min.js') }}"></script>
+
+<script>
+    function baseUrl() {
+        return '{{ baseUrl }}';
+    }
+
+    function apiBaseUrl() {
+        return '{{ apiBaseUrl }}';
+    }
+
+    function assetsUrl(path) {
+        return `{{ assets('') }}${path}`;
+    }
+</script>
+
+<script src="{{ assets('/js/custom.js') }}"></script>

@@ -1,0 +1,35 @@
+<div class="row mg-bottom" id="maps">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-header">Uploaded Mapsets</div>
+        </div>
+        <div class="card">
+            <div class="card-header transparent p-0 border-0">
+                <div class="nav-tab-scroll">
+                    <div class="nav nav-tabs" id="tab_maps" role="tablist">
+                        <a class="nav-item nav-link active" id="ranked-tab" data-toggle="tab" href="#ranked" role="tab" aria-controls="ranked" aria-selected="false">Ranked</a>
+                        <a class="nav-item nav-link" id="unranked-tab" data-toggle="tab" href="#unranked" role="tab" aria-controls="unranked" aria-selected="false">Unranked</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="tab">
+                    <div class="tab-pane fade show active" id="ranked" role="tabpanel" aria-labelledby="ranked-tab">
+                        {% if mapSetsRanked %}
+                            {% include '../maps/mapsets.twig' with {'data': 'profile', 'status': RankedStatus.Ranked, 'maps': mapSetsRanked} %}
+                        {% else %}
+                            No Ranked Mapsets
+                        {% endif %}
+                    </div>
+                    <div class="tab-pane fade show" id="unranked" role="tabpanel" aria-labelledby="unranked-tab">
+                        {% if mapSetsUnRanked %}
+                        {% include '../maps/mapsets.twig' with {'data': 'profile', 'status': RankedStatus.Unranked, 'maps': mapSetsUnRanked} %}
+                        {% else %}
+                            No Unranked Mapsets
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

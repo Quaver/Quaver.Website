@@ -1,0 +1,150 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="pt-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12 mx-auto py-8 overflow-hidden" data-parallax="scroll" data-image-src="{{ assets('/img/home.jpg') }}">
+                    <div class="overlay" style="background-color: rgb(54, 55, 58) !important; opacity: 0.20 !important;"></div>
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h1 class="display-1 font-weight-bold text-white mb-3">
+                                    <img src="{{ assets('/img/logo.png') }}" height="60px">
+                                </h1>
+                                <p class="text-white ">
+                                    The ultimate community-driven, and open-source competitive rhythm game<br>coming to Steam on July 10th, 2020.
+                                </p>
+                                <div class="mt-4">
+                                    <a class="btn btn-quaver-dark btn-rounded btn-lg" target="_blank" href="https://store.steampowered.com/app/980610/Quaver/" role="button">
+                                        <i class="fab fa-steam ml-0 mr-2"></i> Visit the Steam Page
+                                    </a>
+                                    <a class="btn btn-rss btn-rounded btn-lg ml-2" href="https://store.steampowered.com/news/?appids=980610" role="button">
+                                        <i class="fas fa-rss ml-0 mr-2"></i> Dev Blog
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-lg-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="widget" id="home-mapsets">
+                        <div class="widget-header d-flex justify-content-between align-items-center">
+                            <div>Recently Ranked Maps</div>
+                            <div class="btn-group" role="group" aria-label="Mapsets" id="mapsetButtons">
+                                <button class="btn btn-primary btn-sm previous-tab">
+                                    Previous
+                                </button>
+                                <button class="btn btn-primary btn-sm next-tab">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% include "./home/recentlyRankedMaps.twig" with {'maps': recentlyRanked, 'data': 'home'} %}
+                    <div class="widget mb-0">
+                        <div class="widget-header">
+                            News
+                        </div>
+                    </div>
+                    {% for post in blog.items %}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="post border-0 mb-0 pb-0">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="post-thumbnail" style="margin: auto 0;">
+                                                <img class="post-img" src="{{ post.image }}" alt="{{ post.title }}" width="100%" height="100%">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8" style="margin: auto 0;">
+                                            <div class="post-body">
+                                                <a href="{{ post.id }}" class="post-news-title" target="_blank">
+                                                    {{ post.title }}
+                                                </a>
+                                                <p class="post-news-date">
+                                                    By
+                                                    <a href="{{ (post.author_id) ? baseUrl('/user/'~post.author_id) : baseUrl('/user/1') }}">{{ post.author }}</a>
+                                                    - {{ formatDateDistance(post.date_modified) }}
+                                                </p>
+                                                <p>
+                                                    {{ post.short_text }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-4">
+                    <div class="card-bottom">
+                        <div class="widget">
+                            <div class="widget-header">
+                                Stats
+                            </div>
+                        </div>
+                        <div class="widget widget-secondary p-0">
+                            <div class="widget-body home-stats">
+                                <div class="row m-0">
+                                    <div class="col-lg-6 mb-3 mx-auto">
+                                        <div class="category">
+                                            <span>Total users</span>
+                                            <span class="count">{{ (stats.total_users) ?:0 }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <div class="category">
+                                            <span>Online users</span>
+                                            <span class="count">{{ (stats.total_online_users) ?:0 }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="category">
+                                            <span>Total mapsets</span>
+                                            <span class="count">{{ (stats.total_mapsets) ?: 0 }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="category">
+                                            <span>Total scores</span>
+                                            <span class="count">{{ (stats.total_scores) ?: 0 }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-bottom">
+                        <div class="widget">
+                            <div class="widget-header">
+                                FOLLOW US ON TWITTER
+                            </div>
+                        </div>
+                        <div class="widget widget-secondary">
+                            <div class="widget-body">
+                                <a class="twitter-timeline" data-lang="en" data-dnt="true" data-tweet-limit="6" data-theme="dark"
+                                        data-chrome="transparent" data-link-color="#45D6F5" href="https://twitter.com/QuaverGame?ref_src=twsrc%5Etfw"></a>
+                            </div>
+                            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block page_scripts %}
+    <script src="{{ assets('/js/home.js') }}"></script>
+{% endblock %}

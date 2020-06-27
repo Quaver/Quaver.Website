@@ -1,0 +1,28 @@
+{% for playlist in playlists %}
+    <div class="col-lg-3 col-md-4 col-sm-4 equal">
+        <div class="card card-sm">
+            <div class="image">
+                <a href="{{ baseUrl('/playlist/'~playlist.id) }}">
+                    <img style='object-fit: cover;' class="lazy" data-src="https://cdn.quavergame.com/playlists/{{ playlist.id }}.jpg" onerror="this.src='{{ assets("/img/playlist_default.jpg") }}'">
+                </a>
+            </div>
+            <div class="card-block fix-height">
+                <h5 class="card-title">
+                    <a href="{{ baseUrl('/playlist/'~playlist.id) }}">{{ playlist.name }}</a>
+                </h5>
+                <p class="card-text font-size-md">
+                    {{ playlist.description|truncate(60) }}
+                </p>
+                <p class="card-text font-size-md">Created by
+                    <a href="{{ baseUrl('/user/'~playlist.owner_username) }}">{{ playlist.owner_username }}</a>
+                </p>
+            </div>
+            <div class="card-footer">
+                <span data-toggle="tooltip" title="{{ formatDate(playlist.time_last_updated) }}"><i class="fas fa-clock"></i> {{ formatDateDistance(playlist.time_last_updated) }}</span>
+                <div class="ml-auto">
+                    <span><i class="fas fa-music"></i> {{ playlist.map_count }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

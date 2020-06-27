@@ -1,23 +1,37 @@
 import * as express from "express";
-const config = require("../config/config.json");
+import UserHelper from "./UserHelper";
+import UserGroups from "../enums/Usergroups";
+import TimeHelper from "./TimeHelper";
+import EnvironmentHelper from "./EnvironmentHelper";
+import Privileges from "../enums/Privileges";
 
 export default class Responses {
     /**
-     * 
-     * @param req 
-     * @param res 
-     * @param template 
-     * @param title 
-     * @param data 
+     *
+     * @param req
+     * @param res
+     * @param template
+     * @param title
+     * @param data
      */
     public static Send(req: any, res: express.Response, template: string, title: string, data: any) {
         // Build the object of data that will be sent to be use in the template.
-        const templateData = { 
-            baseUrl: config.baseUrl,
-            title, 
-            currentUser: req.user
+        const templateData = {
+            baseUrl: EnvironmentHelper.baseUrl,
+            apiBaseUrl: EnvironmentHelper.apiBaseUrl,
+            assets: EnvironmentHelper.assets,
+            title,
+            currentUser: req.user,
+            HasGroup: UserHelper.HasGroup,
+            HasPrivilege: UserHelper.HasPrivilege,
+            UserGroups: UserGroups,
+            Privileges: Privileges,
+            formatDateDistance: TimeHelper.formatDateDistance,
+            formatDate: TimeHelper.formatDate,
+            formatTime: TimeHelper.formatTime,
+            flash: req.flash()
         };
-        
+
         Object.assign(templateData, data);
         return res.render(template, templateData);
     }
@@ -29,9 +43,11 @@ export default class Responses {
      * @constructor
      */
     public static Return400(req: express.Request, res: express.Response): void {
-        res.status(400).json({
-            status: 400,
-            error: "Bad Request."
+        res.status(400);
+
+        Responses.Send(req, res, "404", "Bad Request | Quaver", {
+            code: 400,
+            text: 'Bad Request'
         });
     }
 
@@ -42,9 +58,11 @@ export default class Responses {
      * @constructor
      */
     public static Return401(req: express.Request, res: express.Response): void {
-        res.status(401).json({
-            status: 401,
-            error: "Unauthorized"
+        res.status(401);
+
+        Responses.Send(req, res, "404", "Unauthorized | Quaver", {
+            code: 401,
+            text: 'Unauthorized'
         });
     }
 
@@ -55,12 +73,14 @@ export default class Responses {
      * @constructor
      */
     public static Return422(req: express.Request, res: express.Response): void {
-        res.status(422).json({
-            status: 422,
-            error: "Unprocessable Entity"
+        res.status(422);
+
+        Responses.Send(req, res, "404", "Unprocessable Entity | Quaver", {
+            code: 422,
+            text: 'Unprocessable Entity'
         });
     }
-    
+
     /**
      * Returns a 500 (Internal Server Error) to the user.
      * @param req
@@ -68,9 +88,11 @@ export default class Responses {
      * @constructor
      */
     public static Return500(req: express.Request, res: express.Response): void {
-        res.status(500).json({
-            status: 500,
-            error: "Internal Server Error"
+        res.status(500);
+
+        Responses.Send(req, res, "404", "Internal Server Error | Quaver", {
+            code: 500,
+            text: 'Internal Server Error'
         });
     }
 
@@ -81,9 +103,11 @@ export default class Responses {
      * @constructor
      */
     public static Return403(req: express.Request, res: express.Response): void {
-        res.status(403).json({
-            status: 403,
-            error: "Forbidden"
+        res.status(403);
+
+        Responses.Send(req, res, "404", "Forbidden | Quaver", {
+            code: 403,
+            text: 'Forbidden'
         });
     }
 
@@ -94,9 +118,11 @@ export default class Responses {
      * @constructor
      */
     public static Return413(req: express.Request, res: express.Response): void {
-        res.status(413).json({
-            status: 413,
-            error: "Request entity too large"
+        res.status(413);
+
+        Responses.Send(req, res, "404", "Request entity too large | Quaver", {
+            code: 413,
+            text: 'Request entity too large'
         });
     }
 
@@ -107,9 +133,71 @@ export default class Responses {
      * @constructor
      */
     public static Return401Jwt(req: express.Request, res: express.Response): void {
-        res.status(401).json({
-            status: 401,
-            error: "Your authentication token is either invalid or expired."
+        res.status(401);
+
+        Responses.Send(req, res, "404", "Your authentication token is either invalid or expired. | Quaver", {
+            code: 401,
+            text: 'Your authentication token is either invalid or expired.'
+        });
+    }
+
+    /**
+     * User Not Found
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static ReturnUserNotFound(req: express.Request, res: express.Response): void {
+        res.status(404);
+
+        Responses.Send(req, res, "404", "User Not Found | Quaver", {
+            code: 404,
+            text: 'User Not Found'
+        });
+    }
+
+    /**
+     * Mapset Not Found
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static ReturnMapsetNotFound(req: express.Request, res: express.Response): void {
+        res.status(404);
+
+        Responses.Send(req, res, "404", "Mapset Not Found | Quaver", {
+            code: 404,
+            text: 'Mapset Not Found'
+        });
+    }
+
+    /**
+     * Playlist Not Found
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static ReturnPlaylistNotFound(req: express.Request, res: express.Response): void {
+        res.status(404);
+
+        Responses.Send(req, res, "404", "Playlist Not Found | Quaver", {
+            code: 404,
+            text: 'Playlist Not Found'
+        });
+    }
+
+    /**
+     * Playlist Not Found
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static ReturnMultiplayerNotFound(req: express.Request, res: express.Response): void {
+        res.status(404);
+
+        Responses.Send(req, res, "404", "Multiplayuer Game Not Found | Quaver", {
+            code: 404,
+            text: 'Multiplayuer Game Not Found'
         });
     }
 }

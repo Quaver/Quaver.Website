@@ -1,0 +1,31 @@
+<div class="table-responsive" id="leaderboard" style="margin-top: 1rem;">
+    <table class="table align-items-center">
+        <thead>
+        <tr>
+            <th scope="col">Rank</th>
+            <th scope="col" style="width: 35%" class="player">Player</th>
+            <th scope="col">Total Hits</th>
+            <th scope="col">Total Ranked Plays</th>
+            <th scope="col">Total Failures</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for player in leaderboard %}
+            <tr>
+                <td>{{ player.stats.rank }}</td>
+                <td>
+                    <a href="{{ baseUrl('/leaderboard?country='~player.country|lower~'&mode='~mode) }}">
+                        <img src="{{ assets('/img/flags/'~player.country~'.png') }}" alt="{{ player.country }}">
+                    </a>
+                    <a href="/user/{{ player.id }}">
+                        {{ player.username }}
+                    </a>
+                </td>
+                <td>{{ player.stats.total_hits|number_format(0, '.', ',') }}</td>
+                <td>{{ player.stats.total_ranked_plays|number_format(0, '.', ',') }}</td>
+                <td>{{ player.stats.total_ranked_failures|number_format(0, '.', ',') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -86,6 +86,20 @@ export default class Playlists {
         }
     }
 
+    public static async POST(req: any, res: any): Promise<void> {
+        try {
+            if (typeof req.body.delete_playlist !== 'undefined') {
+                await API.POST(req, `v1/playlist/${req.body.id}/delete`);
+                req.flash('success', 'Playlist successfully deleted!');
+                res.redirect(303, `/playlists`);
+                return;
+            }
+        } catch (err) {
+                Logger.Error(err);
+                Responses.Return500(req, res);
+        }
+    }
+
     /**
      * Create Playlist
      * @param req

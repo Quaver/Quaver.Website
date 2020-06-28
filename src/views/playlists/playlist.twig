@@ -24,14 +24,17 @@
 
                         <div class="card-block">
                             {% if currentUser and currentUser.id == playlist.user_id %}
-{#                                <div class="mb-3 d-flex justify-content-between">#}
+                                <div class="mb-3 d-flex justify-content-between">
 {#                                    <a href="#" class="btn btn-info btn-xs text-white">#}
 {#                                        Edit Playlist#}
 {#                                    </a>#}
-{#                                    <button type="button" class="btn btn-danger btn-xs">#}
-{#                                        Delete Playlist#}
-{#                                    </button>#}
-{#                                </div>#}
+                                    <form action="" method="POST">
+                                        <input type="hidden" name="id" value="{{ playlist.id }}">
+                                        <button type="submit" name="delete_playlist" class="btn btn-danger btn-xs">
+                                            Delete Playlist
+                                        </button>
+                                    </form>
+                                </div>
                             {% endif %}
                             <p class="card-text font-size-md">{{ playlist.description }}</p>
                             <p class="card-text font-size-md">Created by

@@ -6,6 +6,7 @@ import ModStatus from "../../enums/ModStatus";
 import GameMode from "../../enums/GameMode";
 import RankedStatus from "../../enums/RankedStatus";
 import Authentication from "../../middleware/Authentication";
+import EnvironmentHelper from "../../utils/EnvironmentHelper";
 
 const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
@@ -75,6 +76,9 @@ export default class Maps {
             mapset.maps = await Maps.SortDifficulties(mapset.maps);
 
             mapset.descriptionRaw = mapset.description;
+
+            showdown.setFlavor('github');
+
             mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 
             // The selected map in this case is the top difficulty
@@ -124,6 +128,9 @@ export default class Maps {
             mapset.maps = await Maps.SortDifficulties(mapset.maps);
 
             mapset.descriptionRaw = mapset.description;
+
+            showdown.setFlavor('github');
+
             mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 
             const scores = await Maps.FetchMapScores(req, map.id);

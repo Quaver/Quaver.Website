@@ -85,7 +85,8 @@
                     {% for feed in user.activity_feed %}
                         <li>
                             {% set u = "<a href='/user/" ~ user.info.id ~ "'>" ~ user.info.username ~ "</a>" %}
-                            {% set map = "<a href='/mapset/" ~ feed.map.id ~ "'>" ~ feed.map.name|truncate(50) ~ "</a>" %}
+                            {% set map = "<a href='/mapset/map/" ~ feed.map.id ~ "'>" ~ feed.map.name|truncate(50) ~ "</a>" %}
+                            {% set mapset = "<a href='/mapset/" ~ feed.map.id ~ "'>" ~ feed.map.name|truncate(50) ~ "</a>" %}
                             {% if feed.type == 0 %}
                                 <div class="feed-icon">
                                     <i class="fa fa-user-plus"></i>
@@ -95,22 +96,22 @@
                                 <div class="feed-icon">
                                     <i class="fa fa-file-upload"></i>
                                 </div>
-                                {{ u|raw }} has uploaded a new mapset: {{ map|raw }}
+                                {{ u|raw }} has uploaded a new mapset: {{ mapset|raw }}
                             {% elseif (feed.type == 2) %}
                                 <div class="feed-icon">
                                     <i class="fa fa-file-export"></i>
                                 </div>
-                                {{ u|raw }} has updated mapset: {{ map|raw }}
+                                {{ u|raw }} has updated mapset: {{ mapset|raw }}
                             {% elseif (feed.type == 3) %}
                                 <div class="feed-icon">
                                     <i class="fa fa-check-circle"></i>
                                 </div>
-                                {{ u|raw }} has just ranked mapset: {{ map|raw }}
+                                {{ u|raw }} has just ranked mapset: {{ mapset|raw }}
                             {% elseif (feed.type == 4) %}
                                 <div class="feed-icon">
                                     <i class="fa fa-times-circle"></i>
                                 </div>
-                                {{ u|raw }} has gotten denied from rank for mapset: {{ map|raw }}
+                                {{ u|raw }} has gotten denied from rank for mapset: {{ mapset|raw }}
                             {% elseif (feed.type == 5) %}
                                 <div class="feed-icon">
                                     <i class="fa fa-trophy"></i>

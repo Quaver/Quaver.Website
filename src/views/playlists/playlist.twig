@@ -89,35 +89,28 @@
                             </div>
                             <div class="list-group">
                                 {% for map in difficulties %}
-                                    {% if map.difficulty_rating < 1 %}
-                                        {% set rating = 'difficulty-rating-beginner' %}
-                                    {% elseif map.difficulty_rating < 3.5 %}
-                                        {% set rating = 'difficulty-rating-easy' %}
-                                    {% elseif map.difficulty_rating < 8 %}
-                                        {% set rating = 'difficulty-rating-normal' %}
-                                    {% elseif map.difficulty_rating < 19 %}
-                                        {% set rating = 'difficulty-rating-hard' %}
-                                    {% elseif map.difficulty_rating < 28 %}
-                                        {% set rating = 'difficulty-rating-insane' %}
-                                    {% else %}
-                                        {% set rating = 'difficulty-rating-expert' %}
-                                    {% endif %}
+                                    {% set rating = ratingColor(map.difficulty_rating) %}
                                     <div class="list-group-item justify-content-between">
-                                        <a href="{{ baseUrl('/mapset/map/'~map.id) }}" class="align-items-center {{ rating }}"  >
-                                            <b>
-                                                {{ map.difficulty_name }}
-                                            </b>
-                                            <div class="text-white">
-                                                <span>{{ map.difficulty_rating|number_format(2) }}</span>
-                                                {% if currentUser and currentUser.id == playlist.user_id %}
-{#                                                    <a href="#" class="text-danger pl-3">#}
-{#                                                        <i class="far fa-trash-alt"></i>#}
-{#                                                    </a>#}
-                                                {% else %}
-                                                    <a></a>
-                                                {% endif %}
+                                        <a href="{{ baseUrl('/mapset/map/'~map.id) }}" class="align-items-center {{ rating }}">
+                                            <div class="d-flex justify-content-between">
+                                                <b>
+                                                    {{ map.difficulty_name }}
+                                                </b>
                                             </div>
                                         </a>
+                                        <div>
+                                            <span class="{{ rating }}">{{ map.difficulty_rating|number_format(2) }}</span>
+                                            {% if currentUser and currentUser.id == playlist.user_id %}
+                                                <form action="{{ baseUrl('/playlist/map/remove') }}" method="POST" class="d-inline-block">
+                                                    <input type="hidden" name="id" value="{{ playlist.id }}">
+                                                    <input type="hidden" name="map" value="{{ map.id }}">
+                                                    <input type="hidden" name="page" value="playlist">
+                                                    <button type="submit" class="btn btn-link p-0 pl-3">
+                                                        <i class="far fa-trash-alt text-danger" data-toggle="tooltip" title="Delete Map"></i>
+                                                    </button>
+                                                </form>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -133,10 +126,6 @@
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block style %}
-
 {% endblock %}
 
 {% block scripts %}

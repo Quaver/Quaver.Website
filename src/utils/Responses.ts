@@ -39,6 +39,12 @@ export default class Responses {
         return res.render(template, templateData);
     }
 
+    public static ReturnJson(req: express.Request, res: express.Response, json: any): void {
+        res.status(200);
+
+        res.json(json);
+    }
+
     /**
      * Returns a 400 (Bad Request) to the user.
      * @param req

@@ -4,7 +4,11 @@
             <div class="widget-header">Playlists</div>
         </div>
         <div class="row">
-            {% include '../playlists/playlists.twig' %}
+            {% if not playlists %}
+                No playlists
+            {% else %}
+                {% include '../playlists/playlists.twig' %}
+            {% endif %}
         </div>
     </div>
 </div>

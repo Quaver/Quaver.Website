@@ -3,6 +3,7 @@ import Router from "./router/Router";
 import path from "path";
 import Logger from "./logging/Logger";
 import Login from "./controllers/login/Login";
+import Purge from "./Purge";
 
 const bodyParser = require("body-parser");
 const passport = require("passport");
@@ -43,6 +44,9 @@ export default class Server {
      * @constructor
      */
     private InitializeServer(): void {
+        // Purge CSS
+        Purge.PurgeCSS();
+
         this.ExpressApp.set("views", path.join(__dirname, "../src/views"));
         this.ExpressApp.set("twig options", {
             allow_async: true

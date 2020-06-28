@@ -3,32 +3,8 @@
     {% endif %}
     {% for map in maps %}
         {% if map.difficulty_range %}
-            {% if min(map.difficulty_range) < 1 %}
-                {% set rating_min = 'difficulty-rating-beginner' %}
-            {% elseif min(map.difficulty_range) < 3.5 %}
-                {% set rating_min = 'difficulty-rating-easy' %}
-            {% elseif min(map.difficulty_range) < 8 %}
-                {% set rating_min = 'difficulty-rating-normal' %}
-            {% elseif min(map.difficulty_range) < 19 %}
-                {% set rating_min = 'difficulty-rating-hard' %}
-            {% elseif min(map.difficulty_range) < 28 %}
-                {% set rating_min = 'difficulty-rating-insane' %}
-            {% else %}
-                {% set rating_min = 'difficulty-rating-expert' %}
-            {% endif %}
-            {% if max(map.difficulty_range) < 1 %}
-                {% set rating_max = 'difficulty-rating-beginner' %}
-            {% elseif max(map.difficulty_range) < 3.5 %}
-                {% set rating_max = 'difficulty-rating-easy' %}
-            {% elseif max(map.difficulty_range) < 8 %}
-                {% set rating_max = 'difficulty-rating-normal' %}
-            {% elseif max(map.difficulty_range) < 19 %}
-                {% set rating_max = 'difficulty-rating-hard' %}
-            {% elseif max(map.difficulty_range) < 28 %}
-                {% set rating_max = 'difficulty-rating-insane' %}
-            {% else %}
-                {% set rating_max = 'difficulty-rating-expert' %}
-            {% endif %}
+            {% set rating_min = ratingColor(min(map.difficulty_range)) %}
+            {% set rating_max = ratingColor(max(map.difficulty_range)) %}
         {% endif %}
         <div class="col-md-6 d-flex mapsets-space">
             <div class="mapsets">

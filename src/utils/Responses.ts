@@ -4,6 +4,7 @@ import UserGroups from "../enums/Usergroups";
 import TimeHelper from "./TimeHelper";
 import EnvironmentHelper from "./EnvironmentHelper";
 import Privileges from "../enums/Privileges";
+import ColorHelper from "./ColorHelper";
 
 export default class Responses {
     /**
@@ -30,6 +31,7 @@ export default class Responses {
             formatDateDistance: TimeHelper.formatDateDistance,
             formatDate: TimeHelper.formatDate,
             formatTime: TimeHelper.formatTime,
+            ratingColor: ColorHelper.RatingColor,
             flash: req.flash()
         };
 

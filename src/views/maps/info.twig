@@ -3,38 +3,14 @@
         {% if modding %}
             <a type="button" href="{{ baseUrl('/mapset/map/'~map.id~'') }}" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Back To Mapset Page</a>
         {% endif %}
-        {% if map.difficulty_rating < 1 %}
-            {% set difficulty_color_current = 'difficulty-rating-beginner' %}
-        {% elseif map.difficulty_rating < 3.5 %}
-            {% set difficulty_color_current = 'difficulty-rating-easy' %}
-        {% elseif map.difficulty_rating < 8 %}
-            {% set difficulty_color_current = 'difficulty-rating-normal' %}
-        {% elseif map.difficulty_rating < 19 %}
-            {% set difficulty_color_current = 'difficulty-rating-hard' %}
-        {% elseif map.difficulty_rating < 28 %}
-            {% set difficulty_color_current = 'difficulty-rating-insane' %}
-        {% else %}
-            {% set difficulty_color_current = 'difficulty-rating-expert' %}
-        {% endif %}
+        {% set difficulty_color_current = ratingColor(map.difficulty_rating) %}
         <div class="dropdown">
             <button class="btn btn-dark dropdown-toggle {{ difficulty_color_current }}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 [{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }} - {{ map.difficulty_name }}
             </button>
             <div class="dropdown-menu" x-placement="bottom-start">
                 {% for diff in mapset.maps %}
-                    {% if diff.difficulty_rating < 1 %}
-                        {% set difficulty_color = 'difficulty-rating-beginner' %}
-                    {% elseif diff.difficulty_rating < 3.5 %}
-                        {% set difficulty_color = 'difficulty-rating-easy' %}
-                    {% elseif diff.difficulty_rating < 8 %}
-                        {% set difficulty_color = 'difficulty-rating-normal' %}
-                    {% elseif diff.difficulty_rating < 19 %}
-                        {% set difficulty_color = 'difficulty-rating-hard' %}
-                    {% elseif diff.difficulty_rating < 28 %}
-                        {% set difficulty_color = 'difficulty-rating-insane' %}
-                    {% else %}
-                        {% set difficulty_color = 'difficulty-rating-expert' %}
-                    {% endif %}
+                    {% set difficulty_color = ratingColor(diff.difficulty_rating) %}
                     <a class="dropdown-item {{ difficulty_color }}" href="{{ baseUrl((modding)?'/mapset/map/'~diff.id~'/mods':'/mapset/map/'~diff.id) }}">[{{ gameMode(diff.game_mode) }}] {{ diff.difficulty_rating|number_format(2) }} - {{ diff.difficulty_name }} </a>
                 {% endfor %}
             </div>

@@ -28,7 +28,7 @@
 {#                                    <a href="#" class="btn btn-info btn-xs text-white">#}
 {#                                        Edit Playlist#}
 {#                                    </a>#}
-                                    <form action="" method="POST">
+                                    <form action="" method="POST" onsubmit="return confirm('Do you really want to delete this playlist?');">
                                         <input type="hidden" name="id" value="{{ playlist.id }}">
                                         <button type="submit" name="delete_playlist" class="btn btn-danger btn-xs">
                                             Delete Playlist

@@ -22,6 +22,10 @@ export default class Purge {
             css: [
                 appDir + '/static/css/*.css'
             ],
+            whitelist: [
+                '::-webkit-scrollbar-track',
+                '::-webkit-scrollbar-thumb'
+            ],
             variables: true,
             rejected: true
         });

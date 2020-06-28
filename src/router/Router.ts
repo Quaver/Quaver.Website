@@ -36,6 +36,8 @@ export default class Router {
         router.route("/playlist/create").post(Authentication.RequireLogin, Playlists.PlaylistCratePOST);
         router.route("/playlist/:id").get(Playlists.GET);
         router.route("/playlist/:id").post(Playlists.POST);
+        router.route("/playlist/:id/edit").get(Playlists.EditPlaylist);
+        router.route("/playlist/:id/edit").post(Playlists.POST);
         router.route("/playlist/map/add").post(Authentication.RequireLogin, Maps.PlaylistAddPOST);
         router.route("/playlist/map/remove").post(Authentication.RequireLogin, Maps.PlaylistRemoveMapPOST);
         router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);

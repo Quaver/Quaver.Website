@@ -15,6 +15,7 @@
 
     <section id="playlists">
         <div class="container">
+            {% include "layouts/alert.twig" %}
             <div class="row">
                 <div class="col-lg-3">
                     <div class="card card-sm sticky-top">
@@ -25,9 +26,9 @@
                         <div class="card-block">
                             {% if currentUser and currentUser.id == playlist.user_id %}
                                 <div class="mb-3 d-flex justify-content-between">
-{#                                    <a href="#" class="btn btn-info btn-xs text-white">#}
-{#                                        Edit Playlist#}
-{#                                    </a>#}
+                                    <a href="{{ baseUrl('/playlist/'~playlist.id~'/edit') }}" class="btn btn-info btn-xs text-white">
+                                        Edit Playlist
+                                    </a>
                                     <form action="" method="POST" onsubmit="return confirm('Do you really want to delete this playlist?');">
                                         <input type="hidden" name="id" value="{{ playlist.id }}">
                                         <button type="submit" name="delete_playlist" class="btn btn-danger btn-xs">

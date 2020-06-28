@@ -46,7 +46,7 @@ export default class Router {
         router.route("/user/maps/load").post(Users.UserMapssetsPOST);
         router.route("/user/scores/load").post(Users.UserScoresPOST);
 
-        // router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
+        router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
         // router.route("/settings").get(Authentication.RequireLogin, Settings.GET);
 
         // router.route("/wiki").get(Wiki.HomeGET);

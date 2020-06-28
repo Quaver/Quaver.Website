@@ -79,7 +79,9 @@ export default class Maps {
 
             showdown.setFlavor('github');
 
-            mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
+            mapset.description = sanitizeHtml(new showdown.Converter({
+                ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
+            }).makeHtml(mapset.description));
 
             // The selected map in this case is the top difficulty
             const map = mapset.maps[mapset.maps.length - 1];
@@ -131,7 +133,9 @@ export default class Maps {
 
             showdown.setFlavor('github');
 
-            mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
+            mapset.description = sanitizeHtml(new showdown.Converter({
+                ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
+            }).makeHtml(mapset.description));
 
             const scores = await Maps.FetchMapScores(req, map.id);
             const comments = await Maps.FetchSupervisorComments(req, mapset.id);

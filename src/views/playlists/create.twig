@@ -17,29 +17,42 @@
     <section id="playlists">
         <div class="container">
             <div class="widget mt-4">
-                <div class="widget-header">Create new Playlist</div>
+                <div class="widget-header">
+                    {% if not edit %}
+                        Create new Playlist
+                    {% else %}
+                        Edit Playlist
+                    {% endif %}
+                </div>
             </div>
 
             <div class="card">
                 <div class="card-body text-center">
                     <form class="text-left" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+                        {% if edit %}
+                            <input type="hidden" name="id" value="{{ playlist.id }}">
+                        {% endif %}
                         <div class="form-group">
                             <label>Name:</label>
-                            <input type="text" class="form-control" name="playlist_name" placeholder="Playlist name...">
+                            <input type="text" class="form-control" name="playlist_name" placeholder="Playlist name..." value="{{ (edit) ? playlist.name : '' }}">
                         </div>
                         <div class="form-group">
                             <label>Description:</label>
-                            <textarea class="form-control" name="playlist_description" rows="4"></textarea>
+                            <textarea class="form-control" name="playlist_description" rows="4">{{ (edit) ? playlist.description : '' }}</textarea>
                         </div>
-{#                        <div class="form-group">#}
-{#                            <label>Cover image</label>#}
-{#                            <div class="custom-file">#}
-{#                                <input type="file" class="custom-file-input" name="playlist_cover" id="playlist_cover">#}
-{#                                <label class="custom-file-label" for="playlist_cover">Choose image</label>#}
-{#                            </div>#}
-{#                            <small class="form-text text-muted">(Preferred size 590x590 and jpg and jpeg only)</small>#}
-{#                        </div>#}
-                        <input type="submit" name="submit" class="btn btn-primary" value="Create">
+                        {#                        <div class="form-group">#}
+                        {#                            <label>Cover image</label>#}
+                        {#                            <div class="custom-file">#}
+                        {#                                <input type="file" class="custom-file-input" name="playlist_cover" id="playlist_cover">#}
+                        {#                                <label class="custom-file-label" for="playlist_cover">Choose image</label>#}
+                        {#                            </div>#}
+                        {#                            <small class="form-text text-muted">(Preferred size 590x590 and jpg and jpeg only)</small>#}
+                        {#                        </div>#}
+                        {% if not edit %}
+                            <input type="submit" name="submit" class="btn btn-primary" value="Create">
+                        {% else %}
+                            <input type="submit" name="edit_playlist" class="btn btn-primary" value="Save">
+                        {% endif %}
                     </form>
                 </div>
             </div>

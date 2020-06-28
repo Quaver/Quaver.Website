@@ -35,15 +35,18 @@ export default class Router {
         router.route("/playlist/create").get(Authentication.RequireLogin, Playlists.PlaylistCrate);
         router.route("/playlist/create").post(Authentication.RequireLogin, Playlists.PlaylistCratePOST);
         router.route("/playlist/:id").get(Playlists.GET);
+        router.route("/playlist/:id").post(Playlists.POST);
+        router.route("/playlist/:id/edit").get(Playlists.EditPlaylist);
+        router.route("/playlist/:id/edit").post(Playlists.POST);
         router.route("/playlist/map/add").post(Authentication.RequireLogin, Maps.PlaylistAddPOST);
         router.route("/playlist/map/remove").post(Authentication.RequireLogin, Maps.PlaylistRemoveMapPOST);
-        // router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);
+        router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);
         // router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
         router.route("/user/:id").get(Users.GET);
         router.route("/user/maps/load").post(Users.UserMapssetsPOST);
         router.route("/user/scores/load").post(Users.UserScoresPOST);
 
-        // router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
+        router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
         // router.route("/settings").get(Authentication.RequireLogin, Settings.GET);
 
         // router.route("/wiki").get(Wiki.HomeGET);

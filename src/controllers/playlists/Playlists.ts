@@ -86,6 +86,43 @@ export default class Playlists {
         }
     }
 
+    public static async EditPlaylist(req: any, res: any): Promise<void> {
+        try {
+            let playlist = await API.GET(req, `v1/playlist/${req.params.id}`);
+
+            Responses.Send(req, res, "playlists/create", `Edit ${playlist.playlist.name} | Quaver`, {
+                playlist: playlist.playlist,
+                edit: true
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.ReturnPlaylistNotFound(req, res);
+        }
+    }
+
+    public static async POST(req: any, res: any): Promise<void> {
+        try {
+            if (typeof req.body.delete_playlist !== 'undefined') {
+                await API.POST(req, `v1/playlist/${req.body.id}/delete`);
+                req.flash('success', 'Playlist successfully deleted!');
+                res.redirect(303, `/playlists`);
+                return;
+            }
+            if (typeof req.body.edit_playlist !== 'undefined') {
+                await API.POST(req, `v1/playlist/${req.body.id}/update`, {
+                    name: req.body.playlist_name,
+                    description: req.body.playlist_description
+                });
+                req.flash('success', 'Playlist successfully updated!');
+                res.redirect(303, `/playlist/` + req.body.id);
+                return;
+            }
+        } catch (err) {
+                Logger.Error(err);
+                Responses.Return500(req, res);
+        }
+    }
+
     /**
      * Create Playlist
      * @param req

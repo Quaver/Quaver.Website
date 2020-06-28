@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalPlaylist">Select Playlist</h5>
+                <h5 class="modal-title">Select Playlist</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -50,25 +50,32 @@
     function addToPlaylist(id, map_id) {
         $.post(baseUrl() + `/playlist/map/add`, {
             id: id,
-            map: map_id
+            map: map_id,
+            page: 'mapset'
         }, function (data) {
             console.log(data);
+            if(data.status === 200) {
+                location.reload();
+            }
         });
     }
 
     function removeFromPlaylist(id, map_id) {
         $.post(baseUrl() + `/playlist/map/remove`, {
             id: id,
-            map: map_id
+            map: map_id,
+            page: 'mapset'
         }, function (data) {
             console.log(data);
+            if(data.status === 200) {
+                location.reload();
+            }
         });
     }
 
     document.addEventListener("DOMContentLoaded", function (event) {
         $(document).on('click', '.add_mapset', function () {
             const playlistId = $(this).data('id');
-
             const maps = mapsets.split(',');
 
             maps.forEach(map => {
@@ -83,21 +90,20 @@
             addToPlaylist(playlistId, map);
         });
 
-        // $(document).on('click', '.remove_mapset', function () {
-        //     const playlistId = $(this).data('id');
-        //
-        //     const maps = mapsets.split(',');
-        //
-        //     maps.forEach(map => {
-        //         removeFromPlaylist(playlistId, map);
-        //     })
-        // });
-        //
-        // $(document).on('click', '.remove_map', function () {
-        //     const playlistId = $(this).data('id');
-        //     const map = $(this).data('map');
-        //
-        //     removeFromPlaylist(playlistId, map);
-        // });
+        $(document).on('click', '.remove_mapset', function () {
+            const playlistId = $(this).data('id');
+            const maps = mapsets.split(',');
+
+            maps.forEach(map => {
+                removeFromPlaylist(playlistId, map);
+            })
+        });
+
+        $(document).on('click', '.remove_map', function () {
+            const playlistId = $(this).data('id');
+            const map = $(this).data('map');
+
+            removeFromPlaylist(playlistId, map);
+        });
     });
 </script>

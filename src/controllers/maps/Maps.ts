@@ -84,7 +84,7 @@ export default class Maps {
             // Get logged user playlists
             let playlists: any = null;
 
-            if(req.user) {
+            if (req.user) {
                 playlists = await Maps.FetchUserPlaylists(req, req.user.id, map.id);
             }
 
@@ -495,16 +495,19 @@ export default class Maps {
 
             const response = await API.POST(req, `v1/playlist/${id}/add/${map}`);
 
-            if (response.status != 200)
-                return [];
+            if (response.status != 200) {
+                Logger.Error(response);
+                Responses.Return500(req, res);
+                return;
+            }
 
-            return response;
+            Responses.ReturnJson(req, res, response);
         } catch (err) {
             Logger.Error(err);
             return [];
         }
     }
-    
+
     public static async PlaylistRemoveMapPOST(req: any, res: any): Promise<any> {
         try {
             const id = req.body.id;
@@ -512,13 +515,25 @@ export default class Maps {
 
             const response = await API.POST(req, `v1/playlist/${id}/remove/${map}`);
 
-            if (response.status != 200)
-                return [];
+            if (response.status != 200) {
+                Logger.Error(response);
+                Responses.Return500(req, res);
+                return;
+            }
 
-            return response;
+            if (req.body.page == 'playlist') {
+                res.redirect(301, '/playlist/' + id);
+                return;
+            } else if(req.body.page == 'mapset') {
+                Responses.ReturnJson(req, res, response);
+                return;
+            } else {
+                return response;
+            }
         } catch (err) {
             Logger.Error(err);
-            return [];
+            Responses.Return500(req, res);
+            return;
         }
     }
 }

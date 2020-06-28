@@ -15,23 +15,27 @@
 
     <section id="playlists">
         <div class="container">
+            {% include "layouts/alert.twig" %}
             <div class="row">
                 <div class="col-lg-3">
                     <div class="card card-sm sticky-top">
                         <div class="image">
-                            <img src="https://cdn.quavergame.com/playlists/{{ playlist.id }}.jpg" onerror="this.src='{{ assets("/img/playlist_default.jpg") }}'">
+                            <img src="https://quaver.blob.core.windows.net/playlists/{{ playlist.id }}.jpg" onerror="this.src='{{ assets("/img/playlist_default.jpg") }}'">
                         </div>
 
                         <div class="card-block">
                             {% if currentUser and currentUser.id == playlist.user_id %}
-{#                                <div class="mb-3 d-flex justify-content-between">#}
-{#                                    <a href="#" class="btn btn-info btn-xs text-white">#}
-{#                                        Edit Playlist#}
-{#                                    </a>#}
-{#                                    <button type="button" class="btn btn-danger btn-xs">#}
-{#                                        Delete Playlist#}
-{#                                    </button>#}
-{#                                </div>#}
+                                <div class="mb-3 d-flex justify-content-between">
+                                    <a href="{{ baseUrl('/playlist/'~playlist.id~'/edit') }}" class="btn btn-info btn-xs text-white">
+                                        Edit Playlist
+                                    </a>
+                                    <form action="" method="POST" onsubmit="return confirm('Do you really want to delete this playlist?');">
+                                        <input type="hidden" name="id" value="{{ playlist.id }}">
+                                        <button type="submit" name="delete_playlist" class="btn btn-danger btn-xs">
+                                            Delete Playlist
+                                        </button>
+                                    </form>
+                                </div>
                             {% endif %}
                             <p class="card-text font-size-md">{{ playlist.description }}</p>
                             <p class="card-text font-size-md">Created by
@@ -59,7 +63,7 @@
                                 </div>
                                 <a href="{{ baseUrl('/mapset/'~difficulties[0].mapset_id) }}">
                                     <div class="cover position-relative" style="background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-                                            url('https://cdn.quavergame.com/banners/{{ difficulties[0].mapset_id }}_banner.jpg')">
+                                            url('https://quaver.blob.core.windows.net/banners/{{ difficulties[0].mapset_id }}_banner.jpg')">
                                         <div class="status">
                                             {% if difficulties.game_modes|length == 2 %}
                                                 <div class="qadge mapset-4k-7k">4K / 7K</div>
@@ -89,35 +93,28 @@
                             </div>
                             <div class="list-group">
                                 {% for map in difficulties %}
-                                    {% if map.difficulty_rating < 1 %}
-                                        {% set rating = 'difficulty-rating-beginner' %}
-                                    {% elseif map.difficulty_rating < 3.5 %}
-                                        {% set rating = 'difficulty-rating-easy' %}
-                                    {% elseif map.difficulty_rating < 8 %}
-                                        {% set rating = 'difficulty-rating-normal' %}
-                                    {% elseif map.difficulty_rating < 19 %}
-                                        {% set rating = 'difficulty-rating-hard' %}
-                                    {% elseif map.difficulty_rating < 28 %}
-                                        {% set rating = 'difficulty-rating-insane' %}
-                                    {% else %}
-                                        {% set rating = 'difficulty-rating-expert' %}
-                                    {% endif %}
+                                    {% set rating = ratingColor(map.difficulty_rating) %}
                                     <div class="list-group-item justify-content-between">
-                                        <a href="{{ baseUrl('/mapset/map/'~map.id) }}" class="align-items-center {{ rating }}"  >
-                                            <b>
-                                                {{ map.difficulty_name }}
-                                            </b>
-                                            <div class="text-white">
-                                                <span>{{ map.difficulty_rating|number_format(2) }}</span>
-                                                {% if currentUser and currentUser.id == playlist.user_id %}
-{#                                                    <a href="#" class="text-danger pl-3">#}
-{#                                                        <i class="far fa-trash-alt"></i>#}
-{#                                                    </a>#}
-                                                {% else %}
-                                                    <a></a>
-                                                {% endif %}
+                                        <a href="{{ baseUrl('/mapset/map/'~map.id) }}" class="align-items-center {{ rating }}">
+                                            <div class="d-flex justify-content-between">
+                                                <b>
+                                                    {{ map.difficulty_name }}
+                                                </b>
                                             </div>
                                         </a>
+                                        <div>
+                                            <span class="{{ rating }}">{{ map.difficulty_rating|number_format(2) }}</span>
+                                            {% if currentUser and currentUser.id == playlist.user_id %}
+                                                <form action="{{ baseUrl('/playlist/map/remove') }}" method="POST" class="d-inline-block">
+                                                    <input type="hidden" name="id" value="{{ playlist.id }}">
+                                                    <input type="hidden" name="map" value="{{ map.id }}">
+                                                    <input type="hidden" name="page" value="playlist">
+                                                    <button type="submit" class="btn btn-link p-0 pl-3">
+                                                        <i class="far fa-trash-alt text-danger" data-toggle="tooltip" title="Delete Map"></i>
+                                                    </button>
+                                                </form>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -133,10 +130,6 @@
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block style %}
-
 {% endblock %}
 
 {% block scripts %}

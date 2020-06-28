@@ -4,6 +4,7 @@ import UserGroups from "../enums/Usergroups";
 import TimeHelper from "./TimeHelper";
 import EnvironmentHelper from "./EnvironmentHelper";
 import Privileges from "../enums/Privileges";
+import ColorHelper from "./ColorHelper";
 
 export default class Responses {
     /**
@@ -30,11 +31,18 @@ export default class Responses {
             formatDateDistance: TimeHelper.formatDateDistance,
             formatDate: TimeHelper.formatDate,
             formatTime: TimeHelper.formatTime,
+            ratingColor: ColorHelper.RatingColor,
             flash: req.flash()
         };
 
         Object.assign(templateData, data);
         return res.render(template, templateData);
+    }
+
+    public static ReturnJson(req: express.Request, res: express.Response, json: any): void {
+        res.status(200);
+
+        res.json(json);
     }
 
     /**

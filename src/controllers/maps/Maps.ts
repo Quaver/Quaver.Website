@@ -127,12 +127,20 @@ export default class Maps {
             const scores = await Maps.FetchMapScores(req, map.id);
             const comments = await Maps.FetchSupervisorComments(req, mapset.id);
 
+            // Get logged user playlists
+            let playlists: any = null;
+
+            if (req.user) {
+                playlists = await Maps.FetchUserPlaylists(req, req.user.id, map.id);
+            }
+
             Responses.Send(req, res, "map", `${mapset.artist} - ${mapset.title} by: ${mapset.creator_username} | Quaver`, {
                 mapset: mapset,
                 map: map,
                 scores: scores,
                 comments: comments,
-                gameMode: GameModeHelper.gameMode
+                gameMode: GameModeHelper.gameMode,
+                playlists: playlists
             });
         } catch (err) {
             Logger.Error(err);

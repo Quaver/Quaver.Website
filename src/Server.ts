@@ -62,7 +62,7 @@ export default class Server {
             twig.cache(false);
             // Allow static to be accessed only in development mode
             this.ExpressApp.use(express.static(path.join(__dirname, "../src/static")));
-
+        } else {
             this.ExpressApp.set('trust proxy', 1);
         }
 

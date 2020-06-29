@@ -62,6 +62,8 @@ export default class Server {
             twig.cache(false);
             // Allow static to be accessed only in development mode
             this.ExpressApp.use(express.static(path.join(__dirname, "../src/static")));
+
+            this.ExpressApp.set('trust proxy', 1);
         }
 
         this.ExpressApp.use(bodyParser.json());
@@ -76,6 +78,7 @@ export default class Server {
             secret: config.expressSessionSecret,
             resave: true,
             saveUninitialized: true,
+            rolling: true,
             cookie: {
                 secure: true,
                 maxAge: (24 * 60 * 60 * 1000) * 30

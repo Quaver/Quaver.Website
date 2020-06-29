@@ -76,7 +76,11 @@ export default class Server {
             secret: config.expressSessionSecret,
             resave: true,
             saveUninitialized: true,
-            store: new RedisStore({client: client, prefix: config.expressSessionPrefixRedis, ttl: 86400})
+            cookie: {
+                secure: true,
+                maxAge: (24 * 60 * 60 * 1000) * 30
+            },
+            store: new RedisStore({client: client, prefix: config.expressSessionPrefixRedis, ttl: 43200})
         }));
 
         this.ExpressApp.use(flash());

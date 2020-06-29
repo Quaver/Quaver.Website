@@ -5,7 +5,9 @@
         </div>
         <div class="row">
             {% if not playlists %}
-                No playlists
+                <div class="col-md-12 text-white">
+                    No playlists
+                </div>
             {% else %}
                 {% include '../playlists/playlists.twig' %}
             {% endif %}

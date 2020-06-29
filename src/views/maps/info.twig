@@ -39,7 +39,7 @@
             <div class="dropdown-menu ml-auto">
                 <button class="dropdown-item text-success" data-toggle="modal" data-target="#modalPlaylist">Add to Playlist</button>
                 {% if currentUser.id == map.creator_id %}
-                    {% if (mapset.ranking_queue_status == null or mapset.ranking_queue_status == 1) and not map.ranked_status == 2 %}
+                    {% if mapset.ranking_queue_status == null or mapset.ranking_queue_status == 1 or map.ranked_status != 2 %}
                         <form method="POST" accept-charset="UTF-8" onsubmit="return confirm('Do you really want to submit for rank?');">
                             <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
                             <button class="dropdown-item text-info" name="submit_for_rank">Submit For Rank</button>
@@ -102,7 +102,7 @@
     </div>
 </div>
 
-{% if not modding and mapset.description %}
+{% if not modding and mapset.description and mapset.description != "null" %}
     <div class="widget">
         <div class="widget-header">
             Description

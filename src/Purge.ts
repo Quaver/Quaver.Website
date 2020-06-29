@@ -9,8 +9,7 @@ const appDir = path.dirname(require.main.filename).replace('/dist', '/src');
 
 export default class Purge {
     public static async PurgeCSS(): Promise<void> {
-        console.log('Running purge.js');
-        console.log(appDir);
+        console.log('Running purge');
 
         const css = await new PurgeCSS().purge({
             content: [

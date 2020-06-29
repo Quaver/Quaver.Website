@@ -1,7 +1,11 @@
 {% extends "layouts/app.twig" %}
 {% block content %}
     <section class="bg-image bg-dark d-flex align-items-end py-3" style="background-color: #3a3a3c !important;min-height: 320px;">
-        <img class="background" src="https://cdn.quavergame.com/profile-covers/{{ user.info.id }}.jpg" onerror="this.src='{{ assets("/img/cover.jpg") }}'" alt="" style="opacity: 0.25 !important;">
+        {% if IsDonator(user.info.usergroups) %}
+            <img class="background" src="https://cdn.quavergame.com/profile-covers/{{ user.info.id }}.jpg" onerror="this.src='{{ assets("/img/cover.jpg") }}'" alt="" style="opacity: 0.25 !important;">
+        {% else %}
+            <img class="background" src="{{ assets("/img/cover.jpg") }}" alt="" style="opacity: 0.25 !important;">
+        {% endif %}
         <div class="container position-relative">
             <div class="row">
                 <div class="col d-flex flex-column flex-lg-row align-items-center position-absolute bottom left pl-lg-8">
@@ -58,12 +62,12 @@
                         </div>
                     </h2>
                     {% if currentUser and currentUser.id != user.info.id %}
-{#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
-{#                            <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">#}
-{#                                <i class="ya ya-user-add"></i>#}
-{#                                Add friend#}
-{#                            </a>#}
-{#                        </div>#}
+                        {#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
+                        {#                            <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">#}
+                        {#                                <i class="ya ya-user-add"></i>#}
+                        {#                                Add friend#}
+                        {#                            </a>#}
+                        {#                        </div>#}
                     {% endif %}
                 </div>
             </div>
@@ -103,24 +107,24 @@
                         <div class="nav-scroll">
                             <div class="nav nav-list nav-list-profile">
                                 <a class="nav-item nav-link" href="#feed">Stats & Feed</a>
-{#                                <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a>#}
+                                {#                                <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a>#}
                                 <a class="nav-item nav-link" href="#scores">Scores</a>
-{#                                <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a>#}
+                                {#                                <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a>#}
                                 <a class="nav-item nav-link" href="#maps">Maps</a>
                                 <a class="nav-item nav-link" href="#playlists">Playlists</a>
                                 <a class="nav-item nav-link" href="#achievements">Achievements</a>
                             </div>
                         </div>
                         {% if currentUser.id == user.info.id %}
-{#                            <div class="dropdown d-none d-xl-inline-block ml-auto">#}
-{#                                <button class="btn btn-quaver-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-{#                                    <i class="ya ya-gear"></i>#}
-{#                                </button>#}
-{#                                <div class="dropdown-menu dropdown-menu-right btn-quaver-dark dropdown-quaver">#}
-{#                                    <a class="dropdown-item" href="#">Change Cover</a>#}
-{#                                    <a class="dropdown-item" href="#">Settings</a>#}
-{#                                </div>#}
-{#                            </div>#}
+                            {#                            <div class="dropdown d-none d-xl-inline-block ml-auto">#}
+                            {#                                <button class="btn btn-quaver-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                            {#                                    <i class="ya ya-gear"></i>#}
+                            {#                                </button>#}
+                            {#                                <div class="dropdown-menu dropdown-menu-right btn-quaver-dark dropdown-quaver">#}
+                            {#                                    <a class="dropdown-item" href="#">Change Cover</a>#}
+                            {#                                    <a class="dropdown-item" href="#">Settings</a>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
                         {% endif %}
                     </div>
                 </div>
@@ -130,7 +134,7 @@
     <section class="py-lg-4">
         <div class="container">
             {% include 'user/user-profile-info.twig' %}
-{#            {% include 'user/user-profile-graphs.twig' %}#}
+            {#            {% include 'user/user-profile-graphs.twig' %}#}
             {% include 'user/user-profile-scores.twig' %}
             {% include 'user/user-profile-mapsets.twig' %}
             {% include 'user/user-profile-playlists.twig' %}
@@ -152,10 +156,10 @@
     <script src="{{ assets('/js/plugins/lazyload.min.js') }}"></script>
     <script defer src="{{ assets('/js/plugins/moment.min.js') }}"></script>
     <script defer src="{{ assets('/js/user.js') }}"></script>
-{#    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>#}
+    {#    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>#}
     {# <script defer src="{{ assets('/js/plugins/Chart.min.js') }}"></script> #}
-{#    <script defer src="{{ assets('/js/plugins/highstock.js') }}"></script>#}
-{#    <script defer src="{{ assets('/js/plugins/data.js') }}"></script>#}
+    {#    <script defer src="{{ assets('/js/plugins/highstock.js') }}"></script>#}
+    {#    <script defer src="{{ assets('/js/plugins/data.js') }}"></script>#}
 {% endblock %}
 
 {% block page_scripts %}{% endblock %}

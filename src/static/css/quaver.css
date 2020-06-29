@@ -991,6 +991,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 /* Maps */
 
+.comments {
+    color: #fff !important;
+}
+
 .comments .media {
     border-color: #5B5B5B;
 }

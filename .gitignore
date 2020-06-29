@@ -106,3 +106,5 @@ dist
 dist/
 
 .idea
+
+src/static/styles/app.css

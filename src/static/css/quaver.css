@@ -1,7 +1,10 @@
+/*!
+ * Copyright 2020 Quaver Team
+ */
+
 html {
     scroll-behavior: smooth;
     font-family: 'Lato', sans-serif;
-
 }
 
 body {
@@ -548,6 +551,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .feed .timestamp {
     color: #808080;
+    background: transparent;
+    transition: none;
+}
+
+.feed .timestamp:hover {
+    background: transparent;
 }
 
 .feed li {
@@ -988,6 +997,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .comments .media p {
     white-space: pre-wrap;
+    color: #FFFFFF;
 }
 
 .comments .media a {

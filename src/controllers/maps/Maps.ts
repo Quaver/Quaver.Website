@@ -6,6 +6,7 @@ import ModStatus from "../../enums/ModStatus";
 import GameMode from "../../enums/GameMode";
 import RankedStatus from "../../enums/RankedStatus";
 import Authentication from "../../middleware/Authentication";
+import EnvironmentHelper from "../../utils/EnvironmentHelper";
 
 const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
@@ -74,7 +75,13 @@ export default class Maps {
             // Sort difficulties
             mapset.maps = await Maps.SortDifficulties(mapset.maps);
 
-            mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
+            mapset.descriptionRaw = mapset.description;
+
+            showdown.setFlavor('github');
+
+            mapset.description = sanitizeHtml(new showdown.Converter({
+                ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
+            }).makeHtml(mapset.description));
 
             // The selected map in this case is the top difficulty
             const map = mapset.maps[mapset.maps.length - 1];
@@ -116,23 +123,37 @@ export default class Maps {
 
             let mapset = await Maps.FetchMapset(req, map.mapset_id);
 
-            // Sort difficulties
-            mapset.maps = await Maps.SortDifficulties(mapset.maps);
-
-            mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
-
             if (!mapset)
                 return res.status(404).json({status: 404, error: "Mapset not found"});
 
+            // Sort difficulties
+            mapset.maps = await Maps.SortDifficulties(mapset.maps);
+
+            mapset.descriptionRaw = mapset.description;
+
+            showdown.setFlavor('github');
+
+            mapset.description = sanitizeHtml(new showdown.Converter({
+                ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
+            }).makeHtml(mapset.description));
+
             const scores = await Maps.FetchMapScores(req, map.id);
             const comments = await Maps.FetchSupervisorComments(req, mapset.id);
+
+            // Get logged user playlists
+            let playlists: any = null;
+
+            if (req.user) {
+                playlists = await Maps.FetchUserPlaylists(req, req.user.id, map.id);
+            }
 
             Responses.Send(req, res, "map", `${mapset.artist} - ${mapset.title} by: ${mapset.creator_username} | Quaver`, {
                 mapset: mapset,
                 map: map,
                 scores: scores,
                 comments: comments,
-                gameMode: GameModeHelper.gameMode
+                gameMode: GameModeHelper.gameMode,
+                playlists: playlists
             });
         } catch (err) {
             Logger.Error(err);
@@ -322,15 +343,22 @@ export default class Maps {
 
     public static async HandlePost(req: any, res: any): Promise<any> {
         try {
-            if (typeof req.body.submit_delete !== 'undefined') {
+            if (typeof req.body.save_description !== 'undefined') {
+                if (req.body.description) {
+                    await API.POST(req, `v1/mapsets/${req.body.mapset_id}/description`, {
+                        description: req.body.description
+                    });
+                    req.flash('success', 'Mapset description updated!');
+                    res.redirect(303, `/mapset/${req.body.mapset_id}`);
+                    return;
+                }
+            } else if (typeof req.body.submit_delete !== 'undefined') {
                 await API.POST(req, `v1/mapsets/${req.body.mapset_id}/delete`);
                 req.flash('success', 'Mapset successfully deleted!');
                 res.redirect(303, `/maps`);
                 return;
             } else if (typeof req.body.submit_for_rank !== 'undefined') {
                 await API.POST(req, `v1/mapsets/${req.body.mapset_id}/submitrank`);
-            } else if (typeof req.body.add_to_playlist !== 'undefined') {
-                //    handle playlist add
             } else if (typeof req.body.submit_comment !== 'undefined') {
                 if (req.body.comment !== "")
                     await API.POST(req, `v1/mapsets/${req.body.mapset_id}/comment`, {
@@ -524,7 +552,7 @@ export default class Maps {
             if (req.body.page == 'playlist') {
                 res.redirect(301, '/playlist/' + id);
                 return;
-            } else if(req.body.page == 'mapset') {
+            } else if (req.body.page == 'mapset') {
                 Responses.ReturnJson(req, res, response);
                 return;
             } else {

@@ -1,0 +1,23 @@
+<div class="modal fade" id="editDescription" tabindex="-1" role="dialog" aria-labelledby="editDescription" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Description</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" accept-charset="UTF-8">
+                    <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control queue-comment-textarea" rows="16" name="description">{{ mapset.descriptionRaw }}</textarea>
+                        <small><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a></small>
+                    </div>
+                    <input type="submit" name="save_description" value="Save" class="btn btn-primary mt-3">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

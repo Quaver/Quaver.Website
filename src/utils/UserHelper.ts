@@ -40,4 +40,15 @@ export default class UserHelper {
 
         return false;
     }
+
+    /**
+     * Checks if a user is donator
+     * @constructor
+     * @param userGroups
+     */
+    public static IsDonator(userGroups: any): boolean {
+        return (userGroups & Usergroups.Donator) != 0;
+
+
+    }
 }

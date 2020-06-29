@@ -25,6 +25,7 @@ export default class Responses {
             currentUser: req.user,
             HasGroup: UserHelper.HasGroup,
             HasPrivilege: UserHelper.HasPrivilege,
+            IsDonator: UserHelper.IsDonator,
             CanAccessDashboard: UserHelper.CanAccessDashboard,
             UserGroups: UserGroups,
             Privileges: Privileges,

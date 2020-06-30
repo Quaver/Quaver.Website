@@ -77,7 +77,6 @@ export default class Server {
             secret: config.expressSessionSecret,
             name: 'quaver_session',
             resave: true,
-            rolling: true,
             saveUninitialized: true,
             cookie: {
                 secure: false,

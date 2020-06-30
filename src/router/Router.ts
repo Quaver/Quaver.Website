@@ -47,7 +47,8 @@ export default class Router {
         router.route("/user/scores/load").post(Users.UserScoresPOST);
 
         router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
-        // router.route("/settings").get(Authentication.RequireLogin, Settings.GET);
+        router.route("/settings").get(Authentication.RequireLogin, Settings.GET);
+        router.route("/settings").post(Authentication.RequireLogin, Settings.POST);
 
         // router.route("/wiki").get(Wiki.HomeGET);
         // router.route("/wiki/*").get(Wiki.WikiPageGET);

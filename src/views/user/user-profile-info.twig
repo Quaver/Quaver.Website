@@ -10,14 +10,17 @@
             </div>
     </div>
     <div class="col-lg-12 mt-3">
+        {% if not user.info.allowed %}
+            <div class="alert alert-darken-danger show" role="alert">
+                User is banned!
+            </div>
+        {% endif %}
         {% if user.info.userpage and IsDonator(user.info.usergroups) %}
             <div class="widget">
                 <div class="widget-header">About Me</div>
             </div>
-            <div class="widget widget-secondary">
-                <div class="widget-body">
-                    {{ bio|raw }}
-                </div>
+            <div class="widget widget-secondary" id="userpage">
+                <div class="widget-body">{{ bio }}</div>
             </div>
         {% endif %}
     </div>

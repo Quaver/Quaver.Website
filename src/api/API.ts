@@ -57,7 +57,7 @@ export default class API {
      * Generates a token for the logged in user to make requests
      * @param req 
      */
-    private static async GetToken(req: any): Promise<string | null> {
+    static async GetToken(req: any): Promise<string | null> {
         if (!req.user)
             return null;
 

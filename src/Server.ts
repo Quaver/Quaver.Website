@@ -73,14 +73,16 @@ export default class Server {
         }));
 
         this.ExpressApp.use(require('express-session')({
+            store: new RedisStore({client: client, prefix: config.expressSessionPrefixRedis, ttl: 43200}),
             secret: config.expressSessionSecret,
+            name: 'quaver_session',
             resave: true,
+            rolling: true,
             saveUninitialized: true,
             cookie: {
-                secure: true,
+                secure: false,
                 maxAge: (24 * 60 * 60 * 1000) * 30
-            },
-            store: new RedisStore({client: client, prefix: config.expressSessionPrefixRedis, ttl: 43200})
+            }
         }));
 
         this.ExpressApp.use(flash());

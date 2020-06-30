@@ -2,7 +2,7 @@
 {% block content %}
     <section class="bg-image bg-dark d-flex align-items-end py-3" style="background-color: #3a3a3c !important;min-height: 320px;">
         {% if IsDonator(user.info.usergroups) %}
-            <img class="background" src="https://quaver.blob.core.windows.net/profile-covers/{{ user.info.id }}.jpg" onerror="this.src='{{ assets("/img/cover.jpg") }}'" alt="" style="opacity: 0.25 !important;">
+            <img class="background" src="https://quaver.blob.core.windows.net/profile-covers/{{ user.info.id }}.jpg" onerror="this.src='{{ assets("/img/cover.jpg") }}'" alt="" style="opacity: 0.9 !important;">
         {% else %}
             <img class="background" src="{{ assets("/img/cover.jpg") }}" alt="" style="opacity: 0.25 !important;">
         {% endif %}

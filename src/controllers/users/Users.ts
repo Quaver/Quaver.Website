@@ -34,7 +34,7 @@ export default class Users {
             const playlists = await Users.GetPlaylists(req, res, user);
 
             const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
-                allowedTags: ['span', 'a', 'strong', 'img', 'center', 'span',
+                allowedTags: ['span', 'a', 'strong', 'img', 'center',
                              'p', 'i', 'u', 'hr', 'ul', 'ol', 'li'],
                 allowedAttributes: {
                     'a': ['href'],

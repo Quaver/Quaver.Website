@@ -23,7 +23,7 @@
                 <div class="form-group">
                     {% if IsDonator(currentUser.usergroups) %}
                         <div class="form-group">
-                            <textarea id="aboutme" name="aboutme">{{ bio }}</textarea>
+                            <textarea class="form-control" rows="10" name="aboutme">{{ bio }}</textarea>
                         </div>
                     {% endif %}
                 </div>
@@ -61,41 +61,7 @@
 {% endblock %}
 
 {% block page_scripts %}
-    <script src="{{ assets('/js/plugins/simplemde/simplemde.min.js') }}" referrerpolicy="origin"></script>
-
-    <script>
-        new SimpleMDE({
-            element: document.getElementById("aboutme"),
-            hideIcons: ["guide", "preview", "side-by-side", "fullscreen", "quote"],
-        });
-    </script>
 {% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" href="{{ assets('/js/plugins/simplemde/simplemde.min.css') }}">
-
-    <style>
-        .CodeMirror {
-            height: 320px;
-        }
-
-        .CodeMirror, .editor-preview, .editor-preview-side {
-            background: #272727;
-            color: #fff;
-            border: none;
-        }
-
-        .editor-toolbar {
-            border: 1px solid #272727;
-        }
-
-        .editor-toolbar a {
-            color: #fff !important;
-        }
-
-        .editor-toolbar a.active, .editor-toolbar a:hover {
-            background: #272727;
-            border-color: #272727;
-        }
-    </style>
 {% endblock %}

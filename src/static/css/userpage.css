@@ -1,0 +1,20 @@
+#userpage {
+    word-wrap: break-word;
+    max-height: 320px;
+    overflow: auto;
+}
+
+#userpage p,
+#userpage h1,
+#userpage h2,
+#userpage h3,
+#userpage h4,
+#userpage h5 {
+    margin: 0;
+}
+
+#userpage ul,
+#userpage ol {
+    margin-bottom: 0;
+}
+

@@ -3,9 +3,9 @@ import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import GameMode from "../../enums/GameMode";
 import RankedStatus from "../../enums/RankedStatus";
-import bbobHTML from '@bbob/html';
-import presetHTML5 from '@bbob/preset-html5';
-import sanitizeHtml = require("sanitize-html");
+const showdown  = require('showdown');
+const sanitizeHtml = require('sanitize-html');
+import EnvironmentHelper from "../../utils/EnvironmentHelper";
 
 export default class Users {
     /**
@@ -32,13 +32,19 @@ export default class Users {
 
             const mapSetsUnRanked = await Users.GetUploadedMapSetsUnRanked(req, res, user.info.id, 0);
             const playlists = await Users.GetPlaylists(req, res, user);
-            const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
-                allowedTags: ['span', 'a'],
+
+            const bio = sanitizeHtml(new showdown.Converter({
+                ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
+            }).makeHtml(user.info.userpage), {
+                allowedTags: ['span', 'a', 'strong', 'img', 'center', 'table', 'thead', 'tbody', 'span', 'br',
+                    'tr', 'th', 'td', 'h1', 'h2', 'h3', 'h4', 'code', 'pre', 'p', 'i', 'u', 'hr', 'ul', 'ol', 'li'],
                 allowedAttributes: {
                     'a': ['href'],
-                    'span': ['style']
-                }
-            }), presetHTML5());
+                    'span': ['style'],
+                    'img': ['src']
+                },
+                disallowedTagsMode: 'escape'
+            });
 
             Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
                 user,
@@ -154,7 +160,7 @@ export default class Users {
      * @param id
      * @param mode
      */
-    private static async FetchUser(req: any, id: any, mode: any): Promise<any> {
+    static async FetchUser(req: any, id: any, mode: any): Promise<any> {
         const response = await API.GET(req, `v1/users/full/${id}`);
 
         if (response.status != 200)

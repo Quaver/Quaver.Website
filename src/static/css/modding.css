@@ -139,11 +139,15 @@
 }
 
 hr {
+    border-color: #ccc;
+}
+
+#comments hr {
     padding: 10px 0;
     border: none;
 }
 
-hr:before {
+#comments hr:before {
     content: "";
     display: block;
     position: absolute;

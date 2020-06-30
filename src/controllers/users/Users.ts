@@ -35,7 +35,7 @@ export default class Users {
 
             const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
                 allowedTags: ['span', 'a', 'strong', 'img', 'center',
-                             'p', 'i', 'u', 'hr', 'ul', 'ol', 'li'],
+                             'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
                 allowedAttributes: {
                     'a': ['href'],
                     'span': ['style'],

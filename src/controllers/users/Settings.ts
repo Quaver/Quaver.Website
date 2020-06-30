@@ -29,9 +29,12 @@ export default class Settings {
             if (token)
                 headers["Authorization"] = `Bearer ${token}`;
 
+            let flag = true;
+
             if (req.body && req.body.aboutme !== undefined) {
                 if (req.body.aboutme.length > 3000) {
                     req.flash('error', 'Your userpage must not be greater than 3,000 characters.');
+                    flag = false;
                 } else {
                     request.post(`${config.apiBaseUrl}/v1/users/profile/userpage`, {
                         form: {
@@ -59,7 +62,8 @@ export default class Settings {
                 });
             }
 
-            req.flash('success', 'Settings is updated!');
+            if (flag)
+                req.flash('success', 'Settings is updated!');
 
             res.redirect(301, `/settings`);
         } catch (err) {

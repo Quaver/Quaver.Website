@@ -88,8 +88,8 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="{{ baseUrl('/user/'~currentUser.id) }}">Profile</a>
-{#                        <a class="dropdown-item" href="{{ baseUrl('/friends') }}">Friends</a>#}
-{#                        <a class="dropdown-item" href="{{ baseUrl('/settings') }}">Settings</a>#}
+                        <a class="dropdown-item" href="{{ baseUrl('/friends') }}">Friends</a>
+                        <a class="dropdown-item" href="{{ baseUrl('/settings/donator') }}">Settings</a>
                         {% if CanAccessDashboard(currentUser.usergroups) %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="https://a.quavergame.com/">Dashboard</a>

@@ -62,16 +62,20 @@
                         </div>
                     </h2>
                     {% if currentUser and currentUser.id != user.info.id %}
-                        {#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
-                        {#                            <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">#}
-                        {#                                <i class="ya ya-user-add"></i>#}
-                        {#                                Add friend#}
-                        {#                            </a>#}
-                        {#                        </div>#}
+{#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
+{#                            <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/add') }}">#}
+{#                                <input type="hidden" name="id" value="{{ user.info.id }}">#}
+{#                                <button class="btn btn-primary btn-sm btn-icon-left font-weight-semibold">#}
+{#                                    <i class="ya ya-user-add"></i>#}
+{#                                    Add friend#}
+{#                                </button>#}
+{#                            </form>#}
+{#                        </div>#}
                     {% endif %}
                 </div>
             </div>
         </div>
+        {{ dump(friend) }}
     </section>
     <div id="sticky-wrapper" class="sticky-wrapper" style="height: 63px;">
         <section class="bg-quaver-nav border-bottom nav-profile py-0" ya-sticky="" style="">

@@ -48,6 +48,7 @@ export default class Router {
 
         router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
         router.route("/friends").post(Authentication.RequireLogin, Friends.POST);
+        router.route("/friend/add").post(Authentication.RequireLogin, Friends.AddFriendPOST);
         router.route("/settings/donator").get(Authentication.RequireLogin, Settings.GET);
         router.route("/settings/donator").post(Authentication.RequireLogin, Settings.POST);
 

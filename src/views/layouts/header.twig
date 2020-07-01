@@ -28,7 +28,8 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ baseUrl('/leaderboard') }}" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">Leaderboard</a>
+                            aria-expanded="false">Leaderboard
+                    </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ baseUrl('/leaderboard') }}">Overall Rating</a>
                         <a class="dropdown-item" href="{{ baseUrl('/leaderboard/hits') }}">Total Hits</a>
@@ -41,9 +42,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ baseUrl('/playlists') }}">Playlists</a>
                 </li>
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="{{ baseUrl('/multiplayer/games') }}">Multiplayer</a>#}
-{#                </li>#}
+                {#                <li class="nav-item">#}
+                {#                    <a class="nav-link" href="{{ baseUrl('/multiplayer/games') }}">Multiplayer</a>#}
+                {#                </li>#}
                 <li class="nav-item">
                     <a class="nav-link" href="https://old.quavergame.com/wiki/">Wiki</a>
                 </li>
@@ -65,7 +66,7 @@
         <ul class="navbar-nav navbar-right flex-row d-flex align-items-center">
             <li class="nav-item">
                 <div class="search" id="navbar-search">
-                    <input class="form-control custom-search" id="search" type="text"  placeholder="Search Users" autocomplete="off">
+                    <input class="form-control custom-search" id="search" type="text" placeholder="Search Users" autocomplete="off">
                     <div class="searchBox" style="display: none">
                         <ul class="list-group">
 
@@ -89,7 +90,10 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="{{ baseUrl('/user/'~currentUser.id) }}">Profile</a>
                         <a class="dropdown-item" href="{{ baseUrl('/friends') }}">Friends</a>
-                        <a class="dropdown-item" href="{{ baseUrl('/settings/donator') }}">Settings</a>
+                        {% if IsDonator(currentUser.usergroups) %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ baseUrl('/settings/donator') }}">Donator Settings</a>
+                        {% endif %}
                         {% if CanAccessDashboard(currentUser.usergroups) %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="https://a.quavergame.com/">Dashboard</a>
@@ -98,43 +102,43 @@
                         <a class="dropdown-item" href="{{ baseUrl('/logout') }}">Logout</a>
                     </div>
                 </li>
-{#                <li class="nav-item dropdown dropdown-notification d-none d-lg-block">#}
-{#                    <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-{#                        <i class="ya ya-bell"></i>#}
-{#                    </a>#}
-{#                    <div class="dropdown-menu dropdown-menu-right bg-white">#}
-{#                        <div class="dropdown-header mb-0">#}
-{#                            <i class="ya ya-bell"></i>#}
-{#                            Notification (5)#}
-{#                        </div>#}
-{#                        <div class="dropdown-scrollable">#}
-{#                            <ul class="dropdown-list">#}
-{#                                <li class="dropdown-list-item">#}
-{#                                    <span class="dropdown-list-text text-success"><i class="ya ya-calendar"></i></span>#}
-{#                                    <div class="dropdown-list-body">#}
-{#                                        <a href="#">Nathan Drake</a>#}
-{#                                        invited you to find the lost chapter event.#}
-{#                                        <div class="dropdown-list-meta">#}
-{#                                            <i class="ya ya-clock"></i>#}
-{#                                            3 hours ago#}
-{#                                            <div class="ml-auto">#}
-{#                                                <a href="#">#}
-{#                                                    <i class="ya ya-check-circle"></i>#}
-{#                                                </a>#}
-{#                                                <a href="#">#}
-{#                                                    <i class="ya ya-trash"></i>#}
-{#                                                </a>#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </li>#}
-{#                            </ul>#}
-{#                        </div>#}
-{#                        <div class="dropdown-footer">#}
-{#                            <a class="btn btn-default btn-block btn-sm" href="#">All notification</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </li>#}
+                {#                <li class="nav-item dropdown dropdown-notification d-none d-lg-block">#}
+                {#                    <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                {#                        <i class="ya ya-bell"></i>#}
+                {#                    </a>#}
+                {#                    <div class="dropdown-menu dropdown-menu-right bg-white">#}
+                {#                        <div class="dropdown-header mb-0">#}
+                {#                            <i class="ya ya-bell"></i>#}
+                {#                            Notification (5)#}
+                {#                        </div>#}
+                {#                        <div class="dropdown-scrollable">#}
+                {#                            <ul class="dropdown-list">#}
+                {#                                <li class="dropdown-list-item">#}
+                {#                                    <span class="dropdown-list-text text-success"><i class="ya ya-calendar"></i></span>#}
+                {#                                    <div class="dropdown-list-body">#}
+                {#                                        <a href="#">Nathan Drake</a>#}
+                {#                                        invited you to find the lost chapter event.#}
+                {#                                        <div class="dropdown-list-meta">#}
+                {#                                            <i class="ya ya-clock"></i>#}
+                {#                                            3 hours ago#}
+                {#                                            <div class="ml-auto">#}
+                {#                                                <a href="#">#}
+                {#                                                    <i class="ya ya-check-circle"></i>#}
+                {#                                                </a>#}
+                {#                                                <a href="#">#}
+                {#                                                    <i class="ya ya-trash"></i>#}
+                {#                                                </a>#}
+                {#                                            </div>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </li>#}
+                {#                            </ul>#}
+                {#                        </div>#}
+                {#                        <div class="dropdown-footer">#}
+                {#                            <a class="btn btn-default btn-block btn-sm" href="#">All notification</a>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </li>#}
             {% endif %}
         </ul>
     </nav>

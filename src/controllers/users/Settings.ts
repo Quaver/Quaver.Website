@@ -11,7 +11,7 @@ export default class Settings {
         try {
             const user = await Users.FetchUser(req, req.user.id, 1);
 
-            Responses.Send(req, res, "user/settings", `Settings | Quaver`, {
+            Responses.Send(req, res, "user/settings", `Donator Settings | Quaver`, {
                 bio: user.info.userpage
             });
         } catch (err) {

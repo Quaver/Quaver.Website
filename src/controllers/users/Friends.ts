@@ -53,4 +53,31 @@ export default class Friends {
             Responses.Return500(req, res);
         }
     }
+
+    public static async AddFriendPOST(req: any, res: any): Promise<void> {
+        try {
+            const token = await API.GetToken(req);
+
+            let headers: any = {};
+
+            if (token)
+                headers["Authorization"] = `Bearer ${token}`;
+
+            if (req.body && req.body.id !== undefined) {
+                request.post(`${config.apiBaseUrl}/v1/relationships/friends/add/${req.body.id}`, {
+                    headers: headers
+                }, function (error, response, body) {
+                    console.log(body);
+                });
+
+                res.redirect(301, `/user/${req.body.id}`);
+            } else {
+                res.redirect(301, `/user/-1`);
+            }
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
+    }
+
 }

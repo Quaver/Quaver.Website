@@ -42,7 +42,7 @@ export default class Users {
                     'img': ['src']
                 },
                 disallowedTagsMode: 'escape'
-            }), presetHTML5());
+            }), presetHTML5()).split(/\r\n|\n|\r/);
 
             Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
                 user,

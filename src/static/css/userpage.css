@@ -1,7 +1,8 @@
 #userpage {
-    white-space:pre-wrap;
+    /*white-space: pre-line;*/
     max-height: 320px;
     overflow: auto;
+    word-wrap: break-word;
 }
 
 #userpage p,
@@ -17,4 +18,3 @@
 #userpage ol {
     margin-bottom: 0;
 }
-

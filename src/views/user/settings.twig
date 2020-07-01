@@ -17,30 +17,32 @@
         <div class="container">
             {% include "layouts/alert.twig" %}
             <form accept-charset="UTF-8" enctype="multipart/form-data" method="POST">
-                <div class="widget mt-4">
-                    <div class="widget-header">About me</div>
-                </div>
-                <div class="form-group">
-                    {% if IsDonator(currentUser.usergroups) %}
-                        <div class="form-group">
-                            <textarea class="form-control" rows="10" name="aboutme">{{ bio }}</textarea>
-                        </div>
-                    {% endif %}
-                </div>
-
-                <div class="widget mt-4">
-                    <div class="widget-header">Profile Cover</div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="profile_cover" id="profile_cover">
-                            <label class="custom-file-label" for="profile_cover">Choose image</label>
+                {% if IsDonator(currentUser.usergroups) %}
+                    <div class="widget mt-4">
+                        <div class="widget-header">About me</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group mb-0">
+                                <textarea class="form-control" rows="10" name="aboutme">{{ bio }}</textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <input type="submit" name="submit" class="btn btn-primary" value="Save">
+                    <div class="widget mt-4">
+                        <div class="widget-header">Profile Cover</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="profile_cover" id="profile_cover">
+                                <label class="custom-file-label" for="profile_cover">Choose image</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="submit" name="submit" class="btn btn-primary" value="Save">
+                {% endif %}
             </form>
         </div>
     </section>

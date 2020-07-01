@@ -65,7 +65,7 @@ export default class Settings {
             if (flag)
                 req.flash('success', 'Settings successfully saved!');
 
-            res.redirect(301, `/settings`);
+            res.redirect(301, `/settings/donator`);
         } catch (err) {
             Logger.Error(err);
             Responses.Return500(req, res);

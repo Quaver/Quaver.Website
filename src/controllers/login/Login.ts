@@ -1,5 +1,6 @@
 import Responses from "../../utils/Responses";
 import SqlDatabase from "../../database/SqlDatabase";
+import EnvironmentHelper from "../../utils/EnvironmentHelper";
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const openid = require("openid");
@@ -28,9 +29,16 @@ export default class Login {
      */
     public static async GET(req: any, res: any): Promise<void> {
         try {
-            res.cookie('currentPage', req.header('Referer'), {
-                maxAge: 24 * 60 * 60
-            });
+            const referer = req.header('Referer');
+            if(referer === undefined) {
+                res.cookie('currentPage', EnvironmentHelper.baseUrl(), {
+                    maxAge: 24 * 60 * 60
+                });
+            } else {
+                res.cookie('currentPage', referer, {
+                    maxAge: 24 * 60 * 60
+                });
+            }
 
             const url = await Login.Authenticate();
             return res.redirect(url);
@@ -48,7 +56,9 @@ export default class Login {
      */
     public static async LogoutGET(req: any, res: any): Promise<void> {
         req.logout();
-        res.redirect('/');
+        req.session.destroy(function (err) {
+            res.redirect('/');
+        });
     }
     
     /**

@@ -42,7 +42,7 @@
                     {% if (mapset.ranking_queue_status == null or mapset.ranking_queue_status == 1) and map.ranked_status != 2 %}
                         <form method="POST" accept-charset="UTF-8" onsubmit="return confirm('Do you wish to submit this mapset for ranked status? Make sure to visit the Ranking Criteria!');">
                             <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
-                            <button class="dropdown-item text-info" name="submit_for_rank">Submit For Rank</button>
+                            <button class="dropdown-item text-info" name="submit_for_rank">Submit for Rank</button>
                         </form>
                     {% endif %}
                     {% if map.ranked_status != 2 %}

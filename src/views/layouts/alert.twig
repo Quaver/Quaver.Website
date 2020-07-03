@@ -9,7 +9,7 @@
     {% endfor %}
 {% endif %}
 
-{% if flash.success %}
+{% if flash.error %}
     {% for msg in flash.error %}
         <div class="alert alert-darken-danger alert-dismissible fade show" role="alert">
             {{ msg }}

@@ -16,36 +16,67 @@
     <section id="playlists">
         <div class="container">
             {% include "layouts/alert.twig" %}
-            <form accept-charset="UTF-8" enctype="multipart/form-data" method="POST">
-                {% if IsDonator(currentUser.usergroups) %}
-                    <div class="widget mt-4">
-                        <div class="widget-header">About me</div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group mb-0">
+            {% if IsDonator(currentUser.usergroups) %}
+                <div class="widget mt-4">
+                    <div class="widget-header">About Me</div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <form accept-charset="UTF-8" enctype="multipart/form-data" method="POST">
+                            <div class="form-group">
                                 <textarea class="form-control" rows="10" name="aboutme">{{ bio }}</textarea>
+                                <small class="form-text text-muted">
+                                    <a href="#" data-toggle="modal" data-target="#bbcode">BBCode Cheatsheet</a>
+                                </small>
                             </div>
-                        </div>
+                            <button type="submit" name="submitAboutme" class="btn btn-primary">Save</button>
+                        </form>
                     </div>
+                </div>
 
-                    <div class="widget mt-4">
-                        <div class="widget-header">Profile Cover</div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="profile_cover" id="profile_cover">
-                                <label class="custom-file-label" for="profile_cover">Choose image</label>
+                <div class="widget mt-4">
+                    <div class="widget-header">Profile Cover</div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <form accept-charset="UTF-8" enctype="multipart/form-data" method="POST">
+                            <div class="form-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="profile_cover" id="profile_cover">
+                                    <label class="custom-file-label" for="profile_cover">Choose image</label>
+                                    <small class="form-text text-muted">Preferred size 1920x380, jpg and jpeg only</small>
+                                </div>
                             </div>
-                        </div>
+                            <button class="btn btn-primary" type="submit" name="submitCover">Upload</button>
+                        </form>
                     </div>
+                </div>
 
-                    <input type="submit" name="submit" class="btn btn-primary" value="Save">
-                {% endif %}
-            </form>
+                <div class="widget mt-4">
+                    <div class="widget-header">Change username</div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        {% if canChange.canChange %}
+                            <form accept-charset="UTF-8" enctype="multipart/form-data" method="POST">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="username" placeholder="{{ currentUser.username }}"
+                                            pattern="[A-Za-z0-9](?!.* {2})[ A-Za-z0-9]{1,13}[A-Za-z0-9]">
+                                    <small class="form-text text-muted">You can change username once every 30 days</small>
+                                </div>
+                                <button class="btn btn-primary" type="submit" name="submitUsername">Change</button>
+                            </form>
+                        {% else %}
+                            You can change your username in {{ canChange.time.days }} days, {{ canChange.time.hours }} hours and {{ canChange.time.minutes }} minutes
+                        {% endif %}
+                    </div>
+                </div>
+
+            {% endif %}
         </div>
     </section>
+
+    {% include "../modals/BBCode.twig" %}
 {% endblock %}
 
 {% block scripts %}

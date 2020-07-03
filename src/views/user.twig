@@ -5,7 +5,7 @@
         {% set cover = "https://quaver.blob.core.windows.net/profile-covers/"~user.info.id~".jpg" %}
     {% endif %}
     <section class="bg-image bg-dark d-flex align-items-end py-3" style="background: linear-gradient(360deg, #1a1a20 1%, rgba(26, 26, 32, 0) 80%),
-            url({{ cover }}) center center, url({{ assets("/img/cover.jpg") }}) center center; min-height: 320px;">
+            url({{ cover }}) center center, url({{ assets("/img/cover.jpg") }}) center center; min-height: 320px; background-size: cover;">
         <div class="container position-relative">
             <div class="row">
                 <div class="col d-flex flex-column flex-lg-row align-items-center position-absolute bottom left pl-lg-8">
@@ -62,12 +62,15 @@
                         </div>
                     </h2>
                     {% if currentUser and currentUser.id != user.info.id %}
-                        {#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
-                        {#                            <a class="btn btn-primary btn-sm btn-icon-left font-weight-semibold" href="#">#}
-                        {#                                <i class="ya ya-user-add"></i>#}
-                        {#                                Add friend#}
-                        {#                            </a>#}
-                        {#                        </div>#}
+{#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
+{#                            <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/add') }}">#}
+{#                                <input type="hidden" name="id" value="{{ user.info.id }}">#}
+{#                                <button class="btn btn-primary btn-sm btn-icon-left font-weight-semibold">#}
+{#                                    <i class="ya ya-user-add"></i>#}
+{#                                    Add friend#}
+{#                                </button>#}
+{#                            </form>#}
+{#                        </div>#}
                     {% endif %}
                 </div>
             </div>

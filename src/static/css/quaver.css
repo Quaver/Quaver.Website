@@ -1439,6 +1439,17 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #FFFFFF;
 }
 
+/* Friends */
+
+#friends .avatar-badge .badge {
+    box-shadow: 0 0 0 2px transparent;
+}
+
+#friends .mutual {
+    background: #db88c2;
+    color: #FFFFFF;
+}
+
 /* Mobile optimizations */
 
 @media (max-width: 768px) {

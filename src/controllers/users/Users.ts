@@ -33,6 +33,12 @@ export default class Users {
             const mapSetsUnRanked = await Users.GetUploadedMapSetsUnRanked(req, res, user.info.id, 0);
             const playlists = await Users.GetPlaylists(req, res, user);
 
+            let friend: any = null;
+
+            if (req.user) {
+                friend = await Users.IsFriend(req, res, user);
+            }
+
             const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
                 allowedTags: ['span', 'a', 'strong', 'img', 'center',
                              'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
@@ -55,12 +61,25 @@ export default class Users {
                 mapSetsUnRanked,
                 playlists,
                 GameMode,
-                RankedStatus
+                RankedStatus,
+                friend
             });
         } catch (err) {
             Logger.Error(err);
             Responses.ReturnUserNotFound(req, res);
         }
+    }
+
+    /**
+     * Renders the page that displays the user's best scores
+     * @param req
+     * @param res
+     * @param user
+     */
+    private static async IsFriend(req: any, res: any, user: any): Promise<any> {
+        const apiRelationships = await API.GET(req, `v1/relationships/check/${user.info.id}`);
+
+        return apiRelationships.user;
     }
 
     /**

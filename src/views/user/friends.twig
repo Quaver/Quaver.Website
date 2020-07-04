@@ -22,6 +22,11 @@
             <div class="widget widget-secondary">
                 <div class="widget-body">
                     <div class="row">
+                        {% if not friends %}
+                            <div class="col-md-12">
+                                No Friends
+                            </div>
+                        {% endif %}
                         {% for friend in friends %}
                             <div class="col-md-4 mb-3">
                                 <div class="avatar-card d-flex justify-content-between {{ (friend.online ? 'friend-online' : 'friend-offline') }}">

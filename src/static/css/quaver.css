@@ -1271,6 +1271,19 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #45D6F5;
 }
 
+/* Settings */
+
+#playlists .text-muted {
+    color: #bab5ab !important;
+}
+
+#playlists .text-muted strong {
+    color: #CACACA;
+}
+
+#playlists .custom-file-label::after {
+    color: #45D6F5;
+}
 
 /* Footer */
 

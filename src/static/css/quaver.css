@@ -1162,6 +1162,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     }
 }
 
+@media (max-width: 424px) {
+    #homepage a {
+        display: block;
+        margin-left: 0 !important;
+        margin-top: 10px;
+    }
+}
+
 /* Maps search */
 
 #filters label {

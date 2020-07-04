@@ -1162,6 +1162,18 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     }
 }
 
+@media (max-width: 425px) {
+    .team-card {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .team-card .team-image img {
+        max-width: 150px;
+        max-height: 150px;
+    }
+}
+
 @media (max-width: 424px) {
     #homepage a {
         display: block;

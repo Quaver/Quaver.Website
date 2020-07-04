@@ -1285,6 +1285,20 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #45D6F5;
 }
 
+#bbcode-group {
+    margin-bottom: 10px;
+}
+
+#bbcode-group .btn-bb {
+    color: #fff;
+    background-color: #1A1A1A;
+    border-color: #1A1A1A;
+}
+
+#bbcode-group .btn.focus, .btn:focus {
+    box-shadow: none;
+}
+
 /* Footer */
 
 .site-footer {

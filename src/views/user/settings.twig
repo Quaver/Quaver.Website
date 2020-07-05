@@ -40,6 +40,24 @@
                                 </div>
 
                                 <div class="btn-group" role="group" id="bbcode-group">
+                                    <button type="button" class="btn btn-bb" data-code="[h1][/h1]">
+                                        H1
+                                    </button>
+                                    <button type="button" class="btn btn-bb" data-code="[h2][/h2]">
+                                        H2
+                                    </button>
+                                    <button type="button" class="btn btn-bb" data-code="[h3][/h3]">
+                                        H3
+                                    </button>
+                                    <button type="button" class="btn btn-bb" data-code="[h4][/h4]">
+                                        H4
+                                    </button>
+                                    <button type="button" class="btn btn-bb" data-code="[h5][/h5]">
+                                        H5
+                                    </button>
+                                </div>
+
+                                <div class="btn-group" role="group" id="bbcode-group">
                                     <button type="button" class="btn btn-bb" data-code="[center][/center]">
                                         <i class="fas fa-align-center"></i>
                                     </button>
@@ -70,7 +88,6 @@
                                 </div>
 
                                 <textarea class="form-control" rows="10" name="aboutme">{{ bio }}</textarea>
-                                <small class="form-text text-muted">Disabled</small>
                             </div>
                             <button type="submit" name="submitAboutme" class="btn btn-primary">Save</button>
                         </form>
@@ -144,9 +161,23 @@
         $(document).on('click', '.btn-bb', function () {
             const code = $(this).data('code');
             const textarea = $('[name=aboutme]');
+
             if (code)
-                textarea.val(textarea.val() + code);
+                insertAtCursor(textarea[0], code);
         });
+
+        function insertAtCursor(field, code) {
+            if (document.selection) {
+                field.focus();
+                const sel = document.selection.createRange();
+                sel.text = code;
+            } else if (field.selectionStart || field.selectionStart === '0') {
+                field.value = field.value.substring(0, field.selectionStart)
+                    + code + field.value.substring(field.selectionEnd, field.value.length);
+            } else {
+                field.value += code;
+            }
+        }
 
     </script>
 {% endblock %}

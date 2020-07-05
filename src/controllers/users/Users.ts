@@ -39,7 +39,7 @@ export default class Users {
                 friend = await Users.IsFriend(req, res, user);
             }
 
-            const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
+            let bio = bbobHTML(sanitizeHtml(user.info.userpage, {
                 allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
                     'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
                 allowedAttributes: {
@@ -51,7 +51,10 @@ export default class Users {
             }), presetHTML5(), {
                 onlyAllowTags: ['span', 'a', 'strong', 'b', 'img', 'center', 'p', 'i', 'u',
                     'hr', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5']
-            }).split(/\r\n|\n|\r/);
+            });
+
+            if(bio !== "")
+                bio = bio.split(/\r\n|\n|\r/);
 
             Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
                 user,

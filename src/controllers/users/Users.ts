@@ -39,18 +39,20 @@ export default class Users {
                 friend = await Users.IsFriend(req, res, user);
             }
 
-            const bio = null;
+            // const bio = null;
 
-            // const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
-            //     allowedTags: ['span', 'a', 'strong', 'img', 'center',
-            //                  'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
-            //     allowedAttributes: {
-            //         'a': ['href'],
-            //         'span': ['style'],
-            //         'img': ['src']
-            //     },
-            //     disallowedTagsMode: 'escape'
-            // }), presetHTML5()).split(/\r\n|\n|\r/);
+            const bio = bbobHTML(sanitizeHtml(user.info.userpage, {
+                allowedTags: ['span', 'a', 'strong', 'img', 'center',
+                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
+                allowedAttributes: {
+                    'a': ['href'],
+                    'span': ['style'],
+                    'img': ['src']
+                },
+                disallowedTagsMode: 'escape'
+            }), presetHTML5(), {
+                onlyAllowTags: ['span', 'a', 'strong', 'b', 'img', 'center', 'p', 'i', 'u', 'hr', 'ul', 'ol', 'li']
+            }).split(/\r\n|\n|\r/);
 
             Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
                 user,
@@ -236,8 +238,8 @@ export default class Users {
 
             let maps = null;
 
-            if(status == RankedStatus.Ranked)
-                 maps = await Users.GetUploadedMapSetsRanked(req, res, userId, page);
+            if (status == RankedStatus.Ranked)
+                maps = await Users.GetUploadedMapSetsRanked(req, res, userId, page);
             else
                 maps = await Users.GetUploadedMapSetsUnRanked(req, res, userId, page);
 

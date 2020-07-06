@@ -15,9 +15,16 @@
                 User is banned!
             </div>
         {% endif %}
-        {% if user.info.userpage and IsDonator(user.info.usergroups) %}
+        {% if bio and IsDonator(user.info.usergroups) %}
             <div class="widget">
-                <div class="widget-header">About Me</div>
+                <div class="widget-header d-flex justify-content-between">
+                    About Me
+                    {% if currentUser.id == user.info.id %}
+                        <a href="{{ baseUrl('/settings/donator') }}">
+                            <i class="far fa-edit"></i>
+                        </a>
+                    {% endif %}
+                </div>
             </div>
             <div class="widget widget-secondary">
                 <div class="widget-body" id="userpage">

@@ -39,7 +39,12 @@ export default class Users {
                 friend = await Users.IsFriend(req, res, user);
             }
 
-            let bio = bbobHTML(sanitizeHtml(user.info.userpage, {
+            let bio: any = sanitizeHtml(
+                bbobHTML(user.info.userpage, presetHTML5(), {
+                    onlyAllowTags: ['span', 'a', 'strong', 'b', 'img', 'center', 'p', 'i', 'u',
+                   'hr', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5']
+                }),
+                {
                 allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
                     'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
                 allowedAttributes: {
@@ -48,9 +53,6 @@ export default class Users {
                     'img': ['src']
                 },
                 disallowedTagsMode: 'escape'
-            }), presetHTML5(), {
-                onlyAllowTags: ['span', 'a', 'strong', 'b', 'img', 'center', 'p', 'i', 'u',
-                    'hr', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5']
             });
 
             if(bio !== "")

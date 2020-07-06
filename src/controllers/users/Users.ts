@@ -42,7 +42,7 @@ export default class Users {
             let bio: any = sanitizeHtml(
                 bbobHTML(user.info.userpage, presetHTML5(), {
                     onlyAllowTags: ['span', 'a', 'strong', 'b', 'img', 'center', 'p', 'i', 'u',
-                   'hr', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5']
+                   'hr', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'url']
                 }),
                 {
                 allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',

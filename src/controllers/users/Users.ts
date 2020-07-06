@@ -39,7 +39,10 @@ export default class Users {
                 friend = await Users.IsFriend(req, res, user);
             }
 
-            let bio: any = sanitizeHtml(
+            let bio: any = null;
+
+            if(user.info.userpage) {
+                bio = sanitizeHtml(
                 bbobHTML(user.info.userpage, presetHTML5(), {
                     onlyAllowTags: ['span', 'a', 'strong', 'b', 'img', 'center', 'p', 'i', 'u',
                    'hr', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'url']
@@ -55,8 +58,9 @@ export default class Users {
                 disallowedTagsMode: 'escape'
             });
 
-            if(bio !== "")
-                bio = bio.split(/\r\n|\n|\r/);
+                if(bio !== "")
+                    bio = bio.split(/\r\n|\n|\r/);
+            }
 
             Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
                 user,

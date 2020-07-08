@@ -1521,6 +1521,46 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #FFFFFF;
 }
 
+.friend-badge {
+}
+
+.friend-badge .mutual {
+    background: #db88c2;
+    color: #FFFFFF;
+    transition: .2s ease;
+    width: 100px;
+}
+
+.friend-badge .friend {
+    color: #fff;
+    background-color: #2575dc;
+    border-color: #2575dc;
+    width: 100px;
+    transition: .2s ease;
+}
+
+.friend-badge .mutual:hover,
+.friend-badge .friend:hover{
+    background: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.friend-badge .mutual span:last-child,
+.friend-badge .friend span:last-child{
+    display: none;
+}
+
+.friend-badge .mutual:hover span:last-child,
+.friend-badge .friend:hover span:last-child{
+    display: block;
+}
+
+.friend-badge .mutual:hover span:first-child,
+.friend-badge .friend:hover span:first-child{
+    display: none;
+}
+
 /* Mobile optimizations */
 
 @media (max-width: 768px) {

@@ -16,7 +16,7 @@
                         <a href="{{ baseUrl('/leaderboard?country='~user.info.country|lower) }}">
                             <img src="{{ assets('/img/flags/'~user.info.country~'.png') }}" alt="{{ user.info.country }}">
                         </a>
-                        {{ user.info.username }}
+                        <a href="https://steamcommunity.com/profiles/{{ user.info.steam_id }}/" class="text-white">{{ user.info.username }}</a>
                         <div class="profile-groups">
                             <small>
                                 {% if HasGroup(user.info, UserGroups.Developer) %}
@@ -153,7 +153,7 @@
     </div>
     <section class="py-lg-4">
         <div class="container">
-            {% include 'user/user-profile-info.twig' %}{{ dump(friend) }}
+            {% include 'user/user-profile-info.twig' %}
             {#            {% include 'user/user-profile-graphs.twig' %}#}
             {% include 'user/user-profile-scores.twig' %}
             {% include 'user/user-profile-mapsets.twig' %}

@@ -473,7 +473,13 @@ export default class Maps {
             if (response.status != 200)
                 return [];
 
-            return response.comments;
+            let comments = response.comments;
+
+            for(let comment in comments) {
+                comments[comment].comment = comments[comment].comment.split(/\r\n|\n|\r/);
+            }
+
+            return comments;
         } catch (err) {
             Logger.Error(err);
             return [];

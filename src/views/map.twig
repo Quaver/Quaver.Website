@@ -20,7 +20,7 @@
                 <div class="card-body table-responsive" style="padding: 0;">
                     <table class="table align-items-center">
                         <thead>
-                        <tr style="font-size: 14px;">
+                        <tr style="font-size: 12px;">
                             <th scope="col">#</th>
                             <th scope="col">Grade</th>
                             <th scope="col">Player</th>
@@ -132,7 +132,15 @@
                                         </div>
                                         <div class="media-meta" data-toggle="tooltip" title="{{ formatDate(comment.timestamp) }}">{{ formatDateDistance(comment.timestamp) }}</div>
                                     </div>
-                                    <p>{{ comment.comment }}</p>
+                                    <p>
+                                        {% for text in comment.comment %}
+                                            {% if text == "" %}
+                                                <span style="display: block; margin-top: 10px;"></span>
+                                            {% else %}
+                                                {{ text }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </p>
                                 </div>
                             </div>
                         {% endfor %}

@@ -16,7 +16,7 @@
                         <a href="{{ baseUrl('/leaderboard?country='~user.info.country|lower) }}">
                             <img src="{{ assets('/img/flags/'~user.info.country~'.png') }}" alt="{{ user.info.country }}">
                         </a>
-                        {{ user.info.username }}
+                        <a href="https://steamcommunity.com/profiles/{{ user.info.steam_id }}/" class="text-white">{{ user.info.username }}</a>
                         <div class="profile-groups">
                             <small>
                                 {% if HasGroup(user.info, UserGroups.Developer) %}
@@ -62,15 +62,32 @@
                         </div>
                     </h2>
                     {% if currentUser and currentUser.id != user.info.id %}
-{#                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0">#}
-{#                            <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/add') }}">#}
-{#                                <input type="hidden" name="id" value="{{ user.info.id }}">#}
-{#                                <button class="btn btn-primary btn-sm btn-icon-left font-weight-semibold">#}
-{#                                    <i class="ya ya-user-add"></i>#}
-{#                                    Add friend#}
-{#                                </button>#}
-{#                            </form>#}
-{#                        </div>#}
+                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0 friend-badge">
+                            {% if friend.relationship != 1 %}
+                                <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/add') }}">
+                                    <input type="hidden" name="id" value="{{ user.info.id }}">
+                                    <button class="btn btn-primary btn-sm btn-icon-left font-weight-semibold">
+                                        <i class="ya ya-user-add"></i>
+                                        Add friend
+                                    </button>
+                                </form>
+                            {% else %}
+                                <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/remove') }}">
+                                    <input type="hidden" name="id" value="{{ user.info.id }}">
+                                    {% if friend.is_mutual %}
+                                        <button class="btn mutual btn-sm btn-icon-left font-weight-semibold">
+                                            <span><i class="fas fa-heart fa-fw"></i> Mutual</span>
+                                            <span><i class="fas fa-user-times"></i> Remove</span>
+                                        </button>
+                                    {% else %}
+                                        <button class="btn friend btn-sm btn-icon-left font-weight-semibold">
+                                            <span><i class="far fa-user"></i> Friend</span>
+                                            <span><i class="fas fa-user-times"></i> Remove</span>
+                                        </button>
+                                    {% endif %}
+                                </form>
+                            {% endif %}
+                        </div>
                     {% endif %}
                 </div>
             </div>

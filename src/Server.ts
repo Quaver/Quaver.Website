@@ -16,7 +16,11 @@ const redis = require('redis');
 const fileUpload = require('express-fileupload');
 const flash = require('connect-flash')
 
-const client = redis.createClient();
+const client = redis.createClient({
+    password: config.redis.password,
+    port: config.redis.port,
+    host: config.redis.host
+});
 
 export default class Server {
     /**

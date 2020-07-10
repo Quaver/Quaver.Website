@@ -9,9 +9,34 @@
         <div class="container position-relative">
             <div class="row">
                 <div class="col d-flex flex-column flex-lg-row align-items-center position-absolute bottom left pl-lg-8">
-                    <a class="avatar-thumbnail avatar-lg d-lg-none bg-dark mb-3 mb-lg-0 border-0" href="#">
+                    <div class="avatar-thumbnail avatar-lg d-lg-none bg-dark mb-3 mb-lg-0 border-0 avatar-badge">
                         <img src="{{ user.info.avatar_url }}" alt="">
-                    </a>
+                        {% if currentUser and currentUser.id != user.info.id %}
+                            <div class="ml-lg-auto mt-2 mb-3 my-lg-0" id="friends">
+                                {% if friend.relationship != 1 %}
+                                    <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/add') }}">
+                                        <input type="hidden" name="id" value="{{ user.info.id }}">
+                                        <a class="badge badge-primary text-white" onclick="this.closest('form').submit();return false;">
+                                            <i class="ya ya-user-add"></i>
+                                        </a>
+                                    </form>
+                                {% else %}
+                                    <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/remove') }}">
+                                        <input type="hidden" name="id" value="{{ user.info.id }}">
+                                        {% if friend.is_mutual %}
+                                            <a class="badge mutual text-white" onclick="this.closest('form').submit();return false;">
+                                                <i class="fas fa-heart"></i>
+                                            </a>
+                                        {% else %}
+                                            <a class="badge badge-primary text-white" onclick="this.closest('form').submit();return false;">
+                                                <i class="far fa-user"></i>
+                                            </a>
+                                        {% endif %}
+                                    </form>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
                     <h2 class="h4 text-white mb-0 ml-2 pl-lg-8">
                         <a href="{{ baseUrl('/leaderboard?country='~user.info.country|lower) }}">
                             <img src="{{ assets('/img/flags/'~user.info.country~'.png') }}" alt="{{ user.info.country }}">
@@ -62,7 +87,7 @@
                         </div>
                     </h2>
                     {% if currentUser and currentUser.id != user.info.id %}
-                        <div class="ml-lg-auto mt-4 mb-3 my-lg-0 friend-badge">
+                        <div class="ml-lg-auto mt-2 mb-3 my-lg-0 friend-badge">
                             {% if friend.relationship != 1 %}
                                 <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/add') }}">
                                     <input type="hidden" name="id" value="{{ user.info.id }}">
@@ -106,21 +131,24 @@
                                 <img src="{{ user.info.avatar_url }}" alt="" width="50" height="50">
                                 <div class="text-white">
                                     <strong>{{ user.info.username }}</strong>
-                                    <span class="d-block">
-                                        {% if HasGroup(user.info, UserGroups.Developer) %}
-                                            Developer
-                                        {% elseif HasGroup(user.info, UserGroups.Admin) %}
-                                            Administrator
-                                        {% elseif HasGroup(user.info, UserGroups.Moderator) %}
-                                            Moderator
-                                        {% elseif HasGroup(user.info, UserGroups.RankingSupervisor) %}
-                                            Ranking Supervisor
-                                        {% elseif HasGroup(user.info, UserGroups.Contributor) %}
-                                            Contributor
-                                        {% elseif HasGroup(user.info, UserGroups.Donator) %}
-                                            Donator
-                                        {% endif %}
-                                    </span>
+
+                                    <div class="profile-groups">
+                                        <small>
+                                            {% if HasGroup(user.info, UserGroups.Developer) %}
+                                                <span class="badge badge-custom-developer"><i class="fa fa-code fa-1"></i> Developer</span>
+                                            {% elseif HasGroup(user.info, UserGroups.Admin) %}
+                                                <span class="badge badge-custom-admin"><i class="fa fa-gavel fa-1"></i> Administrator</span>
+                                            {% elseif HasGroup(user.info, UserGroups.Moderator) %}
+                                                <span class="badge badge-custom-moderator"><i class="fa fa-ban fa-1"></i> Moderator</span>
+                                            {% elseif HasGroup(user.info, UserGroups.RankingSupervisor) %}
+                                                <span class="badge badge-custom-ranking-supervisor"><i class="fa fa-gavel fa-1"></i> Ranking Supervisor</span>
+                                            {% elseif HasGroup(user.info, UserGroups.Contributor) %}
+                                                <span class="badge badge-custom-contributor"><i class="fa fa-wrench fa-1"></i> Contributor</span>
+                                            {% elseif HasGroup(user.info, UserGroups.Donator) %}
+                                                <span class="badge badge-custom-donator"><i class="fa fa-heart fa-1"></i> Donator</span>
+                                            {% endif %}
+                                        </small>
+                                    </div>
                                 </div>
                             </a>
                         </div>

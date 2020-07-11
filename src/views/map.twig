@@ -77,12 +77,12 @@
                     <div>
                         <span class="mapset-buttons btn-info">
                             {% if map.ranked_status == 2 %}
-                                1/1
+                                2/2
                             {% else %}
                                 {% if mapset.ranking_queue_vote_count %}
-                                    {{ mapset.ranking_queue_vote_count }}/1
+                                    {{ mapset.ranking_queue_vote_count }}/2
                                 {% else %}
-                                    0/0
+                                    0/2
                                 {% endif %}
                             {% endif %}
                             Supervisor Votes

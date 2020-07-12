@@ -20,7 +20,7 @@ export default class Home {
                 recentlyRanked: recentlyRanked,
                 stats: stats.stats,
                 blog: blog.data,
-                description: 'The ultimate community-driven, and open-source competitive rhythm game coming to Steam on July 10th, 2020.'
+                description: 'The ultimate community-driven, and open-source competitive rhythm game available on Steam Early Access.'
             });
         } catch (err) {
             Logger.Error(err);

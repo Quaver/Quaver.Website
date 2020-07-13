@@ -1,0 +1,273 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-8 px-4 px-lg-0" style="background: url({{ assets("/img/donator.jpg") }}) center center;  background-size: cover;">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-12 mx-auto">
+                    <h1 class="display-2 text-white font-weight-bold">
+                        Support the Game
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-lg-5" id="donator">
+        <div class="container">
+
+            <div class="text-center mb-5">
+                <h4 class="text-white">
+                    {% if IsDonator(currentUser.usergroups) %}
+                        Your donator perks will expire on {{ formatDate(orders.donatorEndTime, true) }}.
+                    {% else %}
+                        You currently do not have an active donator subscription.
+                    {% endif %}
+                    <br>
+                    You have donated a total of
+                    <strong>${{ orders.total }}</strong>
+                    over
+                    <strong>{{ orders.orders }}</strong>
+                    purchases,
+                    <strong>{{ orders.gifts }}</strong>
+                    of which were gifts.
+                </h4>
+            </div>
+            {% include "layouts/alert.twig" %}
+            <div class="card">
+                <div class="card-body">
+                    If you would like to support the development of Quaver, you can do so by donating. By purchasing a donator subscription, you get a few
+                    extra perks that are meant to make the game a bit more enjoyable.
+                    <br>
+                    <br>
+                    Reasons to donate:
+                    <ul class="mb-0 ">
+                        <li>
+                            <strong>Support The Developers</strong>
+                            - The developers of Quaver create this project out of pure love and passion for the game.
+                        </li>
+                        <li>
+                            <strong>Help Paying For Server Costs</strong>
+                            - Although Quaver is a free game, it costs quite a bit to keep it up and running.
+                            The cost to run increases as more players join the game.
+                        </li>
+                        <li>
+                            <strong>No Ads</strong>
+                            - Quaver does not have ads anywhere on our website or in-game and never will.
+                        </li>
+                        <li>
+                            <strong>Tournament Prize Pools</strong>
+                            - We'd love to be able to give back to the players by providing prize pool money for tournaments.
+                        </li>
+                        <li>
+                            <strong>Music Artist Licenses</strong>
+                            - To provide more official & licensed content such as bundled tracks and contest music,
+                            most music artists require license fees.
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="perks">
+                Features
+            </div>
+
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="row d-flex align-items-center m-0">
+                        <div class="col-md-6 information">
+                            <div>
+                                <div>
+                                    <h2>
+                                        <strong>Leaderboards On Every Map</strong>
+                                    </h2>
+                                    <br>
+                                </div>
+                                <div>
+                                    View and compete on leaderboards for any map even it is unranked or unsubmitted.
+                                    <br>
+                                    They do not count towards global rankings however.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding: 0;">
+                            <img src="{{ assets('/img/donate/1.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="row d-flex align-items-center m-0">
+                        <div class="col-md-6 p-0">
+                            <img src="{{ assets('/img/donate/2.jpg') }}" alt="Profile Customizables" width="100%" height="100%" style="border-radius: 6px;">
+                        </div>
+                        <div class="col-md-6 information">
+                            <div>
+                                <div>
+                                    <h2>
+                                        <strong>Profile Customizables</strong>
+                                    </h2>
+                                    <br>
+                                </div>
+                                <div>
+                                    You're able to customize your profile banner and add an "about me" section.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="row d-flex align-items-center m-0">
+                        <div class="col-md-6 information">
+                            <div>
+                                <div>
+                                    <h2>
+                                        <strong>Country & Friend Rankings</strong>
+                                    </h2>
+                                    <br>
+                                </div>
+                                <div>
+                                    View in-game leaderboards specific to your country and friends.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding: 0;">
+                            <img src="{{ assets('/img/donate/3.jpg') }}" alt="Country & Friend Rankings" width="100%" height="100%" style="border-radius: 6px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body pt-0 pb-0">
+                    <div class="row">
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>In-game Chat Badge</strong>
+                            </h5>
+                            <p class="mt-4">
+                                It also comes with an exclusive profile badge and in-game chat color.
+                            </p>
+                        </div>
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Spectating Multiplayer Matches</strong>
+                            </h5>
+                            <p class="mt-4">
+                                You can right click a multiplayer match to spectate it.
+                            </p>
+                        </div>
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Username Changes</strong>
+                            </h5>
+                            <p class="mt-4">
+                                Don't like your current name? You get the ability to change your username once a month.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row row-border">
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Real-time Scoreboards</strong>
+                            </h5>
+                            <p class="mt-4">
+                                You can play with replays of other player's scores in real-time.
+                            </p>
+                        </div>
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Increased Upload Slots</strong>
+                            </h5>
+                            <p class="mt-4">
+                                You can upload 20 unranked mapsets per month instead of 10.
+                            </p>
+                        </div>
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Multiplayer Map Uploads</strong>
+                            </h5>
+                            <p class="mt-4">
+                                Have an unsubmitted map and want to share with others in multiplayer? You can do so in just a few clicks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if currentUser %}
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="donator" id="donator_card">
+                                {% include "./donator/card.twig" with {player: currentUser, status: playerStatus} %}
+                            </div>
+                            <div class="text-center mx-auto donator-buttons" style="margin-top: 50px;">
+                                <div class="btn-group btn-group-toggle mt-4 mb-4" data-toggle="buttons">
+                                    <label class="btn btn-month1 active">
+                                        <input type="radio" name="months" id="1month" autocomplete="off" value="1" checked>
+                                        1 Month
+                                        <small class="d-block">$4.99</small>
+                                    </label>
+                                    <label class="btn btn-month3">
+                                        <input type="radio" name="months" id="3months" autocomplete="off" value="3">
+                                        3 Months
+                                        <small class="d-block">$12.99</small>
+                                    </label>
+                                    <label class="btn btn-month6">
+                                        <input type="radio" name="months" id="6months" autocomplete="off" value="6">
+                                        6 Months
+                                        <small class="d-block">$26.99</small>
+                                    </label>
+                                    <label class="btn btn-month12">
+                                        <input type="radio" name="months" id="12months" autocomplete="off" value="12">
+                                        12 Months
+                                        <small class="d-block">$49.99</small>
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mt-4 w-25">Buy</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block page_scripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            let userSearchTimer = null;
+            $(document).on('keyup', '.donator_search', function (e) {
+                clearTimeout(userSearchTimer);
+                let form = new FormData();
+                const username = $(this).val();
+                form.append('username', username);
+
+                userSearchTimer = setTimeout(function () {
+                    try {
+                        $.ajax({
+                            type: 'POST',
+                            url: baseUrl() + `/donate/user`,
+                            data: {
+                                username: username
+                            },
+                            success: function (response) {
+                                $('#donator_card').html(response);
+                            }
+                        });
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }, 500);
+            });
+        });
+    </script>
+{% endblock %}

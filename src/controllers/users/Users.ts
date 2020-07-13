@@ -41,24 +41,24 @@ export default class Users {
 
             let bio: any = null;
 
-            if(user.info.userpage) {
+            if (user.info.userpage) {
                 bio = sanitizeHtml(
-                bbobHTML(user.info.userpage, presetHTML5(), {
-                    onlyAllowTags: ['span', 'a', 'strong', 'b', 'img', 'center', 'p', 'i', 'u',
-                   'hr', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'url']
-                }),
-                {
-                allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
-                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
-                allowedAttributes: {
-                    'a': ['href'],
-                    'span': ['style'],
-                    'img': ['src']
-                },
-                disallowedTagsMode: 'escape'
-            });
+                    bbobHTML(user.info.userpage, presetHTML5(), {
+                        onlyAllowTags: ['span', 'a', 'strong', 'b', 'img', 'center', 'p', 'i', 'u',
+                            'hr', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'url']
+                    }),
+                    {
+                        allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
+                            'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
+                        allowedAttributes: {
+                            'a': ['href'],
+                            'span': ['style'],
+                            'img': ['src']
+                        },
+                        disallowedTagsMode: 'escape'
+                    });
 
-                if(bio !== "")
+                if (bio !== "")
                     bio = bio.split(/\r\n|\n|\r/);
             }
 

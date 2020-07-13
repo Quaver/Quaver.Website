@@ -1,0 +1,42 @@
+<div style="background: url({{ assets("/img/donator_card.jpg") }}) center center; background-size: cover;" class="donator-card"></div>
+<div class="donator-border">
+    <div class="d-flex">
+        <div class="donator-avatar">
+            <img class="avatar d-inline-block" src="{{ player.avatar_url }}" alt="">
+        </div>
+        <div class="ml-3 donator-user">
+            {% if player %}
+                <a href="{{ baseUrl('/leaderboard?country='~player.country|lower) }}">
+                    <img src="{{ assets('/img/flags/'~player.country~'.png') }}" alt="{{ player.country }}">
+                </a>
+                {{ player.username }}
+                <div class="status">
+                    {% if status.is_online %}
+                        <span class="circle online"></span>Online
+                    {% else %}
+                        <span class="circle offline"></span>Offline
+                    {% endif %}
+                </div>
+            {% else %}
+                User Not Found
+            {% endif %}
+        </div>
+    </div>
+</div>
+<input type="hidden" name="gift" value="{{ player.id }}">
+<div class="donator-gift">
+    <div class="input-group w-100">
+        <input type="text" name="donator_search" placeholder="Gift to Player" class="form-control donator_search">
+        <div class="input-group-prepend">
+            {% if player %}
+                {% if IsDonator(player.usergroups) %}
+                    <img src="{{ assets('/img/donator-color.png') }}" height="38px" data-toggle="tooltip" title="This user is Donator">
+                {% else %}
+                    <img src="{{ assets('/img/donator-gray.png') }}" height="38px" data-toggle="tooltip" title="This user is not Donator">
+                {% endif %}
+            {% else %}
+                <img src="{{ assets('/img/donator-gray.png') }}" height="38px">
+            {% endif %}
+        </div>
+    </div>
+</div>

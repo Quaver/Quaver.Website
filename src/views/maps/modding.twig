@@ -101,8 +101,11 @@
                                                         <span class="">{{ mod.mod.map_timestamp_readable }}</span>
                                                     </a>
                                                 </div>
+                                                <br>
                                             {% endif %}
-                                            <p>{{ mod.mod.comment }}</p>
+                                           <div style="overflow-wrap: anywhere;">
+                                               {{ mod.mod.comment }}
+                                           </div>
                                             {% if mod.mod.replies %}
                                                 <hr>{% endif %}
                                             {% for comment in mod.mod.replies %}

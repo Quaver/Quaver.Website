@@ -1526,6 +1526,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 /* Friends */
 
+#friends .avatar-card {
+    border: none;
+    border-left: 3px solid #2575dc;
+}
+
 #friends .avatar-badge .badge {
     box-shadow: 0 0 0 2px transparent;
 }

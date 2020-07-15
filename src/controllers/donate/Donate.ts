@@ -71,6 +71,10 @@ export default class Donate {
 
     public static async CardGET(req: any, res: any): Promise<void> {
         try {
+            if(req.body.username === "") {
+                req.body.username = req.user.username;
+            }
+
             const player = await API.GET(req, `v1/users?name=${req.body.username}`);
 
             let user: any = null;

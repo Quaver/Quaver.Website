@@ -15,27 +15,29 @@
     <section class="py-lg-5" id="donator">
         <div class="container">
 
-            <div class="text-center mb-5">
-                <h5 class="text-white">
-                    {% if IsDonator(currentUser.usergroups) %}
-                        Your donator perks will expire on
-                        <strong>{{ formatDate(orders.donatorEndTime, true) }}</strong>.
-                    {% else %}
-                        You currently do not have an active donator subscription.
-                    {% endif %}
-                    {% if orders.total %}
-                        <br>
-                        <br>
-                        You have donated a total of
-                        <strong>${{ orders.total|number_format(2) }}</strong>
-                        over
-                        <strong>{{ orders.orders }}</strong>
-                        purchases -
-                        <strong>{{ orders.gifts }}</strong>
-                        of which were gifts.
-                    {% endif %}
-                </h5>
-            </div>
+            {% if currentUser %}
+                <div class="text-center mb-5">
+                    <h5 class="text-white">
+                        {% if IsDonator(currentUser.usergroups) %}
+                            Your donator perks will expire on
+                            <strong>{{ formatDate(orders.donatorEndTime, true) }}</strong>.
+                        {% else %}
+                            You currently do not have an active donator subscription.
+                        {% endif %}
+                        {% if orders.total %}
+                            <br>
+                            <br>
+                            You have donated a total of
+                            <strong>${{ orders.total|number_format(2) }}</strong>
+                            over
+                            <strong>{{ orders.orders }}</strong>
+                            purchases -
+                            <strong>{{ orders.gifts }}</strong>
+                            of which were gifts.
+                        {% endif %}
+                    </h5>
+                </div>
+            {% endif %}
             {% include "layouts/alert.twig" %}
             <div class="card">
                 <div class="card-body">
@@ -317,6 +319,15 @@
                                 <button type="submit" class="btn btn-primary mt-4 w-25" id="buy">Donate</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4>Please login to donate</h4>
+                        <a class="nav-link" href="{{ baseUrl('/login') }}">
+                            <img src="{{ assets('/img/steam.png') }}" alt="Sign in through Steam">
+                        </a>
                     </div>
                 </div>
             {% endif %}

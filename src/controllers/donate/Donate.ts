@@ -8,15 +8,29 @@ const config = require("../../config/config.json");
 export default class Donate {
     public static async GET(req: any, res: any): Promise<void> {
         try {
-            const userStatus = await API.GET(req, `v1/server/users/online/${req.user.id}`);
-
-            const token = await API.GetToken(req);
+            let userStatus = null;
+            let orders: any = null;
             let headers: any = {};
 
-            if (token)
-                headers["Authorization"] = `Bearer ${token}`;
+            if (req.user) {
+                const token = await API.GetToken(req);
 
-            if (req.query.order) {
+                if (token)
+                    headers["Authorization"] = `Bearer ${token}`;
+
+                userStatus = await API.GET(req, `v1/server/users/online/${req.user.id}`);
+
+                orders = await new Promise(resolve => {
+                    request.post(`${config.apiBaseUrl}/v1/donations/orders`, {
+                        headers: headers,
+                        json: true
+                    }, function (error, response, body) {
+                        resolve(body);
+                    });
+                }).then(body => body);
+            }
+
+            if (req.user && req.query.order) {
                 try {
                     const order = req.query.order.split('-');
 
@@ -42,15 +56,6 @@ export default class Donate {
                 }
             }
 
-            let orders: any = await new Promise(resolve => {
-                request.post(`${config.apiBaseUrl}/v1/donations/orders`, {
-                    headers: headers,
-                    json: true
-                }, function (error, response, body) {
-                    resolve(body);
-                });
-            }).then(body => body);
-
             Responses.Send(req, res, "donate", `Donate | Quaver`, {
                 playerStatus: userStatus,
                 orders: orders
@@ -66,7 +71,7 @@ export default class Donate {
             const player = await API.GET(req, `v1/users?name=${req.body.username}`);
 
             let user: any = null;
-            let playerStatus:any = null;
+            let playerStatus: any = null;
 
             if (player.users.length) {
                 const temp = player.users[0];

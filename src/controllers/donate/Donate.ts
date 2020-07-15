@@ -2,6 +2,7 @@ import Responses from "../../utils/Responses";
 import Logger from "../../logging/Logger";
 import API from "../../api/API";
 
+const requestIp = require('request-ip');
 const request = require("request");
 const config = require("../../config/config.json");
 
@@ -115,7 +116,7 @@ export default class Donate {
                         form: {
                             months: req.body.months,
                             gift: req.body.gift,
-                            ip: req.clientIp
+                            ip: requestIp.getClientIp(req)
                         },
                         headers: headers,
                         json: true

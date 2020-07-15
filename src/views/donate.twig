@@ -16,23 +16,23 @@
         <div class="container">
 
             <div class="text-center mb-5">
-                <h4 class="text-white">
+                <h5 class="text-white">
                     {% if IsDonator(currentUser.usergroups) %}
-                        Your donator perks will expire on {{ formatDate(orders.donatorEndTime, true) }}.
+                        Your donator perks will expire on <strong>{{ formatDate(orders.donatorEndTime, true) }}</strong>.
                     {% else %}
                         You currently do not have an active donator subscription.
                     {% endif %}
                     {% if orders.total %}
-                        <br>
+                        <br><br>
                         You have donated a total of
                         <strong>${{ orders.total|number_format(2) }}</strong>
                         over
                         <strong>{{ orders.orders }}</strong>
-                        purchases,
+                        purchases -
                         <strong>{{ orders.gifts }}</strong>
                         of which were gifts.
                     {% endif %}
-                </h4>
+                </h5>
             </div>
             {% include "layouts/alert.twig" %}
             <div class="card">
@@ -41,28 +41,33 @@
                     extra perks that are meant to make the game a bit more enjoyable.
                     <br>
                     <br>
-                    Reasons to donate:
-                    <ul class="mb-0 ">
+                    <strong>Reasons to donate:</strong>
+                    <ul class="mt-2 mb-0">
                         <li>
                             <strong>Support The Developers</strong>
-                            - The developers of Quaver create this project out of pure love and passion for the game.
+                            <br>
+                            The developers of Quaver create this project out of pure love and passion for the game.
                         </li>
-                        <li>
+                        <li class="mt-3">
                             <strong>Help Paying For Server Costs</strong>
-                            - Although Quaver is a free game, it costs quite a bit to keep it up and running.
+                            <br>
+                            Although Quaver is a free game, it costs quite a bit to keep it up and running.
                             The cost to run increases as more players join the game.
                         </li>
-                        <li>
+                        <li class="mt-3">
                             <strong>No Ads</strong>
-                            - Quaver does not have ads anywhere on our website or in-game and never will.
+                            <br>
+                            Quaver does not have ads anywhere on our website or in-game and never will.
                         </li>
-                        <li>
+                        <li class="mt-3">
                             <strong>Tournament Prize Pools</strong>
-                            - We'd love to be able to give back to the players by providing prize pool money for tournaments.
+                            <br>
+                            We'd love to be able to give back to the players by providing prize pool money for tournaments.
                         </li>
-                        <li>
+                        <li class="mt-3">
                             <strong>Music Artist Licenses</strong>
-                            - To provide more official & licensed content such as bundled tracks and contest music,
+                            <br>
+                            To provide more official & licensed content such as bundled tracks and contest music,
                             most music artists require license fees.
                         </li>
                     </ul>

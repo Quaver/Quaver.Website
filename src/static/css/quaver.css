@@ -1735,6 +1735,25 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     display: flex;
 }
 
+#donator .accordion-item {
+    background: #242424;
+    color: #ffffff;
+}
+
+#donator .accordion-link {
+    color: #45D6F5;
+}
+
+#donator .accordion-link:focus, .accordion-link:hover {
+    color: #45D6F5;
+    background-color: #242424;
+}
+
+#donator .accordion-header {
+    background: #242424;
+    color: #ffffff;
+}
+
 /* Mobile optimizations */
 
 @media (max-width: 768px) {

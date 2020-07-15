@@ -18,12 +18,14 @@
             <div class="text-center mb-5">
                 <h5 class="text-white">
                     {% if IsDonator(currentUser.usergroups) %}
-                        Your donator perks will expire on <strong>{{ formatDate(orders.donatorEndTime, true) }}</strong>.
+                        Your donator perks will expire on
+                        <strong>{{ formatDate(orders.donatorEndTime, true) }}</strong>.
                     {% else %}
                         You currently do not have an active donator subscription.
                     {% endif %}
                     {% if orders.total %}
-                        <br><br>
+                        <br>
+                        <br>
                         You have donated a total of
                         <strong>${{ orders.total|number_format(2) }}</strong>
                         over
@@ -219,6 +221,64 @@
                                 Have an unsubmitted map and want to share with others in multiplayer? You can do so in just a few clicks.
                             </p>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="collapseFAQ">
+                <div class="accordion-header">
+                    <strong>Frequently Asked Questions</strong>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q1">
+                        When my donator time expires, do I lose access to all features?
+                    </a>
+                    <div class="collapse" id="q1" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            Yes. You will lose access to all features including profile customziables when your time expires.
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q2">
+                        Can my donator subscription be refunded after purchase?
+                    </a>
+                    <div class="collapse" id="q2" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            No. Donator subscriptions are non-refundable. Any chargebacks will result in either
+                            a revert in your perks or in the worst case, a ban.
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q3">
+                        Is VAT charged?
+                    </a>
+                    <div class="collapse" id="q3" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            Yes, Steam will add a tax upon our base subscription price.
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q4">
+                        My subscription did not automatically activate after purchasing, what do I do?
+                    </a>
+                    <div class="collapse" id="q4" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            Contact us at our support email: support@quavergame.com
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q5">
+                        Your donator prices are slightly higher compared to other rhythm games that I play. Why is that?
+                    </a>
+                    <div class="collapse" id="q5" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            Because Quaver is a Steam game, Valve takes 30% of all revenue that we make.
+                            In order to make sure that we can still keep our servers alive, our prices are a bit higher.
+                        </p>
                     </div>
                 </div>
             </div>

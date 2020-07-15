@@ -114,7 +114,8 @@ export default class Donate {
                     request.post(`${config.apiBaseUrl}/v1/donations/initiate`, {
                         form: {
                             months: req.body.months,
-                            gift: req.body.gift
+                            gift: req.body.gift,
+                            ip: req.clientIp
                         },
                         headers: headers,
                         json: true

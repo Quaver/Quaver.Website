@@ -1,0 +1,389 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-8 px-4 px-lg-0" style="background: url({{ assets("/img/donator.jpg") }}) center center;  background-size: cover;">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-12 mx-auto">
+                    <h1 class="display-2 text-white font-weight-bold">
+                        Support the Game
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-lg-5" id="donator">
+        <div class="container">
+
+            {% if currentUser %}
+                <div class="text-center mb-5">
+                    <h5 class="text-white">
+                        {% if IsDonator(currentUser.usergroups) %}
+                            Your donator perks will expire on
+                            <strong>{{ formatDate(orders.donatorEndTime, true) }}</strong>.
+                        {% else %}
+                            You currently do not have an active donator subscription.
+                        {% endif %}
+                        {% if orders.total %}
+                            <br>
+                            <br>
+                            You have donated a total of
+                            <strong>${{ orders.total|number_format(2) }}</strong>
+                            over
+                            <strong>{{ orders.orders }}</strong>
+                            purchases -
+                            <strong>{{ orders.gifts }}</strong>
+                            of which were gifts.
+                        {% endif %}
+                    </h5>
+                </div>
+            {% endif %}
+            {% include "layouts/alert.twig" %}
+            <div class="card">
+                <div class="card-body">
+                    If you would like to support the development of Quaver, you can do so by donating. By purchasing a donator subscription, you get a few
+                    extra perks that are meant to make the game a bit more enjoyable.
+                    <br>
+                    <br>
+                    <strong>Reasons to donate:</strong>
+                    <ul class="mt-2 mb-0">
+                        <li>
+                            <strong>Support The Developers</strong>
+                            <br>
+                            The developers of Quaver create this project out of pure love and passion for the game.
+                        </li>
+                        <li class="mt-3">
+                            <strong>Help Paying For Server Costs</strong>
+                            <br>
+                            Although Quaver is a free game, it costs quite a bit to keep it up and running.
+                            The cost to run increases as more players join the game.
+                        </li>
+                        <li class="mt-3">
+                            <strong>No Ads</strong>
+                            <br>
+                            Quaver does not have ads anywhere on our website or in-game and never will.
+                        </li>
+                        <li class="mt-3">
+                            <strong>Tournament Prize Pools</strong>
+                            <br>
+                            We'd love to be able to give back to the players by providing prize pool money for tournaments.
+                        </li>
+                        <li class="mt-3">
+                            <strong>Music Artist Licenses</strong>
+                            <br>
+                            To provide more official & licensed content such as bundled tracks and contest music,
+                            most music artists require license fees.
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="perks">
+                Features
+            </div>
+
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="row d-flex align-items-center m-0">
+                        <div class="col-md-6 information">
+                            <div>
+                                <div>
+                                    <h2>
+                                        <strong>Leaderboards On Every Map</strong>
+                                    </h2>
+                                    <br>
+                                </div>
+                                <div>
+                                    View and compete on leaderboards for any map even it is unranked or unsubmitted.
+                                    <br>
+                                    <br>
+                                    These scores do not count towards global rankings however.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding: 0;">
+                            <a href="{{ assets('/img/donate/1.jpg') }}" ya-lightbox class="position-relative d-flex align-items-center justify-content-center">
+                                <img src="{{ assets('/img/donate/1.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px; opacity: 0.6">
+                                <div class="badge position-absolute" style="margin: 0 auto;">
+                                    <i class="fas fa-search-plus text-white" style="font-size: 30px; opacity: 1;"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="row d-flex align-items-center m-0">
+                        <div class="col-md-6 p-0">
+                            <a href="{{ assets('/img/donate/2.jpg') }}" ya-lightbox class="position-relative d-flex align-items-center justify-content-center">
+                                <img src="{{ assets('/img/donate/2.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px; opacity: 0.6">
+                                <div class="badge position-absolute" style="margin: 0 auto;">
+                                    <i class="fas fa-search-plus text-white" style="font-size: 30px; opacity: 1;"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 information">
+                            <div>
+                                <div>
+                                    <h2>
+                                        <strong>Profile Customizables</strong>
+                                    </h2>
+                                    <br>
+                                </div>
+                                <div>
+                                    You're able to customize your profile banner and add an "about me" section.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="row d-flex align-items-center m-0">
+                        <div class="col-md-6 information">
+                            <div>
+                                <div>
+                                    <h2>
+                                        <strong>Country & Friend Rankings</strong>
+                                    </h2>
+                                    <br>
+                                </div>
+                                <div>
+                                    View in-game leaderboards specific to your country and friends.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding: 0;">
+                            <a href="{{ assets('/img/donate/3.jpg') }}" ya-lightbox class="position-relative d-flex align-items-center justify-content-center">
+                                <img src="{{ assets('/img/donate/3.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px; opacity: 0.6">
+                                <div class="badge position-absolute" style="margin: 0 auto;">
+                                    <i class="fas fa-search-plus text-white" style="font-size: 30px; opacity: 1;"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body pt-0 pb-0">
+                    <div class="row">
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Spectating Multiplayer Matches</strong>
+                            </h5>
+                            <p class="mt-4">
+                                You can right click a multiplayer match to spectate it.
+                            </p>
+                        </div>
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>In-game Chat Badge</strong>
+                            </h5>
+                            <p class="mt-4">
+                                It also comes with an exclusive profile badge and in-game chat color.
+                            </p>
+                        </div>
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Username Changes</strong>
+                            </h5>
+                            <p class="mt-4">
+                                Don't like your current name? You get the ability to change your username once a month.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row row-border">
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Real-time Online Scoreboards</strong>
+                            </h5>
+                            <p class="mt-4">
+                                You can play with replays of other players' scores in real-time.
+                            </p>
+                        </div>
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Increased Upload Slots</strong>
+                            </h5>
+                            <p class="mt-4">
+                                You can upload 12 unranked mapsets per month instead of 10.
+                            </p>
+                        </div>
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>Multiplayer Map Uploads</strong>
+                            </h5>
+                            <p class="mt-4">
+                                Have an unsubmitted map and want to share with others in multiplayer? You can do so in just a few clicks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="collapseFAQ">
+                <div class="accordion-header">
+                    <strong>Frequently Asked Questions</strong>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q1">
+                        When my donator time expires, do I lose access to all features?
+                    </a>
+                    <div class="collapse" id="q1" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            Yes. You will lose access to all features including profile customizables when your time expires.
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q2">
+                        Can my donator subscription be refunded after purchase?
+                    </a>
+                    <div class="collapse" id="q2" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            No. Donator subscriptions are non-refundable. Any chargebacks will result in either
+                            a revert in your perks or in the worst case, a ban.
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q3">
+                        Is VAT charged?
+                    </a>
+                    <div class="collapse" id="q3" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            Yes, Steam will add a tax upon our base subscription price.
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q4">
+                        My subscription did not automatically activate after purchasing, what do I do?
+                    </a>
+                    <div class="collapse" id="q4" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            Contact us at our support email: support@quavergame.com
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <a class="accordion-link collapsed" href="#collapseFAQ" data-toggle="collapse" aria-expanded="false" data-target="#q5">
+                        Your donator prices are slightly higher compared to other rhythm games that I play. Why is that?
+                    </a>
+                    <div class="collapse" id="q5" data-parent="#collapseFAQ">
+                        <p class="accordion-text">
+                            Because Quaver is a Steam game, Valve takes 30% of all revenue that we make.
+                            In order to make sure that we can still keep our servers alive, our prices are a bit higher.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {% if currentUser %}
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="donator" id="donator_card">
+                                {% include "./donator/card.twig" with {player: currentUser, status: playerStatus} %}
+                            </div>
+                            <div class="text-center mx-auto donator-buttons" style="margin-top: 50px;">
+                                <div class="btn-group btn-group-toggle mt-4 mb-4" data-toggle="buttons">
+                                    <label class="btn btn-month1 active">
+                                        <input type="radio" name="months" id="1month" autocomplete="off" value="1" checked>
+                                        1 Month
+                                        <small class="d-block">$4.99</small>
+                                    </label>
+                                    <label class="btn btn-month3">
+                                        <input type="radio" name="months" id="3months" autocomplete="off" value="3">
+                                        3 Months
+                                        <small class="d-block">$13.99</small>
+                                    </label>
+                                    <label class="btn btn-month6">
+                                        <input type="radio" name="months" id="6months" autocomplete="off" value="6">
+                                        6 Months
+                                        <small class="d-block">$26.99</small>
+                                    </label>
+                                    <label class="btn btn-month12">
+                                        <input type="radio" name="months" id="12months" autocomplete="off" value="12">
+                                        12 Months
+                                        <small class="d-block">$49.99</small>
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mt-4 w-25" id="buy">Donate</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4>Please login to donate</h4>
+                        <a class="nav-link" href="{{ baseUrl('/login') }}">
+                            <img src="{{ assets('/img/steam.png') }}" alt="Sign in through Steam">
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block page_scripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+            let userSearchTimer = null;
+            $(document).on('keyup', '.donator_search', function (e) {
+                clearTimeout(userSearchTimer);
+                let form = new FormData();
+                const username = $(this).val();
+                form.append('username', username);
+
+                userSearchTimer = setTimeout(function () {
+                    try {
+                        $.ajax({
+                            type: 'POST',
+                            url: baseUrl() + `/donate/user`,
+                            data: {
+                                username: username
+                            },
+                            success: function (response) {
+                                $('#donator_card').html(response);
+                                const input = $('input[name=donator_search]');
+                                if ($('input[name=gift]').val() === "") {
+                                    $('#buy').prop('disabled', true);
+                                    input.focus();
+                                    let tmpStr = input.val();
+                                    input.val('');
+                                    input.val(tmpStr);
+                                    input.focus();
+                                } else {
+                                    $('#buy').prop('disabled', false);
+                                    input.focus();
+                                    let tmpStr = input.val();
+                                    input.val('');
+                                    input.val(tmpStr);
+                                }
+                            }
+                        });
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }, 500);
+            });
+        });
+    </script>
+{% endblock %}

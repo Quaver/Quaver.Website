@@ -28,8 +28,14 @@
                             </div>
                         {% endif %}
                         {% for friend in friends %}
+                            {% set cover = assets("/img/cover.jpg") %}
+                            {% if IsDonator(friend.usergroups) %}
+                                {% set cover = "https://quaver.blob.core.windows.net/profile-covers/"~friend.user_id~".jpg" %}
+                            {% endif %}
                             <div class="col-md-4 mb-3">
-                                <div class="avatar-card d-flex justify-content-between {{ (friend.online ? 'friend-online' : 'friend-offline') }}">
+                                <div class="avatar-card d-flex justify-content-between {{ (friend.online ? 'friend-online' : 'friend-offline') }}"
+                                style="background: linear-gradient(360deg, rgb(26, 26, 32) 1%, rgba(26, 26, 32, 0.5) 100%),
+                                        url({{ cover }}) center center, url({{ assets("/img/cover.jpg") }}) center center; background-size: cover;">
                                     <div>
                                         <a href="{{ baseUrl('/user/'~friend.user_id) }}" class="avatar-title">
                                             <img src="{{ assets('/img/flags/'~friend.country~'.png') }}" alt="{{ friend.country }}">

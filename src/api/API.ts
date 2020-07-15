@@ -21,10 +21,13 @@ export default class API {
 
         const response = await axios.get(`${config.apiBaseUrl}/${endpoint}`, {
             params: params,
-            headers: headers
+            headers: headers,
+            timeout: 5000
         }).catch((e: { response: any; }) => {
             console.log(e.response.config.url);
             console.log(e.response.data);
+            req.flash('error', e.response.data.error);
+            return e.response;
         });
 
         return response.data;
@@ -50,6 +53,8 @@ export default class API {
         }).catch((e: { response: any; }) => {
             console.log(e.response.config.url);
             console.log(e.response.data)
+            req.flash('error', e.response.data.error);
+            return e.response;
         });
 
         return response.data;

@@ -29,8 +29,8 @@
     </tr>
     <tr>
         <td colspan="7" style="padding: 0;">
-            <div class="accordian-body collapse" data-parent="#scores" id="score_{{ table }}_{{ score.id }}" style="overflow: hidden; margin-bottom: 25px;">
-                <div class="row score-info">
+            <div class="accordian-body collapse" data-parent="#scores" id="score_{{ table }}_{{ score.id }}" style="overflow: hidden;">
+                <div class="row score-info" style="padding-bottom: 25px;">
                     <div class="col-sm-3">
                         <h6 class="mt-4">Score</h6>
                         <span class="font-weight-light font-size-md">{{ score.total_score|number_format(0, '.', ',') }}</span>

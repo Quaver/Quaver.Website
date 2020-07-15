@@ -8,8 +8,9 @@ export default class TimeHelper {
         });
     }
 
-    public static formatDate(time: any): string {
-        return fs.format(new Date(fs.parseISO(time)), "dd.MM.yyyy HH:MM:ss");
+    public static formatDate(time: any, hidetime: true): string {
+        const format = (hidetime) ? "MMMM d, yyyy" : "MMMM dd, yyyy HH:MM:ss" ;
+        return fs.format(new Date(fs.parseISO(time)), format);
     }
 
     public static formatTime(millis: any): string {
@@ -17,7 +18,7 @@ export default class TimeHelper {
         const seconds = ((millis % 60000) / 1000);
         const sec = seconds < 10;
         if (minutes === 0)
-          return minutes + ":" + (sec ? '0' : '') + seconds.toFixed(0);
+            return minutes + ":" + (sec ? '0' : '') + seconds.toFixed(0);
         return minutes + ":" + (sec ? '0' : '') + seconds.toFixed(0);
     }
 

@@ -23,7 +23,7 @@
                         <tr style="font-size: 12px;">
                             <th scope="col">#</th>
                             <th scope="col">Grade</th>
-                            <th scope="col">Player</th>
+                            <th scope="col" class="player">Player</th>
                             <th scope="col">Perf. Rating</th>
                             <th scope="col">Score</th>
                             <th scope="col">Accuracy</th>
@@ -44,7 +44,7 @@
                                 <td>
                                     <img src="{{ assets('/img/grades/'~score.grade~'.png') }}" alt="{{ score.grade }}" title="{{ score.grade }}" width="30px" height="30px">
                                 </td>
-                                <td style="text-align: left;">
+                                <td style="text-align: left;" class="player">
                                     <a href="{{ baseUrl('/leaderboard?country='~score.user.country|lower) }}">
                                         <img src="{{ assets('/img/flags/'~score.user.country~'.png') }}" alt="{{ score.user.country }}">
                                     </a>

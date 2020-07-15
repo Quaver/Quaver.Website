@@ -23,7 +23,12 @@ export default class Purge {
             ],
             whitelist: [
                 '::-webkit-scrollbar-track',
-                '::-webkit-scrollbar-thumb'
+                '::-webkit-scrollbar-thumb',
+                'ya-lightbox-body',
+                'ya-lightbox-item',
+                'ya-lightbox-close',
+                'ya-lightbox-img',
+                'ya-lightbox-backdrop'
             ],
             variables: true,
             rejected: true

@@ -13,6 +13,7 @@ import Error from "../controllers/error/Error";
 import Friends from "../controllers/users/Friends";
 import Settings from "../controllers/users/Settings";
 import Sitemap from "../controllers/sitemap/Sitemap";
+import Donate from "../controllers/donate/Donate";
 
 export default class Router {
     /**
@@ -52,6 +53,11 @@ export default class Router {
         router.route("/friend/remove").post(Authentication.RequireLogin, Friends.RemoveFriendPOST);
         router.route("/settings/donator").get(Authentication.RequireLogin, Settings.GET);
         router.route("/settings/donator").post(Authentication.RequireLogin, Settings.POST);
+
+        router.route("/donate").get(Donate.GET);
+        router.route("/donate").post(Authentication.RequireLogin, Donate.POST);
+        router.route("/donate/complete").post(Authentication.RequireLogin, Donate.GET);
+        router.route("/donate/user").post(Donate.CardGET);
 
         // router.route("/wiki").get(Wiki.HomeGET);
         // router.route("/wiki/*").get(Wiki.WikiPageGET);

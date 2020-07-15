@@ -83,7 +83,7 @@
                     {{ (map.source) ? map.source : 'n/a' }}
                 </div>
                 <div>
-                    <b>Tags:</b> {{ map.tags }}
+                    <b>Tags:</b> {{ map.tags|truncate(100) }}
                 </div>
             </div>
             <div class="col-md-4">

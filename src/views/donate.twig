@@ -231,7 +231,7 @@
                                     </label>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mt-4 w-25">Buy</button>
+                                <button type="submit" class="btn btn-primary mt-4 w-25" id="buy">Buy</button>
                             </div>
                         </form>
                     </div>
@@ -261,6 +261,11 @@
                             },
                             success: function (response) {
                                 $('#donator_card').html(response);
+                                if ($('input[name=gift]').val() === "") {
+                                    $('#buy').prop('disabled', true);
+                                } else {
+                                    $('#buy').prop('disabled', false);
+                                }
                             }
                         });
                     } catch (e) {

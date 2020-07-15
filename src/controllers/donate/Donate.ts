@@ -50,6 +50,8 @@ export default class Donate {
                         });
                     }).then(body => body);
                     req.flash('success', response.message);
+                    res.redirect(301, '/donate');
+                    return;
                 } catch (e) {
                     Logger.Error(e);
                     Responses.Return500(req, res);

@@ -83,7 +83,8 @@ export default class Donate {
 
             Responses.Send(req, res, "donator/card", ``, {
                 playerStatus: playerStatus,
-                player: user
+                player: user,
+                input: req.body.username
             });
         } catch (err) {
             Logger.Error(err);

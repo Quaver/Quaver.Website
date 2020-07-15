@@ -22,14 +22,16 @@
                     {% else %}
                         You currently do not have an active donator subscription.
                     {% endif %}
-                    <br>
-                    You have donated a total of
-                    <strong>${{ orders.total }}</strong>
-                    over
-                    <strong>{{ orders.orders }}</strong>
-                    purchases,
-                    <strong>{{ orders.gifts }}</strong>
-                    of which were gifts.
+                    {% if orders.total %}
+                        <br>
+                        You have donated a total of
+                        <strong>${{ orders.total }}</strong>
+                        over
+                        <strong>{{ orders.orders }}</strong>
+                        purchases,
+                        <strong>{{ orders.gifts }}</strong>
+                        of which were gifts.
+                    {% endif %}
                 </h4>
             </div>
             {% include "layouts/alert.twig" %}
@@ -86,12 +88,15 @@
                                 <div>
                                     View and compete on leaderboards for any map even it is unranked or unsubmitted.
                                     <br>
-                                    They do not count towards global rankings however.
+                                    <br>
+                                    These scores do not count towards global rankings however.
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6" style="padding: 0;">
-                            <img src="{{ assets('/img/donate/1.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px;">
+                            <a href="{{ assets('/img/donate/1.jpg') }}" ya-lightbox>
+                                <img src="{{ assets('/img/donate/1.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px;">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -148,18 +153,18 @@
                     <div class="row">
                         <div class="col-md-4 has-border">
                             <h5>
-                                <strong>In-game Chat Badge</strong>
-                            </h5>
-                            <p class="mt-4">
-                                It also comes with an exclusive profile badge and in-game chat color.
-                            </p>
-                        </div>
-                        <div class="col-md-4 has-border">
-                            <h5>
                                 <strong>Spectating Multiplayer Matches</strong>
                             </h5>
                             <p class="mt-4">
                                 You can right click a multiplayer match to spectate it.
+                            </p>
+                        </div>
+                        <div class="col-md-4 has-border">
+                            <h5>
+                                <strong>In-game Chat Badge</strong>
+                            </h5>
+                            <p class="mt-4">
+                                It also comes with an exclusive profile badge and in-game chat color.
                             </p>
                         </div>
                         <div class="col-md-4 has-border">
@@ -217,7 +222,7 @@
                                     <label class="btn btn-month3">
                                         <input type="radio" name="months" id="3months" autocomplete="off" value="3">
                                         3 Months
-                                        <small class="d-block">$12.99</small>
+                                        <small class="d-block">$13.99</small>
                                     </label>
                                     <label class="btn btn-month6">
                                         <input type="radio" name="months" id="6months" autocomplete="off" value="6">
@@ -231,7 +236,7 @@
                                     </label>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mt-4 w-25" id="buy">Buy</button>
+                                <button type="submit" class="btn btn-primary mt-4 w-25" id="buy">Donate</button>
                             </div>
                         </form>
                     </div>
@@ -244,6 +249,13 @@
 {% block page_scripts %}
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
+            $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
             let userSearchTimer = null;
             $(document).on('keyup', '.donator_search', function (e) {
                 clearTimeout(userSearchTimer);
@@ -261,10 +273,20 @@
                             },
                             success: function (response) {
                                 $('#donator_card').html(response);
+                                const input = $('input[name=donator_search]');
                                 if ($('input[name=gift]').val() === "") {
                                     $('#buy').prop('disabled', true);
+                                    input.focus();
+                                    let tmpStr = input.val();
+                                    input.val('');
+                                    input.val(tmpStr);
+                                    input.focus();
                                 } else {
                                     $('#buy').prop('disabled', false);
+                                    input.focus();
+                                    let tmpStr = input.val();
+                                    input.val('');
+                                    input.val(tmpStr);
                                 }
                             }
                         });

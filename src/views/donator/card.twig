@@ -2,7 +2,11 @@
 <div class="donator-border">
     <div class="d-flex">
         <div class="donator-avatar">
+            {% if player.avatar_url %}
             <img class="avatar d-inline-block" src="{{ player.avatar_url }}" alt="">
+            {% else %}
+                <img class="avatar d-inline-block" src="{{ assets('/img/noavatar.jpg') }}" alt="">
+            {% endif %}
         </div>
         <div class="ml-3 donator-user">
             {% if player %}
@@ -26,7 +30,7 @@
 <input type="hidden" name="gift" value="{{ player.id }}">
 <div class="donator-gift">
     <div class="input-group w-100">
-        <input type="text" name="donator_search" placeholder="Gift to Player" class="form-control donator_search">
+        <input type="text" name="donator_search" placeholder="Gift to Player" class="form-control donator_search" value="{{ input }}">
         <div class="input-group-prepend">
             {% if player %}
                 {% if IsDonator(player.usergroups) %}

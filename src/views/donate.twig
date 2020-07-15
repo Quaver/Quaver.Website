@@ -94,8 +94,11 @@
                             </div>
                         </div>
                         <div class="col-md-6" style="padding: 0;">
-                            <a href="{{ assets('/img/donate/1.jpg') }}" ya-lightbox>
-                                <img src="{{ assets('/img/donate/1.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px;">
+                            <a href="{{ assets('/img/donate/1.jpg') }}" ya-lightbox class="position-relative d-flex align-items-center justify-content-center">
+                                <img src="{{ assets('/img/donate/1.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px; opacity: 0.6">
+                                <div class="badge position-absolute" style="margin: 0 auto;">
+                                    <i class="fas fa-search-plus text-white" style="font-size: 30px; opacity: 1;"></i>
+                                </div>
                             </a>
                         </div>
                     </div>
@@ -106,7 +109,12 @@
                 <div class="card-body p-0">
                     <div class="row d-flex align-items-center m-0">
                         <div class="col-md-6 p-0">
-                            <img src="{{ assets('/img/donate/2.jpg') }}" alt="Profile Customizables" width="100%" height="100%" style="border-radius: 6px;">
+                            <a href="{{ assets('/img/donate/2.jpg') }}" ya-lightbox class="position-relative d-flex align-items-center justify-content-center">
+                                <img src="{{ assets('/img/donate/2.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px; opacity: 0.6">
+                                <div class="badge position-absolute" style="margin: 0 auto;">
+                                    <i class="fas fa-search-plus text-white" style="font-size: 30px; opacity: 1;"></i>
+                                </div>
+                            </a>
                         </div>
                         <div class="col-md-6 information">
                             <div>
@@ -142,7 +150,12 @@
                             </div>
                         </div>
                         <div class="col-md-6" style="padding: 0;">
-                            <img src="{{ assets('/img/donate/3.jpg') }}" alt="Country & Friend Rankings" width="100%" height="100%" style="border-radius: 6px;">
+                            <a href="{{ assets('/img/donate/3.jpg') }}" ya-lightbox class="position-relative d-flex align-items-center justify-content-center">
+                                <img src="{{ assets('/img/donate/3.jpg') }}" alt="Leaderboards On Every Map" width="100%" height="100%" style="border-radius: 6px; opacity: 0.6">
+                                <div class="badge position-absolute" style="margin: 0 auto;">
+                                    <i class="fas fa-search-plus text-white" style="font-size: 30px; opacity: 1;"></i>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -249,8 +262,8 @@
 {% block page_scripts %}
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
-            $(window).keydown(function(event){
-                if(event.keyCode == 13) {
+            $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
                     event.preventDefault();
                     return false;
                 }

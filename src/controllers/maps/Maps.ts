@@ -359,6 +359,9 @@ export default class Maps {
                 return;
             } else if (typeof req.body.submit_for_rank !== 'undefined') {
                 await API.POST(req, `v1/mapsets/${req.body.mapset_id}/submitrank`);
+                req.flash('success', 'Your mapset has successfully been submitted for rank!');
+                res.redirect(303, `/mapset/${req.body.mapset_id}`);
+                return;
             } else if (typeof req.body.submit_comment !== 'undefined') {
                 if (req.body.comment !== "")
                     await API.POST(req, `v1/mapsets/${req.body.mapset_id}/comment`, {

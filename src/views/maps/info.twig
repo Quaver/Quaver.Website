@@ -41,10 +41,11 @@
                     <button class="dropdown-item text-success" data-toggle="modal" data-target="#modalPlaylist">Add to Playlist</button>
                     {% if currentUser.id == map.creator_id %}
                         {% if (mapset.ranking_queue_status == null or mapset.ranking_queue_status == 1) and map.ranked_status != 2 %}
-                            <form method="POST" accept-charset="UTF-8" onsubmit="return confirm('Do you wish to submit this mapset for ranked status? Make sure to visit the Ranking Criteria!');">
-                                <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
-                                <button class="dropdown-item text-info" name="submit_for_rank">Submit for Rank</button>
-                            </form>
+                            {#                            <form method="POST" accept-charset="UTF-8" onsubmit="return confirm('Do you wish to submit this mapset for ranked status? Make sure to visit the Ranking Criteria!');">#}
+                            {#                                <input type="hidden" name="mapset_id" value="{{ mapset.id }}">#}
+                            {#                                <button class="dropdown-item text-info" name="submit_for_rank">Submit for Rank</button>#}
+                            {#                            </form>#}
+                            <button class="dropdown-item text-info" type="button" data-toggle="modal" data-target="#submitForRank">Submit for Rank</button>
                         {% endif %}
                         {% if map.ranked_status != 2 %}
                             <form method="POST" accept-charset="UTF-8" onsubmit="return confirm('Do you really want to delete mapset?');">
@@ -83,7 +84,8 @@
                     {{ (map.source) ? map.source : 'n/a' }}
                 </div>
                 <div>
-                    <b>Tags:</b> <span data-toggle="tooltip" title="{{ map.tags }}">{{ map.tags|truncate(100) }}</span>
+                    <b>Tags:</b>
+                    <span data-toggle="tooltip" title="{{ map.tags }}">{{ map.tags|truncate(100) }}</span>
                 </div>
             </div>
             <div class="col-md-4">
@@ -124,4 +126,7 @@
     </div>
 {% endif %}
 
-{% include "../modals/editDescription.twig" %}
+{% if currentUser.id == map.creator_id %}
+    {% include "../modals/editDescription.twig" %}
+    {% include "../modals/submitForRank.twig" %}
+{% endif %}

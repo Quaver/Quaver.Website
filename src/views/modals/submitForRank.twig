@@ -1,0 +1,66 @@
+<div class="modal fade" id="submitForRank" tabindex="-1" role="dialog" aria-labelledby="submitForRank" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Submit Mapset for Rank</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="filters" style="background: #242424;">
+                <form method="POST" accept-charset="UTF-8">
+                    <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
+                    <p class="text-white">
+                        Before you submit your map, please make sure it follows the
+                        <a href="https://old.quavergame.com/wiki/Ranking/Criteria">Ranking Criteria</a>.
+                    </p>
+                    <div class="text-white">
+                        <span class="text-info">All checkboxes are required!</span>
+                        <div class="form-check form-check-inline d-block">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="metadata" id="metadata" class="custom-control-input" required>
+                                <label class="custom-control-label" for="metadata">Metadata</label>
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline d-block">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="songlength" id="songlength" class="custom-control-input" required>
+                                <label class="custom-control-label" for="songlength">Map length / Difficulty spread</label>
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline d-block">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="audio" id="audio" class="custom-control-input" required>
+                                <label class="custom-control-label" for="audio">Audio file bitrate</label>
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline d-block">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="background" id="background" class="custom-control-input" required>
+                                <label class="custom-control-label" for="background">Background resolution</label>
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline d-block">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="maplength" id="maplength" class="custom-control-input" required>
+                                <label class="custom-control-label" for="maplength">Over 75% song length is mapped</label>
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline d-block">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="breaks" id="breaks" class="custom-control-input" required>
+                                <label class="custom-control-label" for="breaks">No longer than 30 seconds breaks</label>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-danger mt-2">
+                        If your map doesn't follow all of the requirements in the Ranking Criteria, it will be denied.
+                    </p>
+                    <div>
+                        <input type="submit" name="submit_for_rank" value="Submit" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

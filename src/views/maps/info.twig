@@ -121,7 +121,11 @@
                     </button>
                 </div>
             {% endif %}
-            {{ mapset.description }}
+            {% if mapset.description == "null" %}
+                No description
+            {% else %}
+                {{ mapset.description }}
+            {% endif %}
         </div>
     </div>
 {% endif %}

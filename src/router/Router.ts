@@ -86,6 +86,9 @@ export default class Router {
         router.get('/wiki', function (req: any, res: any) {
             res.redirect(301, 'https://wiki.quavergame.com/docs/');
         });
+        router.get('/multiplayer/game/*', function (req: any, res: any) {
+            res.redirect(301, 'https://old.quavergame.com/multiplayer/game/' + req.params[0]);
+        });
 
         router.route("/sitemap.xml").get(Sitemap.GET);
 

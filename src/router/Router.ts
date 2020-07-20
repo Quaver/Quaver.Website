@@ -59,8 +59,6 @@ export default class Router {
         router.route("/donate/complete").post(Authentication.RequireLogin, Donate.GET);
         router.route("/donate/user").post(Donate.CardGET);
 
-        // router.route("/wiki").get(Wiki.HomeGET);
-        // router.route("/wiki/*").get(Wiki.WikiPageGET);
         router.route("/login").get(Login.GET);
         router.route("/login/verify").get(Login.VerifyGET);
         router.route("/logout").get(Login.LogoutGET);
@@ -82,8 +80,11 @@ export default class Router {
         router.get('/steam', function (req: any, res: any) {
             res.redirect(301, 'https://store.steampowered.com/app/980610/Quaver/');
         });
+        router.get('/wiki/*', function (req: any, res: any) {
+            res.redirect(301, 'https://wiki.quavergame.com/docs/' + req.params[0]);
+        });
         router.get('/wiki', function (req: any, res: any) {
-            res.redirect(301, 'https://old.quavergame.com/wiki/');
+            res.redirect(301, 'https://wiki.quavergame.com/docs/');
         });
 
         router.route("/sitemap.xml").get(Sitemap.GET);

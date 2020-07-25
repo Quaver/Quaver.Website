@@ -25,7 +25,6 @@
                             <th scope="col">Grade</th>
                             <th scope="col" class="player">Player</th>
                             <th scope="col">Perf. Rating</th>
-                            <th scope="col">Score</th>
                             <th scope="col">Accuracy</th>
                             <th scope="col">Max Combo</th>
                             <th scope="col">Marvelous</th>
@@ -53,7 +52,6 @@
                                 <td>
                                     <b>{{ score.performance_rating|number_format(2) }}</b>
                                 </td>
-                                <td>{{ score.total_score|number_format(0, '.', ',') }}</td>
                                 <td>{{ score.accuracy|number_format(2) }}%</td>
                                 <td>{{ score.max_combo|number_format(0, '.', ',') }}x</td>
                                 <td style="color: rgba(251, 255, 182, 1);">{{ score.count_marv|number_format(0, '.', ',') }}</td>

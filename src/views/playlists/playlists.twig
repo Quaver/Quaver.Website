@@ -13,13 +13,15 @@
                 <p class="card-text font-size-md">
                     {{ playlist.description|truncate(60) }}
                 </p>
-                <p class="card-text font-size-md">Created by
-                    <a href="{{ baseUrl('/user/'~playlist.owner_username) }}">{{ playlist.owner_username }}</a>
-                </p>
+                {% if playlist.owner_username %}
+                    <p class="card-text font-size-md">Created by
+                        <a href="{{ baseUrl('/user/'~playlist.owner_username) }}">{{ playlist.owner_username }}</a>
+                    </p>
+                {% endif %}
             </div>
             <div class="card-footer">
                 {% if playlist.time_last_updated %}
-                <span data-toggle="tooltip" title="{{ formatDate(playlist.time_last_updated) }}"><i class="fas fa-clock"></i> {{ formatDateDistance(playlist.time_last_updated) }}</span>
+                    <span data-toggle="tooltip" title="{{ formatDate(playlist.time_last_updated) }}"><i class="fas fa-clock"></i> {{ formatDateDistance(playlist.time_last_updated) }}</span>
                 {% endif %}
                 <div class="ml-auto">
                     <span><i class="fas fa-music"></i> {{ playlist.map_count }}</span>

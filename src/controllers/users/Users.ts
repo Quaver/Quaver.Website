@@ -23,7 +23,7 @@ export default class Users {
             const user = await Users.FetchUser(req, req.params.id, mode);
 
             if (!user)
-                return res.status(404).json({status: 404, error: "User not found"});
+                return Responses.ReturnUserNotFound(req, res);
 
             const best = await Users.GetBestScores(req, res, user, mode);
             const recent = await Users.GetRecentScores(req, res, user, mode);

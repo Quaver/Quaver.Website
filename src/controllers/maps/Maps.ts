@@ -81,7 +81,16 @@ export default class Maps {
 
             mapset.description = sanitizeHtml(new showdown.Converter({
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
-            }).makeHtml(mapset.description));
+            }).makeHtml(mapset.description), {
+                allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
+                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
+                allowedAttributes: {
+                    'a': ['href'],
+                    'span': ['style'],
+                    'img': ['src']
+                },
+                disallowedTagsMode: 'escape'
+            });
 
             // The selected map in this case is the top difficulty
             const map = mapset.maps[mapset.maps.length - 1];
@@ -135,7 +144,16 @@ export default class Maps {
 
             mapset.description = sanitizeHtml(new showdown.Converter({
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
-            }).makeHtml(mapset.description));
+            }).makeHtml(mapset.description), {
+                allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
+                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
+                allowedAttributes: {
+                    'a': ['href'],
+                    'span': ['style'],
+                    'img': ['src']
+                },
+                disallowedTagsMode: 'escape'
+            });
 
             const scores = await Maps.FetchMapScores(req, map.id);
             const comments = await Maps.FetchSupervisorComments(req, mapset.id);
@@ -478,7 +496,7 @@ export default class Maps {
 
             let comments = response.comments;
 
-            for(let comment in comments) {
+            for (let comment in comments) {
                 comments[comment].comment = comments[comment].comment.split(/\r\n|\n|\r/);
             }
 

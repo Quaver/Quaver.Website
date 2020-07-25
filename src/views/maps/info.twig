@@ -102,7 +102,7 @@
     </div>
 </div>
 
-{% if not modding and mapset.description %}
+{% if not modding and (mapset.description or currentUser.id == map.creator_id) %}
     <div class="widget">
         <div class="widget-header">
             Description
@@ -117,7 +117,7 @@
                     </button>
                 </div>
             {% endif %}
-            {% if mapset.description == "null" %}
+            {% if mapset.description == "null" or mapset.description == "" %}
                 No description
             {% else %}
                 {{ mapset.description }}

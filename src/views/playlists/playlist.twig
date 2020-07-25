@@ -20,7 +20,7 @@
                 <div class="col-lg-3">
                     <div class="card card-sm sticky-top">
                         <div class="image">
-                            <img src="https://quaver.blob.core.windows.net/playlists/{{ playlist.id }}.jpg" onerror="this.src='{{ assets("/img/playlist_default.jpg") }}'">
+                            <img src="https://cdn.quavergame.com/playlists/{{ playlist.id }}.jpg" onerror="this.src='{{ assets("/img/playlist_default.jpg") }}'">
                         </div>
 
                         <div class="card-block">
@@ -63,7 +63,7 @@
                                 </div>
                                 <a href="{{ baseUrl('/mapset/'~difficulties[0].mapset_id) }}">
                                     <div class="cover position-relative" style="background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-                                            url('https://quaver.blob.core.windows.net/banners/{{ difficulties[0].mapset_id }}_banner.jpg')">
+                                            url('https://cdn.quavergame.com/banners/{{ difficulties[0].mapset_id }}.jpg')">
                                         <div class="status">
                                             {% if difficulties.game_modes|length == 2 %}
                                                 <div class="qadge mapset-4k-7k">4K / 7K</div>
@@ -78,7 +78,6 @@
                                                 <div class="qadge status-unranked">Unranked</div>
                                             {% endif %}
                                         </div>
-
                                         <div class="song-name">
                                             <span class="title">{{ (difficulties[0].title) | truncate(55) }}</span>
                                             <div class="artist">{{ difficulties[0].artist }}</div>

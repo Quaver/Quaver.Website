@@ -30,7 +30,7 @@
                         {% for friend in friends %}
                             {% set cover = assets("/img/cover.jpg") %}
                             {% if IsDonator(friend.usergroups) %}
-                                {% set cover = "https://quaver.blob.core.windows.net/profile-covers/"~friend.user_id~".jpg" %}
+                                {% set cover = "https://cdn.quavergame.com/profile-covers/"~friend.user_id~".jpg" %}
                             {% endif %}
                             <div class="col-md-4 mb-3">
                                 <div class="avatar-card d-flex justify-content-between {{ (friend.online ? 'friend-online' : 'friend-offline') }}"

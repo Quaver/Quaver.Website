@@ -2,7 +2,7 @@
 {% block content %}
     {% set cover = assets("/img/cover.jpg") %}
     {% if IsDonator(user.info.usergroups) %}
-        {% set cover = "https://quaver.blob.core.windows.net/profile-covers/"~user.info.id~".jpg" %}
+        {% set cover = "https://cdn.quavergame.com/profile-covers/"~user.info.id~".jpg" %}
     {% endif %}
     <section class="bg-image bg-dark d-flex align-items-end py-3" style="background: linear-gradient(360deg, #1a1a20 1%, rgba(26, 26, 32, 0) 80%),
             url({{ cover }}) center center, url({{ assets("/img/cover.jpg") }}) center center; min-height: 380px; background-size: cover;">
@@ -131,7 +131,6 @@
                                 <img src="{{ user.info.avatar_url }}" alt="" width="50" height="50">
                                 <div class="text-white">
                                     <strong>{{ user.info.username }}</strong>
-
                                     <div class="profile-groups">
                                         <small>
                                             {% if HasGroup(user.info, UserGroups.Developer) %}
@@ -163,17 +162,6 @@
                                 <a class="nav-item nav-link" href="#achievements">Achievements</a>
                             </div>
                         </div>
-                        {% if currentUser.id == user.info.id %}
-                            {#                            <div class="dropdown d-none d-xl-inline-block ml-auto">#}
-                            {#                                <button class="btn btn-quaver-dark btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-                            {#                                    <i class="ya ya-gear"></i>#}
-                            {#                                </button>#}
-                            {#                                <div class="dropdown-menu dropdown-menu-right btn-quaver-dark dropdown-quaver">#}
-                            {#                                    <a class="dropdown-item" href="#">Change Cover</a>#}
-                            {#                                    <a class="dropdown-item" href="#">Settings</a>#}
-                            {#                                </div>#}
-                            {#                            </div>#}
-                        {% endif %}
                     </div>
                 </div>
             </div>

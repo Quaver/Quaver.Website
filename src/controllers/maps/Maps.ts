@@ -83,7 +83,7 @@ export default class Maps {
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
             }).makeHtml(mapset.description), {
                 allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
-                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
+                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br'],
                 allowedAttributes: {
                     'a': ['href'],
                     'span': ['style'],
@@ -146,7 +146,7 @@ export default class Maps {
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
             }).makeHtml(mapset.description), {
                 allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
-                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
+                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br'],
                 allowedAttributes: {
                     'a': ['href'],
                     'span': ['style'],

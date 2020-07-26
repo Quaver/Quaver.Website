@@ -1,13 +1,3 @@
-function initLazy() {
-    new LazyLoad({
-        elements_selector: ".lazy"
-    });
-}
-
-initLazy();
-
-
-
 function sortData(data) {
     let marv = [], perf = [], great = [], good = [], okay = [], miss = [];
     $.each(data, function (key, value) {
@@ -205,3 +195,23 @@ function loadJudgements(table_class, score_id, total_marv, total_perf, total_gre
         ]
     });
 }
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    $('#friend_add').submit(function (e) {
+        e.preventDefault();
+        const id = $(this).find('input[name=id]').val();
+        const type = $(this).find('input[name=type]').val();
+        if (id) {
+            $.post(baseUrl() + '/friend/add', {
+                id: id
+            }, function (data) {
+                $.post(baseUrl() + '/friend/render', {
+                    id: id,
+                    type: type
+                }, function (data) {
+                    $('#friend').html(data);
+                });
+            });
+        }
+    });
+});

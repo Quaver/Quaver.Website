@@ -73,6 +73,13 @@
                 <div class="widget-header d-flex justify-content-between">
                     Ranking Queue Comments
                     <div>
+                        {% if mapset.ranking_queue_status == 0 %}
+                            <span class="mapset-buttons btn-primary">Pending</span>
+                        {% elseif mapset.ranking_queue_status == 1 %}
+                            <span class="mapset-buttons btn-danger">Denied For Rank</span>
+                        {% elseif mapset.ranking_queue_status == 2 %}
+                            <span class="mapset-buttons btn-dark">Blacklisted</span>
+                        {% endif %}
                         <span class="mapset-buttons btn-info">
                             {% if map.ranked_status == 2 %}
                                 2/2

@@ -12,6 +12,9 @@ const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
 const moment = require("moment");
 
+const allowedHTML = ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
+    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br', 'em', 'blockquote'];
+
 export default class Maps {
 
     /**
@@ -82,8 +85,7 @@ export default class Maps {
             mapset.description = sanitizeHtml(new showdown.Converter({
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
             }).makeHtml(mapset.description), {
-                allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
-                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br'],
+                allowedTags: allowedHTML,
                 allowedAttributes: {
                     'a': ['href'],
                     'span': ['style'],
@@ -145,8 +147,7 @@ export default class Maps {
             mapset.description = sanitizeHtml(new showdown.Converter({
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
             }).makeHtml(mapset.description), {
-                allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
-                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br'],
+                allowedTags: allowedHTML,
                 allowedAttributes: {
                     'a': ['href'],
                     'span': ['style'],

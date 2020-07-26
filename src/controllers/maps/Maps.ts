@@ -70,7 +70,7 @@ export default class Maps {
             let mapset = await Maps.FetchMapset(req, req.params.id);
             // Mapset doesn't exist or is hidden, so return a 404.
             if (!mapset)
-                return res.status(404).json({status: 404, error: "Mapset not found"});
+                return Responses.ReturnMapsetNotFound(req, res);
 
             // Sort difficulties
             mapset.maps = await Maps.SortDifficulties(mapset.maps);
@@ -128,12 +128,12 @@ export default class Maps {
             const map = await Maps.FetchMap(req, req.params.id);
 
             if (!map)
-                return res.status(404).json({status: 404, error: "Map not found"});
+                return Responses.ReturnMapsetNotFound(req, res);
 
             let mapset = await Maps.FetchMapset(req, map.mapset_id);
 
             if (!mapset)
-                return res.status(404).json({status: 404, error: "Mapset not found"});
+                return Responses.ReturnMapsetNotFound(req, res);
 
             // Sort difficulties
             mapset.maps = await Maps.SortDifficulties(mapset.maps);
@@ -199,7 +199,7 @@ export default class Maps {
             mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 
             if (!mapset)
-                return res.status(404).json({status: 404, error: "Mapset not found"});
+                return Responses.ReturnMapsetNotFound(req, res);
 
             let mods = await Maps.FetchMods(req, map.id);
 

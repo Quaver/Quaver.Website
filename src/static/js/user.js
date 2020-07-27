@@ -1,14 +1,22 @@
 function sortData(data) {
     let marv = [], perf = [], great = [], good = [], okay = [], miss = [];
     $.each(data, function (key, value) {
-        let absVal = Math.abs(value);
-        if (value == -2147483648) miss.push({x: key, y: 0});
-        else if (absVal <= 18) marv.push({x: key, y: value});
-        else if (absVal <= 43) perf.push({x: key, y: value});
-        else if (absVal <= 76) great.push({x: key, y: value});
-        else if (absVal <= 106) good.push({x: key, y: value});
-        else if (absVal <= 127) okay.push({x: key, y: value});
-        else if (absVal <= 164) miss.push({x: key, y: value});
+        let absVal = value;
+        let flag = 1;
+
+        if(absVal.endsWith('L')) flag = 1.5;
+
+        absVal = absVal.split('L')[0];
+        absVal = Math.abs(absVal);
+        console.log(value, absVal)
+
+        if (value === -2147483648) miss.push({x: key, y: 0});
+        else if (absVal <= 18 * flag) marv.push({x: key, y: value});
+        else if (absVal <= 43 * flag) perf.push({x: key, y: value});
+        else if (absVal <= 76 * flag) great.push({x: key, y: value});
+        else if (absVal <= 106 * flag) good.push({x: key, y: value});
+        else if (absVal <= 127 * flag) okay.push({x: key, y: value});
+        else if (absVal <= 164 * flag) miss.push({x: key, y: value});
         else if (absVal > 0) miss.push({x: key, y: 0});
         else miss.push({x: key, y: value});
     });
@@ -126,73 +134,82 @@ function loadScatter(table_class, score_id, data) {
 }
 
 function loadJudgements(table_class, score_id, total_marv, total_perf, total_great, total_good, total_okay, total_miss) {
-    let chartJudgements = document.getElementsByClassName('chartScore_' + table_class + '_' + score_id)[0];
+    let jc = document.getElementsByClassName('chartScore_' + table_class + '_' + score_id)[0];
 
-    Highcharts.chart({
-        chart: {renderTo: chartJudgements, animation: false, backgroundColor: 'transparent', type: "column", spacingTop: 20},
-        rangeSelector: {enabled: false},
-        navigator: {enabled: false},
-        credits: {enabled: false},
-        title: {text: null},
-        xAxis: {
-            visible: true,
-            categories: ["Marvelous", "Perfect", "Great", "Good", "Okay", "Miss"],
-            lineColor: "#1a1a1a"
+    new Chart(jc, {
+        type: 'bar',
+        data: {
+            labels: ['Marv', 'Perf', 'Great', 'Good', 'Okay', 'Miss'],
+            datasets: [{
+                label: '',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [
+                    total_marv,
+                    total_perf,
+                    total_great,
+                    total_good,
+                    total_okay,
+                    total_miss,
+                ],
+                backgroundColor: [
+                    '#FBFFB6',
+                    '#F2C94C',
+                    '#56FE6E',
+                    '#0FBAE5',
+                    '#EE5FAC',
+                    '#F9645D'
+                ],
+            }],
         },
-        yAxis: {
-            visible: true,
-            gridLineWidth: 1,
-            gridLineColor: "#202020",
-            title: {text: null},
-            minTickInterval: 100,
-            tickAmount: 6
-        },
-        scrollbar: {enabled: false},
-        plotOptions: {
-            column: {
-                dataLabels: {
-                    enabled: true,
-                    formatter: function () {
-                        return '<tspan style="color:' + this.point.color + '; text-shadow: 0px 0px 4px black">' + this.point.y + '</tspan>';
-                    },
-                    style: {
-                        color: "",
-                        fontWeight: "",
-                        textOutline: ""
-                    },
-                    crop: false,
-                    overflow: "allow",
-                    y: 0
+        options: {
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 10,
+                    bottom: 10
                 }
             },
-            series: {
-                enableMouseTracking: false,
-                animation: {duration: 0},
-                lineWidth: 0,
-                tooltip: {valueDecimals: 2},
-                states: {
-                    hover: {lineWidthPlus: 0}
-                }
+            // plugins: {
+            //     datalabels: {
+            //         display: true,
+            //         align: 'end',
+            //         anchor: 'end',
+            //         offset: '0',
+            //         color: [
+            //             '#FBFFB6',
+            //             '#F2C94C',
+            //             '#56FE6E',
+            //             '#0FBAE5',
+            //             '#EE5FAC',
+            //             '#F9645D'
+            //         ],
+            //         textShadowColor: 'black',
+            //         textShadowBlur: 4
+            //         // color: '#CACACA'
+            //     }
+            // },
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                enabled: false
+            },
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
-        },
-        legend: {enabled: false},
-        colors: ['#FBFFB6', '#F2C94C', '#56FE6E', '#0FBAE5', '#EE5FAC', '#F9645D'],
-        series: [
-            {
-                name: "Marv",
-                colorByPoint: true,
-                borderColor: null,
-                pointWidth: 50,
-                data: [
-                    ["Marv", total_marv],
-                    ["Perf", total_perf],
-                    ["Great", total_great],
-                    ["Good", total_good],
-                    ["Okay", total_okay],
-                    ["Miss", total_miss],
-                ]
-            }
-        ]
+        }
     });
 }
 

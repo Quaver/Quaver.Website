@@ -48,14 +48,14 @@
                         <span class="font-weight-light font-size-md">{{ score.ratio|number_format(2) }}</span>
                     </div>
                 </div>
-{#                <div class="row">#}
-{#                    <div class="col-sm-6 d-sm-block">#}
-{#                        <div class="chartScore_{{ table }}_{{ score.id }}" style="height: 269px;"></div>#}
-{#                    </div>#}
-{#                    <div class="col-sm-6">#}
-{#                        <canvas class="scatterScore_{{ table }}_{{ score.id }}" style="height: 269px;"></canvas>#}
-{#                    </div>#}
-{#                </div>#}
+                <div class="row">
+                    <div class="col-sm-6 d-sm-block">
+                        <canvas class="chartScore_{{ table }}_{{ score.id }}" style="height: 269px;"></canvas>
+                    </div>
+                    <div class="col-sm-6">
+                        <canvas class="scatterScore_{{ table }}_{{ score.id }}" style="height: 269px;"></canvas>
+                    </div>
+                </div>
             </div>
         </td>
     </tr>

@@ -1,25 +1,28 @@
 function sortData(data) {
     let marv = [], perf = [], great = [], good = [], okay = [], miss = [];
     $.each(data, function (key, value) {
-        let absVal = value;
         let flag = 1;
 
-        if(absVal.endsWith('L')) flag = 1.5;
-
-        absVal = absVal.split('L')[0];
-        absVal = Math.abs(absVal);
-        console.log(value, absVal)
-
-        if (value === -2147483648) miss.push({x: key, y: 0});
-        else if (absVal <= 18 * flag) marv.push({x: key, y: value});
-        else if (absVal <= 43 * flag) perf.push({x: key, y: value});
-        else if (absVal <= 76 * flag) great.push({x: key, y: value});
-        else if (absVal <= 106 * flag) good.push({x: key, y: value});
-        else if (absVal <= 127 * flag) okay.push({x: key, y: value});
-        else if (absVal <= 164 * flag) miss.push({x: key, y: value});
-        else if (absVal > 0) miss.push({x: key, y: 0});
+        if(value.endsWith('L')) flag = 1.5;
+        value = parseInt(value);
+        // console.log(typeof value, value)
+        const absValue = Math.abs(value);
+        if (absValue === -2147483648) miss.push({x: key, y: 0});
+        else if (absValue <= 18 * flag) marv.push({x: key, y: value});
+        else if (absValue <= 43 * flag) perf.push({x: key, y: value});
+        else if (absValue <= 76 * flag) great.push({x: key, y: value});
+        else if (absValue <= 106 * flag) good.push({x: key, y: value});
+        else if (absValue <= 127 * flag) okay.push({x: key, y: value});
+        else if (absValue <= 164 * flag) miss.push({x: key, y: value});
+        else if (absValue > 0) miss.push({x: key, y: 0});
         else miss.push({x: key, y: value});
     });
+    console.log(marv.length);
+    console.log(perf.length);
+    console.log(great.length);
+    console.log(good.length);
+    console.log(okay.length);
+    console.log(miss.length);
 
     return {
         datasets: [

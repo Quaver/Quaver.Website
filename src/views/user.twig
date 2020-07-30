@@ -4,8 +4,8 @@
     {% if IsDonator(user.info.usergroups) %}
         {% set cover = "https://cdn.quavergame.com/profile-covers/"~user.info.id~".jpg" %}
     {% endif %}
-    <section class="bg-image bg-dark d-flex align-items-end py-3" style="background: linear-gradient(360deg, #1a1a20 1%, rgba(26, 26, 32, 0) 80%),
-            url({{ cover }}) center center, url({{ assets("/img/cover.jpg") }}) center center; min-height: 380px; background-size: cover;">
+    <section class="bg-image bg-dark d-flex align-items-end py-3 lazy" style="min-height: 380px; background-size: cover; background-position: center center;"
+            data-bg-multi="linear-gradient(360deg, #1a1a20 1%, rgba(26, 26, 32, 0) 80%), url({{ cover }})">
         <div class="container position-relative">
             <div class="row">
                 <div class="col d-flex flex-column flex-lg-row align-items-center position-absolute bottom left pl-lg-8">
@@ -188,14 +188,9 @@
             "page_2": 1
         };
     </script>
-    {#    <script src="{{ assets('/js/plugins/mustache.js') }}"></script>#}
-    <script src="{{ assets('/js/plugins/lazyload.min.js') }}"></script>
-    {#    <script defer src="{{ assets('/js/plugins/moment.min.js') }}"></script>#}
     <script defer src="{{ assets('/js/user.js') }}"></script>
-    {#    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>#}
-    {# <script defer src="{{ assets('/js/plugins/Chart.min.js') }}"></script> #}
-    {#    <script defer src="{{ assets('/js/plugins/highstock.js') }}"></script>#}
-    {#    <script defer src="{{ assets('/js/plugins/data.js') }}"></script>#}
+{#    <script defer src="{{ assets('/js/plugins/Chart.min.js') }}"></script>#}
+{#    <script defer src="{{ assets('/js/plugins/chartjs-plugin-datalabels.js') }}"></script>#}
 {% endblock %}
 
 {% block page_scripts %}{% endblock %}

@@ -97,3 +97,12 @@ function searchUser(searchText) {
         });
     }, 300);
 }
+
+function initLazy() {
+    new LazyLoad({
+        elements_selector: ".lazy"
+    });
+    $('[data-toggle="tooltip"]').tooltip();
+}
+
+initLazy();

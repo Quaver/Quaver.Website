@@ -12,6 +12,9 @@ const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
 const moment = require("moment");
 
+const allowedHTML = ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
+    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br', 'em', 'blockquote'];
+
 export default class Maps {
 
     /**
@@ -70,7 +73,7 @@ export default class Maps {
             let mapset = await Maps.FetchMapset(req, req.params.id);
             // Mapset doesn't exist or is hidden, so return a 404.
             if (!mapset)
-                return res.status(404).json({status: 404, error: "Mapset not found"});
+                return Responses.ReturnMapsetNotFound(req, res);
 
             // Sort difficulties
             mapset.maps = await Maps.SortDifficulties(mapset.maps);
@@ -82,8 +85,7 @@ export default class Maps {
             mapset.description = sanitizeHtml(new showdown.Converter({
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
             }).makeHtml(mapset.description), {
-                allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
-                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br'],
+                allowedTags: allowedHTML,
                 allowedAttributes: {
                     'a': ['href'],
                     'span': ['style'],
@@ -128,12 +130,12 @@ export default class Maps {
             const map = await Maps.FetchMap(req, req.params.id);
 
             if (!map)
-                return res.status(404).json({status: 404, error: "Map not found"});
+                return Responses.ReturnMapsetNotFound(req, res);
 
             let mapset = await Maps.FetchMapset(req, map.mapset_id);
 
             if (!mapset)
-                return res.status(404).json({status: 404, error: "Mapset not found"});
+                return Responses.ReturnMapsetNotFound(req, res);
 
             // Sort difficulties
             mapset.maps = await Maps.SortDifficulties(mapset.maps);
@@ -145,8 +147,7 @@ export default class Maps {
             mapset.description = sanitizeHtml(new showdown.Converter({
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
             }).makeHtml(mapset.description), {
-                allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
-                    'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br'],
+                allowedTags: allowedHTML,
                 allowedAttributes: {
                     'a': ['href'],
                     'span': ['style'],
@@ -199,7 +200,7 @@ export default class Maps {
             mapset.description = sanitizeHtml(new showdown.Converter().makeHtml(mapset.description));
 
             if (!mapset)
-                return res.status(404).json({status: 404, error: "Mapset not found"});
+                return Responses.ReturnMapsetNotFound(req, res);
 
             let mods = await Maps.FetchMods(req, map.id);
 

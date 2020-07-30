@@ -8,15 +8,6 @@ function submitForm() {
     $('form').submit();
 }
 
-function initLazy() {
-    new LazyLoad({
-        elements_selector: ".lazy"
-    });
-    $('[data-toggle="tooltip"]').tooltip();
-}
-
-initLazy();
-
 let page = 1;
 
 document.addEventListener("DOMContentLoaded", function (event) {

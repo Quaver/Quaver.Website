@@ -2,6 +2,11 @@
  * Copyright 2020 Quaver Team
  */
 
+/* This fixes weird scroll issues on new Chrome versions... */
+* {
+    overflow-anchor: none !important;
+}
+
 html {
     scroll-behavior: smooth;
     font-family: 'Lato', sans-serif;

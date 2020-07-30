@@ -21,12 +21,12 @@
             {% endif %}
         </td>
         <td>
-            <a data-toggle="collapse" href="#score_{{ table }}_{{ score.id }}" data-target="#score_{{ table }}_{{ score.id }}"
-                    onclick="loadChart('{{ table }}', {{ score.id }}, {{ score.count_marv }}, {{ score.count_perf }}, {{ score.count_great }}, {{ score.count_good }}, {{ score.count_okay }}, {{ score.count_miss }});">
+            <a data-toggle="collapse" href="#score_{{ table }}_{{ score.id }}" data-target="#score_{{ table }}_{{ score.id }}">
                 <i class="fas fa-angle-down"></i>
             </a>
         </td>
     </tr>
+{#    onclick="loadChart('{{ table }}', {{ score.id }}, {{ score.count_marv }}, {{ score.count_perf }}, {{ score.count_great }}, {{ score.count_good }}, {{ score.count_okay }}, {{ score.count_miss }});"#}
     <tr>
         <td colspan="7" style="padding: 0;">
             <div class="accordian-body collapse" data-parent="#scores" id="score_{{ table }}_{{ score.id }}" style="overflow: hidden;">
@@ -50,10 +50,10 @@
                 </div>
 {#                <div class="row">#}
 {#                    <div class="col-sm-6 d-sm-block">#}
-{#                        <div class="chartScore_{{ table }}_{{ score.id }}" style="height: 269px;"></div>#}
+{#                        <canvas class="chartScore_{{ table }}_{{ score.id }}" style="height: 269px;"></canvas>#}
 {#                    </div>#}
 {#                    <div class="col-sm-6">#}
-{#                        <canvas class="scatterScore_{{ table }}_{{ score.id }}" style="height: 269px;"></canvas>#}
+{#                        <canvas class="scatterScore_{{ table }}_{{ score.id }}" ></canvas>#}
 {#                    </div>#}
 {#                </div>#}
             </div>

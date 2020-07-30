@@ -1,28 +1,26 @@
 function sortData(data) {
     let marv = [], perf = [], great = [], good = [], okay = [], miss = [];
     $.each(data, function (key, value) {
-        let flag = 1;
-
-        if(value.endsWith('L')) flag = 1.5;
+        if(value.endsWith('L')) value = parseInt(value) / 1.5;
         value = parseInt(value);
-        // console.log(typeof value, value)
         const absValue = Math.abs(value);
         if (absValue === -2147483648) miss.push({x: key, y: 0});
-        else if (absValue <= 18 * flag) marv.push({x: key, y: value});
-        else if (absValue <= 43 * flag) perf.push({x: key, y: value});
-        else if (absValue <= 76 * flag) great.push({x: key, y: value});
-        else if (absValue <= 106 * flag) good.push({x: key, y: value});
-        else if (absValue <= 127 * flag) okay.push({x: key, y: value});
-        else if (absValue <= 164 * flag) miss.push({x: key, y: value});
+        else if (absValue <= 18 ) marv.push({x: key, y: value});
+        else if (absValue <= 43 ) perf.push({x: key, y: value});
+        else if (absValue <= 76 ) great.push({x: key, y: value});
+        else if (absValue <= 106 ) good.push({x: key, y: value});
+        else if (absValue <= 127 ) okay.push({x: key, y: value});
+        else if (absValue <= 164 ) miss.push({x: key, y: value});
         else if (absValue > 0) miss.push({x: key, y: 0});
         else miss.push({x: key, y: value});
     });
-    console.log(marv.length);
-    console.log(perf.length);
-    console.log(great.length);
-    console.log(good.length);
-    console.log(okay.length);
-    console.log(miss.length);
+    // console.log(marv);
+    // console.log(marv.length);
+    // console.log(perf.length);
+    // console.log(great.length);
+    // console.log(good.length);
+    // console.log(okay.length);
+    // console.log(miss.length);
 
     return {
         datasets: [
@@ -216,22 +214,22 @@ function loadJudgements(table_class, score_id, total_marv, total_perf, total_gre
     });
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-    $('#friend_add').submit(function (e) {
-        e.preventDefault();
-        const id = $(this).find('input[name=id]').val();
-        const type = $(this).find('input[name=type]').val();
-        if (id) {
-            $.post(baseUrl() + '/friend/add', {
-                id: id
-            }, function (data) {
-                $.post(baseUrl() + '/friend/render', {
-                    id: id,
-                    type: type
-                }, function (data) {
-                    $('#friend').html(data);
-                });
-            });
-        }
-    });
-});
+// document.addEventListener("DOMContentLoaded", function (event) {
+//     $('#friend_add').submit(function (e) {
+//         e.preventDefault();
+//         const id = $(this).find('input[name=id]').val();
+//         const type = $(this).find('input[name=type]').val();
+//         if (id) {
+//             $.post(baseUrl() + '/friend/add', {
+//                 id: id
+//             }, function (data) {
+//                 $.post(baseUrl() + '/friend/render', {
+//                     id: id,
+//                     type: type
+//                 }, function (data) {
+//                     $('#friend').html(data);
+//                 });
+//             });
+//         }
+//     });
+// });

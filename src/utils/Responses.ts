@@ -72,7 +72,7 @@ export default class Responses {
 
         Responses.Send(req, res, "404", "Unauthorized | Quaver", {
             code: 401,
-            text: 'Unauthorized'
+            text: 'You must create an account in-game in order to log into the website.'
         });
     }
 

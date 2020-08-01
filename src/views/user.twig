@@ -4,7 +4,7 @@
     {% if IsDonator(user.info.usergroups) %}
         {% set cover = "https://cdn.quavergame.com/profile-covers/"~user.info.id~".jpg" %}
     {% endif %}
-    <section class="bg-image bg-dark d-flex align-items-end py-3 lazy" style="min-height: 380px; background-size: cover; background-position: center center;"
+    <section class="bg-image bg-dark d-flex align-items-end pt-0 lazy" style="min-height: 380px; background-size: cover; background-position: center center; padding-bottom: 10px;"
             data-bg-multi="linear-gradient(360deg, #1a1a20 1%, rgba(26, 26, 32, 0) 80%), url({{ cover }})">
         <div class="container position-relative">
             <div class="row">
@@ -41,7 +41,7 @@
                         <a href="{{ baseUrl('/leaderboard?country='~user.info.country|lower) }}">
                             <img src="{{ assets('/img/flags/'~user.info.country~'.png') }}" alt="{{ user.info.country }}">
                         </a>
-                        <a href="https://steamcommunity.com/profiles/{{ user.info.steam_id }}/" class="text-white">{{ user.info.username }}</a>
+                        <a href="https://steamcommunity.com/profiles/{{ user.info.steam_id }}/" class="text-white" target="_blank">{{ user.info.username }}</a>
                         <div class="profile-groups">
                             <small>
                                 {% if HasGroup(user.info, UserGroups.Developer) %}
@@ -127,26 +127,24 @@
                             <img src="{{ user.info.avatar_url }}" alt="" width="188" height="188">
                         </a>
                         <div class="avatar-fixed d-none d-lg-block">
-                            <a class="avatar-tile" href="#">
+                            <a class="avatar-tile" href="https://steamcommunity.com/profiles/{{ user.info.steam_id }}/" target="_blank">
                                 <img src="{{ user.info.avatar_url }}" alt="" width="50" height="50">
                                 <div class="text-white">
                                     <strong>{{ user.info.username }}</strong>
                                     <div class="profile-groups">
-                                        <small>
-                                            {% if HasGroup(user.info, UserGroups.Developer) %}
-                                                <span class="badge badge-custom-developer"><i class="fa fa-code fa-1"></i> Developer</span>
-                                            {% elseif HasGroup(user.info, UserGroups.Admin) %}
-                                                <span class="badge badge-custom-admin"><i class="fa fa-gavel fa-1"></i> Administrator</span>
-                                            {% elseif HasGroup(user.info, UserGroups.Moderator) %}
-                                                <span class="badge badge-custom-moderator"><i class="fa fa-ban fa-1"></i> Moderator</span>
-                                            {% elseif HasGroup(user.info, UserGroups.RankingSupervisor) %}
-                                                <span class="badge badge-custom-ranking-supervisor"><i class="fa fa-gavel fa-1"></i> Ranking Supervisor</span>
-                                            {% elseif HasGroup(user.info, UserGroups.Contributor) %}
-                                                <span class="badge badge-custom-contributor"><i class="fa fa-wrench fa-1"></i> Contributor</span>
-                                            {% elseif HasGroup(user.info, UserGroups.Donator) %}
-                                                <span class="badge badge-custom-donator"><i class="fa fa-heart fa-1"></i> Donator</span>
-                                            {% endif %}
-                                        </small>
+                                        {% if HasGroup(user.info, UserGroups.Developer) %}
+                                            <span class="badge badge-custom-developer"><i class="fa fa-code fa-1"></i> Developer</span>
+                                        {% elseif HasGroup(user.info, UserGroups.Admin) %}
+                                            <span class="badge badge-custom-admin"><i class="fa fa-gavel fa-1"></i> Administrator</span>
+                                        {% elseif HasGroup(user.info, UserGroups.Moderator) %}
+                                            <span class="badge badge-custom-moderator"><i class="fa fa-ban fa-1"></i> Moderator</span>
+                                        {% elseif HasGroup(user.info, UserGroups.RankingSupervisor) %}
+                                            <span class="badge badge-custom-ranking-supervisor"><i class="fa fa-gavel fa-1"></i> Ranking Supervisor</span>
+                                        {% elseif HasGroup(user.info, UserGroups.Contributor) %}
+                                            <span class="badge badge-custom-contributor"><i class="fa fa-wrench fa-1"></i> Contributor</span>
+                                        {% elseif HasGroup(user.info, UserGroups.Donator) %}
+                                            <span class="badge badge-custom-donator"><i class="fa fa-heart fa-1"></i> Donator</span>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </a>
@@ -190,8 +188,8 @@
     </script>
     <script defer src="{{ assets('/js/user.js') }}"></script>
     <script defer src="{{ assets('/js/artists.js') }}"></script>
-{#    <script defer src="{{ assets('/js/plugins/Chart.min.js') }}"></script>#}
-{#    <script defer src="{{ assets('/js/plugins/chartjs-plugin-datalabels.js') }}"></script>#}
+    {#    <script defer src="{{ assets('/js/plugins/Chart.min.js') }}"></script>#}
+    {#    <script defer src="{{ assets('/js/plugins/chartjs-plugin-datalabels.js') }}"></script>#}
 {% endblock %}
 
 {% block page_scripts %}{% endblock %}

@@ -2,6 +2,7 @@
 <div class="row" id="mapsets_{{ status }}">
     {% endif %}
     {% for map in maps %}
+        <audio id="track_{{ map.id }}" src="https://cdn.quavergame.com/audio-previews/{{ map.id }}.mp3" preload="none"></audio>
         {% if map.difficulty_range %}
             {% set rating_min = ratingColor(min(map.difficulty_range)) %}
             {% set rating_max = ratingColor(max(map.difficulty_range)) %}
@@ -9,6 +10,11 @@
         <div class="col-md-6 d-flex mapsets-space">
             <div class="mapsets">
                 <div class="status-right">
+                    <a href="javascript:void(0)">
+                        <div onclick="song({{ map.id }})" class="download song_button_{{ map.id }}">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </a>
                     <a href="{{ baseUrl('/download/mapset/'~map.id) }}">
                         <div class="download">
                             <i class="fas fa-download"></i>

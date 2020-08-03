@@ -1,3 +1,5 @@
+<audio id="track_{{ mapset.id }}" src="https://cdn.quavergame.com/audio-previews/{{ mapset.id }}.mp3" preload="none"></audio>
+
 <div class="d-flex d-md-flex d-sm-block justify-content-between align-items-center">
     <div>
         {% if modding %}
@@ -15,6 +17,7 @@
                 {% endfor %}
             </div>
         </div>
+        <button class="btn btn-dark song_button_{{ mapset.id }}" type="button" onclick="song({{ mapset.id }})"><i class="fas fa-play"></i></button>
     </div>
     <div class="mt-md-0 mt-sm-3">
         {% if not modding %}

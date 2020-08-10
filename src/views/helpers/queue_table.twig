@@ -34,7 +34,11 @@ Length: {{ difficulty.duration }}">
                         {{ map.creator_username }}
                     </a>
                 </td>
-                <td>{{ map.votes_count }} / 2</td>
+                <td>
+                    <span data-toggle="tooltip" title="{{ map.votes }}">
+                        {{ map.votes_count }} / 2
+                    </span>
+                </td>
                 <td>
                     <span data-toggle="tooltip" title="{{ formatDate(map.date_last_updated) }}">{{ formatDateDistance(map.date_last_updated) }}</span>
                 </td>

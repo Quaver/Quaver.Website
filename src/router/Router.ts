@@ -53,7 +53,7 @@ export default class Router {
         router.route("/friends").post(Authentication.RequireLogin, Friends.POST);
         router.route("/friend/add").post(Authentication.RequireLogin, Friends.AddFriendPOST);
         router.route("/friend/remove").post(Authentication.RequireLogin, Friends.RemoveFriendPOST);
-        router.route('/friend/render').post(Authentication.RequireLogin, Friends.renderFriend);
+        // router.route('/friend/render').post(Authentication.RequireLogin, Friends.renderFriend);
         router.route("/settings/donator").get(Authentication.RequireLogin, Settings.GET);
         router.route("/settings/donator").post(Authentication.RequireLogin, Settings.POST);
 

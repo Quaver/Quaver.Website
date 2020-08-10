@@ -221,6 +221,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 /* Leaderboard Tabs */
 
+#mode-tabs .tab-keys {
+    background: linear-gradient(270deg, #9B51E0 35.92%, #0587E5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
 #mode-tabs .tab-keys4 {
     color: #0587e5;
     font-weight: 600;
@@ -229,6 +236,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 #mode-tabs .tab-keys7 {
     color: #9B51E0;
     font-weight: 600;
+}
+
+#mode-tabs .tab-keys:hover {
+    background: linear-gradient(270deg, #9B51E0 35.92%, #0587E5 100%);
+    color: #ffffff;
+    border-color: transparent;
+    -webkit-text-fill-color: white;
+    border-right: 1px solid #9b51e0;
 }
 
 #mode-tabs .tab-keys4:hover {
@@ -243,6 +258,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border-color: transparent;
 }
 
+#mode-tabs .active-keys {
+    background: linear-gradient(270deg, #9B51E0 35.92%, #0587E5 100%);
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+}
+
 #mode-tabs .active-keys4 {
     background-color: #0587e5;
     border: none;
@@ -255,6 +277,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border: none;
     color: #ffffff;
     font-weight: 600;
+}
+
+#mode-tabs .keys {
+    border-bottom: 1px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(270deg, #9B51E0 35.92%, #0587E5 100%)
 }
 
 #mode-tabs .keys4 {
@@ -1781,6 +1809,25 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 /* Aritsts */
 
+#artists .artist .btn-social.btn-link {
+    color: #fff;
+}
+
+#artists .artist .btn-soundcloud.btn-link {
+    color: #f50;
+}
+
+#artists .artist .btn-youtube.btn-link {
+    color: #cd201f;
+}
+
+#artists .artist .btn-twitter.btn-link {
+    color: #55acee;
+}
+
+#artists .artist .btn-spotify.btn-link {
+    color: #1db954;
+}
 
 #artists .tracks {
     display: flex;

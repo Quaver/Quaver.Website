@@ -14,6 +14,7 @@ import Friends from "../controllers/users/Friends";
 import Settings from "../controllers/users/Settings";
 import Sitemap from "../controllers/sitemap/Sitemap";
 import Donate from "../controllers/donate/Donate";
+import RankingQueue from "../controllers/maps/RankingQueue";
 
 export default class Router {
     /**
@@ -28,6 +29,7 @@ export default class Router {
         router.route("/leaderboard/multiplayer").get(LeaderBoard.MultiplayerGET);
         router.route('/maps').get(Maps.MapsGET);
         router.route('/maps/load').post(Maps.MapsSearchPOST);
+        router.route('/mapsets/queue').get(RankingQueue.GET);
         router.route("/mapset/:id").get(Maps.MapsetGET);
         router.route("/mapset/map/:id").get(Maps.MapGET);
         router.route("/mapset/map/:id/mods").get(Maps.ModsGET);
@@ -51,6 +53,7 @@ export default class Router {
         router.route("/friends").post(Authentication.RequireLogin, Friends.POST);
         router.route("/friend/add").post(Authentication.RequireLogin, Friends.AddFriendPOST);
         router.route("/friend/remove").post(Authentication.RequireLogin, Friends.RemoveFriendPOST);
+        router.route('/friend/render').post(Authentication.RequireLogin, Friends.renderFriend);
         router.route("/settings/donator").get(Authentication.RequireLogin, Settings.GET);
         router.route("/settings/donator").post(Authentication.RequireLogin, Settings.POST);
 
@@ -58,6 +61,9 @@ export default class Router {
         router.route("/donate").post(Authentication.RequireLogin, Donate.POST);
         router.route("/donate/complete").post(Authentication.RequireLogin, Donate.GET);
         router.route("/donate/user").post(Donate.CardGET);
+
+        // router.route("/artists").get(Artists.GET);
+        // router.route("/artist/:id").get(Artists.ArtistGET);
 
         router.route("/login").get(Login.GET);
         router.route("/login/verify").get(Login.VerifyGET);

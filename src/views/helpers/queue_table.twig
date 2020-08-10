@@ -1,0 +1,45 @@
+<div class="table-responsive" id="leaderboard">
+    <table class="table align-items-center">
+        <thead>
+        <tr>
+            <th scope="col" class="player text-left">Map</th>
+            <th scope="col" class="text-center" style="width: 15%;">Submitted By</th>
+            <th scope="col">Votes</th>
+            <th scope="col" style="width: 15%;">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for map in queue %}
+            {% set border = "" %}
+            {% if currentUser and currentUser.id == map.creator_id %}
+                {% set border = "border-left: 8px solid #2575dc;" %}
+            {% endif %}
+            <tr style="{{ border }}">
+                <td class="text-left">
+                    <div class="player">
+                    <a href="/mapset/{{ map.mapset_id }}">
+                        {{ map.artist~' - '~map.title }}
+                    </a>
+                    </div>
+                    {% for difficulty in map.difficulties %}
+                        <img src="{{ assets('/img/difficulties/'~ratingColor(difficulty.difficulty_rating)~'.png') }}"
+                                data-toggle="tooltip" title="Mode: {{ difficulty.game_mode }}
+Difficulty: {{ difficulty.difficulty_name }}
+Difficulty Rating: {{ difficulty.difficulty_rating }}
+Length: {{ difficulty.duration }}">
+                    {% endfor %}
+                </td>
+                <td class="text-center">
+                    <a href="/user/{{ map.creator_id }}">
+                        {{ map.creator_username }}
+                    </a>
+                </td>
+                <td>{{ map.votes_count }} / 2</td>
+                <td>
+                    <span data-toggle="tooltip" title="{{ formatDate(map.date_last_updated) }}">{{ formatDateDistance(map.date_last_updated) }}</span>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

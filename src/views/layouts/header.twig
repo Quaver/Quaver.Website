@@ -27,17 +27,18 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{{ baseUrl('/leaderboard') }}" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">Leaderboard
-                    </a>
+                    <a class="nav-link dropdown-toggle" href="{{ baseUrl('/leaderboard') }}">Leaderboard</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ baseUrl('/leaderboard') }}">Overall Rating</a>
                         <a class="dropdown-item" href="{{ baseUrl('/leaderboard/hits') }}">Total Hits</a>
                         <a class="dropdown-item" href="{{ baseUrl('/leaderboard/multiplayer') }}">Multiplayer</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ baseUrl('/maps') }}">Maps</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ baseUrl('/maps') }}">Maps</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ baseUrl('/mapsets/queue') }}">Ranking Queue</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ baseUrl('/playlists') }}">Playlists</a>
@@ -57,9 +58,7 @@
                 <li id="mobile-search">
                     <input type="text" class="form-control custom-search" id="search-mobile" style="" placeholder="Search Users" autocomplete="off">
                     <div class="searchBox mr-5 ml-5" style="display: none;">
-                        <ul class="list-group">
-
-                        </ul>
+                        <ul class="list-group"></ul>
                     </div>
                 </li>
                 {% if not currentUser %}
@@ -76,9 +75,7 @@
                 <div class="search" id="navbar-search">
                     <input class="form-control custom-search" id="search" type="text" placeholder="Search Users" autocomplete="off">
                     <div class="searchBox" style="display: none">
-                        <ul class="list-group">
-
-                        </ul>
+                        <ul class="list-group"></ul>
                     </div>
                 </div>
             </li>

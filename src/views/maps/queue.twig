@@ -1,0 +1,60 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        Ranking Queue
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="nav-tab-scroll" id="mode-tabs">
+                <div class="nav nav-tabs {% if mode == 0 %}keys{% elseif mode == 1 %}keys4{% else %}keys7{% endif %}">
+                    <a class="nav-item nav-link {% if mode == 0 %}active-keys{% else %}tab-keys{% endif %}" href="/mapsets/queue?mode=0">
+                        4 & 7 Keys
+                    </a>
+                    <a class="nav-item nav-link {% if mode == 1 %}active-keys4{% else %}tab-keys4{% endif %}" href="/mapsets/queue?mode=1">
+                        4 Keys
+                    </a>
+                    <a class="nav-item nav-link {% if mode == 2 %}active-keys7{% else %}tab-keys7{% endif %}" href="/mapsets/queue?mode=2">
+                        7 Keys
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                {% if pages - 1 %}
+                    <div class="card-body" style="border-radius: 0; padding: 0 0 15px 0; background: #222222;">
+                        {% include '../helpers/pagination.twig' with {
+                            currentPage: page,
+                            paginationPath: "?mode="~mode~"&page=",
+                            paginationCountry: '',
+                            lastPage: pages
+                        } only %}
+                    </div>
+                {% endif %}
+                {% include 'helpers/queue_table.twig' %}
+                {% if pages - 1 %}
+                    <div class="card-body" style="border-radius: 0; padding: 0 0 15px 0;">
+                        {% include '../helpers/pagination.twig' with {
+                            currentPage: page,
+                            paginationPath: "?mode="~mode~"&page=",
+                            paginationCountry: '',
+                            lastPage: pages
+                        } only %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ assets('/js/artists.js') }}"></script>
+{% endblock %}

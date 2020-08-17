@@ -74,11 +74,15 @@
                     Ranking Queue Comments
                     <div>
                         {% if mapset.ranking_queue_status == 0 %}
-                            <span class="mapset-buttons btn-primary">Pending</span>
+                            <span class="mapset-buttons pending">Pending</span>
                         {% elseif mapset.ranking_queue_status == 1 %}
-                            <span class="mapset-buttons btn-danger">Denied For Rank</span>
+                            <span class="mapset-buttons denied">Denied For Rank</span>
                         {% elseif mapset.ranking_queue_status == 2 %}
-                            <span class="mapset-buttons btn-dark">Blacklisted</span>
+                            <span class="mapset-buttons blacklisted">Blacklisted</span>
+                        {% elseif mapset.ranking_queue_status == 3 %}
+                            <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">On Hold</span>
+                        {% elseif mapset.ranking_queue_status == 4 %}
+                            <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">Resolved</span>
                         {% endif %}
                         <span class="mapset-buttons btn-info">
                             {% if map.ranked_status == 2 %}
@@ -92,24 +96,13 @@
                             {% endif %}
                             Supervisor Votes
                         </span>
-                        {% if not map.ranked_status == 2 %}
-                            {% if mapset.ranking_queue_status == 0 %}
-                                <span class="mapset-buttons pending" style="background-color: #F2994A;">Pending</span>
-                            {% elseif mapset.ranking_queue_status == 1 %}
-                                <span class="mapset-buttons denied" style="background-color: #5B5B5B;">Denied For Rank</span>
-                            {% elseif mapset.ranking_queue_status == 2 %}
-                                <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">Blacklisted</span>
-                            {% else %}
-                                <span class="mapset-buttons pending">Not Submitted</span>
-                            {% endif %}
-                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="card" id="comments">
                 <div class="card-body">
                     <div id="comments" class="comments">
-                        {% if not comments|length %} No Comments{% endif %}
+                        {% if not comments|length %}No Comments{% endif %}
                         {% for comment in comments %}
                             <div class="media">
                                 <div class="avatar">

@@ -23,8 +23,8 @@
     "discord": {
         "api": "https://discord.quavergame.com",
         "secret": "",
-        "clientId": "524988794177454081",
-        "clientSecret": "wZ8NyxyRjlD-uhcI9BvaMlzT_B6XSvIF",
+        "clientId": "",
+        "clientSecret": "",
         "discordUrl": "https://discord.com/api/oauth2/authorize"
     }
 }

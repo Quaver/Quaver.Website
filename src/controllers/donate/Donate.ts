@@ -1,8 +1,8 @@
 import Responses from "../../utils/Responses";
 import Logger from "../../logging/Logger";
 import API from "../../api/API";
+import SqlDatabase from "../../database/SqlDatabase";
 
-const requestIp = require('request-ip');
 const request = require("request");
 const config = require("../../config/config.json");
 
@@ -71,7 +71,7 @@ export default class Donate {
 
     public static async CardGET(req: any, res: any): Promise<void> {
         try {
-            if(req.body.username === "") {
+            if (req.body.username === "") {
                 req.body.username = req.user.username;
             }
 
@@ -134,6 +134,106 @@ export default class Donate {
             }
 
             res.redirect(301, `/donate`);
+        } catch (err) {
+            Logger.Error(err);
+            console.log(err);
+            Responses.Return500(req, res);
+        }
+    }
+
+    public static async DiscordConnect(req: any, res: any): Promise<void> {
+        try {
+            if (!req.query.code) {
+                res.redirect("/404");
+                return;
+            }
+
+            let discordResponseToken: any = await new Promise(resolve => {
+                request.post(`https://discordapp.com/api/oauth2/token`, {
+                    headers: {
+                        "Authorization": `Bearer ${req.query.code}`
+                    },
+                    form: {
+                        client_id: config.discord.clientId,
+                        client_secret: config.discord.clientSecret,
+                        grant_type: "authorization_code",
+                        code: req.query.code,
+                        redirect_uri: `${config.baseUrl}/donate/connect`,
+                        scope: "identify"
+                    },
+                    json: true
+                }, function (error, response, body) {
+                    resolve(body);
+                });
+            }).then(body => body);
+
+            let discordResponse: any = await new Promise(resolve => {
+                request.get(`https://discordapp.com/api/users/@me`, {
+                    headers: {
+                        "Authorization": "Bearer " + discordResponseToken.access_token,
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    json: true
+                }, function (error, response, body) {
+                    resolve(body);
+                });
+            }).then(body => body);
+
+            if (discordResponse.id) {
+                await SqlDatabase.Execute("UPDATE users SET discord_id = ? WHERE id = ?", [discordResponse.id, req.user.id]);
+
+                const token = await API.GetToken(req);
+
+                await new Promise(resolve => {
+                    request.post(`${config.discord.api}/donator/add`, {
+                        form: {
+                            key: config.discord.secret,
+                            id: discordResponse.id
+                        },
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        },
+                        json: true
+                    }, function (error, response, body) {
+                        resolve(body);
+                    });
+                }).then(body => body);
+            }
+
+            req.flash('success', "You have successfully linked your Discord account.");
+            res.redirect("/settings/donator");
+        } catch (err) {
+            Logger.Error(err);
+            console.log(err);
+            Responses.Return500(req, res);
+        }
+    }
+
+    public static async DiscordUnlink(req: any, res: any): Promise<void> {
+        try {
+            if (req.user.discord_id) {
+                await SqlDatabase.Execute("UPDATE users SET discord_id = ? WHERE id = ?", ["", req.user.id]);
+
+                const token = await API.GetToken(req);
+
+                await new Promise(resolve => {
+                    request.post(`${config.discord.api}/donator/add`, {
+                        form: {
+                            key: config.discord.secret,
+                            id: req.user.discord_id
+                        },
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        },
+                        json: true
+                    }, function (error, response, body) {
+                        resolve(body);
+                    });
+                }).then(body => body);
+            }
+
+            req.flash('success', "You have successfully unlinked your Discord account.");
+            res.redirect("/settings/donator");
         } catch (err) {
             Logger.Error(err);
             console.log(err);

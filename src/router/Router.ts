@@ -53,7 +53,6 @@ export default class Router {
         router.route("/friends").post(Authentication.RequireLogin, Friends.POST);
         router.route("/friend/add").post(Authentication.RequireLogin, Friends.AddFriendPOST);
         router.route("/friend/remove").post(Authentication.RequireLogin, Friends.RemoveFriendPOST);
-        // router.route('/friend/render').post(Authentication.RequireLogin, Friends.renderFriend);
         router.route("/settings/donator").get(Authentication.RequireLogin, Settings.GET);
         router.route("/settings/donator").post(Authentication.RequireLogin, Settings.POST);
 
@@ -61,6 +60,8 @@ export default class Router {
         router.route("/donate").post(Authentication.RequireLogin, Donate.POST);
         router.route("/donate/complete").post(Authentication.RequireLogin, Donate.GET);
         router.route("/donate/user").post(Donate.CardGET);
+        router.route("/donate/connect").get(Authentication.RequireLogin, Donate.DiscordConnect);
+        router.route("/donate/unlink").get(Authentication.RequireLogin, Donate.DiscordUnlink);
 
         // router.route("/artists").get(Artists.GET);
         // router.route("/artist/:id").get(Artists.ArtistGET);

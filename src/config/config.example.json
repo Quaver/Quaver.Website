@@ -20,6 +20,11 @@
         "password": ""
     },
     "jwtSecret": "",
-    "wikiRepository": "Quaver/Quaver.Wiki",
-    "wikiBranch": "master"
+    "discord": {
+        "api": "https://discord.quavergame.com",
+        "secret": "",
+        "clientId": "",
+        "clientSecret": "",
+        "discordUrl": "https://discord.com/api/oauth2/authorize"
+    }
 }

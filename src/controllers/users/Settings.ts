@@ -12,7 +12,8 @@ export default class Settings {
 
             Responses.Send(req, res, "user/settings", `Donator Settings | Quaver`, {
                 bio: user.info.userpage,
-                canChange: user.change
+                canChange: user.change,
+                discord: config.discord.discordUrl
             });
         } catch (err) {
             Logger.Error(err);
@@ -77,12 +78,11 @@ export default class Settings {
                     }).then(body => body);
                 }
 
-                if (response)
-                    if (response.status == 200) {
-                        req.flash('success', response.message);
-                    } else {
-                        req.flash('error', response.message);
-                    }
+                if (response) {
+                    if (response.status == 200) req.flash('success', response.message);
+                    else if (response.message) req.flash('error', response.message);
+                    else if (response.error) req.flash('error', response.error);
+                }
             }
 
             res.redirect(301, `/settings/donator`);

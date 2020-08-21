@@ -36,11 +36,9 @@
                                 <div class="avatar-card d-flex justify-content-between lazy {{ (friend.online ? 'friend-online' : 'friend-offline') }}"
                                         style="background-size: cover; background-position: center center;"
                                         data-bg-multi="linear-gradient(360deg, rgb(26, 26, 32) 1%, rgba(26, 26, 32, 0.5) 100%), url({{ cover }})">
-                                    <div>
-                                        <a href="{{ baseUrl('/user/'~friend.user_id) }}" class="avatar-title">
-                                            <img src="{{ assets('/img/flags/'~friend.country~'.png') }}" alt="{{ friend.country }}">
-                                            {{ friend.username }}
-                                        </a>
+                                    <div class="avatar-title">
+                                        <img src="{{ assets('/img/flags/'~friend.country~'.png') }}" alt="{{ friend.country }}">
+                                        {{ friend.username }}
                                     </div>
                                     <div class="avatar-badge">
                                         {% if friend.avatar_url %}
@@ -113,10 +111,12 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
-    $(document).on('click', '.visit', function () {
-        const id = $(this).data('id');
-        window.location.href = baseUrl() + "/user/" + id;
-    });
-</script>
+    <script>
+        $(document).on('click', '.visit', function (e) {
+            const id = $(this).data('id');
+            if(!$(e.target).closest('a').length) {
+                window.location.href = baseUrl() + "/user/" + id;
+            }
+        });
+    </script>
 {% endblock %}

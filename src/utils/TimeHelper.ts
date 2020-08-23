@@ -17,9 +17,10 @@ export default class TimeHelper {
         const minutes = Math.floor(millis / 60000);
         const seconds = ((millis % 60000) / 1000);
         const sec = seconds < 10;
+
         if (minutes === 0)
-            return minutes + ":" + (sec ? '0' : '') + seconds.toFixed(0);
-        return minutes + ":" + (sec ? '0' : '') + seconds.toFixed(0);
+            return minutes + ":" + (sec ? '0' : '') + Math.floor(seconds);
+        return minutes + ":" + (sec ? '0' : '') + Math.floor(seconds);
     }
 
     public static convertTime(time: number): string {

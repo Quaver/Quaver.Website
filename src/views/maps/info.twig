@@ -51,7 +51,7 @@
                         {% if (mapset.ranking_queue_status == null or mapset.ranking_queue_status == 1) and map.ranked_status != 2 %}
                             <button class="dropdown-item text-info" type="button" data-toggle="modal" data-target="#submitForRank">Submit for Rank</button>
                         {% endif %}
-                        {% if map.ranked_status != 2 %}
+                        {% if map.ranked_status != 2 and mapset.ranking_queue_status == null %}
                             <form method="POST" accept-charset="UTF-8" onsubmit="return confirm('Do you really want to delete mapset?');">
                                 <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
                                 <button class="dropdown-item text-danger" name="submit_delete">Delete Mapset</button>

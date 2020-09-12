@@ -96,6 +96,9 @@ export default class Router {
         router.get('/multiplayer/game/*', function (req: any, res: any) {
             res.redirect(301, 'https://old.quavergame.com/multiplayer/game/' + req.params[0]);
         });
+        router.get('/moderators/apply', function (req: any, res: any) {
+            res.redirect(301, 'https://forms.gle/1UL3jonAYEWUXD4A6');
+        });
 
         router.route("/sitemap.xml").get(Sitemap.GET);
 

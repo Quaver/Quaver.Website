@@ -78,7 +78,11 @@
                     <span data-toggle="tooltip" title="{{ formatDate(mapset.date_submitted) }}">{{ formatDateDistance(mapset.date_submitted) }}</span>
                 </div>
                 <div>
-                    <b>Last updated:</b>
+                    {% if map.ranked_status == 2 %}
+                        <b>Ranked:</b>
+                    {% else %}
+                        <b>Last updated:</b>
+                    {% endif %}
                     <span data-toggle="tooltip" title="{{ formatDate(mapset.date_last_updated) }}">{{ formatDateDistance(mapset.date_last_updated) }}</span>
                 </div>
             </div>

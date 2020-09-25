@@ -22,7 +22,7 @@
         </button>
     </div>
     <div class="mt-md-0 mt-sm-3">
-        {% if not modding %}
+        {% if not modding and currentUser%}
             {% if mapset.ranking_queue_status != null and HasPrivilege(currentUser, Privileges.RankMapsets) and mapset.mapset_ranking_queue_id %}
                 <a href="https://a.quavergame.com/ranking/{{ mapset.mapset_ranking_queue_id }}" class="btn btn-info" target="_blank">Ranking</a>
             {% endif %}

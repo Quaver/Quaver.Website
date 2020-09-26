@@ -4,6 +4,7 @@
         <tr>
             <th scope="col" class="player text-left">Map</th>
             <th scope="col" class="text-center" style="width: 15%;">Submitted By</th>
+            <th scope="col">Status</th>
             <th scope="col">Votes</th>
             <th scope="col" style="width: 15%;">Date</th>
         </tr>
@@ -33,6 +34,19 @@ Length: {{ difficulty.duration }}">
                     <a href="/user/{{ map.creator_id }}">
                         {{ map.creator_username }}
                     </a>
+                </td>
+                <td>
+                    {% if map.status == 0 %}
+                        <span class="mapset-buttons pending">Pending</span>
+                    {% elseif map.status == 1 %}
+                        <span class="mapset-buttons denied">Denied For Rank</span>
+                    {% elseif map.status == 2 %}
+                        <span class="mapset-buttons blacklisted">Blacklisted</span>
+                    {% elseif map.status == 3 %}
+                        <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">On Hold</span>
+                    {% elseif map.status == 4 %}
+                        <span class="mapset-buttons" style="background-color: #27b06e;">Resolved</span>
+                    {% endif %}
                 </td>
                 <td>
                     <span data-toggle="tooltip" title="{{ map.votes }}">

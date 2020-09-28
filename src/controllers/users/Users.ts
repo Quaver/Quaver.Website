@@ -25,6 +25,11 @@ export default class Users {
             if (!user)
                 return Responses.ReturnUserNotFound(req, res);
 
+            if(req.params.id != user.info.id) {
+                res.redirect(301, '/user/' + user.info.id);
+                return;
+            }
+
             const best = await Users.GetBestScores(req, res, user, mode);
             const recent = await Users.GetRecentScores(req, res, user, mode);
             const firstPlace = await Users.GetFirstPlaceScores(req, res, user, mode);

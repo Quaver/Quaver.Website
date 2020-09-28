@@ -22,7 +22,7 @@
                         <div class="post-thumbnail mt-1 mb-2 ml-2 mb-md-0">
                             <a href="{{ baseUrl('/mapset/map/'~match.map.id) }}">
                                 {% if match.map.mapset_id != "-1" %}
-                                    <img class="post-img" src="https://cdn.quavergame.com/banners/{{ match.map.mapset_id }}_banner.jpg">
+                                    <img class="post-img" src="https://cdn.quavergame.com/mapsets/{{ match.map.mapset_id }}.jpg">
                                 {% else %}
                                     <img class="post-img" src="{{ assets('/img/inf.jpg') }}">
                                 {% endif %}

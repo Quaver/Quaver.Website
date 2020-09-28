@@ -27,7 +27,7 @@
                         <div class="post-thumbnail mt-1 mb-2 ml-2 mb-md-0">
                             <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
                                 {% if game.map.mapset_id != "-1" %}
-                                    <img class="post-img" src="https://cdn.quavergame.com/banners/{{ game.map.mapset_id }}_banner.jpg">
+                                    <img class="post-img" src="https://cdn.quavergame.com/mapsets/{{ game.map.mapset_id }}.jpg">
                                 {% else %}
                                     <img class="post-img" src="{{ assets('/img/mapset.jpg') }}">
                                 {% endif %}
@@ -70,7 +70,7 @@
                         <div class="post-thumbnail mt-1 mb-2 ml-2 mb-md-0">
                             <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
                                 {% if game.map.mapset_id != "-1" %}
-                                    <img class="post-img" src="https://cdn.quavergame.com/banners/{{ game.map.mapset_id }}_banner.jpg">
+                                    <img class="post-img" src="https://cdn.quavergame.com/mapsets/{{ game.map.mapset_id }}.jpg">
                                 {% else %}
                                     <img class="post-img" src="{{ assets('/img/mapset.jpg') }}">
                                 {% endif %}

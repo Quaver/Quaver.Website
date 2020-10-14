@@ -1,10 +1,6 @@
 import Logger from "../../logging/Logger";
 import Responses from "../../utils/Responses";
 import API from "../../api/API";
-import GameModeHelper from "../../utils/GameModeHelper";
-import ModStatus from "../../enums/ModStatus";
-import GameMode from "../../enums/GameMode";
-import RankedStatus from "../../enums/RankedStatus";
 import MultiplayerGameRuleset from "../../enums/MultiplayerGameRuleset";
 
 export default class Multiplayer {
@@ -41,9 +37,10 @@ export default class Multiplayer {
             const gameId = req.params.id;
             const game = await Multiplayer.FetchMultiplayerGame(req, gameId);
 
-            Responses.Send(req, res, "multiplayer/game", `Multiplayer | Quaver`, {
+            Responses.Send(req, res, "multiplayer/game", `Multiplayer - ${game.multiplayer_game.name} | Quaver`, {
                 gameId: gameId,
-                game: game,
+                mp: game,
+                game: game.matches,
                 rulesets: MultiplayerGameRuleset
             });
         } catch (err) {
@@ -71,7 +68,7 @@ export default class Multiplayer {
 
             if (response.status != 200)
                 return null;
-            return response.matches;
+            return response;
         } catch(err) {
             Logger.Error(err);
             return null;

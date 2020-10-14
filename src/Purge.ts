@@ -28,7 +28,12 @@ export default class Purge {
                 'ya-lightbox-item',
                 'ya-lightbox-close',
                 'ya-lightbox-img',
-                'ya-lightbox-backdrop'
+                'ya-lightbox-backdrop',
+                'btn-twitter',
+                'btn-soundcloud',
+                'btn-youtube',
+                'btn-facebook',
+                'btn-spotify'
             ],
             variables: true,
             rejected: true

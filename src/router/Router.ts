@@ -44,7 +44,7 @@ export default class Router {
         router.route("/playlist/map/add").post(Authentication.RequireLogin, Maps.PlaylistAddPOST);
         router.route("/playlist/map/remove").post(Authentication.RequireLogin, Maps.PlaylistRemoveMapPOST);
         router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);
-        // router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
+        router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
         router.route("/user/:id").get(Users.GET);
         router.route("/user/maps/load").post(Users.UserMapssetsPOST);
         router.route("/user/scores/load").post(Users.UserScoresPOST);
@@ -93,9 +93,9 @@ export default class Router {
         router.get('/wiki', function (req: any, res: any) {
             res.redirect(301, 'https://wiki.quavergame.com/docs/');
         });
-        router.get('/multiplayer/game/*', function (req: any, res: any) {
-            res.redirect(301, 'https://old.quavergame.com/multiplayer/game/' + req.params[0]);
-        });
+        // router.get('/multiplayer/game/*', function (req: any, res: any) {
+        //     res.redirect(301, 'https://old.quavergame.com/multiplayer/game/' + req.params[0]);
+        // });
         router.get('/moderators/apply', function (req: any, res: any) {
             res.redirect(301, 'https://forms.gle/1UL3jonAYEWUXD4A6');
         });

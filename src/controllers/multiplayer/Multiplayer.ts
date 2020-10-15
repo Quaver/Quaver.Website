@@ -87,7 +87,8 @@ export default class Multiplayer {
 
             Responses.Send(req, res, "multiplayer/scores", ``, {
                 scores: scores,
-                teams
+                teams,
+                type: (scores.match.outcome.team == -1) ? 0 : 1
             });
         } catch (err) {
             Logger.Error(err);

@@ -20,14 +20,16 @@
                 <div class="widget-header">Live Games</div>
             </div>
             {% if not games.live %}
-                <span class="text-white">There are no live games!</span> {% endif %}
+                <span class="text-white">There are no live games!</span>
+            {% endif %}
+
             {% for game in games.live %}
                 <div class="card mb-3">
                     <div class="post post-medium">
                         <div class="post-thumbnail mt-1 mb-2 ml-2 mb-md-0">
                             <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
                                 {% if game.map.mapset_id != "-1" %}
-                                    <img class="post-img" src="https://cdn.quavergame.com/mapsets/{{ game.map.mapset_id }}.jpg">
+                                    <img class="post-img" src="https://cdn.quavergame.com/mapsets/{{ game.map.mapset_id }}.jpg" onerror="this.src='{{ assets("/img/mapset.jpg") }}'">
                                 {% else %}
                                     <img class="post-img" src="{{ assets('/img/mapset.jpg') }}">
                                 {% endif %}
@@ -58,7 +60,6 @@
                         </div>
                     </div>
                 </div>
-
             {% endfor %}
 
             <div class="widget mt-4">
@@ -70,7 +71,7 @@
                         <div class="post-thumbnail mt-1 mb-2 ml-2 mb-md-0">
                             <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
                                 {% if game.map.mapset_id != "-1" %}
-                                    <img class="post-img" src="https://cdn.quavergame.com/mapsets/{{ game.map.mapset_id }}.jpg">
+                                    <img class="post-img" src="https://cdn.quavergame.com/mapsets/{{ game.map.mapset_id }}.jpg" onerror="this.src='{{ assets("/img/mapset.jpg") }}'">
                                 {% else %}
                                     <img class="post-img" src="{{ assets('/img/mapset.jpg') }}">
                                 {% endif %}
@@ -101,8 +102,8 @@
                                         <i class="far fa-eye text-white"></i>
                                     </a>
                                 </div>
-                                <div class="mt-3">
-                                    <b>{{ formatDate(game.time_played) }}</b>
+                                <div class="mt-3 text-center">
+                                    <b>{{ formatDateDistance(game.time_played) }}</b>
                                 </div>
                             </div>
                         </div>

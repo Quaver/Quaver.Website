@@ -1908,6 +1908,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background: #242424;
 }
 
+#multiplayer table thead tr th,
+#multiplayer table tbody tr td {
+    text-align: center;
+}
+
+#multiplayer table thead .player {
+    text-align: left;
+}
+
 #multiplayer .mapsets .cover:hover {
     box-shadow: none;
     cursor: unset;
@@ -1942,6 +1951,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 /* Mobile optimizations */
+
+@media (max-width: 1200px) {
+    .valuable-player {
+        display: none;
+    }
+}
 
 @media (max-width: 768px) {
     #playlists .fix-height {

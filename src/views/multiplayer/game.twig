@@ -31,6 +31,18 @@
                                     <div class="qadge mapset-7k">7K</div>
                                 {% endif %}
                             </div>
+                            <div class="float-right pr-3 valuable-player">
+                                <a href="{{ baseUrl('/user/'~match.most_valuable_player.id) }}" class="text-white d-flex align-items-center text-center">
+                                    <img class="avatar avatar-md rounded-circle mr-xl-2" src="{{ match.most_valuable_player.avatar_url }}" alt="{{ match.most_valuable_player.username }}">
+                                    <span class="d-none d-xl-inline-block">
+                                        <img src="{{ assets('/img/flags/'~match.most_valuable_player.country~'.png') }}" alt="{{ match.most_valuable_player.country }}">
+                                        {{ match.most_valuable_player.username }}
+                                        <div>
+                                            Rating: {{ match.most_valuable_player.score.performance_rating|number_format(2) }}
+                                        </div>
+                                    </span>
+                                </a>
+                            </div>
                             <div class="song-name">
                                 <span class="title">{{ match.map.name | truncate(70) }}</span>
                                 <div class="d-flex justify-content-between align-items-end">
@@ -54,8 +66,8 @@
                                         <a href="{{ baseUrl('/mapset/map/'~match.map.id) }}" class="btn btn-primary btn-xs text-white">
                                             View Mapset
                                         </a>
-                                        <a class="btn btn-primary btn-xs text-white" data-toggle="collapse" href="#scores_{{ match.id }}"
-                                                role="button" aria-expanded="false">
+                                        <a class="btn btn-primary btn-xs text-white loadScores" data-toggle="collapse" href="javascript:void(0)"
+                                           data-map="{{ match.id }}" data-loop="{{ loop.index }}">
                                             View Scores
                                         </a>
                                     </div>
@@ -64,258 +76,38 @@
                         </div>
                     </div>
                     <div class="collapse table-responsive" id="scores_{{ match.id }}">
-                        <div class="mp-teams">
-                            <div class="d-flex justify-content-between mp-teams-white">
-                                <div>
-                                    <i class="fas fa-crown"></i>
-                                </div>
-                                <div class="red">
-                                    Red Team
-                                </div>
-                                <div class="red">
-                                    11.23
-                                </div>
-                                <div>
-                                    SCORE
-                                </div>
-                                <div class="blue">
-                                    11.23
-                                </div>
-                                <div class="blue">
-                                    Blue Team
-                                </div>
-                                <div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <table class="table align-items-center">
-                            <thead>
-                            <tr style="font-size: 12px;">
-                                <th scope="col">#</th>
-                                <th scope="col">Grade</th>
-                                <th scope="col" class="player">Player</th>
-                                <th scope="col">Perf. Rating</th>
-                                <th scope="col">Accuracy</th>
-                                <th scope="col">Max Combo</th>
-                                <th scope="col">Marvelous</th>
-                                <th scope="col">Perfect</th>
-                                <th scope="col">Great</th>
-                                <th scope="col">Good</th>
-                                <th scope="col">Okay</th>
-                                <th scope="col">Miss</th>
-                                <th scope="col">Mods</th>
-                            </tr>
-                            </thead>
-                            <tbody style="font-size: 14px;">
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <img src="/img/grades/S.png" alt="S" title="S" width="30px" height="30px">
-                                </td>
-                                <td style="text-align: left;" class="player">
-                                    <a href="#">
-                                        <img src="/img/flags/US.png" alt="US">
-                                    </a>
-                                    <a href="http://localhost:8084/user/608">Reshiram</a>
-                                </td>
-                                <td>
-                                    <b>49.88</b>
-                                </td>
-                                <td>98.10%</td>
-                                <td>1,400x</td>
-                                <td style="color: rgba(251, 255, 182, 1);">1,399</td>
-                                <td style="color: rgba(242, 201, 76, 1);">539</td>
-                                <td style="color: rgba(86, 254, 110,1);">33</td>
-                                <td style="color: rgba(15, 186, 229, 1);">9</td>
-                                <td style="color: rgba(238, 95, 172, 1);">2</td>
-                                <td style="color: rgba(249, 100, 93, 1);">4</td>
-                                <td>1.9x, Mirror</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>
-                                    <img src="/img/grades/S.png" alt="S" title="S" width="30px" height="30px">
-                                </td>
-                                <td style="text-align: left;" class="player">
-                                    <a href="#">
-                                        <img src="/img/flags/US.png" alt="US">
-                                    </a>
-                                    <a href="http://localhost:8084/user/608">Reshiram</a>
-                                </td>
-                                <td>
-                                    <b>49.88</b>
-                                </td>
-                                <td>98.10%</td>
-                                <td>1,400x</td>
-                                <td style="color: rgba(251, 255, 182, 1);">1,399</td>
-                                <td style="color: rgba(242, 201, 76, 1);">539</td>
-                                <td style="color: rgba(86, 254, 110,1);">33</td>
-                                <td style="color: rgba(15, 186, 229, 1);">9</td>
-                                <td style="color: rgba(238, 95, 172, 1);">2</td>
-                                <td style="color: rgba(249, 100, 93, 1);">4</td>
-                                <td>1.9x, Mirror</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div id="table_scores_{{ loop.index }}"></div>
                     </div>
-                    {#                        <a href="{{ baseUrl('/user/'~match.most_valuable_player.id) }}">#}
-                    {#                            <div class="move-right" style="min-width: 250px;margin-right: 10px;margin-top: 35px;">#}
-                    {#                                <div style="display: flex; color: #fff; font-size: 13px; align-items: flex-start;color: #000;justify-content: center;align-items: center;height: 100%;">#}
-                    {#                                    <img src="{{ match.most_valuable_player.avatar_url }}" style="border-radius: 50%;" width="60" height="60">#}
-                    {#                                    <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 10px;">#}
-                    {#                                        <div style="position: relative; box-sizing: border-box;">#}
-                    {#                                            <a href="{{ baseUrl('/leaderboard?country='~match.most_valuable_player.country|lower) }}">#}
-                    {#                                                <img src="{{ assets('/img/flags/'~match.most_valuable_player.country~'.png') }}" alt="{{ match.most_valuable_player.country }}">#}
-                    {#                                            </a>#}
-                    {#                                            {{ match.most_valuable_player.username }}#}
-                    {#                                            <img src="{{ assets('/img/crown-solid.svg') }}" width="20" height="20">#}
-                    {#                                        </div>#}
-                    {#                                        <div style="position: relative; box-sizing: border-box;">Rating: {{ match.most_valuable_player.score.performance_rating|number_format(2) }}</div>#}
-                    {#                                    </div>#}
-                    {#                                </div>#}
-                    {#                            </div>#}
-                    {#                        </a>#}
                 </div>
             {% endfor %}
         </div>
     </section>
 {% endblock %}
 
-{% block style %}
-    <style>
-        /*.table_scores {*/
-        /*    border-collapse: collapse;*/
-        /*    width: 100%;*/
-        /*    font-size: 10pt;*/
-        /*}*/
-
-        /*.table_scores td,*/
-        /*.table_scores th {*/
-        /*    border: 0;*/
-        /*    padding: 5px;*/
-        /*}*/
-
-        /*.table_scores th {*/
-        /*    padding-top: 5px;*/
-        /*    padding-bottom: 5px;*/
-        /*    text-align: center;*/
-        /*    color: black;*/
-        /*}*/
-
-        /*.table_scores td {*/
-        /*    text-align: center;*/
-        /*    color: black;*/
-        /*}*/
-
-        /*.table_scores .username {*/
-        /*    text-align: center;*/
-        /*}*/
-
-        /*.text-white {*/
-        /*    color: #fff !important;*/
-        /*}*/
-
-        /*.move-right {*/
-        /*    float: right;*/
-        /*}*/
-
-        /*.widget img {*/
-        /*    width: auto;*/
-        /*}*/
-
-        /*.post-medium .post-thumbnail img {*/
-        /*    max-width: 100%;*/
-        /*    max-height: 100%;*/
-        /*}*/
-
-        /*.post-medium .post-thumbnail {*/
-        /*    width: 30%;*/
-        /*    min-height: 0 !important;*/
-        /*    margin-top: 0;*/
-        /*}*/
-
-        /*.post {*/
-        /*    padding-bottom: 0;*/
-        /*    padding: 2px;*/
-        /*    margin-bottom: 3px;*/
-        /*}*/
-
-        /*.post-body {*/
-        /*    margin-top: -3px;*/
-        /*    padding: 4px;*/
-        /*}*/
-
-        /*.body-text {*/
-        /*    padding: 5px;*/
-        /*}*/
-
-        /*.grades img {*/
-        /*    width: 40px;*/
-        /*    height: 40px;*/
-        /*}*/
-
-        /*.blue tr {*/
-        /*    background: rgba(25, 104, 249, 0.9);*/
-        /*}*/
-
-        /*.blue tr:hover {*/
-        /*    background: rgba(25, 104, 249, 1);*/
-        /*}*/
-
-        /*.red tr {*/
-        /*    background: rgba(220, 20, 60, 0.9);*/
-        /*}*/
-
-        /*.red tr:hover {*/
-        /*    background: rgba(220, 20, 60, 1);*/
-        /*}*/
-
-        /*.red td,*/
-        /*.blue td,*/
-        /*a {*/
-        /*    color: black;*/
-        /*}*/
-
-        /*.teams {*/
-        /*    padding: 2px;*/
-        /*    background: linear-gradient(to right, #fd4d50, #32adf0);*/
-        /*}*/
-
-        /*.teams .row {*/
-        /*    background: white;*/
-        /*    padding-top: 10px;*/
-        /*    padding-bottom: 10px;*/
-        /*    margin: 0 !important;*/
-        /*    font-size: 18px;*/
-        /*}*/
-
-        /*.teams .team {*/
-        /*    text-align: center;*/
-        /*    color: black;*/
-        /*}*/
-
-        /*.teams .team .fa-crown {*/
-        /*    color: #FFCD1B;*/
-        /*}*/
-
-        /*.teams .team .team_red_points {*/
-        /*    float: right;*/
-        /*    font-weight: bold;*/
-        /*}*/
-
-        /*.teams .team .team_blue_points {*/
-        /*    float: left;*/
-        /*    font-weight: bold;*/
-        /*}*/
-    </style>
-{% endblock %}
-
 {% block scripts %}
-    {#    <script>#}
-    {#        let mpId = parseInt("{{ gameId }}");#}
-    {#    </script>#}
-    {#    <script src="{{ assets('/js/plugins/vue.min.js') }}"></script>#}
-    {#    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>#}
-    {#    <script src="{{ assets('/js/multiplayer.js') }}"></script>#}
+    <script>
+        let scoresCache = [];
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            $(document).on('click', '.loadScores', function () {
+                const matchMap = $(this).data('map');
+                const id = $(this).data('loop');
+                const isShowing = $(`#scores_${matchMap}`).hasClass('show');
+
+                if(isShowing) {
+                    $(`#scores_${matchMap}`).collapse('hide');
+                } else {
+                    if(!scoresCache.includes(id)) {
+                        $.post(baseUrl() + `/multiplayer/game/${matchMap}/scores`, {}, function (data) {
+                            scoresCache.push(id);
+                            $(data).appendTo(`#table_scores_${id}`);
+                            if(!isShowing) $(`#scores_${matchMap}`).collapse();
+                        });
+                    } else {
+                        $(`#scores_${matchMap}`).collapse('show');
+                    }
+                }
+            });
+        });
+    </script>
 {% endblock %}

@@ -45,6 +45,7 @@ export default class Router {
         router.route("/playlist/map/remove").post(Authentication.RequireLogin, Maps.PlaylistRemoveMapPOST);
         router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);
         router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
+        router.route("/multiplayer/game/:id/scores").post(Multiplayer.MultiplayerMatchPOST);
         router.route("/user/:id").get(Users.GET);
         router.route("/user/maps/load").post(Users.UserMapssetsPOST);
         router.route("/user/scores/load").post(Users.UserScoresPOST);

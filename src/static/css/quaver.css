@@ -1880,7 +1880,83 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-right: 10px;
 }
 
+#multiplayer .card {
+    border-radius: 10px;
+}
+
+#multiplayer .mapsets .cover .song-name {
+    left: 0px;
+    right: 0px;
+}
+
+#multiplayer table {
+    color: rgb(202, 202, 202);
+}
+
+#multiplayer table thead th,
+#multiplayer table tbody td{
+    border-bottom: 1px solid #5b5b5b;
+}
+
+#multiplayer table thead tr th {
+    color: #45d6f5;
+    font-weight: 600;
+    border-top: none;
+}
+
+#multiplayer table tbody tr {
+    background: #242424;
+}
+
+#multiplayer table thead tr th,
+#multiplayer table tbody tr td {
+    text-align: center;
+}
+
+#multiplayer table thead .player {
+    text-align: left;
+}
+
+#multiplayer .mapsets .cover:hover {
+    box-shadow: none;
+    cursor: unset;
+}
+
+#multiplayer .mp-teams {
+    padding: 2px;
+    background: -webkit-gradient(linear,left top,right top,from(#fd4d50),to(#32adf0));
+    background: linear-gradient(90deg,#fd4d50,#32adf0);
+}
+
+#multiplayer .mp-teams > div {
+    font-weight: bold;
+    text-align: center;
+}
+
+#multiplayer .mp-teams-white {
+    background: #242424;
+    padding: 5px 15px 5px 15px;
+}
+
+#multiplayer .mp-teams .red {
+    color: #fd4d50;
+}
+
+#multiplayer .mp-teams .blue {
+    color: #32adf0;
+}
+
+#multiplayer .fa-crown {
+    color: #FFCD1B;
+}
+
 /* Mobile optimizations */
+
+@media (max-width: 1200px) {
+    .valuable-player {
+        display: none;
+    }
+}
 
 @media (max-width: 768px) {
     #playlists .fix-height {

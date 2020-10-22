@@ -1,0 +1,86 @@
+{% if type %}
+    <div class="mp-teams mt-2">
+        <div class="d-flex justify-content-between mp-teams-white">
+            <div>
+                {% if teams.red > teams.blue %}
+                    <i class="fas fa-crown"></i>
+                {% else %}
+                    <i class="fas fa-crown" style="opacity: 0"></i>
+                {% endif %}
+            </div>
+            <div class="red">
+                Red Team
+            </div>
+            <div class="red">
+                {{ teams.red|number_format(2) }}
+            </div>
+            <div>
+                Rating
+            </div>
+            <div class="blue">
+                {{ teams.blue|number_format(2) }}
+            </div>
+            <div class="blue">
+                Blue Team
+            </div>
+            <div>
+                {% if teams.red < teams.blue %}
+                    <i class="fas fa-crown"></i>
+                {% else %}
+                    <i class="fas fa-crown" style="opacity: 0"></i>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<table class="table align-items-center">
+    <thead>
+    <tr style="font-size: 12px;">
+        <th scope="col">#</th>
+        <th scope="col">Grade</th>
+        <th scope="col" class="player">Player</th>
+        <th scope="col">Perf. Rating</th>
+        <th scope="col">Accuracy</th>
+        <th scope="col">Max Combo</th>
+        <th scope="col">Marvelous</th>
+        <th scope="col">Perfect</th>
+        <th scope="col">Great</th>
+        <th scope="col">Good</th>
+        <th scope="col">Okay</th>
+        <th scope="col">Miss</th>
+        <th scope="col">Mods</th>
+    </tr>
+    </thead>
+    <tbody style="font-size: 14px;">
+    {% for score in scores %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>
+                <img src="/img/grades/{{ score.score.grade }}.png" alt="{{ score.score.grade }}" title="{{ score.score.grade }}" width="30px" height="30px">
+            </td>
+            <td style="text-align: left;" class="player">
+                {% if live %}
+                    <img src="/img/flags/{{ score.country }}.png" alt="{{ score.country }}">
+                    <a href="{{ baseUrl('/user/'~score.id) }}">{{ score.username }}</a>
+                {% else %}
+                    <img src="/img/flags/{{ score.player.country }}.png" alt="{{ score.player.country }}">
+                    <a href="{{ baseUrl('/user/'~score.player.id) }}">{{ score.player.username }}</a>
+                {% endif %}
+            </td>
+            <td>
+                <b>{{ score.score.performance_rating|number_format(2) }}</b>
+            </td>
+            <td>{{ score.score.accuracy|number_format(2) }}%</td>
+            <td>{{ score.score.max_combo|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(251, 255, 182, 1);">{{ score.score.count_marv|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(242, 201, 76, 1);">{{ score.score.count_perf|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(86, 254, 110,1);">{{ score.score.count_great|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(15, 186, 229, 1);">{{ score.score.count_good|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(238, 95, 172, 1);">{{ score.score.count_okay|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(249, 100, 93, 1);">{{ score.score.count_miss|number_format(0, '.', ',') }}</td>
+            <td>{{ score.score.mods_string }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

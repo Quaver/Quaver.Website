@@ -53,6 +53,8 @@ export default class Router {
 
         router.route("/multiplayer/games").get(Multiplayer.MutliplayerGamesGET);
         router.route("/multiplayer/game/:id").get(Multiplayer.MutliplayerGameGET);
+        router.route("/multiplayer/game/:id/scores").post(Multiplayer.MultiplayerMatchPOST);
+        router.route("/multiplayer/game/:id/live").post(Multiplayer.MultiplayerMatchLivePOST);
 
         router.route("/user/:id").get(Users.GET);
         router.route("/user/maps/load").post(Users.UserMapssetsPOST);

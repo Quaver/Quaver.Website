@@ -24,42 +24,44 @@
             {% endif %}
 
             {% for game in games.live %}
-                <div class="card mb-3">
-                    <div class="post post-medium">
-                        <div class="post-thumbnail mt-1 mb-2 ml-2 mb-md-0">
-                            <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
-                                {% if game.map.mapset_id != "-1" %}
-                                    <img class="post-img" src="https://cdn.quavergame.com/mapsets/{{ game.map.mapset_id }}.jpg" onerror="this.src='{{ assets("/img/mapset.jpg") }}'">
-                                {% else %}
-                                    <img class="post-img" src="{{ assets('/img/mapset.jpg') }}">
-                                {% endif %}
-                            </a>
-                        </div>
-                        <div class="post-body mt-1">
-                            <div class="float-right mt-4 mr-2">
-                                <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}" class="btn btn-youtube">
-                                    <b class="text-white">Watch Live</b>
-                                    <i class="fas fa-circle text-white"></i>
-                                </a>
-                            </div>
-                            <div class="body-text">
+                {% if game.id != -1 %}
+                    <div class="card mb-3">
+                        <div class="post post-medium">
+                            <div class="post-thumbnail mt-1 mb-2 ml-2 mb-md-0">
                                 <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
-                                    <b>{{ game.name }}</b>
+                                    {% if game.map.mapset_id != "-1" %}
+                                        <img class="post-img" src="https://cdn.quavergame.com/mapsets/{{ game.map.mapset_id }}.jpg" onerror="this.src='{{ assets("/img/mapset.jpg") }}'">
+                                    {% else %}
+                                        <img class="post-img" src="{{ assets('/img/mapset.jpg') }}">
+                                    {% endif %}
                                 </a>
                             </div>
-                            <div class="body-text">
-                                <b>Map:</b>
-                                {% if game.map.id != "-1" %}
-                                    <a href="{{ baseUrl('/mapset/map/'~game.map.id) }}">
-                                        <a>{{ game.map.name|truncate(60) }}</a>
+                            <div class="post-body mt-1">
+                                <div class="float-right mt-4 mr-2">
+                                    <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}" class="btn btn-youtube">
+                                        <b class="text-white">Watch Live</b>
+                                        <i class="fas fa-circle text-white"></i>
                                     </a>
-                                {% else %}
-                                    <span>{{ game.map.name }}</span>
-                                {% endif %}
+                                </div>
+                                <div class="body-text">
+                                    <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
+                                        <b>{{ game.name }}</b>
+                                    </a>
+                                </div>
+                                <div class="body-text">
+                                    <b>Map:</b>
+                                    {% if game.map.id != "-1" %}
+                                        <a href="{{ baseUrl('/mapset/map/'~game.map.id) }}">
+                                            <a>{{ game.map.name|truncate(60) }}</a>
+                                        </a>
+                                    {% else %}
+                                        <span>{{ game.map.name }}</span>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             {% endfor %}
 
             <div class="widget mt-4">

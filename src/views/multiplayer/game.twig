@@ -13,8 +13,19 @@
             </div>
         </div>
     </section>
-
     <section>
+        {% if isLive %}
+
+            <div class="container" id="multiplayer">
+                <div class="widget mt-4">
+                    <div class="widget-header">Live Match</div>
+                </div>
+                <div id="live">
+                    {% include './live.twig' %}
+                </div>
+            </div>
+        {% endif %}
+
         <div class="container" id="multiplayer">
             <div class="widget mt-4">
                 <div class="widget-header">Match History</div>
@@ -66,10 +77,10 @@
                                         <a href="{{ baseUrl('/mapset/map/'~match.map.id) }}" class="btn btn-primary btn-xs text-white">
                                             View Mapset
                                         </a>
-                                        <a class="btn btn-primary btn-xs text-white loadScores" data-toggle="collapse" href="javascript:void(0)"
-                                           data-map="{{ match.id }}" data-loop="{{ loop.index }}">
+                                        <button class="btn btn-primary btn-xs text-white loadScores" data-toggle="collapse"
+                                                data-map="{{ match.id }}" data-loop="{{ loop.index }}">
                                             View Scores
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -90,24 +101,36 @@
 
         document.addEventListener("DOMContentLoaded", function (event) {
             $(document).on('click', '.loadScores', function () {
+                const that = this;
+                $(this).prop('disabled', true);
                 const matchMap = $(this).data('map');
                 const id = $(this).data('loop');
                 const isShowing = $(`#scores_${matchMap}`).hasClass('show');
 
-                if(isShowing) {
+                if (isShowing) {
                     $(`#scores_${matchMap}`).collapse('hide');
+                    $(this).prop('disabled', false);
                 } else {
-                    if(!scoresCache.includes(id)) {
+                    if (!scoresCache.includes(id)) {
                         $.post(baseUrl() + `/multiplayer/game/${matchMap}/scores`, {}, function (data) {
                             scoresCache.push(id);
                             $(data).appendTo(`#table_scores_${id}`);
-                            if(!isShowing) $(`#scores_${matchMap}`).collapse();
+                            $(that).prop('disabled', false);
+                            if (!isShowing) $(`#scores_${matchMap}`).collapse();
                         });
                     } else {
                         $(`#scores_${matchMap}`).collapse('show');
+                        $(this).prop('disabled', false);
                     }
                 }
             });
         });
     </script>
+    {% if isLive %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function (event) {
+                console.log('Yes its live!');
+            });
+        </script>
+    {% endif %}
 {% endblock %}

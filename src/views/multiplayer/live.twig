@@ -1,0 +1,77 @@
+<div class="card">
+    <div class="mapsets position-relative">
+        <div class="cover position-relative" style="background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+                url('https://cdn.quavergame.com/mapsets/{{ live.map.mapset_id }}.jpg')">
+            <div class="status">
+                {% if live.map.game_mode == 1 %}
+                    <div class="qadge mapset-4k">4K</div>
+                {% else %}
+                    <div class="qadge mapset-7k">7K</div>
+                {% endif %}
+            </div>
+            <div class="song-name">
+                <span class="title">{{ live.map.map | truncate(70) }}</span>
+                <div class="d-flex justify-content-between align-items-end">
+                    <div>
+                        <div class="creator">Global mods:
+                            <span class="cr">{{ live.rules.mods_string }}</span>
+                        </div>
+                        <div class="creator">Ruleset:
+                            <span class="cr">
+                                                {% if live.rules.ruleset == rulesets.Free_For_All %}
+                                                    Free-For-All
+                                                {% elseif live.rules.ruleset == rulesets.Team %}
+                                                    Team
+                                                {% else %}
+                                                    Battle Royale
+                                                {% endif %}
+                                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="{{ baseUrl('/mapset/map/'~live.map.id) }}" class="btn btn-primary btn-xs text-white">
+                            View Mapset
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if live.game.in_progress %}
+        {% include './scores.twig' with {'type': type, 'teams': teams, 'scores': live.players, 'live': true } %}
+    {% else %}
+        <table class="table align-items-center">
+            <thead>
+            <tr style="font-size: 12px;">
+                <th scope="col" style="width: 5%">#</th>
+                <th scope="col" class="player" style="width: 20%">Player</th>
+                <th scope="col">Wins</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for player in live.players %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td style="text-align: left;" class="player">
+                        <a href="{{ baseUrl('/user/'~player.id) }}">
+                            <img src="/img/flags/{{ player.country }}.png" alt="{{ player.country }}">
+                        </a>
+                        <a href="{{ baseUrl('/user/'~player.id) }}">{{ player.username }}</a>
+                    </td>
+                    <td>
+                        {% if live.rules.ruleset == rulesets.Team %}
+                            {% if player.team == 1 %}
+                                {{ live.team_scores.blue_team }}
+                            {% else %}
+                                {{ live.team_scores.red_team }}
+                            {% endif %}
+                        {% else %}
+                            {{ player.wins }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>

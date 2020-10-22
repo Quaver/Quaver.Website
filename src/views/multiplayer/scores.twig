@@ -4,6 +4,8 @@
             <div>
                 {% if teams.red > teams.blue %}
                     <i class="fas fa-crown"></i>
+                {% else %}
+                    <i class="fas fa-crown" style="opacity: 0"></i>
                 {% endif %}
             </div>
             <div class="red">
@@ -24,6 +26,8 @@
             <div>
                 {% if teams.red < teams.blue %}
                     <i class="fas fa-crown"></i>
+                {% else %}
+                    <i class="fas fa-crown" style="opacity: 0"></i>
                 {% endif %}
             </div>
         </div>
@@ -49,31 +53,34 @@
     </tr>
     </thead>
     <tbody style="font-size: 14px;">
-    {% for score in scores.match.scores %}
-    <tr>
-        <td>{{ loop.index }}</td>
-        <td>
-            <img src="/img/grades/{{ score.score.grade }}.png" alt="{{ score.score.grade }}" title="{{ score.score.grade }}" width="30px" height="30px">
-        </td>
-        <td style="text-align: left;" class="player">
-            <a href="{{ baseUrl('/user/'~score.player.id) }}">
-                <img src="/img/flags/{{ score.player.flag }}.png" alt="{{ score.player.flag }}">
-            </a>
-            <a href="">{{ score.player.username }}</a>
-        </td>
-        <td>
-            <b>{{ score.score.performance_rating|number_format(2) }}</b>
-        </td>
-        <td>{{ score.score.accuracy|number_format(2) }}%</td>
-        <td>{{ score.score.max_combo|number_format(0, '.', ',') }}</td>
-        <td style="color: rgba(251, 255, 182, 1);">{{ score.score.count_marv|number_format(0, '.', ',') }}</td>
-        <td style="color: rgba(242, 201, 76, 1);">{{ score.score.count_perf|number_format(0, '.', ',') }}</td>
-        <td style="color: rgba(86, 254, 110,1);">{{ score.score.count_great|number_format(0, '.', ',') }}</td>
-        <td style="color: rgba(15, 186, 229, 1);">{{ score.score.count_good|number_format(0, '.', ',') }}</td>
-        <td style="color: rgba(238, 95, 172, 1);">{{ score.score.count_okay|number_format(0, '.', ',') }}</td>
-        <td style="color: rgba(249, 100, 93, 1);">{{ score.score.count_miss|number_format(0, '.', ',') }}</td>
-        <td>{{ score.score.mods_string }}</td>
-    </tr>
+    {% for score in scores %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>
+                <img src="/img/grades/{{ score.score.grade }}.png" alt="{{ score.score.grade }}" title="{{ score.score.grade }}" width="30px" height="30px">
+            </td>
+            <td style="text-align: left;" class="player">
+                {% if live %}
+                    <img src="/img/flags/{{ score.country }}.png" alt="{{ score.country }}">
+                    <a href="{{ baseUrl('/user/'~score.id) }}">{{ score.username }}</a>
+                {% else %}
+                    <img src="/img/flags/{{ score.player.country }}.png" alt="{{ score.player.country }}">
+                    <a href="{{ baseUrl('/user/'~score.player.id) }}">{{ score.player.username }}</a>
+                {% endif %}
+            </td>
+            <td>
+                <b>{{ score.score.performance_rating|number_format(2) }}</b>
+            </td>
+            <td>{{ score.score.accuracy|number_format(2) }}%</td>
+            <td>{{ score.score.max_combo|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(251, 255, 182, 1);">{{ score.score.count_marv|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(242, 201, 76, 1);">{{ score.score.count_perf|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(86, 254, 110,1);">{{ score.score.count_great|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(15, 186, 229, 1);">{{ score.score.count_good|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(238, 95, 172, 1);">{{ score.score.count_okay|number_format(0, '.', ',') }}</td>
+            <td style="color: rgba(249, 100, 93, 1);">{{ score.score.count_miss|number_format(0, '.', ',') }}</td>
+            <td>{{ score.score.mods_string }}</td>
+        </tr>
     {% endfor %}
     </tbody>
 </table>

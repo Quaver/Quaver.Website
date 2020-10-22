@@ -54,7 +54,7 @@
                     <td>{{ loop.index }}</td>
                     <td style="text-align: left;" class="player">
                         <a href="{{ baseUrl('/user/'~player.id) }}">
-                            <img src="/img/flags/{{ player.country }}.png" alt="{{ player.country }}">
+                            <img src="{{ assets('/img/flags/'~player.country~'.png') }}" alt="{{ player.country }}">
                         </a>
                         <a href="{{ baseUrl('/user/'~player.id) }}">{{ player.username }}</a>
                     </td>

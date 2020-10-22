@@ -57,14 +57,14 @@
         <tr>
             <td>{{ loop.index }}</td>
             <td>
-                <img src="/img/grades/{{ score.score.grade }}.png" alt="{{ score.score.grade }}" title="{{ score.score.grade }}" width="30px" height="30px">
+                <img src="{{ assets('/img/grades/'~score.score.grade~'.png') }}" alt="{{ score.score.grade }}" title="{{ score.score.grade }}" width="30px" height="30px">
             </td>
             <td style="text-align: left;" class="player">
                 {% if live %}
-                    <img src="/img/flags/{{ score.country }}.png" alt="{{ score.country }}">
+                    <img src="{{ assets('/img/flags/'~score.country~'.png') }}" alt="{{ score.country }}">
                     <a href="{{ baseUrl('/user/'~score.id) }}">{{ score.username }}</a>
                 {% else %}
-                    <img src="/img/flags/{{ score.player.country }}.png" alt="{{ score.player.country }}">
+                    <img src="{{ assets('/img/flags/'~score.player.country~'.png') }}" alt="{{ score.player.country }}">
                     <a href="{{ baseUrl('/user/'~score.player.id) }}">{{ score.player.username }}</a>
                 {% endif %}
             </td>

@@ -12,7 +12,7 @@
         <td>{{ score.accuracy|number_format(2) }}%</td>
         <td>{{ score.mods_string }}</td>
         <td>
-            {% if score.personal_best %}
+            {% if score.personal_best or score.tournament_game_id %}
                 <a href="{{ baseUrl('/download/replay/'~score.id) }}">
                     <i class="fas fa-download" data-toggle="tooltip" title="Download" data-original-title="Download"></i>
                 </a>

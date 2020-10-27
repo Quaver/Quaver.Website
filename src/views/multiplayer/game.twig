@@ -134,7 +134,6 @@
                     try {
                         $.post(baseUrl() + `/multiplayer/game/{{ gameId }}/live`, {}, function (data) {
                             const page = $(data);
-                            console.log(currentMap);
                             if(currentMap == null) currentMap = page.find("#map_song").html();
                             if (currentMap !== page.find("#map_song").html()) {
                                 currentMap = page.find("#map_song").html();
@@ -145,7 +144,6 @@
                             $("#scores").html(page.find("#scores").html());
                         });
                     } catch (e) {
-                        console.log('Live API errored... stopping refreshing!')
                         clearInterval(liveGame);
                     }
                 }, 5000);

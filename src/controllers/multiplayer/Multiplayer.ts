@@ -41,7 +41,7 @@ export default class Multiplayer {
 
             let isLive = false;
             // This is a temporary because live api does not have status if status is 200
-            if(live.status == undefined) isLive = true;
+            if (live.status == undefined) isLive = true;
 
             Responses.Send(req, res, "multiplayer/game", `Multiplayer - ${game.multiplayer_game.name} | Quaver`, {
                 gameId: gameId,
@@ -95,7 +95,8 @@ export default class Multiplayer {
             Responses.Send(req, res, "multiplayer/scores", ``, {
                 scores: scores.match.scores,
                 teams,
-                type: (scores.match.outcome.team == -1) ? 0 : 1
+                type: (scores.match.outcome.team == -1) ? 0 : 1,
+                rulesets: MultiplayerGameRuleset,
             });
         } catch (err) {
             Logger.Error(err);
@@ -117,25 +118,32 @@ export default class Multiplayer {
                 'blue': 0
             }
 
-            scores.match.scores.forEach(player => {
-                if (player.score.team == 0) {
-                    players_count.red += 1;
-                    teams.red += player.score.performance_rating;
-                } else if (player.score.team == 1) {
-                    players_count.blue += 1;
-                    teams.blue += player.score.performance_rating;
-                }
-            });
+            let type = 0;
 
-            if (players_count.red)
-                teams.red = teams.red / players_count.red;
-            if (players_count.blue)
-                teams.blue = teams.blue / players_count.blue;
+            if (scores.game.type == MultiplayerGameRuleset.Team) {
+                scores.players.forEach(player => {
+                    if (player.score.team == 0) {
+                        players_count.red += 1;
+                        teams.red += player.score.performance_rating;
+                    } else if (player.score.team == 1) {
+                        players_count.blue += 1;
+                        teams.blue += player.score.performance_rating;
+                    }
+                });
+
+                if (players_count.red)
+                    teams.red = teams.red / players_count.red;
+                if (players_count.blue)
+                    teams.blue = teams.blue / players_count.blue;
+
+                type = (scores.match.outcome.team == -1) ? 0 : 1;
+            }
 
             Responses.Send(req, res, "multiplayer/live", ``, {
-                scores: scores,
+                live: scores,
                 teams,
-                type: (scores.match.outcome.team == -1) ? 0 : 1
+                type: type,
+                rulesets: MultiplayerGameRuleset,
             });
         } catch (err) {
             Logger.Error(err);
@@ -150,7 +158,7 @@ export default class Multiplayer {
             if (response.status != 200)
                 return null;
             return response.matches;
-        } catch(err) {
+        } catch (err) {
             Logger.Error(err);
             return null;
         }
@@ -163,7 +171,7 @@ export default class Multiplayer {
             if (response.status != 200)
                 return null;
             return response;
-        } catch(err) {
+        } catch (err) {
             Logger.Error(err);
             return null;
         }
@@ -176,7 +184,7 @@ export default class Multiplayer {
             if (response.status != 200)
                 return null;
             return response;
-        } catch(err) {
+        } catch (err) {
             Logger.Error(err);
             return null;
         }
@@ -189,7 +197,7 @@ export default class Multiplayer {
             if (response.status !== undefined && response.status != 404)
                 return null;
             return response;
-        } catch(err) {
+        } catch (err) {
             Logger.Error(err);
             return null;
         }

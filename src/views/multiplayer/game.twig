@@ -15,7 +15,6 @@
     </section>
     <section>
         {% if isLive %}
-
             <div class="container" id="multiplayer">
                 <div class="widget mt-4">
                     <div class="widget-header">Live Match</div>
@@ -128,8 +127,26 @@
     </script>
     {% if isLive %}
         <script>
+            let currentMap = null;
+
             document.addEventListener("DOMContentLoaded", function (event) {
-                console.log('Yes its live!');
+                const liveGame = setInterval(function () {
+                    try {
+                        $.post(baseUrl() + `/multiplayer/game/{{ gameId }}/live`, {}, function (data) {
+                            const page = $(data);
+                            if(currentMap == null) currentMap = page.find("#map_song").html();
+                            if (currentMap !== page.find("#map_song").html()) {
+                                currentMap = page.find("#map_song").html();
+                                // Reload page when map changes so it refreshes match history
+                                location.reload();
+                            }
+
+                            $("#scores").html(page.find("#scores").html());
+                        });
+                    } catch (e) {
+                        clearInterval(liveGame);
+                    }
+                }, 5000);
             });
         </script>
     {% endif %}

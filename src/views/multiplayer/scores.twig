@@ -34,7 +34,7 @@
     </div>
 {% endif %}
 
-<table class="table align-items-center">
+<table class="table align-items-center" {% if live %} id="scores" {% endif %}>
     <thead>
     <tr style="font-size: 12px;">
         <th scope="col">#</th>
@@ -57,7 +57,7 @@
         <tr>
             <td>{{ loop.index }}</td>
             <td>
-                <img src="{{ assets('/img/grades/'~score.score.grade~'.png') }}" alt="{{ score.score.grade }}" title="{{ score.score.grade }}" width="30px" height="30px">
+                <img src="{{ assets('/img/grades/'~score.score.grade~'.png') }}" alt="{{ score.score.grade }}" title="{{ score.score.grade }}" onerror="this.src='{{ assets("/img/grades/F.png") }}'" width="30px" height="30px">
             </td>
             <td style="text-align: left;" class="player">
                 {% if live %}

@@ -5,6 +5,13 @@
 /* This fixes weird scroll issues on new Chrome versions... */
 * {
     overflow-anchor: none !important;
+    -webkit-appearance: none !important;
+}
+
+button, input {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
 }
 
 html {

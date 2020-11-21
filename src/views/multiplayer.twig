@@ -52,7 +52,7 @@
                                     <b>Map:</b>
                                     {% if game.map.id != "-1" %}
                                         <a href="{{ baseUrl('/mapset/map/'~game.map.id) }}">
-                                            <a>{{ game.map.name|truncate(60) }}</a>
+                                            <a>{{ game.map.name|truncate(60)|escape }}</a>
                                         </a>
                                     {% else %}
                                         <span>{{ game.map.name }}</span>
@@ -90,7 +90,7 @@
                                     <b>Map:</b>
                                     {% if game.map.id != "-1" %}
                                         <a href="{{ baseUrl('/mapset/map/'~game.map.id) }}">
-                                            <a>{{ game.map.name|truncate(60) }}</a>
+                                            <a>{{ game.map.name|truncate(60)|escape }}</a>
                                         </a>
                                     {% else %}
                                         <span>{{ game.map.name }}</span>

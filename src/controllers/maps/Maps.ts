@@ -12,7 +12,7 @@ const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
 const moment = require("moment");
 
-const allowedHTML = ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
+const allowedHTML = ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5', 'code', 'b',
     'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br', 'em', 'blockquote', 'table', 'tr', 'td', 'th', 'thead', 'tbody'];
 
 export default class Maps {
@@ -205,13 +205,29 @@ export default class Maps {
             let mods = await Maps.FetchMods(req, map.id);
 
             for (let mod in mods) {
-                mods[mod].mod.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[mod].mod.comment));
+                mods[mod].mod.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[mod].mod.comment), {
+                    allowedTags: allowedHTML,
+                    allowedAttributes: {
+                        'a': ['href'],
+                        'span': ['style'],
+                        'img': ['src']
+                    },
+                    disallowedTagsMode: 'escape'
+                });
                 // Replace <code> with link to editor
                 mods[mod].mod.comment = await Maps.ReplaceCode(mods[mod].mod.comment);
 
                 // Mod replies
                 for (let reply in mods[mod].mod.replies) {
-                    mods[mod].mod.replies[reply].message.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[mod].mod.replies[reply].message.comment));
+                    mods[mod].mod.replies[reply].message.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[mod].mod.replies[reply].message.comment), {
+                        allowedTags: allowedHTML,
+                        allowedAttributes: {
+                            'a': ['href'],
+                            'span': ['style'],
+                            'img': ['src']
+                        },
+                        disallowedTagsMode: 'escape'
+                    });
 
                     // Replace <code> with link to editor
                     mods[mod].mod.replies[reply].message.comment = await Maps.ReplaceCode(mods[mod].mod.replies[reply].message.comment);

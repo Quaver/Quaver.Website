@@ -2,9 +2,9 @@
     <img class="background" src="https://cdn.quavergame.com/mapsets/{{ mapset.id }}.jpg" alt="">
     <div class="container text-center position-relative" style="z-index: 5">
         <h1 class="display-2 font-weight-bold text-white">
-            {{ mapset.title }}
+            {{ mapset.title|escape }}
             <div class="display-4 font-weight-bold">
-                {{ mapset.artist }}
+                {{ mapset.artist|escape }}
             </div>
         </h1>
     </div>

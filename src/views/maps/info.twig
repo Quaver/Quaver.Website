@@ -8,12 +8,12 @@
         {% set difficulty_color_current = ratingColor(map.difficulty_rating) %}
         <div class="dropdown">
             <button class="btn btn-dark dropdown-toggle {{ difficulty_color_current }}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                [{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }} - {{ map.difficulty_name|truncate(20) }}
+                [{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }} - {{ map.difficulty_name|truncate(20)|escape }}
             </button>
             <div class="dropdown-menu" x-placement="bottom-start">
                 {% for diff in mapset.maps %}
                     {% set difficulty_color = ratingColor(diff.difficulty_rating) %}
-                    <a class="dropdown-item {{ difficulty_color }}" href="{{ baseUrl((modding)?'/mapset/map/'~diff.id~'/mods':'/mapset/map/'~diff.id) }}">[{{ gameMode(diff.game_mode) }}] {{ diff.difficulty_rating|number_format(2) }} - {{ diff.difficulty_name }} </a>
+                    <a class="dropdown-item {{ difficulty_color }}" href="{{ baseUrl((modding)?'/mapset/map/'~diff.id~'/mods':'/mapset/map/'~diff.id) }}">[{{ gameMode(diff.game_mode) }}] {{ diff.difficulty_rating|number_format(2) }} - {{ diff.difficulty_name|escape }} </a>
                 {% endfor %}
             </div>
         </div>
@@ -91,11 +91,11 @@
             <div class="col-md-4">
                 <div>
                     <b>Source:</b>
-                    {{ (map.source) ? map.source : 'n/a' }}
+                    {{ (map.source) ? map.source|escape : 'n/a' }}
                 </div>
                 <div>
                     <b>Tags:</b>
-                    <span data-toggle="tooltip" title="{{ map.tags }}">{{ map.tags|truncate(100) }}</span>
+                    <span data-toggle="tooltip" title="{{ map.tags|escape }}">{{ map.tags|truncate(100)|escape }}</span>
                 </div>
             </div>
             <div class="col-md-4">

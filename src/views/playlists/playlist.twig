@@ -6,7 +6,7 @@
             <div class="row align-items-center text-center">
                 <div class="col-md-8 mx-auto">
                     <h1 class="display-5 text-white font-weight-bold">
-                        {{ playlist.name }}
+                        {{ playlist.name|escape }}
                     </h1>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                                     </form>
                                 </div>
                             {% endif %}
-                            <p class="card-text font-size-md">{{ playlist.description }}</p>
+                            <p class="card-text font-size-md">{{ playlist.description|escape }}</p>
                             <p class="card-text font-size-md">Created by
                                 <a href="">{{ playlist.owner_username }}</a>
                             </p>

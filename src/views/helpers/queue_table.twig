@@ -19,7 +19,7 @@
                 <td class="text-left">
                     <div class="player">
                     <a href="/mapset/{{ map.mapset_id }}">
-                        {{ map.artist~' - '~map.title }}
+                        {{ map.artist|escape~' - '~map.title|escape }}
                     </a>
                     </div>
                     {% for difficulty in map.difficulties %}

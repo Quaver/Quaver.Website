@@ -8,10 +8,10 @@
             </div>
             <div class="card-block fix-height">
                 <h5 class="card-title">
-                    <a href="{{ baseUrl('/playlist/'~playlist.id) }}">{{ playlist.name }}</a>
+                    <a href="{{ baseUrl('/playlist/'~playlist.id) }}">{{ playlist.name|escape }}</a>
                 </h5>
                 <p class="card-text font-size-md">
-                    {{ playlist.description|truncate(60) }}
+                    {{ playlist.description|truncate(60)|escape }}
                 </p>
                 {% if playlist.owner_username %}
                     <p class="card-text font-size-md">Created by

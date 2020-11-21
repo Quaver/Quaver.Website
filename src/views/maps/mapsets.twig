@@ -47,8 +47,8 @@
                             {% endif %}
                         </div>
                         <div class="song-name">
-                            <span class="title">{{ (map.title) | truncate(55) }}</span>
-                            <div class="artist">{{ map.artist|truncate(55) }}</div>
+                            <span class="title">{{ (map.title) | truncate(55)|escape }}</span>
+                            <div class="artist">{{ map.artist|truncate(55)|escape }}</div>
                             <div class="d-flex justify-content-between">
                                 <div class="creator">Created by
                                     <span class="cr">{{ map.creator_username }}</span>

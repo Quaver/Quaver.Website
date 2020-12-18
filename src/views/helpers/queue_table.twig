@@ -7,6 +7,11 @@
             <th scope="col">Status</th>
             <th scope="col">Votes</th>
             <th scope="col" style="width: 15%;">Date</th>
+            {% if currentUser %}
+                {% if HasPrivilege(currentUser, Privileges.RankMapsets) %}
+                    <th scope="col" style="width: 2%;"><i class="fas fa-download"></i></th>
+                {% endif %}
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -56,6 +61,17 @@ Length: {{ difficulty.duration }}">
                 <td>
                     <span data-toggle="tooltip" title="{{ formatDate(map.date_last_updated) }}">{{ formatDateDistance(map.date_last_updated) }}</span>
                 </td>
+                {% if currentUser %}
+                    {% if HasPrivilege(currentUser, Privileges.RankMapsets) %}
+                        <td>
+                            <a href="{{ baseUrl('/download/mapset/'~map.creator_id) }}">
+                                <div class="download">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                            </a>
+                        </td>
+                    {% endif %}
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

@@ -64,7 +64,7 @@ Length: {{ difficulty.duration }}">
                 {% if currentUser %}
                     {% if HasPrivilege(currentUser, Privileges.RankMapsets) %}
                         <td>
-                            <a href="{{ baseUrl('/download/mapset/'~map.creator_id) }}">
+                            <a href="{{ baseUrl('/download/mapset/'~map.mapset_id) }}">
                                 <div class="download">
                                     <i class="fas fa-download"></i>
                                 </div>

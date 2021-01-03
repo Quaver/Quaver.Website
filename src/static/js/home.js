@@ -30,11 +30,15 @@ $('.previous-tab').on('click', function () {
 
 $('.count').each(function () {
     const $this = $(this);
+    const number = parseInt($this.text());
     jQuery({Counter: 0}).animate({Counter: parseInt($this.text())}, {
         duration: 1000,
         easing: 'swing',
         step: function () {
             if ($this.text() === 0) $this.text(0); else $this.text(Math.ceil(this.Counter).toLocaleString());
+        },
+        complete: function () {
+            $this.text(number.toLocaleString())
         }
     });
 });

@@ -31,9 +31,9 @@
                                     <div class="team-image">
                                         <a href="{{ baseUrl('/user/'~user.id) }}">
                                             {% if user.avatar_url %}
-                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
+                                                <img class="lazy" data-src="{{ user.avatar_url }}" alt="{{ user.username }}">
                                             {% else %}
-                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                                <img class="lazy" data-src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
                                             {% endif %}
                                         </a>
                                     </div>
@@ -41,7 +41,7 @@
                                     <div class="team-text">
                                         <div class="team-name">
                                             <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
-                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                                <img class="lazy" data-src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
                                             </a>
                                             <a href="/profile/{{ user.id }}">{{ user.username }}</a>
                                         </div>
@@ -77,9 +77,9 @@
                                     <div class="team-image">
                                         <a href="{{ baseUrl('/user/'~user.id) }}">
                                             {% if user.avatar_url %}
-                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
+                                                <img class="lazy" data-src="{{ user.avatar_url }}" alt="{{ user.username }}">
                                             {% else %}
-                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                                <img class="lazy" data-src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
                                             {% endif %}
                                         </a>
                                     </div>
@@ -87,7 +87,7 @@
                                     <div class="team-text">
                                         <div class="team-name">
                                             <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
-                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                                <img class="lazy" data-src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
                                             </a>
                                             <a href="/profile/{{ user.id }}">{{ user.username }}</a>
                                         </div>
@@ -122,9 +122,9 @@
                                     <div class="team-image">
                                         <a href="{{ baseUrl('/user/'~user.id) }}">
                                             {% if user.avatar_url %}
-                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
+                                                <img class="lazy" data-src="{{ user.avatar_url }}" alt="{{ user.username }}">
                                             {% else %}
-                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                                <img class="lazy" data-src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
                                             {% endif %}
                                         </a>
                                     </div>
@@ -132,7 +132,7 @@
                                     <div class="team-text">
                                         <div class="team-name">
                                             <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
-                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                                <img class="lazy" data-src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
                                             </a>
                                             <a href="/profile/{{ user.id }}">{{ user.username }}</a>
                                         </div>
@@ -167,9 +167,9 @@
                                     <div class="team-image">
                                         <a href="{{ baseUrl('/user/'~user.id) }}">
                                             {% if user.avatar_url %}
-                                                <img src="{{ user.avatar_url }}" alt="{{ user.username }}">
+                                                <img class="lazy" data-src="{{ user.avatar_url }}" alt="{{ user.username }}">
                                             {% else %}
-                                                <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
+                                                <img class="lazy" data-src="{{ assets('/img/noavatar.jpg') }}" alt="{{ user.username }}">
                                             {% endif %}
                                         </a>
                                     </div>
@@ -177,7 +177,7 @@
                                     <div class="team-text">
                                         <div class="team-name">
                                             <a href="{{ baseUrl('/leaderboard?country='~user.country|lower) }}">
-                                                <img src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
+                                                <img class="lazy" data-src="{{ assets('/img/flags/'~user.country~'.png') }}" alt="{{ user.country }}">
                                             </a>
                                             <a href="/profile/{{ user.id }}">{{ user.username }}</a>
                                         </div>

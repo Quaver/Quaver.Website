@@ -782,119 +782,119 @@ document.addEventListener('DOMContentLoaded', function () {
  * ------------------------------------------------------------------------
  */
 var VERSION$5 = '1.0.0';
-var PATH = window.path ? window.path : 'plugins';
-var Font = {
-  SOLID: '.fas',
-  REGULAR: '.far',
-  BRAND: '.fab',
-  LIGHT: '.fal'
-};
-var FontAwesome = {
-  CSS: PATH + "/fontawesome/css/fontawesome.min.css",
-  REGULAR: PATH + "/fontawesome/css/regular.min.css",
-  BRAND: PATH + "/fontawesome/css/brands.min.css",
-  SOLID: PATH + "/fontawesome/css/solid.min.css",
-  LIGHT: PATH + "/fontawesome/css/light.min.css"
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
+// var PATH = window.path ? window.path : 'plugins';
+// var Font = {
+//   SOLID: '.fas',
+//   REGULAR: '.far',
+//   BRAND: '.fab',
+//   LIGHT: '.fal'
+// };
+// var FontAwesome = {
+//   CSS: PATH + "/fontawesome/css/fontawesome.min.css",
+//   REGULAR: PATH + "/fontawesome/css/regular.min.css",
+//   BRAND: PATH + "/fontawesome/css/brands.min.css",
+//   SOLID: PATH + "/fontawesome/css/solid.min.css",
+//   LIGHT: PATH + "/fontawesome/css/light.min.css"
+//   /**
+//    * ------------------------------------------------------------------------
+//    * Class Definition
+//    * ------------------------------------------------------------------------
+//    */
+//
+// };
 
-};
-
-var Icons =
-/*#__PURE__*/
-function () {
-  function Icons() {
-    this._stylesheet = document.createElement('link');
-    this._stylesheet.rel = 'stylesheet';
-    this._stylesheet.href = FontAwesome.CSS;
-  }
-
-  var _proto = Icons.prototype;
-
-  _proto._solid = function _solid() {
-    if (document.querySelector(Font.SOLID)) {
-      // create stylesheet
-      var fas = document.createElement('link');
-      fas.rel = 'stylesheet';
-      fas.href = FontAwesome.SOLID; // append stylesheet
-
-      document.head.appendChild(fas);
-    }
-
-    return true;
-  };
-
-  _proto._brand = function _brand() {
-    if (document.querySelector(Font.BRAND)) {
-      // create stylesheet
-      var fab = document.createElement('link');
-      fab.rel = 'stylesheet';
-      fab.href = FontAwesome.BRAND; // append stylesheet
-
-      document.head.appendChild(fab);
-    }
-
-    return true;
-  };
-
-  _proto._light = function _light() {
-    if (document.querySelector(Font.LIGHT)) {
-      // create stylesheet
-      var fal = document.createElement('link');
-      fal.rel = 'stylesheet';
-      fal.href = FontAwesome.LIGHT; // append stylesheet
-
-      document.head.appendChild(fal);
-    }
-
-    return true;
-  };
-
-  _proto._regular = function _regular() {
-    if (document.querySelector(Font.REGULAR)) {
-      // create stylesheet
-      var far = document.createElement('link');
-      far.rel = 'stylesheet';
-      far.href = FontAwesome.REGULAR; // append stylesheet
-
-      document.head.appendChild(far);
-    }
-
-    return true;
-  };
-
-  _proto._get = function _get() {
-    // append stylesheet
-    document.head.appendChild(this._stylesheet); // detect type
-
-    this._solid();
-
-    this._brand();
-
-    this._light();
-
-    this._regular();
-  } // static
-  ;
-
-  Icons._init = function _init() {
-    var data = new Icons();
-
-    data._get();
-  };
-
-  _createClass(Icons, null, [{
-    key: "VERSION",
-    get: function get() {
-      return VERSION$5;
-    }
-  }]);
-
-  return Icons;
-}();
+// var Icons =
+// /*#__PURE__*/
+// function () {
+//   function Icons() {
+//     this._stylesheet = document.createElement('link');
+//     this._stylesheet.rel = 'stylesheet';
+//     this._stylesheet.href = FontAwesome.CSS;
+//   }
+//
+//   var _proto = Icons.prototype;
+//
+//   _proto._solid = function _solid() {
+//     if (document.querySelector(Font.SOLID)) {
+//       // create stylesheet
+//       var fas = document.createElement('link');
+//       fas.rel = 'stylesheet';
+//       fas.href = FontAwesome.SOLID; // append stylesheet
+//
+//       document.head.appendChild(fas);
+//     }
+//
+//     return true;
+//   };
+//
+//   _proto._brand = function _brand() {
+//     if (document.querySelector(Font.BRAND)) {
+//       // create stylesheet
+//       var fab = document.createElement('link');
+//       fab.rel = 'stylesheet';
+//       fab.href = FontAwesome.BRAND; // append stylesheet
+//
+//       document.head.appendChild(fab);
+//     }
+//
+//     return true;
+//   };
+//
+//   _proto._light = function _light() {
+//     if (document.querySelector(Font.LIGHT)) {
+//       // create stylesheet
+//       var fal = document.createElement('link');
+//       fal.rel = 'stylesheet';
+//       fal.href = FontAwesome.LIGHT; // append stylesheet
+//
+//       document.head.appendChild(fal);
+//     }
+//
+//     return true;
+//   };
+//
+//   _proto._regular = function _regular() {
+//     if (document.querySelector(Font.REGULAR)) {
+//       // create stylesheet
+//       var far = document.createElement('link');
+//       far.rel = 'stylesheet';
+//       far.href = FontAwesome.REGULAR; // append stylesheet
+//
+//       document.head.appendChild(far);
+//     }
+//
+//     return true;
+//   };
+//
+//   _proto._get = function _get() {
+//     // append stylesheet
+//     document.head.appendChild(this._stylesheet); // detect type
+//
+//     this._solid();
+//
+//     this._brand();
+//
+//     this._light();
+//
+//     this._regular();
+//   } // static
+//   ;
+//
+//   Icons._init = function _init() {
+//     var data = new Icons();
+//
+//     data._get();
+//   };
+//
+//   _createClass(Icons, null, [{
+//     key: "VERSION",
+//     get: function get() {
+//       return VERSION$5;
+//     }
+//   }]);
+//
+//   return Icons;
+// }();
 /**
  * ------------------------------------------------------------------------
  * Load Event
@@ -902,11 +902,11 @@ function () {
 */
 
 
-document.addEventListener('DOMContentLoaded', function () {
-  if (document.querySelector(Font.SOLID) || document.querySelector(Font.BRAND) || document.querySelector(Font.REGULAR) || document.querySelector(Font.LIGHT)) {
-    Icons._init.call();
-  }
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//   if (document.querySelector(Font.SOLID) || document.querySelector(Font.BRAND) || document.querySelector(Font.REGULAR) || document.querySelector(Font.LIGHT)) {
+//     Icons._init.call();
+//   }
+// });
 
 /**
  * ---------------------------------------------------------------------------------------
@@ -1827,7 +1827,6 @@ exports.Carousel = Carousel;
 exports.Disqus = Disqus;
 exports.Embed = Embed;
 exports.Facebook = Facebook;
-exports.Icons = Icons;
 exports.Lightbox = Lightbox;
 exports.Navbar = Navbar;
 exports.Notify = Notify;

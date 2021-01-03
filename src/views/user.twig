@@ -1,11 +1,12 @@
 {% extends "layouts/app.twig" %}
 {% block content %}
+    {% set main = assets("/img/cover.jpg") %}
     {% set cover = assets("/img/cover.jpg") %}
     {% if IsDonator(user.info.usergroups) %}
         {% set cover = "https://cdn.quavergame.com/profile-covers/"~user.info.id~".jpg" %}
     {% endif %}
     <section class="bg-image bg-dark d-flex align-items-end pt-0 lazy" style="min-height: 380px; background-size: cover; background-position: center center; padding-bottom: 10px;"
-            data-bg-multi="linear-gradient(360deg, #1a1a20 1%, rgba(26, 26, 32, 0) 80%), url({{ cover }})">
+            data-bg-multi="linear-gradient(360deg, #1a1a20 1%, rgba(26, 26, 32, 0) 80%), url({{ cover }}), url({{ main }})">
         <div class="container position-relative">
             <div class="row">
                 <div class="col d-flex flex-column flex-lg-row align-items-center position-absolute bottom left pl-lg-8">
@@ -152,9 +153,9 @@
                         <div class="nav-scroll">
                             <div class="nav nav-list nav-list-profile">
                                 <a class="nav-item nav-link" href="#feed">Stats & Feed</a>
-                                {#                                <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a>#}
+                                {# <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a> #}
                                 <a class="nav-item nav-link" href="#scores">Scores</a>
-                                {#                                <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a>#}
+                                {# <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a> #}
                                 <a class="nav-item nav-link" href="#maps">Maps</a>
                                 <a class="nav-item nav-link" href="#playlists">Playlists</a>
                                 <a class="nav-item nav-link" href="#achievements">Achievements</a>
@@ -168,7 +169,7 @@
     <section class="py-lg-4">
         <div class="container">
             {% include 'user/user-profile-info.twig' %}
-            {#            {% include 'user/user-profile-graphs.twig' %}#}
+            {% include 'user/user-profile-graphs.twig' %}
             {% include 'user/user-profile-scores.twig' %}
             {% include 'user/user-profile-mapsets.twig' %}
             {% include 'user/user-profile-playlists.twig' %}
@@ -180,16 +181,20 @@
 {% block style %}{% endblock %}
 
 {% block scripts %}
+    {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
     <script>
         let mapsPages = {
             "page_1": 1,
             "page_2": 1
         };
+
+        const rank = JSON.parse('{{ user.statistics }}');
+        const currentRank = parseInt("{{ user[game_mode].globalRank }}")
     </script>
+    <script defer src="{{ assets('/js/plugins/moment.min.js') }}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script defer src="{{ assets('/js/user.js') }}"></script>
     <script defer src="{{ assets('/js/artists.js') }}"></script>
-    {#    <script defer src="{{ assets('/js/plugins/Chart.min.js') }}"></script>#}
-    {#    <script defer src="{{ assets('/js/plugins/chartjs-plugin-datalabels.js') }}"></script>#}
 {% endblock %}
 
 {% block page_scripts %}{% endblock %}

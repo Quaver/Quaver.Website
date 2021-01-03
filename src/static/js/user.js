@@ -1,26 +1,19 @@
 function sortData(data) {
     let marv = [], perf = [], great = [], good = [], okay = [], miss = [];
     $.each(data, function (key, value) {
-        if(value.endsWith('L')) value = parseInt(value) / 1.5;
+        if (value.endsWith('L')) value = parseInt(value) / 1.5;
         value = parseInt(value);
         const absValue = Math.abs(value);
         if (absValue === -2147483648) miss.push({x: key, y: 0});
-        else if (absValue <= 18 ) marv.push({x: key, y: value});
-        else if (absValue <= 43 ) perf.push({x: key, y: value});
-        else if (absValue <= 76 ) great.push({x: key, y: value});
-        else if (absValue <= 106 ) good.push({x: key, y: value});
-        else if (absValue <= 127 ) okay.push({x: key, y: value});
-        else if (absValue <= 164 ) miss.push({x: key, y: value});
+        else if (absValue <= 18) marv.push({x: key, y: value});
+        else if (absValue <= 43) perf.push({x: key, y: value});
+        else if (absValue <= 76) great.push({x: key, y: value});
+        else if (absValue <= 106) good.push({x: key, y: value});
+        else if (absValue <= 127) okay.push({x: key, y: value});
+        else if (absValue <= 164) miss.push({x: key, y: value});
         else if (absValue > 0) miss.push({x: key, y: 0});
         else miss.push({x: key, y: value});
     });
-    // console.log(marv);
-    // console.log(marv.length);
-    // console.log(perf.length);
-    // console.log(great.length);
-    // console.log(good.length);
-    // console.log(okay.length);
-    // console.log(miss.length);
 
     return {
         datasets: [
@@ -214,22 +207,111 @@ function loadJudgements(table_class, score_id, total_marv, total_perf, total_gre
     });
 }
 
-// document.addEventListener("DOMContentLoaded", function (event) {
-//     $('#friend_add').submit(function (e) {
-//         e.preventDefault();
-//         const id = $(this).find('input[name=id]').val();
-//         const type = $(this).find('input[name=type]').val();
-//         if (id) {
-//             $.post(baseUrl() + '/friend/add', {
-//                 id: id
-//             }, function (data) {
-//                 $.post(baseUrl() + '/friend/render', {
-//                     id: id,
-//                     type: type
-//                 }, function (data) {
-//                     $('#friend').html(data);
-//                 });
-//             });
-//         }
-//     });
-// });
+function rankProgression() {
+    let chartRank = document.getElementById('rankProgression');
+
+    let dataLabels = rank.map(x => x.timestamp);
+    let dataStats = rank.map(x => x.rank);
+
+    dataLabels.pop();
+    dataStats.pop();
+
+    const now = moment();
+
+    for (let i = 0; i < dataLabels.length; i++) {
+        const date = moment(dataLabels[i]);
+        const days = now.diff(date, "days");
+        dataLabels[i] = `${days} days ago`;
+    }
+
+    dataLabels.push("Now");
+    dataStats.push(currentRank);
+
+    new Chart(chartRank, {
+        type: 'line',
+        data: {
+            labels: dataLabels,
+            datasets: [{
+                pointBackgroundColor: 'rgba(15, 186, 229, 1)',
+                borderColor: '#0FBAE5',
+                backgroundColor: 'rgba(15, 186, 229, 0.4)',
+                data: dataStats,
+                fill: "start"
+            }]
+        },
+        options: {
+            responsive: true,
+            aspectRatio: 1,
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        reverse: true,
+                        fontColor: 'rgb(255,255,255)',
+                        beginAtZero: false,
+                        callback: function (value, index, values) {
+                            return 10^value;
+                        },
+                        min: 1
+                    },
+                    gridLines: {
+                        display: false,
+                        color: 'rgb(255,255,255)',
+                        lineWidth: 0.5
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: 'rgb(255,255,255)'
+                    },
+                    gridLines: {
+                        display: false,
+                        color: 'rgb(255,255,255)',
+                        lineWidth: 0.5
+                    }
+                }]
+            },
+            tooltips: {
+                displayColors: false,
+                custom: function (tooltip) {
+                    if (!tooltip) return;
+                },
+                callbacks: {
+                    title: function (tooltipItem, data) {
+                        return "Global rank: " + tooltipItem[0].value;
+                    },
+                    label: function (tooltipItem, data) {
+                        if (tooltipItem.xLabel !== "Now")
+                            return "Date: " + tooltipItem.xLabel;
+                        return tooltipItem.xLabel;
+                    }
+                }
+            },
+        }
+    });
+}
+
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    rankProgression();
+    // $('#friend_add').submit(function (e) {
+    //     e.preventDefault();
+    //     const id = $(this).find('input[name=id]').val();
+    //     const type = $(this).find('input[name=type]').val();
+    //     if (id) {
+    //         $.post(baseUrl() + '/friend/add', {
+    //             id: id
+    //         }, function (data) {
+    //             $.post(baseUrl() + '/friend/render', {
+    //                 id: id,
+    //                 type: type
+    //             }, function (data) {
+    //                 $('#friend').html(data);
+    //             });
+    //         });
+    //     }
+    // });
+});

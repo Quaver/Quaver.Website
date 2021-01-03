@@ -227,6 +227,9 @@ function rankProgression() {
     dataLabels.push("Now");
     dataStats.push(currentRank);
 
+    let rankMin = 1;
+    if(currentRank === 1) rankMin = 0;
+
     new Chart(chartRank, {
         type: 'line',
         data: {
@@ -253,9 +256,10 @@ function rankProgression() {
                         fontColor: 'rgb(255,255,255)',
                         beginAtZero: false,
                         callback: function (value, index, values) {
-                            return 10^value;
+                            // return 10^value;
+                            return Math.round(value);
                         },
-                        min: 1
+                        min: rankMin
                     },
                     gridLines: {
                         display: false,

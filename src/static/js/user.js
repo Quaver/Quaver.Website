@@ -210,6 +210,7 @@ function loadJudgements(table_class, score_id, total_marv, total_perf, total_gre
 function rankProgression() {
     let chartRank = document.getElementById('rankProgression');
 
+    let totalSum = 0;
     let dataLabels = rank.map(x => x.timestamp);
     let dataStats = rank.map(x => x.rank);
 
@@ -222,13 +223,14 @@ function rankProgression() {
         const date = moment(dataLabels[i]);
         const days = now.diff(date, "days");
         dataLabels[i] = `${days} days ago`;
+        totalSum += dataStats[i];
     }
 
     dataLabels.push("Now");
     dataStats.push(currentRank);
 
-    let rankMin = 1;
-    if(currentRank === 1) rankMin = 0;
+    const min = Math.min(...dataStats);
+    const max = Math.max(...dataStats);
 
     new Chart(chartRank, {
         type: 'line',
@@ -257,9 +259,13 @@ function rankProgression() {
                         beginAtZero: false,
                         callback: function (value, index, values) {
                             // return 10^value;
-                            return Math.round(value);
+                            // Show only the min anx max
+                            // if(value === min || value === max) return value;
+                            if(dataStats.includes(value)) return value;
                         },
-                        min: rankMin
+                        min: min-1,
+                        max: max+1,
+                        stepSize: 1
                     },
                     gridLines: {
                         display: false,

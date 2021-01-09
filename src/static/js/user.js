@@ -222,12 +222,21 @@ function rankProgression() {
     for (let i = 0; i < dataLabels.length; i++) {
         const date = moment(dataLabels[i]);
         const days = now.diff(date, "days");
-        dataLabels[i] = `${days} days ago`;
+        // dataLabels[i] = `${days} days ago`;
         totalSum += dataStats[i];
     }
 
+
     dataLabels.push("Now");
     dataStats.push(currentRank);
+
+    // dataLabels = [];
+    // dataStats = [];
+    // for(let i = 90; i > 0; i--) {
+    //     dataStats.push(Math.floor(Math.random() * 9000));
+    //     dataLabels.push(i);
+    // }
+    // dataLabels.push("Now");
 
     const min = Math.min(...dataStats);
     const max = Math.max(...dataStats);
@@ -257,15 +266,9 @@ function rankProgression() {
                         reverse: true,
                         fontColor: 'rgb(255,255,255)',
                         beginAtZero: false,
-                        callback: function (value, index, values) {
-                            // return 10^value;
-                            // Show only the min anx max
-                            // if(value === min || value === max) return value;
-                            if(dataStats.includes(value)) return value;
-                        },
-                        min: min-1,
-                        max: max+1,
-                        stepSize: 1
+                        suggestedMin: min,
+                        suggestedMax: max,
+                        precision: 0
                     },
                     gridLines: {
                         display: false,
@@ -275,7 +278,17 @@ function rankProgression() {
                 }],
                 xAxes: [{
                     ticks: {
-                        fontColor: 'rgb(255,255,255)'
+                        callback: function (tick, index, array) {
+                            if (tick !== "Now") {
+                                const date = moment(tick);
+                                const days = now.diff(date, "days");
+                                return index % 10 ? null : days + " days ago";
+                            } else {
+                                return "Now";
+                            }
+                        },
+                        maxRotation: 0,
+                        minRotation: 0
                     },
                     gridLines: {
                         display: false,
@@ -294,8 +307,11 @@ function rankProgression() {
                         return "Global rank: " + tooltipItem[0].value;
                     },
                     label: function (tooltipItem, data) {
-                        if (tooltipItem.xLabel !== "Now")
-                            return "Date: " + tooltipItem.xLabel;
+                        if (tooltipItem.xLabel !== "Now") {
+                            const date = moment(tooltipItem.xLabel).calendar();
+                            return "Date: " + date;
+                        }
+
                         return tooltipItem.xLabel;
                     }
                 }

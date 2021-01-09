@@ -210,7 +210,6 @@ function loadJudgements(table_class, score_id, total_marv, total_perf, total_gre
 function rankProgression() {
     let chartRank = document.getElementById('rankProgression');
 
-    let totalSum = 0;
     let dataLabels = rank.map(x => x.timestamp);
     let dataStats = rank.map(x => x.rank);
 
@@ -218,14 +217,6 @@ function rankProgression() {
     dataStats.pop();
 
     const now = moment();
-
-    for (let i = 0; i < dataLabels.length; i++) {
-        const date = moment(dataLabels[i]);
-        const days = now.diff(date, "days");
-        // dataLabels[i] = `${days} days ago`;
-        totalSum += dataStats[i];
-    }
-
 
     dataLabels.push("Now");
     dataStats.push(currentRank);
@@ -240,6 +231,12 @@ function rankProgression() {
 
     const min = Math.min(...dataStats);
     const max = Math.max(...dataStats);
+
+    let spread = 10;
+
+    if(dataStats.length < 10) {
+        spread = 2;
+    }
 
     new Chart(chartRank, {
         type: 'line',
@@ -282,7 +279,7 @@ function rankProgression() {
                             if (tick !== "Now") {
                                 const date = moment(tick);
                                 const days = now.diff(date, "days");
-                                return index % 10 ? null : days + " days ago";
+                                return index % spread ? null : days + " days ago";
                             } else {
                                 return "Now";
                             }
@@ -323,21 +320,4 @@ function rankProgression() {
 
 document.addEventListener("DOMContentLoaded", function (event) {
     rankProgression();
-    // $('#friend_add').submit(function (e) {
-    //     e.preventDefault();
-    //     const id = $(this).find('input[name=id]').val();
-    //     const type = $(this).find('input[name=type]').val();
-    //     if (id) {
-    //         $.post(baseUrl() + '/friend/add', {
-    //             id: id
-    //         }, function (data) {
-    //             $.post(baseUrl() + '/friend/render', {
-    //                 id: id,
-    //                 type: type
-    //             }, function (data) {
-    //                 $('#friend').html(data);
-    //             });
-    //         });
-    //     }
-    // });
 });

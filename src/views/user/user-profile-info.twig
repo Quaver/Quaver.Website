@@ -1,7 +1,7 @@
 <div class="row mg-bottom" id="feed">
     <div class="col d-flex align-items-center">
         <div class="avatar-fixed d-none d-lg-block" style="width: 245px"></div>
-        <div class="widget profile-badges">
+        <div class="widget profile-badges" style="min-height: 40px;">
             {% for badge in user.profile_badges %}
                 <img src="https://cdn.quavergame.com/badges/{{ badge.id }}.png" width="80px" height="40px" data-toggle="tooltip" title="{{ badge.name }}
 

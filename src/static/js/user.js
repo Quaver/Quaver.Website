@@ -207,6 +207,67 @@ function loadJudgements(table_class, score_id, total_marv, total_perf, total_gre
     });
 }
 
+function judgementBreakdown() {
+    let jb = document.getElementById('chartJudgements');
+
+    new Chart(jb, {
+        type: 'bar',
+        data: {
+            labels: ['Marv', 'Perf', 'Great', 'Good', 'Okay', 'Miss'],
+            datasets: [{
+                label: '',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [
+                    total_marv,
+                    total_perf,
+                    total_great,
+                    total_good,
+                    total_okay,
+                    total_miss,
+                ],
+                backgroundColor: [
+                    '#FBFFB6',
+                    '#F2C94C',
+                    '#56FE6E',
+                    '#0FBAE5',
+                    '#EE5FAC',
+                    '#F9645D'
+                ],
+            }],
+        },
+        options: {
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 10,
+                    bottom: 10
+                }
+            },
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                enabled: false
+            },
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
 function rankProgression() {
     let chartRank = document.getElementById('rankProgression');
 
@@ -317,7 +378,15 @@ function rankProgression() {
     });
 }
 
+function copyToClipboard(element) {
+    let $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text().trim()).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
 
 document.addEventListener("DOMContentLoaded", function (event) {
     rankProgression();
+    // judgementBreakdown();
 });

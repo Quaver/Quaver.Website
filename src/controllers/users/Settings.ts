@@ -4,7 +4,7 @@ import API from "../../api/API";
 import SqlDatabase from "../../database/SqlDatabase";
 
 export default class Settings {
-    public static validNames = ["discord", "twitter", "twitch"];
+    public static validNames = ["discord", "twitter", "twitch", "youtube"];
 
     public static async GET(req: any, res: any): Promise<void> {
         try {

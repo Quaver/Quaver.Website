@@ -72,6 +72,15 @@ export default class Users {
                 }
             }
 
+            // Check if information fields are empty
+            let informationFlag = true;
+            for (let key in user.info.information) {
+                if (user.info.information[key] !== null && user.info.information[key] != "")
+                    informationFlag = false;
+            }
+
+            if(informationFlag) user.info.information = null;
+
             Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
                 user,
                 mode,

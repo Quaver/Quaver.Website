@@ -28,14 +28,14 @@ export default class UserHelper {
      * @constructor
      * @param userGroups
      */
-    public static CanAccessDashboard(userGroups: any): boolean {
+    public static CanAccessDashboard(userGroups: any, ignoreRS:boolean = false): boolean {
         if ((userGroups & Usergroups.Developer) != 0)
             return true;
         else if ((userGroups & Usergroups.Admin) != 0)
             return true;
         else if ((userGroups & Usergroups.Moderator) != 0)
             return true;
-        else if ((userGroups & Usergroups.RankingSupervisor) != 0)
+        else if (((userGroups & Usergroups.RankingSupervisor) != 0) && !ignoreRS)
             return true;
 
         return false;
@@ -48,7 +48,5 @@ export default class UserHelper {
      */
     public static IsDonator(userGroups: any): boolean {
         return (userGroups & Usergroups.Donator) != 0;
-
-
     }
 }

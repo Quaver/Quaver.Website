@@ -7,7 +7,7 @@
     {% endif %}
     <section class="bg-image bg-dark d-flex align-items-end pt-0 lazy position-relative" style="min-height: 380px; background-size: cover; background-position: center center; padding-bottom: 10px;"
             data-bg-multi="linear-gradient(360deg, #1a1a20 1%, rgba(26, 26, 32, 0) 80%), url({{ cover }}), url({{ main }})">
-        {% if CanAccessDashboard(currentUser.usergroups) %}
+        {% if CanAccessDashboard(currentUser.usergroups, true) %}
             <div class="position-absolute" style="top: 20px; right: 20px;">
                 <a class="btn btn-primary btn-sm" href="https://a.quavergame.com/edituser/{{ user.info.id }}" target="_blank">Edit User</a>
             </div>

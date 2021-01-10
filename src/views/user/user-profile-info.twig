@@ -26,6 +26,21 @@
                     {% endif %}
                 </div>
             </div>
+            {% if bio and IsDonator(user.info.usergroups) %}
+                <div class="widget widget-secondary">
+                    <div class="widget-body" id="userpage" style="position:relative;">
+                        {% if bio %}
+                            {% for line in bio %}
+                                {% if line == "" %}
+                                    <br>
+                                {% else %}
+                                    {{ line }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
             {% if user.info.information %}
                 <div class="widget widget-secondary">
                     <div class="widget-body" style="padding: 5px;">
@@ -53,21 +68,6 @@
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
-            {% if bio and IsDonator(user.info.usergroups) %}
-                <div class="widget widget-secondary">
-                    <div class="widget-body" id="userpage" style="position:relative;">
-                        {% if bio %}
-                            {% for line in bio %}
-                                {% if line == "" %}
-                                    <br>
-                                {% else %}
-                                    {{ line }}
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
                     </div>
                 </div>
             {% endif %}

@@ -23,7 +23,7 @@ export default class Settings {
         try {
             const user = await Settings.FetchUser(req, req.user.id);
 
-            let information = (user.info.information.length) ? user.info.information : {};
+            let information = (user.info.information) ? user.info.information : {};
 
             if (req.body.information) {
                 for (const [key, value] of Object.entries(req.body.information)) {

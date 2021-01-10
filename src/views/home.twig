@@ -77,7 +77,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="post-thumbnail" style="margin: auto 0;">
-                                                <img class="post-img" src="{{ post.image }}" alt="{{ post.title }}" width="100%" height="100%">
+                                                <img class="post-img lazy" data-src="{{ post.image }}" alt="{{ post.title }}" width="100%" height="100%">
                                             </div>
                                         </div>
                                         <div class="col-md-8" style="margin: auto 0;">
@@ -152,7 +152,7 @@
                                 <a class="twitter-timeline" data-lang="en" data-dnt="true" data-tweet-limit="6" data-theme="dark"
                                         data-chrome="transparent" data-link-color="#45D6F5" href="https://twitter.com/QuaverGame?ref_src=twsrc%5Etfw"></a>
                             </div>
-                            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                            <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                         </div>
                     </div>
                 </div>
@@ -166,6 +166,6 @@
 {% endblock %}
 
 {% block page_scripts %}
-    <script src="{{ assets('/js/home.js') }}"></script>
+    <script defer src="{{ assets('/js/home.js') }}"></script>
     <script defer src="{{ assets('/js/artists.js') }}"></script>
 {% endblock %}

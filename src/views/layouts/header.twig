@@ -101,8 +101,9 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="{{ baseUrl('/user/'~currentUser.id) }}">Profile</a>
                         <a class="dropdown-item" href="{{ baseUrl('/friends') }}">Friends</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ baseUrl('/settings') }}">Settings</a>
                         {% if IsDonator(currentUser.usergroups) %}
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ baseUrl('/settings/donator') }}">Donator Settings</a>
                         {% endif %}
                         {% if CanAccessDashboard(currentUser.usergroups) %}

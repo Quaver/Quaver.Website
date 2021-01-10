@@ -1,26 +1,19 @@
 function sortData(data) {
     let marv = [], perf = [], great = [], good = [], okay = [], miss = [];
     $.each(data, function (key, value) {
-        if(value.endsWith('L')) value = parseInt(value) / 1.5;
+        if (value.endsWith('L')) value = parseInt(value) / 1.5;
         value = parseInt(value);
         const absValue = Math.abs(value);
         if (absValue === -2147483648) miss.push({x: key, y: 0});
-        else if (absValue <= 18 ) marv.push({x: key, y: value});
-        else if (absValue <= 43 ) perf.push({x: key, y: value});
-        else if (absValue <= 76 ) great.push({x: key, y: value});
-        else if (absValue <= 106 ) good.push({x: key, y: value});
-        else if (absValue <= 127 ) okay.push({x: key, y: value});
-        else if (absValue <= 164 ) miss.push({x: key, y: value});
+        else if (absValue <= 18) marv.push({x: key, y: value});
+        else if (absValue <= 43) perf.push({x: key, y: value});
+        else if (absValue <= 76) great.push({x: key, y: value});
+        else if (absValue <= 106) good.push({x: key, y: value});
+        else if (absValue <= 127) okay.push({x: key, y: value});
+        else if (absValue <= 164) miss.push({x: key, y: value});
         else if (absValue > 0) miss.push({x: key, y: 0});
         else miss.push({x: key, y: value});
     });
-    // console.log(marv);
-    // console.log(marv.length);
-    // console.log(perf.length);
-    // console.log(great.length);
-    // console.log(good.length);
-    // console.log(okay.length);
-    // console.log(miss.length);
 
     return {
         datasets: [
@@ -214,22 +207,186 @@ function loadJudgements(table_class, score_id, total_marv, total_perf, total_gre
     });
 }
 
-// document.addEventListener("DOMContentLoaded", function (event) {
-//     $('#friend_add').submit(function (e) {
-//         e.preventDefault();
-//         const id = $(this).find('input[name=id]').val();
-//         const type = $(this).find('input[name=type]').val();
-//         if (id) {
-//             $.post(baseUrl() + '/friend/add', {
-//                 id: id
-//             }, function (data) {
-//                 $.post(baseUrl() + '/friend/render', {
-//                     id: id,
-//                     type: type
-//                 }, function (data) {
-//                     $('#friend').html(data);
-//                 });
-//             });
-//         }
-//     });
-// });
+function judgementBreakdown() {
+    let jb = document.getElementById('chartJudgements');
+
+    new Chart(jb, {
+        type: 'bar',
+        data: {
+            labels: ['Marv', 'Perf', 'Great', 'Good', 'Okay', 'Miss'],
+            datasets: [{
+                label: '',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [
+                    total_marv,
+                    total_perf,
+                    total_great,
+                    total_good,
+                    total_okay,
+                    total_miss,
+                ],
+                backgroundColor: [
+                    '#FBFFB6',
+                    '#F2C94C',
+                    '#56FE6E',
+                    '#0FBAE5',
+                    '#EE5FAC',
+                    '#F9645D'
+                ],
+            }],
+        },
+        options: {
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 10,
+                    bottom: 10
+                }
+            },
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                enabled: false
+            },
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function rankProgression() {
+    let chartRank = document.getElementById('rankProgression');
+
+    let dataLabels = rank.map(x => x.timestamp);
+    let dataStats = rank.map(x => x.rank);
+
+    dataLabels.pop();
+    dataStats.pop();
+
+    const now = moment();
+
+    dataLabels.push("Now");
+    dataStats.push(currentRank);
+
+    // dataLabels = [];
+    // dataStats = [];
+    // for(let i = 90; i > 0; i--) {
+    //     dataStats.push(Math.floor(Math.random() * 9000));
+    //     dataLabels.push(i);
+    // }
+    // dataLabels.push("Now");
+
+    const min = Math.min(...dataStats);
+    const max = Math.max(...dataStats);
+
+    let spread = 10;
+
+    if(dataStats.length < 10) {
+        spread = 2;
+    }
+
+    new Chart(chartRank, {
+        type: 'line',
+        data: {
+            labels: dataLabels,
+            datasets: [{
+                pointBackgroundColor: 'rgba(15, 186, 229, 1)',
+                borderColor: '#0FBAE5',
+                backgroundColor: 'rgba(15, 186, 229, 0.4)',
+                data: dataStats,
+                fill: "start"
+            }]
+        },
+        options: {
+            responsive: true,
+            aspectRatio: 1,
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        reverse: true,
+                        fontColor: 'rgb(255,255,255)',
+                        beginAtZero: false,
+                        suggestedMin: min,
+                        suggestedMax: max,
+                        precision: 0
+                    },
+                    gridLines: {
+                        display: false,
+                        color: 'rgb(255,255,255)',
+                        lineWidth: 0.5
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        callback: function (tick, index, array) {
+                            if (tick !== "Now") {
+                                const date = moment(tick);
+                                const days = now.diff(date, "days");
+                                return index % spread ? null : days + " days ago";
+                            } else {
+                                return "Now";
+                            }
+                        },
+                        maxRotation: 0,
+                        minRotation: 0
+                    },
+                    gridLines: {
+                        display: false,
+                        color: 'rgb(255,255,255)',
+                        lineWidth: 0.5
+                    }
+                }]
+            },
+            tooltips: {
+                displayColors: false,
+                custom: function (tooltip) {
+                    if (!tooltip) return;
+                },
+                callbacks: {
+                    title: function (tooltipItem, data) {
+                        return "Global rank: " + tooltipItem[0].value;
+                    },
+                    label: function (tooltipItem, data) {
+                        if (tooltipItem.xLabel !== "Now") {
+                            const date = moment(tooltipItem.xLabel).calendar();
+                            return "Date: " + date;
+                        }
+
+                        return tooltipItem.xLabel;
+                    }
+                }
+            },
+        }
+    });
+}
+
+function copyToClipboard(element) {
+    let $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text().trim()).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    rankProgression();
+    // judgementBreakdown();
+});

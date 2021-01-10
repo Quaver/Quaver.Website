@@ -63,9 +63,23 @@ export default class Users {
                         disallowedTagsMode: 'escape'
                     });
 
-                if (bio !== "")
+                const matchSrc = new RegExp("src=['\"](?:[^\"'\\/]\\/)*([^'\"]+)['\"]");
+                const image = `data-src='$1' class="lazy"`;
+
+                if (bio !== "") {
+                    bio = bio.replace(matchSrc, image);
                     bio = bio.split(/\r\n|\n|\r/);
+                }
             }
+
+            // Check if information fields are empty
+            let informationFlag = true;
+            for (let key in user.info.information) {
+                if (user.info.information[key] !== null && user.info.information[key] != "")
+                    informationFlag = false;
+            }
+
+            if(informationFlag) user.info.information = null;
 
             Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
                 user,
@@ -202,9 +216,10 @@ export default class Users {
 
         const onlineStatusResponse = await API.GET(req, `v1/server/users/online/${response.user.info.id}`);
         const achievementsResponse = await API.GET(req, `v1/users/${response.user.info.id}/achievements`);
-        // const graphRankResponse = await API.GET(req, `v1/users/graph/rank?id=${response.user.info.id}&mode=${mode}`);
+        const graphRankResponse = await API.GET(req, `v1/users/graph/rank?id=${response.user.info.id}&mode=${mode}`);
         response.user.online_status = onlineStatusResponse;
         response.user.achievements = achievementsResponse.achievements;
+        response.user.statistics = JSON.stringify(graphRankResponse.statistics);
 
         return response.user;
     }

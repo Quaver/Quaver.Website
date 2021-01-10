@@ -388,6 +388,16 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 /* Profile */
 
+.widget-padding {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;;
+}
+
+.btn-sc {
+    padding: 3px 10px !important;
+    margin-right: 5px;
+}
+
 .bg-quaver-nav {
     background-color: #242424;
     color: #ffffff;
@@ -495,7 +505,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .mode-switch {
     vertical-align: middle;
     text-shadow: none;
-    font-family: Lato;
+    font-family: Roboto, sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -604,8 +614,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .feed li {
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     border-bottom: 1px solid #363636;
     display: table;
     width: 100%;

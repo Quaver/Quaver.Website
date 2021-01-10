@@ -11,6 +11,7 @@ import Authentication from "../middleware/Authentication";
 import Multiplayer from "../controllers/multiplayer/Multiplayer";
 import Error from "../controllers/error/Error";
 import Friends from "../controllers/users/Friends";
+import Donator from "../controllers/users/Donator";
 import Settings from "../controllers/users/Settings";
 import Sitemap from "../controllers/sitemap/Sitemap";
 import Donate from "../controllers/donate/Donate";
@@ -65,8 +66,10 @@ export default class Router {
         router.route("/friend/add").post(Authentication.RequireLogin, Friends.AddFriendPOST);
         router.route("/friend/remove").post(Authentication.RequireLogin, Friends.RemoveFriendPOST);
 
-        router.route("/settings/donator").get(Authentication.RequireLogin, Settings.GET);
-        router.route("/settings/donator").post(Authentication.RequireLogin, Settings.POST);
+        router.route("/settings").get(Authentication.RequireLogin, Settings.GET);
+        router.route("/settings").post(Authentication.RequireLogin, Settings.POST);
+        router.route("/settings/donator").get(Authentication.RequireLogin, Donator.GET);
+        router.route("/settings/donator").post(Authentication.RequireLogin, Donator.POST);
 
         router.route("/donate").get(Donate.GET);
         router.route("/donate").post(Authentication.RequireLogin, Donate.POST);

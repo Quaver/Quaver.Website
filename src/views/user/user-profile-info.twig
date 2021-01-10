@@ -15,7 +15,7 @@
                 User is banned!
             </div>
         {% endif %}
-        {% if bio and IsDonator(user.info.usergroups) %}
+        {% if bio or user.info.information %}
             <div class="widget">
                 <div class="widget-header d-flex justify-content-between">
                     About Me
@@ -26,19 +26,51 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="widget widget-secondary">
-                <div class="widget-body" id="userpage" style="position:relative;">
-                    {% if bio %}
-                        {% for line in bio %}
-                            {% if line == "" %}
-                                <br>
-                            {% else %}
-                                {{ line }}
+            {% if bio and IsDonator(user.info.usergroups) %}
+                <div class="widget widget-secondary">
+                    <div class="widget-body" id="userpage" style="position:relative;">
+                        {% if bio %}
+                            {% for line in bio %}
+                                {% if line == "" %}
+                                    <br>
+                                {% else %}
+                                    {{ line }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if user.info.information %}
+                <div class="widget widget-secondary">
+                    <div class="widget-body" style="padding: 5px;">
+                        {% for key, info in user.info.information %}
+                            {% if info %}
+                                {% if key == "discord" %}
+                                    <button onclick="copyToClipboard(this)" class="btn btn-social btn-discord btn-sm btn-sc"
+                                            data-toggle="tooltip" title="Click to copy">
+                                        <i class="ya ya-discord"></i> {{ info }}</button>
+                                {% else %}
+                                    {% set url = "" %}
+                                    {% set name = "" %}
+                                    {% if key == "twitch" %}
+                                        {% set url = "https://www.twitch.tv/" %}
+                                        {% set name = "Twitch" %}
+                                    {% elseif key == "twitter" %}
+                                        {% set url = "https://twitter.com/" %}
+                                        {% set name = "Twitter" %}
+                                    {% elseif key == "youtube" %}
+                                        {% set url = "" %}
+                                        {% set name = "YouTube" %}
+                                    {% endif %}
+                                    <a href="{{ url ~ info }}" class="btn btn-social btn-{{ key }} btn-sm btn-sc" target="_blank">
+                                        <i class="ya ya-{{ key }}"></i> {{ name }}</a>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
-                    {% endif %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         {% endif %}
     </div>
     <div class="col-md-4 mt-3">
@@ -56,8 +88,8 @@
             </div>
         </div>
         <div class="widget widget-secondary">
-            <div class="widget-body">
-                {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
+            {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
+            <div class="widget-body widget-padding mb-3">
                 <ul class="statistics">
                     <li>Global Rank
                         <span>#{{ user[game_mode].globalRank|number_format(0, '.', ',') }}</span>
@@ -68,6 +100,10 @@
                     <li>Multiplayer Wins Rank
                         <span>#{{ user[game_mode].multiplayerWinRank|number_format(0, '.', ',') }}</span>
                     </li>
+                </ul>
+            </div>
+            <div class="widget-body widget-padding">
+                <ul class="statistics">
                     <li>Overall Rating
                         <span>{{ user[game_mode].stats.overall_performance_rating|number_format(2) }}</span>
                     </li>

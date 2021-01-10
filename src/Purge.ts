@@ -33,7 +33,9 @@ export default class Purge {
                 'btn-soundcloud',
                 'btn-youtube',
                 'btn-facebook',
-                'btn-spotify'
+                'btn-spotify',
+                'btn-twitch',
+                'ya-youtube'
             ],
             variables: true,
             rejected: true

@@ -7,11 +7,11 @@
             <div class="widget-body text-center">
                     {% for achievement in user.achievements %}
                         <div class="mt-2 mb-2 mr-2 ml-1 d-inline-block">
-                            <img src="{{ assets('/img/achievements/'~achievement.id~(achievement.unlocked ? '' : '-locked')~'.png') }}"
+                            <img data-src="{{ assets('/img/achievements/'~achievement.id~(achievement.unlocked ? '' : '-locked')~'.png') }}"
                                     width="67px" height="67px" data-toggle="tooltip" title="{{ achievement.name }}
 {{ achievement.difficulty }}
 
-{{ achievement.description }}">
+{{ achievement.description }}" class="lazy">
                         </div>
                     {% endfor %}
                 </div>

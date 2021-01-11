@@ -144,6 +144,8 @@ export default class Maps {
 
             showdown.setFlavor('github');
 
+            const seoDescription = mapset.description;
+
             mapset.description = sanitizeHtml(new showdown.Converter({
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
             }).makeHtml(mapset.description), {
@@ -172,7 +174,9 @@ export default class Maps {
                 scores: scores,
                 comments: comments,
                 gameMode: GameModeHelper.gameMode,
-                playlists: playlists
+                playlists: playlists,
+                description: (seoDescription) ? seoDescription : " ",
+                image: `https://cdn.quavergame.com/mapsets/${mapset.id}.jpg`
             });
         } catch (err) {
             Logger.Error(err);

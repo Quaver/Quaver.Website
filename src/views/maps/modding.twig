@@ -129,7 +129,7 @@
                                                                     {% elseif HasGroup(comment.author, UserGroups.RankingSupervisor) %}
                                                                         <span class="text-color-ranking-supervisor">Ranking Supervisor</span>
                                                                     {% else %}
-                                                                        <span>Something else?</span>
+                                                                        <span>User</span>
                                                                     {% endif %}
                                                                 </div>
                                                                 <div class="media-meta">{{ formatDateDistance(comment.message.timestamp) }}</div>

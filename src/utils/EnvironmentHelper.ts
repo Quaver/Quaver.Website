@@ -4,6 +4,8 @@ const revision = require('child_process')
     .execSync('git rev-parse HEAD')
     .toString().trim();
 
+const crypto = require('crypto');
+
 export default class EnvironmentHelper {
 
     public static baseUrl(path?: string): string {
@@ -29,5 +31,9 @@ export default class EnvironmentHelper {
             // Fall back use static
             return path;
         }
+    }
+
+    public static md5(text: string): string  {
+        return crypto.createHash('md5').update(text).digest("hex");
     }
 }

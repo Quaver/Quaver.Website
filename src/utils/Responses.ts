@@ -34,7 +34,8 @@ export default class Responses {
             formatTime: TimeHelper.formatTime,
             ratingColor: ColorHelper.RatingColor,
             flash: req.flash(),
-            md5: EnvironmentHelper.md5
+            md5: EnvironmentHelper.md5,
+            jsonString: EnvironmentHelper.jsonString
         };
 
         Object.assign(templateData, data);

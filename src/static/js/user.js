@@ -210,172 +210,169 @@ function loadJudgements(table_class, score_id, total_marv, total_perf, total_gre
 function judgementBreakdown() {
     let jb = document.getElementById('chartJudgements');
 
-    new Chart(jb, {
-        type: 'bar',
-        data: {
-            labels: ['Marv', 'Perf', 'Great', 'Good', 'Okay', 'Miss'],
-            datasets: [{
-                label: '',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [
-                    total_marv,
-                    total_perf,
-                    total_great,
-                    total_good,
-                    total_okay,
-                    total_miss,
-                ],
-                backgroundColor: [
-                    '#FBFFB6',
-                    '#F2C94C',
-                    '#56FE6E',
-                    '#0FBAE5',
-                    '#EE5FAC',
-                    '#F9645D'
-                ],
-            }],
-        },
-        options: {
-            layout: {
-                padding: {
-                    left: 0,
-                    right: 0,
-                    top: 10,
-                    bottom: 10
-                }
+    const colors = ['#FBFFB6', '#F2C94C', '#56FE6E', '#0FBAE5', '#EE5FAC', '#F9645D'];
+
+    let options = {
+        series: [{
+            name: "Total",
+            data: [stats.total_marv, stats.total_perf, stats.total_great, stats.total_good, stats.total_okay, stats.total_miss]
+        }],
+        chart: {
+            height: 350,
+            type: 'bar',
+            toolbar: {
+                show: false
             },
-            responsive: true,
-            legend: {
-                display: false
-            },
-            tooltips: {
+            zoom: {
                 enabled: false
             },
-            scales: {
-                xAxes: [{
-                    stacked: true,
-                    gridLines: {
-                        display: false
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+            animations: {
+                enabled: false
+            },
+            legend: {
+                enabled: false,
+                showForSingleSeries: false,
+            },
+            foreColor: '#fff'
+        },
+        colors: colors,
+        plotOptions: {
+            bar: {
+                columnWidth: '45%',
+                distributed: true
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        legend: {
+            show: false
+        },
+        annotations: {
+            yaxis: [{
+                label: {
+                    show: false
+                }
+            }],
+            xaxis: [{
+                label: {
+                    show: false,
+                }
+            }]
+        },
+        yaxis: {
+            labels: {
+                formatter: function (value) {
+                    return value.toLocaleString();
+                }
+            },
+        },
+        grid: {
+            show: false,
+        },
+        xaxis: {
+            categories: ['Marvelous', 'Perfect', 'Great', 'Good', 'Okay', 'Miss'],
+            labels: {
+                style: {
+                    colors: colors,
+                    fontSize: '12px'
+                }
             }
         }
-    });
+    };
+
+    let chart = new ApexCharts(jb, options);
+    chart.render();
 }
 
 function rankProgression() {
     let chartRank = document.getElementById('rankProgression');
 
-    let dataLabels = rank.map(x => x.timestamp);
-    let dataStats = rank.map(x => x.rank);
+    let dataRank = [];
 
-    dataLabels.pop();
-    dataStats.pop();
-
-    const now = moment();
-
-    dataLabels.push("Now");
-    dataStats.push(currentRank);
-
-    // dataLabels = [];
-    // dataStats = [];
-    // for(let i = 90; i > 0; i--) {
-    //     dataStats.push(Math.floor(Math.random() * 9000));
-    //     dataLabels.push(i);
-    // }
-    // dataLabels.push("Now");
-
-    const min = Math.min(...dataStats);
-    const max = Math.max(...dataStats);
-
-    let spread = 10;
-
-    if(dataStats.length < 10) {
-        spread = 2;
+    for(let r of rank) {
+        dataRank.push([new Date(r.timestamp).getTime(), r.rank]);
     }
 
-    new Chart(chartRank, {
-        type: 'line',
-        data: {
-            labels: dataLabels,
-            datasets: [{
-                pointBackgroundColor: 'rgba(15, 186, 229, 1)',
-                borderColor: '#0FBAE5',
-                backgroundColor: 'rgba(15, 186, 229, 0.4)',
-                data: dataStats,
-                fill: "start"
+    const now = new Date();
+    const firstDate = new Date(rank[0].timestamp);
+
+    dataRank.push([now.getTime(), currentRank]);
+
+    let options = {
+        series: [{
+            name: "Rank",
+            data: dataRank,
+            color: "rgba(15, 186, 229, 0.4)",
+            gradient: {
+                shade: "dark"
+            }
+        }],
+        chart: {
+            id: 'rankProgression',
+            type: 'area',
+            height: 350,
+            toolbar: {
+                show: false
+            },
+            zoom: {
+                enabled: false
+            },
+            animations: {
+                enabled: false
+            },
+            legend: {
+                enabled: false,
+                showForSingleSeries: false,
+            },
+            foreColor: '#fff'
+        },
+        grid: {
+            show: false,
+        },
+        annotations: {
+            yaxis: [{
+                y: 30,
+                label: {
+                    show: false
+                }
+            }],
+            xaxis: [{
+                x: firstDate.getTime(),
+                yAxisIndex: 0,
+                label: {
+                    show: false,
+                }
             }]
         },
-        options: {
-            responsive: true,
-            aspectRatio: 1,
-            maintainAspectRatio: false,
-            legend: {
-                display: false,
+        dataLabels: {
+            enabled: false
+        },
+        markers: {
+            size: 0,
+        },
+        xaxis: {
+            type: 'datetime',
+            min: firstDate.getTime(),
+            tooltip: {
+                enabled: false
             },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        reverse: true,
-                        fontColor: 'rgb(255,255,255)',
-                        beginAtZero: false,
-                        suggestedMin: min,
-                        suggestedMax: max,
-                        precision: 0
-                    },
-                    gridLines: {
-                        display: false,
-                        color: 'rgb(255,255,255)',
-                        lineWidth: 0.5
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        callback: function (tick, index, array) {
-                            if (tick !== "Now") {
-                                const date = moment(tick);
-                                const days = now.diff(date, "days");
-                                return index % spread ? null : days + " days ago";
-                            } else {
-                                return "Now";
-                            }
-                        },
-                        maxRotation: 0,
-                        minRotation: 0
-                    },
-                    gridLines: {
-                        display: false,
-                        color: 'rgb(255,255,255)',
-                        lineWidth: 0.5
-                    }
-                }]
+        },
+        tooltip: {
+            x: {
+                format: 'dd MMM yyyy'
             },
-            tooltips: {
-                displayColors: false,
-                custom: function (tooltip) {
-                    if (!tooltip) return;
-                },
-                callbacks: {
-                    title: function (tooltipItem, data) {
-                        return "Global rank: " + tooltipItem[0].value;
-                    },
-                    label: function (tooltipItem, data) {
-                        if (tooltipItem.xLabel !== "Now") {
-                            const date = moment(tooltipItem.xLabel).calendar();
-                            return "Date: " + date;
-                        }
+            y: {
+                formatter: (value) => { return value },
+            },
+        },
+        fill: {
+            type: 'solid'
+        },
+    };
 
-                        return tooltipItem.xLabel;
-                    }
-                }
-            },
-        }
-    });
+    let chart = new ApexCharts(chartRank, options);
+    chart.render();
 }
 
 function copyToClipboard(element) {
@@ -388,5 +385,5 @@ function copyToClipboard(element) {
 
 document.addEventListener("DOMContentLoaded", function (event) {
     rankProgression();
-    // judgementBreakdown();
+    judgementBreakdown();
 });

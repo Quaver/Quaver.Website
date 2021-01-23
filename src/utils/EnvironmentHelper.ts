@@ -36,4 +36,8 @@ export default class EnvironmentHelper {
     public static md5(text: string): string  {
         return crypto.createHash('md5').update(text).digest("hex");
     }
+
+    public static jsonString(json: any): string {
+        return JSON.stringify(json);
+    }
 }

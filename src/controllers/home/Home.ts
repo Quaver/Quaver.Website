@@ -15,13 +15,15 @@ export default class Home {
             const recentlyRanked = await Home.FetchRecentlyRanked(req);
             const stats = await API.GET(req, "v1/stats");
             const blog = await axios.get("https://blog.quavergame.com/feed.json");
+            const popularMapsets = await API.GET(req, "v1/stats/mapsets/mostplayed");
 
             return Responses.Send(req, res, "home", "Home | Quaver", {
                 recentlyRanked: recentlyRanked,
                 stats: stats.stats,
                 blog: blog.data,
+                popularMapsets: popularMapsets,
                 description: 'The ultimate community-driven, and open-source competitive rhythm game available on Steam Early Access.'
-            });
+            }); 
         } catch (err) {
             Logger.Error(err);
             Responses.Return500(req, res);

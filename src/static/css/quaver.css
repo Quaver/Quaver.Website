@@ -123,7 +123,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .home-stats {
-    padding: 14px 14px 14px 25px;
+    height: 160px;
 }
 
 #home-mapsets .widget-header {
@@ -139,6 +139,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+}
+
+.category-no-margin {
+    margin-bottom: 0px;
 }
 
 .test {
@@ -296,6 +300,22 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .nav-tab-scroll .nav-tabs {
     box-shadow: none;
+}
+
+/* Home */
+
+.most-played-mapsets .media {
+    padding: 10px 0 !important;
+    border-bottom: 1px solid rgba(145, 165, 180, .6) !important;
+}
+
+.most-played-mapsets a:first-child .media {
+    padding: 0 0 10px 0 !important;
+}
+
+.most-played-mapsets a:last-child .media {
+    border: none !important;
+    padding: 0 !important;
 }
 
 /* Leaderboard Table */
@@ -1911,7 +1931,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 #multiplayer table thead th,
-#multiplayer table tbody td{
+#multiplayer table tbody td {
     border-bottom: 1px solid #5b5b5b;
 }
 
@@ -1941,8 +1961,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 #multiplayer .mp-teams {
     padding: 2px;
-    background: -webkit-gradient(linear,left top,right top,from(#fd4d50),to(#32adf0));
-    background: linear-gradient(90deg,#fd4d50,#32adf0);
+    background: -webkit-gradient(linear, left top, right top, from(#fd4d50), to(#32adf0));
+    background: linear-gradient(90deg, #fd4d50, #32adf0);
 }
 
 #multiplayer .mp-teams > div {

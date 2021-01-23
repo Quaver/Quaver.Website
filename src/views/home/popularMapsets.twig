@@ -1,0 +1,15 @@
+<a href="{{ baseUrl('/mapsets/'~mapset.mapset_id) }}">
+    <div class="media d-flex align-items-center align-middle">
+        <div class="img-cover">
+            <img class="lazy" data-src="https://cdn.quavergame.com/mapsets/{{ mapset.mapset_id }}.jpg" alt="">
+        </div>
+        <div class="media-body">
+            <span>{{ (mapset.artist~' - '~mapset.title)| truncate(40)|escape }}</span>
+            <div class="font-size-sm text-white">
+                <span class="d-inline-flex align-items-center">
+                    <i class="fas fa-play" style="font-size: 10px; margin-right: 5px;"></i> {{ mapset.total|number_format(0, '.', ',') }} by {{ mapset.creator_username }}
+                </span>
+            </div>
+        </div>
+    </div>
+</a>

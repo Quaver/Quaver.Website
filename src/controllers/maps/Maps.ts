@@ -7,6 +7,7 @@ import GameMode from "../../enums/GameMode";
 import RankedStatus from "../../enums/RankedStatus";
 import Authentication from "../../middleware/Authentication";
 import EnvironmentHelper from "../../utils/EnvironmentHelper";
+import TimeHelper from "../../utils/TimeHelper";
 
 const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
@@ -144,8 +145,6 @@ export default class Maps {
 
             showdown.setFlavor('github');
 
-            const seoDescription = mapset.description;
-
             mapset.description = sanitizeHtml(new showdown.Converter({
                 ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
             }).makeHtml(mapset.description), {
@@ -175,7 +174,11 @@ export default class Maps {
                 comments: comments,
                 gameMode: GameModeHelper.gameMode,
                 playlists: playlists,
-                description: (seoDescription) ? seoDescription : " ",
+                description: `
+                BPM: ${map.bpm} | Length: ${TimeHelper.formatTime(map.length)}
+                 ${(map.tags) ? `Tags: ${map.tags}`: ''}
+                 Passes / Fails: ${map.play_count-map.fail_count} / ${map.fail_count}
+                `,
                 image: `https://cdn.quavergame.com/mapsets/${mapset.id}.jpg`
             });
         } catch (err) {
@@ -397,8 +400,9 @@ export default class Maps {
                 res.redirect(303, `/maps`);
                 return;
             } else if (typeof req.body.submit_for_rank !== 'undefined') {
-                await API.POST(req, `v1/mapsets/${req.body.mapset_id}/submitrank`);
-                req.flash('success', 'Your mapset has successfully been submitted for rank!');
+                // await API.POST(req, `v1/mapsets/${req.body.mapset_id}/submitrank`);
+                // req.flash('success', 'Your mapset has successfully been submitted for rank!');
+                req.flash('success', 'Submit for rank is disabled.');
                 res.redirect(303, `/mapset/${req.body.mapset_id}`);
                 return;
             } else if (typeof req.body.submit_comment !== 'undefined') {

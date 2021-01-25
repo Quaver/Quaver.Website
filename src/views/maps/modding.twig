@@ -1,7 +1,7 @@
 {% extends "layouts/app.twig" %}
 {% block content %}
     {% include 'maps/cover.twig' %}
-    <section>
+    <section id="modding">
         <div class="container">
             {% include 'maps/info.twig' %}
             <h3 class="text-center mb-4">[{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }} - {{ map.difficulty_name|truncate(20)|escape }}</h3>

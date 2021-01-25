@@ -87,7 +87,7 @@
                                     </button>
                                 </div>
 
-                                <textarea class="form-control" rows="10" name="aboutme">{{ bio }}</textarea>
+                                <textarea class="form-control" rows="10" name="aboutme">{{ bio|escape }}</textarea>
                             </div>
                             <button type="submit" name="submitAboutme" class="btn btn-primary">Save</button>
                         </form>

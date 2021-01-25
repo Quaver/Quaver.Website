@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group">
                             <label>YouTube Url</label>
-                            <input type="text" class="form-control" name="information[youtube]" minlength="20" maxlength="100" value="{{ information.youtube }}">
+                            <input type="text" class="form-control" name="information[youtube]" minlength="20" maxlength="100" pattern="http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/(user|channel))\/(.*)" value="{{ information.youtube }}">
                         </div>
                         <button class="btn btn-primary" type="submit" name="submit">Save</button>
                     </div>

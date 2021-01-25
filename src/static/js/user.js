@@ -239,11 +239,18 @@ function judgementBreakdown() {
         plotOptions: {
             bar: {
                 columnWidth: '45%',
-                distributed: true
+                distributed: true,
+                dataLabels: {
+                    position: 'top'
+                }
             }
         },
         dataLabels: {
-            enabled: false
+            enabled: true,
+            style: {
+                colors: ['#fff']
+            },
+            offsetY: -20
         },
         legend: {
             show: false

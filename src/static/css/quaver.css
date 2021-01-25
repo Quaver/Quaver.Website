@@ -1143,6 +1143,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .queue-comment-textarea {
     background: #393939;
     border: #393939;
+    color: #ffffff;
 }
 
 .queue-comment-textarea:focus {

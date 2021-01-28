@@ -408,6 +408,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 /* Profile */
 
+.markdown-body img {
+    background: transparent !important;
+}
+
 .widget-padding {
     padding-top: 8px !important;
     padding-bottom: 8px !important;;

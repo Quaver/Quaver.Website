@@ -7,6 +7,7 @@ import GameMode from "../../enums/GameMode";
 import RankedStatus from "../../enums/RankedStatus";
 import Authentication from "../../middleware/Authentication";
 import EnvironmentHelper from "../../utils/EnvironmentHelper";
+import TimeHelper from "../../utils/TimeHelper";
 
 const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
@@ -112,7 +113,10 @@ export default class Maps {
                 scores: scores,
                 comments: comments,
                 gameMode: GameModeHelper.gameMode,
-                playlists: playlists
+                playlists: playlists,
+                description: `
+                BPM: ${map.bpm} | Length: ${TimeHelper.formatTime(map.length)}`,
+                image: EnvironmentHelper.assets('/img/mapset-image.jpg')
             });
         } catch (err) {
             Logger.Error(err);
@@ -172,7 +176,11 @@ export default class Maps {
                 scores: scores,
                 comments: comments,
                 gameMode: GameModeHelper.gameMode,
-                playlists: playlists
+                playlists: playlists,
+                description: `
+                BPM: ${map.bpm} | Length: ${TimeHelper.formatTime(map.length)}
+                Passes / Fails: ${map.play_count-map.fail_count} / ${map.fail_count}`,
+                image: EnvironmentHelper.assets('/img/mapset-image.jpg')
             });
         } catch (err) {
             Logger.Error(err);
@@ -393,8 +401,9 @@ export default class Maps {
                 res.redirect(303, `/maps`);
                 return;
             } else if (typeof req.body.submit_for_rank !== 'undefined') {
-                await API.POST(req, `v1/mapsets/${req.body.mapset_id}/submitrank`);
-                req.flash('success', 'Your mapset has successfully been submitted for rank!');
+                // await API.POST(req, `v1/mapsets/${req.body.mapset_id}/submitrank`);
+                // req.flash('success', 'Your mapset has successfully been submitted for rank!');
+                req.flash('success', 'Submit for rank is disabled.');
                 res.redirect(303, `/mapset/${req.body.mapset_id}`);
                 return;
             } else if (typeof req.body.submit_comment !== 'undefined') {
@@ -447,7 +456,7 @@ export default class Maps {
     /**
      * Fetches information about an individual mapset
      */
-    private static async FetchMapset(req: any, id: number): Promise<any> {
+    static async FetchMapset(req: any, id: number): Promise<any> {
         try {
             const response = await API.GET(req, `v1/mapsets/${id}`);
 
@@ -504,7 +513,7 @@ export default class Maps {
      * @param req
      * @param id
      */
-    private static async FetchSupervisorComments(req: any, id: number): Promise<any[]> {
+    public static async FetchSupervisorComments(req: any, id: number): Promise<any[]> {
         try {
             const response = await API.GET(req, `v1/mapsets/${id}/comments`);
 

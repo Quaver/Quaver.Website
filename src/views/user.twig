@@ -157,10 +157,8 @@
                         </div>
                         <div class="nav-scroll">
                             <div class="nav nav-list nav-list-profile">
-                                <a class="nav-item nav-link" href="#feed">Stats & Feed</a>
-                                <a class="nav-item nav-link" href="#rank-judgements">Rank Progression</a>
+                                <a class="nav-item nav-link" href="#graphs">Graphs</a>
                                 <a class="nav-item nav-link" href="#scores">Scores</a>
-                                {# <a class="nav-item nav-link" href="#rank-judgements">Judgement Breakdown</a> #}
                                 <a class="nav-item nav-link" href="#maps">Maps</a>
                                 <a class="nav-item nav-link" href="#playlists">Playlists</a>
                                 <a class="nav-item nav-link" href="#achievements">Achievements</a>
@@ -183,7 +181,25 @@
     </section>
 {% endblock %}
 
-{% block style %}{% endblock %}
+{% block style %}
+    <style>
+        #chartContainer .apexcharts-tooltip {
+            color: #000000;
+        }
+
+        #chartContainer .apexcharts-tooltip .apexcharts-tooltip-series-group.active {
+            background: #ffffff !important;
+        }
+
+        .apexcharts-tooltip, .apexcharts-yaxis-texts-g {
+            color: #000 !important;
+        }
+
+        .apexcharts-tooltip-marker {
+            display: none;
+        }
+    </style>
+{% endblock %}
 
 {% block scripts %}
     {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
@@ -194,10 +210,10 @@
         };
 
         const rank = JSON.parse('{{ user.statistics }}');
-        const currentRank = parseInt("{{ user[game_mode].globalRank }}")
+        const currentRank = parseInt("{{ user[game_mode].globalRank }}");
+        const stats = JSON.parse('{{ jsonString(user[game_mode].stats) }}');
     </script>
-    <script defer src="{{ assets('/js/plugins/moment.min.js', true) }}"></script>
-    <script defer src="{{ assets('/js/plugins/chart.min.js', true) }}"></script>
+    <script defer src="{{ assets('/js/apexcharts/apexcharts.min.js', true) }}"></script>
     <script defer src="{{ assets('/js/user.js', true) }}"></script>
     <script defer src="{{ assets('/js/artists.js', true) }}"></script>
 {% endblock %}

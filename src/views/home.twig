@@ -39,9 +39,12 @@
                         <i class="fas fa-info-circle fa-3x" style="color: #45d6f5"></i>
                     </div>
                     <div class="col text-white">
-                        <strong>Apply To Become a Chat Moderator</strong><br>
+                        <strong>Apply To Become a Chat Moderator</strong>
+                        <br>
                         We are currently looking for active and experienced community members to join our chat moderation team.
-                        If you are interested, you can send in an application <a href="{{ baseUrl('/moderators/apply') }}" target="_blank">here</a>.
+                        If you are interested, you can send in an application
+                        <a href="{{ baseUrl('/moderators/apply') }}" target="_blank">here</a>
+                        .
                     </div>
                 </div>
             </div>
@@ -102,58 +105,82 @@
                     {% endfor %}
                 </div>
                 <div class="col-lg-4">
-                    <div class="card-bottom">
-                        <div class="widget">
-                            <div class="widget-header">
-                                Stats
-                            </div>
+                    <div class="widget">
+                        <div class="widget-header">
+                            Stats
                         </div>
-                        <div class="widget widget-secondary p-0">
-                            <div class="widget-body home-stats">
-                                <div class="row m-0">
-                                    <div class="col-sm-6">
-                                        <div class="category">
-                                            <span>Total users</span>
-                                            <span class="count">{{ (stats.total_users) ?:0 }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="category">
-                                            <span>Online users</span>
-                                            <span class="count">{{ (stats.total_online_users) ?:0 }}</span>
-                                        </div>
+                    </div>
+                    <div class="widget widget-secondary p-0">
+                        <div class="widget-body home-stats">
+                            <div class="row m-0">
+                                <div class="col-sm-6">
+                                    <div class="category">
+                                        <span>Total users</span>
+                                        <span class="count">{{ (stats.total_users) ?:0 }}</span>
                                     </div>
                                 </div>
-                                <div class="row m-0">
-                                    <div class="col-sm-6">
-                                        <div class="category">
-                                            <span>Total mapsets</span>
-                                            <span class="count">{{ (stats.total_mapsets) ?: 0 }}</span>
-                                        </div>
+                                <div class="col-sm-6">
+                                    <div class="category">
+                                        <span>Online users</span>
+                                        <span class="count">{{ (stats.total_online_users) ?:0 }}</span>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="category">
-                                            <span>Total scores</span>
-                                            <span class="count">{{ (stats.total_scores) ?: 0 }}</span>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-sm-6">
+                                    <div class="category category-no-margin">
+                                        <span>Total mapsets</span>
+                                        <span class="count">{{ (stats.total_mapsets) ?: 0 }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="category category-no-margin">
+                                        <span>Total scores</span>
+                                        <span class="count">{{ (stats.total_scores) ?: 0 }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-bottom">
-                        <div class="widget">
-                            <div class="widget-header">
-                                FOLLOW US ON TWITTER
+                    <div class="widget">
+                        <div class="widget-header">
+                            Popular 4 Keys Mapsets
+                        </div>
+                    </div>
+                    <div class="widget widget-secondary">
+                        <div class="widget-body widget-list">
+                            <div class="most-played-mapsets">
+                                {% for mapset in popularMapsets.keys4 %}
+                                    {% include "./home/popularMapsets.twig" with {mapset: mapset} %}
+                                {% endfor %}
                             </div>
                         </div>
-                        <div class="widget widget-secondary">
-                            <div class="widget-body">
-                                <a class="twitter-timeline" data-lang="en" data-dnt="true" data-tweet-limit="6" data-theme="dark"
-                                        data-chrome="transparent" data-link-color="#45D6F5" href="https://twitter.com/QuaverGame?ref_src=twsrc%5Etfw"></a>
-                            </div>
-                            <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-header">
+                            Popular 7 Keys Mapsets
                         </div>
+                    </div>
+                    <div class="widget widget-secondary">
+                        <div class="widget-body widget-list">
+                            <div class="most-played-mapsets">
+                                {% for mapset in popularMapsets.keys7 %}
+                                    {% include "./home/popularMapsets.twig" with {mapset: mapset} %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-header">
+                            FOLLOW US ON TWITTER
+                        </div>
+                    </div>
+                    <div class="widget widget-secondary">
+                        <div class="widget-body">
+                            <a class="twitter-timeline" data-lang="en" data-dnt="true" data-tweet-limit="6" data-theme="dark" data-show-replies="false"
+                                    data-chrome="transparent,nofooter,noscrollbar" data-link-color="#45D6F5" href="https://twitter.com/QuaverGame?ref_src=twsrc%5Etfw"></a>
+                        </div>
+{#                        <script async defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>#}
                     </div>
                 </div>
             </div>
@@ -168,4 +195,9 @@
 {% block page_scripts %}
     <script defer src="{{ assets('/js/home.js', true) }}"></script>
     <script defer src="{{ assets('/js/artists.js', true) }}"></script>
+    <script>
+        $(document).ready(function() {
+            $.getScript("https://platform.twitter.com/widgets.js")
+        });
+    </script>
 {% endblock %}

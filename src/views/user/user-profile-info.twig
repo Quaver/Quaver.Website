@@ -19,7 +19,7 @@
             <div class="widget">
                 <div class="widget-header d-flex justify-content-between">
                     About Me
-                    {% if currentUser.id == user.info.id %}
+                    {% if currentUser.id == user.info.id and IsDonator(user.info.usergroups) %}
                         <a href="{{ baseUrl('/settings/donator') }}">
                             <i class="far fa-edit"></i>
                         </a>
@@ -68,6 +68,11 @@
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
+                        {% if currentUser.id == user.info.id%}
+                            <a href="{{ baseUrl('/settings') }}" class="float-right">
+                                <i class="far fa-edit"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}

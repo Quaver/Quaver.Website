@@ -12,7 +12,7 @@
                     <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea class="form-control queue-comment-textarea" rows="16" name="description">{{ mapset.descriptionRaw }}</textarea>
+                        <textarea class="form-control queue-comment-textarea" rows="16" name="description">{{ mapset.descriptionRaw|escape }}</textarea>
                         <small><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a></small>
                     </div>
                     <input type="submit" name="save_description" value="Save" class="btn btn-primary mt-3">

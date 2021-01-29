@@ -1,9 +1,10 @@
 {% extends "layouts/app.twig" %}
 {% block content %}
     {% include 'maps/cover.twig' %}
-    <section>
+    <section id="modding">
         <div class="container">
             {% include 'maps/info.twig' %}
+            <h3 class="text-center mb-4">[{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }} - {{ map.difficulty_name|truncate(20)|escape }}</h3>
             {% if currentUser and map.ranked_status != 2 %}
                 <div class="widget mt-4">
                     <div class="widget-header">
@@ -129,7 +130,7 @@
                                                                     {% elseif HasGroup(comment.author, UserGroups.RankingSupervisor) %}
                                                                         <span class="text-color-ranking-supervisor">Ranking Supervisor</span>
                                                                     {% else %}
-                                                                        <span>Something else?</span>
+                                                                        <span>User</span>
                                                                     {% endif %}
                                                                 </div>
                                                                 <div class="media-meta">{{ formatDateDistance(comment.message.timestamp) }}</div>

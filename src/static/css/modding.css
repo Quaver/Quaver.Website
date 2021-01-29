@@ -157,7 +157,7 @@ hr {
     border: .5px solid grey;
 }
 
-.comments .media:first-child {
+#modding .comments .media:first-child {
     border: none;
 }
 

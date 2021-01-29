@@ -113,7 +113,10 @@ export default class Maps {
                 scores: scores,
                 comments: comments,
                 gameMode: GameModeHelper.gameMode,
-                playlists: playlists
+                playlists: playlists,
+                description: `
+                BPM: ${map.bpm} | Length: ${TimeHelper.formatTime(map.length)}`,
+                image: EnvironmentHelper.assets('/img/mapset-image.jpg')
             });
         } catch (err) {
             Logger.Error(err);
@@ -176,10 +179,8 @@ export default class Maps {
                 playlists: playlists,
                 description: `
                 BPM: ${map.bpm} | Length: ${TimeHelper.formatTime(map.length)}
-                 ${(map.tags) ? `Tags: ${map.tags}`: ''}
-                 Passes / Fails: ${map.play_count-map.fail_count} / ${map.fail_count}
-                `,
-                image: `https://cdn.quavergame.com/mapsets/${mapset.id}.jpg`
+                Passes / Fails: ${map.play_count-map.fail_count} / ${map.fail_count}`,
+                image: EnvironmentHelper.assets('/img/mapset-image.jpg')
             });
         } catch (err) {
             Logger.Error(err);
@@ -455,7 +456,7 @@ export default class Maps {
     /**
      * Fetches information about an individual mapset
      */
-    private static async FetchMapset(req: any, id: number): Promise<any> {
+    static async FetchMapset(req: any, id: number): Promise<any> {
         try {
             const response = await API.GET(req, `v1/mapsets/${id}`);
 
@@ -512,7 +513,7 @@ export default class Maps {
      * @param req
      * @param id
      */
-    private static async FetchSupervisorComments(req: any, id: number): Promise<any[]> {
+    public static async FetchSupervisorComments(req: any, id: number): Promise<any[]> {
         try {
             const response = await API.GET(req, `v1/mapsets/${id}/comments`);
 

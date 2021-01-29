@@ -383,7 +383,7 @@ function rankProgression() {
             opacity: 0,
         },
     };
-// rgba(15, 186, 229, 0.4)
+
     let chart = new ApexCharts(chartRank, options);
     chart.render();
 }

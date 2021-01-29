@@ -310,10 +310,8 @@ function rankProgression() {
         series: [{
             name: "Rank",
             data: dataRank,
-            color: "rgba(15, 186, 229, 0.4)",
-            gradient: {
-                shade: "dark"
-            }
+            // color: 'transparent'
+            // color: 'rgba(15, 186, 229, 1)',
         }],
         chart: {
             id: 'rankProgression',
@@ -332,10 +330,14 @@ function rankProgression() {
                 enabled: false,
                 showForSingleSeries: false,
             },
-            foreColor: '#fff'
+            foreColor: '#fff',
         },
         grid: {
             show: false,
+        },
+        colors: ['#ccc'],
+        stroke: {
+            curve: 'smooth'
         },
         annotations: {
             yaxis: [{
@@ -365,6 +367,9 @@ function rankProgression() {
                 enabled: false
             },
         },
+        yaxis: {
+            reversed: true
+        },
         tooltip: {
             x: {
                 format: 'dd MMM yyyy'
@@ -374,10 +379,11 @@ function rankProgression() {
             },
         },
         fill: {
-            type: 'solid'
+            type: 'solid',
+            opacity: 0,
         },
     };
-
+// rgba(15, 186, 229, 0.4)
     let chart = new ApexCharts(chartRank, options);
     chart.render();
 }

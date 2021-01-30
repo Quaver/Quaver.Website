@@ -16,6 +16,8 @@ import Settings from "../controllers/users/Settings";
 import Sitemap from "../controllers/sitemap/Sitemap";
 import Donate from "../controllers/donate/Donate";
 import RankingQueue from "../controllers/maps/RankingQueue";
+import Artists from "../controllers/artists/Artists";
+import Ranking from "../controllers/ranking/Ranking";
 
 export default class Router {
     /**
@@ -40,6 +42,9 @@ export default class Router {
         router.route("/mapset/:id").post(Authentication.RequireLogin, Maps.HandlePost);
         router.route("/mapset/map/:id").post(Authentication.RequireLogin, Maps.HandlePost);
         router.route("/mapset/map/:id/mods").post(Authentication.RequireLogin, Maps.HandlePostMods);
+        router.route('/mapset/:id/ranking').get(Authentication.RequireLogin, Ranking.GET);
+        router.route('/mapset/:id/ranking/:action').post(Authentication.RequireLogin, Ranking.POST);
+        router.route('/mapset/:id/comment').post(Authentication.RequireLogin, Ranking.CommentPOST);
 
         router.route("/playlists").get(Playlists.PlaylistsGET);
         router.route("/playlists/load").post(Playlists.PlaylistsMoreGET);

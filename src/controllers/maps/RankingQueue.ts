@@ -2,6 +2,7 @@ import Logger from "../../logging/Logger";
 import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import GameMode from "../../enums/GameMode";
+import Ranking from "../ranking/Ranking";
 
 export default class RankingQueue {
     public static async GET(req: any, res: any): Promise<void> {
@@ -11,11 +12,14 @@ export default class RankingQueue {
 
             const queue = await RankingQueue.FetchQueue(req, mode, page - 1);
 
+            const rankingConfig = await Ranking.GetRankingConfig(req, res);
+
             Responses.Send(req, res, "maps/queue", `Ranking Queue | Quaver`, {
                 queue: queue.queue,
                 mode: mode,
                 page: page,
-                pages: queue.pages
+                pages: queue.pages,
+                votesNeeded: rankingConfig.ranking.votesNeeded
             });
         } catch (err) {
             Logger.Error(err);

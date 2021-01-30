@@ -455,7 +455,7 @@ export default class Maps {
     /**
      * Fetches information about an individual mapset
      */
-    private static async FetchMapset(req: any, id: number): Promise<any> {
+    static async FetchMapset(req: any, id: number): Promise<any> {
         try {
             const response = await API.GET(req, `v1/mapsets/${id}`);
 
@@ -512,7 +512,7 @@ export default class Maps {
      * @param req
      * @param id
      */
-    private static async FetchSupervisorComments(req: any, id: number): Promise<any[]> {
+    public static async FetchSupervisorComments(req: any, id: number): Promise<any[]> {
         try {
             const response = await API.GET(req, `v1/mapsets/${id}/comments`);
 

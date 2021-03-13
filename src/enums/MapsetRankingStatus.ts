@@ -4,6 +4,7 @@ enum MapsetRankingStatus {
     Blacklisted,
     OnHold,
     Resolved,
+    Ranked
 }
 
 export default MapsetRankingStatus;

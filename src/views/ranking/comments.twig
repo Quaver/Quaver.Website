@@ -43,13 +43,13 @@
             {% endfor %}
         </div>
         {% if currentUser %}
-            {% if mapset.ranking_queue_status != 2 and ((HasPrivilege(currentUser, Privileges.RankMapsets) or (currentUser.id == map.creator_id ))) %}
+            {% if mapset.ranking_queue_status != 2 and mapset.ranking_queue_status != 5 and ((HasPrivilege(currentUser, Privileges.RankMapsets) or (currentUser.id == map.creator_id ))) %}
                 <h5 class="mt-5">Leave a comment</h5>
                 <form method="post" accept-charset="UTF-8" action="{{ baseUrl('/mapset/'~mapset.id~'/comment') }}">
                     <input type="hidden" name="mapset_id" value="{{ mapset.id }}">
                     <div class="form-group mb-4">
                         <textarea class="form-control queue-comment-textarea" rows="5" name="comment"></textarea>
-                        <small class="form-text text-muted">Your comment must be between 0 and 2,000 characters!</small>
+                        <small class="form-text text-muted">Your comment must be between 1 and 2,000 characters!</small>
                     </div>
                     <input type="submit" class="btn btn-primary" name="submit_comment" value="Submit comment">
                 </form>

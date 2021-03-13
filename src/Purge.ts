@@ -5,12 +5,11 @@ const {PurgeCSS} = require('purgecss');
 const fs = require('fs');
 const path = require('path');
 // @ts-ignore
-const appDir = path.dirname(require.main.filename).replace('/dist', '/src');
+const appDir = path.dirname(require.main.filename).replace('dist', 'src');
 
 export default class Purge {
     public static async PurgeCSS(): Promise<void> {
         console.log('Running purge');
-
         const css = await new PurgeCSS().purge({
             content: [
                 appDir + '/views/*.twig',

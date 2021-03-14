@@ -1992,6 +1992,16 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #FFCD1B;
 }
 
+/* Ranking */
+
+#mapset-ranking .btn-block+.btn-block {
+    margin-top: 0 !important;
+}
+
+#mapset-ranking .btn-group form {
+    margin: 5px;
+}
+
 /* Mobile optimizations */
 
 @media (max-width: 1200px) {

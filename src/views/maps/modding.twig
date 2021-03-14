@@ -4,7 +4,7 @@
     <section id="modding">
         <div class="container">
             {% include 'maps/info.twig' %}
-            <h3 class="text-center mb-4">[{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }} - {{ map.difficulty_name|truncate(20)|escape }}</h3>
+            <h3 class="text-center mb-4">[{{ gameMode(map.game_mode) }}] {{ map.difficulty_rating|number_format(2) }} - {{ map.difficulty_name|truncate(35)|escape }}</h3>
             {% if currentUser and map.ranked_status != 2 %}
                 <div class="widget mt-4">
                     <div class="widget-header">

@@ -23,7 +23,7 @@
             <tr style="{{ border }}">
                 <td class="text-left">
                     <div class="player">
-                    <a href="/mapset/{{ map.mapset_id }}">
+                    <a href="/mapset/{{ map.mapset_id }}/ranking">
                         {{ map.artist|escape~' - '~map.title|escape }}
                     </a>
                     </div>
@@ -55,7 +55,7 @@ Length: {{ difficulty.duration }}">
                 </td>
                 <td>
                     <span data-toggle="tooltip" title="{{ map.votes }}">
-                        {{ map.votes_count }} / 2
+                        {{ map.votes_count }} / {{ votesNeeded }}
                     </span>
                 </td>
                 <td>

@@ -1,0 +1,170 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    {% include "../maps/cover.twig" %}
+    <audio id="track_{{ mapset.id }}" src="https://cdn.quavergame.com/audio-previews/{{ mapset.id }}.mp3" preload="none"></audio>
+    <section id="mapset-ranking">
+        <div class="container">
+            {% include "layouts/alert.twig" %}
+            <div>
+                <a type="button" href="javascript:window.history.back();" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Back</a>
+                <a type="button" href="{{ baseUrl('/download/mapset/'~mapset.id) }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
+                <button class="btn btn-dark song_button_{{ mapset.id }}" type="button" onclick="song({{ mapset.id }})">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                                <b>Created by:</b>
+                                <a href="{{ baseUrl('/user/'~mapset.creator_id) }}">
+                                    {{ mapset.creator_username }}
+                                </a>
+                            </div>
+                            <div>
+                                <b>Submitted:</b>
+                                <span data-toggle="tooltip" title="{{ formatDate(mapset.date_submitted) }}">{{ formatDateDistance(mapset.date_submitted) }}</span>
+                            </div>
+                            <div>
+                                {% if map.ranked_status == 2 %}
+                                    <b>Ranked:</b>
+                                {% else %}
+                                    <b>Last updated:</b>
+                                {% endif %}
+                                <span data-toggle="tooltip" title="{{ formatDate(mapset.date_last_updated) }}">{{ formatDateDistance(mapset.date_last_updated) }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <b>Source:</b>
+                                {{ (map.source) ? map.source|escape : 'n/a' }}
+                            </div>
+                            <div>
+                                <b>Tags:</b>
+                                <span>{{ map.tags|escape }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if currentUser %}
+                {% if HasPrivilege(currentUser, Privileges.RankMapsets) %}
+                    {% if mapset.ranking_queue_status == 0 or mapset.ranking_queue_status == 3 or mapset.ranking_queue_status == 4 %}
+                        <div class="widget">
+                            <div class="widget-header d-flex justify-content-between align-items-center">
+                                <div>
+                                    Actions
+                                </div>
+                                <div>
+                                    {% if mapset.ranking_queue_status == 0 %}
+                                        <span class="mapset-buttons pending">Pending</span>
+                                    {% elseif mapset.ranking_queue_status == 1 %}
+                                        <span class="mapset-buttons denied">Denied For Rank</span>
+                                    {% elseif mapset.ranking_queue_status == 2 %}
+                                        <span class="mapset-buttons blacklisted">Blacklisted</span>
+                                    {% elseif mapset.ranking_queue_status == 3 %}
+                                        <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">On Hold</span>
+                                    {% elseif mapset.ranking_queue_status == 4 %}
+                                        <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">Resolved</span>
+                                    {% endif %}
+                                    <span class="mapset-buttons btn-info">
+                                        {% if map.ranked_status == 2 %}
+                                            {{ votesNeeded }}/{{ votesNeeded }}
+                                        {% else %}
+                                            {{ (mapset.ranking_queue_vote_count) ? mapset.ranking_queue_vote_count~"/"~votesNeeded : "0/"~votesNeeded }}
+                                        {% endif %}
+                                        Supervisor Votes
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="btn-group w-100" role="group">
+                                    {% if mapset.ranking_queue_status != 3 %}
+                                        {% if not votes.disableVote and not votes.userHasVote %}
+                                            <form action="{{ baseUrl('/mapset/'~mapset.id~'/ranking/vote') }}" method="POST"
+                                                    onsubmit="return confirm('Do you want to Vote for this mapset?')"
+                                                    accept-charset="UTF-8" class="d-inline-block w-100">
+                                                <button type="submit" class="btn btn-success btn-block">Vote</button>
+                                            </form>
+                                        {% endif %}
+                                        <form action="{{ baseUrl('/mapset/'~mapset.id~'/ranking/onhold') }}" method="POST"
+                                                onsubmit="return confirm('Do you want to put this mapset On Hold?')"
+                                                accept-charset="UTF-8" class="d-inline-block w-100">
+                                            <button type="submit" class="btn btn-twitter btn-block">On Hold</button>
+                                        </form>
+                                    {% endif %}
+                                    <form action="{{ baseUrl('/mapset/'~mapset.id~'/ranking/deny') }}" method="POST"
+                                            onsubmit="return confirm('Do you want to Deny this mapset?')"
+                                            accept-charset="UTF-8" class="d-inline-block w-100">
+                                        <button type="submit" class="btn btn-danger btn-block">Deny</button>
+                                    </form>
+                                    <form action="{{ baseUrl('/mapset/'~mapset.id~'/ranking/blacklist') }}" method="POST"
+                                            onsubmit="return confirm('Do you want to blacklist this mapset?')"
+                                            accept-charset="UTF-8" class="d-inline-block w-100">
+                                        <button type="submit" class="btn btn-dark btn-block">Blacklist</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+            <div class="widget mb-0">
+                <div class="widget-header d-flex justify-content-between align-items-center">
+                    <div>
+                        Difficulties
+                    </div>
+                    <div>
+                        {% if map.ranked_status == 2 %}
+                            <span class="mapset-buttons ranked">Ranked</span>
+                        {% else %}
+                            <span class="mapset-buttons unranked">Unranked</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5">
+                {% for diff in mapset.maps %}
+                    {% set difficulty_color = ratingColor(diff.difficulty_rating) %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <a href="{{ baseUrl((modding)?'/mapset/map/'~diff.id~'/mods':'/mapset/map/'~diff.id) }}" class="{{ difficulty_color }}">
+                                        [{{ gameMode(diff.game_mode) }}] {{ diff.difficulty_name|escape }} -
+                                        {{ diff.difficulty_rating|number_format(2) }}
+                                        <br>
+                                        Length: {{ formatTime(diff.length) }}
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <a href="{{ baseUrl('/mapset/map/'~diff.id~'/mods') }}" class="btn btn-primary">Modding</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="widget mb-0">
+                <div class="widget-header">
+                    Comments
+                </div>
+            </div>
+            {% include "./comments.twig" %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ assets('/js/artists.js') }}"></script>
+{% endblock %}

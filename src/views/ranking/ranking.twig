@@ -99,12 +99,12 @@
                                         </form>
                                     {% endif %}
                                     <form action="{{ baseUrl('/mapset/'~mapset.id~'/ranking/deny') }}" method="POST"
-                                            onsubmit="return confirm('Do you want to Deny for this mapset?')"
+                                            onsubmit="return confirm('Do you want to Deny this mapset?')"
                                             accept-charset="UTF-8" class="d-inline-block w-100">
                                         <button type="submit" class="btn btn-danger btn-block">Deny</button>
                                     </form>
                                     <form action="{{ baseUrl('/mapset/'~mapset.id~'/ranking/blacklist') }}" method="POST"
-                                            onsubmit="return confirm('Do you want to Blacklist for this mapset?')"
+                                            onsubmit="return confirm('Do you want to blacklist this mapset?')"
                                             accept-charset="UTF-8" class="d-inline-block w-100">
                                         <button type="submit" class="btn btn-dark btn-block">Blacklist</button>
                                     </form>

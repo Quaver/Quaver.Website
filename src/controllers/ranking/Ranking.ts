@@ -57,20 +57,7 @@ export default class Ranking {
 
         const action = req.params.action;
 
-        let headers: any = {};
-        const token = await API.GetToken(req);
-
-        if (token)
-            headers["Authorization"] = `Bearer ${token}`;
-
-        const response: any = await new Promise(resolve => {
-            request.post(`${config.apiBaseUrl}/v1/mapsets/${req.params.id}/ranking/${action}`, {
-                headers: headers,
-                json: true
-            }, function (error, response, body) {
-                resolve(body);
-            });
-        }).then(body => body);
+        const response: any = await API.POST(req, `v1/mapsets/${req.params.id}/ranking/${action}`, {});
 
         req.flash('success', response.msg);
         return res.redirect('/mapset/' + mapset.id + '/ranking');

@@ -15,14 +15,19 @@ export default class API {
         const token = await API.GetToken(req);
         
         let headers: any = {};
+        let timeout:number = 30000;
 
         if (token)
             headers["Authorization"] = `Bearer ${token}`;
 
+        if(endpoint.startsWith("v1/mapsets/maps/search")) {
+            timeout = 4000;
+        }
+
         const response = await axios.get(`${config.apiBaseUrl}/${endpoint}`, {
             params: params,
             headers: headers,
-            timeout: 5000
+            timeout: timeout
         }).catch((e: { response: any; }) => {
             console.log(e.response.config.url);
             console.log(e.response.data);

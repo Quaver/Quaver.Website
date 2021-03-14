@@ -1,4 +1,5 @@
 import * as fs from 'date-fns'
+const moment = require('moment');
 
 export default class TimeHelper {
 
@@ -9,8 +10,8 @@ export default class TimeHelper {
     }
 
     public static formatDate(time: any, hidetime: true): string {
-        const format = (hidetime) ? "MMMM d, yyyy" : "MMMM dd, yyyy HH:MM:ss" ;
-        return fs.format(new Date(fs.parseISO(time)), format);
+        const format = (hidetime) ? "MMMM DD, YYYY" : "MMMM DD, YYYY HH:mm:ss";
+        return moment(new Date(time)).format(format);
     }
 
     public static formatTime(millis: any): string {

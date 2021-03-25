@@ -16,7 +16,7 @@ import Settings from "../controllers/users/Settings";
 import Sitemap from "../controllers/sitemap/Sitemap";
 import Donate from "../controllers/donate/Donate";
 import RankingQueue from "../controllers/maps/RankingQueue";
-import Artists from "../controllers/artists/Artists";
+// import Artists from "../controllers/artists/Artists";
 import Ranking from "../controllers/ranking/Ranking";
 
 export default class Router {

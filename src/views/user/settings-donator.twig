@@ -139,37 +139,6 @@
                     </div>
                 </div>
 
-                <div class="widget mt-4">
-                    <div class="widget-header">Connect your Discord account</div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <p>
-                            If you’re a member of our
-                            <a href="https://discord.gg/nJa8VFr" target="_blank">Discord server</a>, you
-                            have the ability to get an exclusive donator role.
-                            <br>
-                            <br>
-                            Join the server first, and then link your Discord account.
-                            <br>
-                            <br>
-                            <strong>Note:</strong>
-                            If you leave the server, you will have to re-link your Discord if you rejoin to get the role back.
-                        </p>
-                        {% if not currentUser.discord_id %}
-                            <a class="btn btn-discord btn-block" href="{{ discord }}">
-                                <i class="ya ya-discord"></i>
-                                Connect
-                            </a>
-                        {% else %}
-                            <a class="btn btn-danger btn-block" href="{{ baseUrl('/donate/unlink') }}">
-                                <i class="ya ya-discord"></i>
-                                Unlink
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-
             {% endif %}
         </div>
     </section>

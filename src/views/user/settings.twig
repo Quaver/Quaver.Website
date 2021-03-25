@@ -41,7 +41,61 @@
                         <button class="btn btn-primary" type="submit" name="submit">Save</button>
                     </div>
                 </div>
+
+                <div class="widget mt-4">
+                    <div class="widget-header">Notifications</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="notif_action_mapset"
+                                        name="information[notif_action_mapset]" value="true"
+                                {{ (information.notif_action_mapset) ? "checked" : "" }}>
+                                <label class="custom-control-label" for="notif_action_mapset">
+                                    Receive discord mention for action taken to your mapset (Discord needs to be linked!)
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit" name="submit">Save</button>
+                    </div>
+                </div>
             </form>
+            <div class="widget mt-4">
+                <div class="widget-header">Connect your Discord account</div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p>
+                        If you’re a member of our
+                        <a href="https://discord.gg/nJa8VFr" target="_blank">Discord server</a>
+                        , you
+                        have the ability to get an exclusive donator role.
+                        <br>
+                        Also if you are map creator you will get mentioned when there is any action taken on your mapset.
+                        <br>
+                        <br>
+                        Join the server first, and then link your Discord account.
+                        <br>
+                        <br>
+                        <strong>Note:</strong>
+                        If you leave the server, you will have to re-link your Discord if you rejoin to get the role back.
+                    </p>
+                    {% if not currentUser.discord_id %}
+                        <a class="btn btn-discord btn-block" href="{{ discord }}">
+                            <i class="ya ya-discord"></i>
+                            Connect
+                        </a>
+                    {% else %}
+                        <a class="btn btn-danger btn-block" href="{{ baseUrl('/donate/unlink') }}">
+                            <i class="ya ya-discord"></i>
+                            Unlink
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
         </div>
     </section>
 

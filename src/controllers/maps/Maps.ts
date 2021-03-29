@@ -429,7 +429,7 @@ export default class Maps {
      */
 
     private static async ReplaceCode(timestamp: any): Promise<any> {
-        const regex_code = new RegExp(/<code>((\d+\|\d)(,(\d+\|\d))*)<\/code>/g);
+        const regex_code = /<code>((\d+\|\d(,\d+\|\d)*)|(\d+))<\/code>/g
 
         return timestamp.replace(regex_code, function (p: any) {
             const matches = p.split(regex_code);

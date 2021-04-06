@@ -68,7 +68,7 @@
 <div class="card mt-4">
     <div class="card-body">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div>
                     <b>Created by:</b>
                     <a href="{{ baseUrl('/user/'~mapset.creator_id) }}">
@@ -88,14 +88,16 @@
                     <span data-toggle="tooltip" title="{{ formatDate(mapset.date_last_updated) }}">{{ formatDateDistance(mapset.date_last_updated) }}</span>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div>
                     <b>Source:</b>
                     {{ (map.source) ? map.source|escape : 'n/a' }}
                 </div>
                 <div>
                     <b>Tags:</b>
-                    <span data-toggle="tooltip" title="{{ map.tags|escape }}">{{ map.tags|truncate(100)|escape }}</span>
+                    <div style="max-height: 80px; overflow: auto;">
+                        {{ map.tags|escape }}
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">

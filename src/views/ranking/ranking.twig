@@ -7,6 +7,7 @@
             {% include "layouts/alert.twig" %}
             <div>
                 <a type="button" href="javascript:window.history.back();" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Back</a>
+                <a type="button" href="{{ baseUrl('/mapset/'~mapset.id) }}" class="btn btn-info" style="border: none;">Leaderboard</a>
                 <a type="button" href="{{ baseUrl('/download/mapset/'~mapset.id) }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
                 <button class="btn btn-dark song_button_{{ mapset.id }}" type="button" onclick="song({{ mapset.id }})">
                     <i class="fas fa-play"></i>
@@ -42,7 +43,9 @@
                             </div>
                             <div>
                                 <b>Tags:</b>
-                                <span>{{ map.tags|escape }}</span>
+                                <div style="max-height: 80px; overflow: auto;">
+                                    {{ map.tags|escape }}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -48,7 +48,7 @@ Length: {{ difficulty.duration }}">
                     {% elseif map.status == 2 %}
                         <span class="mapset-buttons blacklisted">Blacklisted</span>
                     {% elseif map.status == 3 %}
-                        <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">On Hold</span>
+                        <span class="mapset-buttons blacklisted">On Hold</span>
                     {% elseif map.status == 4 %}
                         <span class="mapset-buttons" style="background-color: #27b06e;">Resolved</span>
                     {% endif %}
@@ -59,7 +59,7 @@ Length: {{ difficulty.duration }}">
                     </span>
                 </td>
                 <td>
-                    <span data-toggle="tooltip" title="{{ formatDate(map.date_last_updated) }}">{{ formatDateDistance(map.date_last_updated) }}</span>
+                    <span data-toggle="tooltip" title="{{ formatDate(map.date_last_updated) }}" style="white-space: nowrap;">{{ formatDateDistance(map.date_last_updated) }}</span>
                 </td>
                 {% if currentUser %}
                     {% if HasPrivilege(currentUser, Privileges.RankMapsets) %}

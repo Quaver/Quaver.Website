@@ -27,7 +27,10 @@ export default class Ranking {
         const rankingConfig = await Ranking.GetRankingConfig(req, res);
 
         const comments = await Maps.FetchSupervisorComments(req, mapset.id);
-        const votes = await Ranking.GetVotes(req, res);
+        let votes: any = null
+        if (req.user) {
+            votes = await Ranking.GetVotes(req, res);
+        }
         const map = mapset.maps[mapset.maps.length - 1];
 
         // Sort difficulties

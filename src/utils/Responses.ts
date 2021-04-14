@@ -207,9 +207,9 @@ export default class Responses {
     public static ReturnMultiplayerNotFound(req: express.Request, res: express.Response): void {
         res.status(404);
 
-        Responses.Send(req, res, "404", "Multiplayuer Game Not Found | Quaver", {
+        Responses.Send(req, res, "404", "Multiplayer Game Not Found | Quaver", {
             code: 404,
-            text: 'Multiplayuer Game Not Found'
+            text: 'Multiplayer Game Not Found'
         });
     }
 }

@@ -5,12 +5,37 @@
     <section id="mapset-ranking">
         <div class="container">
             {% include "layouts/alert.twig" %}
-            <div>
-                <a type="button" href="javascript:window.history.back();" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Back</a>
-                <a type="button" href="{{ baseUrl('/download/mapset/'~mapset.id) }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
-                <button class="btn btn-dark song_button_{{ mapset.id }}" type="button" onclick="song({{ mapset.id }})">
-                    <i class="fas fa-play"></i>
-                </button>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <a type="button" href="javascript:window.history.back();" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Back</a>
+                    <a type="button" href="{{ baseUrl('/mapset/'~mapset.id) }}" class="btn btn-info" style="border: none;">Leaderboard</a>
+                    <a type="button" href="{{ baseUrl('/download/mapset/'~mapset.id) }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
+                    <button class="btn btn-dark song_button_{{ mapset.id }}" type="button" onclick="song({{ mapset.id }})">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <div>
+                    {% if mapset.ranking_queue_status == 0 %}
+                        <span class="mapset-buttons pending">Pending</span>
+                    {% elseif mapset.ranking_queue_status == 1 %}
+                        <span class="mapset-buttons denied">Denied For Rank</span>
+                    {% elseif mapset.ranking_queue_status == 2 %}
+                        <span class="mapset-buttons blacklisted">Blacklisted</span>
+                    {% elseif mapset.ranking_queue_status == 3 %}
+                        <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">On Hold</span>
+                    {% elseif mapset.ranking_queue_status == 4 %}
+                        <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">Resolved</span>
+                    {% endif %}
+
+                    <span class="mapset-buttons btn-info">
+                    {% if map.ranked_status == 2 %}
+                        {{ votesNeeded }}/{{ votesNeeded }}
+                    {% else %}
+                        {{ (mapset.ranking_queue_vote_count) ? mapset.ranking_queue_vote_count~"/"~votesNeeded : "0/"~votesNeeded }}
+                    {% endif %}
+                    Supervisor Votes
+                </span>
+                </div>
             </div>
             <div class="card mt-4">
                 <div class="card-body">
@@ -42,7 +67,9 @@
                             </div>
                             <div>
                                 <b>Tags:</b>
-                                <span>{{ map.tags|escape }}</span>
+                                <div style="max-height: 80px; overflow: auto;">
+                                    {{ map.tags|escape }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -53,31 +80,8 @@
                 {% if HasPrivilege(currentUser, Privileges.RankMapsets) %}
                     {% if mapset.ranking_queue_status == 0 or mapset.ranking_queue_status == 3 or mapset.ranking_queue_status == 4 %}
                         <div class="widget">
-                            <div class="widget-header d-flex justify-content-between align-items-center">
-                                <div>
-                                    Actions
-                                </div>
-                                <div>
-                                    {% if mapset.ranking_queue_status == 0 %}
-                                        <span class="mapset-buttons pending">Pending</span>
-                                    {% elseif mapset.ranking_queue_status == 1 %}
-                                        <span class="mapset-buttons denied">Denied For Rank</span>
-                                    {% elseif mapset.ranking_queue_status == 2 %}
-                                        <span class="mapset-buttons blacklisted">Blacklisted</span>
-                                    {% elseif mapset.ranking_queue_status == 3 %}
-                                        <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">On Hold</span>
-                                    {% elseif mapset.ranking_queue_status == 4 %}
-                                        <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">Resolved</span>
-                                    {% endif %}
-                                    <span class="mapset-buttons btn-info">
-                                        {% if map.ranked_status == 2 %}
-                                            {{ votesNeeded }}/{{ votesNeeded }}
-                                        {% else %}
-                                            {{ (mapset.ranking_queue_vote_count) ? mapset.ranking_queue_vote_count~"/"~votesNeeded : "0/"~votesNeeded }}
-                                        {% endif %}
-                                        Supervisor Votes
-                                    </span>
-                                </div>
+                            <div class="widget-header">
+                                Actions
                             </div>
                         </div>
 

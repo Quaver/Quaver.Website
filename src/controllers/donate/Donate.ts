@@ -2,6 +2,7 @@ import Responses from "../../utils/Responses";
 import Logger from "../../logging/Logger";
 import API from "../../api/API";
 import SqlDatabase from "../../database/SqlDatabase";
+import UserHelper from "../../utils/UserHelper";
 
 const request = require("request");
 const config = require("../../config/config.json");
@@ -182,22 +183,24 @@ export default class Donate {
             if (discordResponse.id) {
                 await SqlDatabase.Execute("UPDATE users SET discord_id = ? WHERE id = ?", [discordResponse.id, req.user.id]);
 
-                const token = await API.GetToken(req);
+                if (UserHelper.IsDonator(req.user.usergroups)) {
+                    const token = await API.GetToken(req);
 
-                await new Promise(resolve => {
-                    request.post(`${config.discord.api}/donator/add`, {
-                        form: {
-                            key: config.discord.secret,
-                            id: discordResponse.id
-                        },
-                        headers: {
-                            "Authorization": `Bearer ${token}`
-                        },
-                        json: true
-                    }, function (error, response, body) {
-                        resolve(body);
-                    });
-                }).then(body => body);
+                    await new Promise(resolve => {
+                        request.post(`${config.discord.api}/donator/add`, {
+                            form: {
+                                key: config.discord.secret,
+                                id: discordResponse.id
+                            },
+                            headers: {
+                                "Authorization": `Bearer ${token}`
+                            },
+                            json: true
+                        }, function (error, response, body) {
+                            resolve(body);
+                        });
+                    }).then(body => body);
+                }
             }
 
             req.flash('success', "You have successfully linked your Discord account.");

@@ -201,7 +201,7 @@ export default class Donate {
             }
 
             req.flash('success', "You have successfully linked your Discord account.");
-            res.redirect("/settings/donator");
+            res.redirect("/settings");
         } catch (err) {
             Logger.Error(err);
             console.log(err);
@@ -233,7 +233,7 @@ export default class Donate {
             }
 
             req.flash('success', "You have successfully unlinked your Discord account.");
-            res.redirect("/settings/donator");
+            res.redirect("/settings");
         } catch (err) {
             Logger.Error(err);
             console.log(err);

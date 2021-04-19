@@ -1,0 +1,59 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        Authorize
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8 px-6">
+        <br>
+        <div class="container">
+            <div class="widget">
+                <div class="widget-header developers">
+                    Authorize in {{ site }} using your Quaver account
+                    <br>
+                    <small>Note that {{ site }} is not affiliated with Quaver.</small>
+                </div>
+            </div>
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="row align-items-center pt-4 pb-4">
+                        <div class="col-md-6">
+                            <form method="POST">
+                                <input type="hidden" name="redirect_url" value="{{ redirectUrl }}">
+                                <button type="submit" class="btn btn-primary btn-block font-weight-semibold btn-lg mb-2">Continue</button>
+                            </form>
+                            <a class="btn btn-github btn-block" href="mailto:support@quavergame.com">Report website</a>
+                        </div>
+                        <div class="col-md-6">
+                            By logging in to
+                            <strong>{{ site }}</strong>
+                            via Quaver:
+                            <br>
+                            <ul>
+                                <li>Your Steam login will not be shared.</li>
+                                <li>Your user ID will be shared with
+                                    <strong>{{ site }}</strong>
+                                    .
+                                    <br>
+                                    Through this, {{ site }} will have the ability to recognize your profile.
+                                </li>
+                            </ul>
+                            By clicking 'Continue', you agree to share this information.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </section>
+
+{% endblock %}

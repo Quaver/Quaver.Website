@@ -1,5 +1,6 @@
 import Responses from "../../utils/Responses";
-
+import Jwt from "../../utils/Jwt";
+const config = require("../../config/config.json");
 
 export default class Oauth2 {
     public static async Authorize(req: any, res: any): Promise<void> {
@@ -31,12 +32,37 @@ export default class Oauth2 {
         try {
             const site = new URL(redirectUrl);
 
-            site.searchParams.append("user_id", req.user.id);
+            const token = await Jwt.Sign({
+                user: {
+                    id: req.user.id,
+                    steam_id: req.user.steam_id,
+                    username: req.user.username,
+                    avatar: req.user.avatar_url
+                },
+            }, config.jwtSecret, "30s");
+
+            site.searchParams.append("token", token);
 
             res.redirect(site);
         } catch (e) {
             return res.status(404).json({status: 404, error: "Redirect URL invalid!"});
         }
 
+    }
+
+    public static async VerifyToken(req: any, res: any): Promise<void> {
+        const token = req.body.token;
+
+        if (token == undefined || token == "") {
+            return res.status(404).json({status: 404, error: "No Token provided!"});
+        }
+
+        const result = await Jwt.Verify(token, config.jwtSecret);
+
+        if (result !== undefined) {
+            return res.status(200).json({status: 200, data: result});
+        }
+
+        return res.status(404).json({status: 404, error: "Token expired or invalid!"});
     }
 }

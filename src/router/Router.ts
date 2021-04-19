@@ -94,6 +94,7 @@ export default class Router {
 
         router.route("/oauth2/authorize").get(Authentication.RequireLogin, Oauth2.Authorize);
         router.route("/oauth2/authorize").post(Authentication.RequireLogin, Oauth2.POST);
+        router.route("/oauth2/verify").post(Oauth2.VerifyToken);
 
         router.route("/download/:type/:id").get(Download.GET);
 

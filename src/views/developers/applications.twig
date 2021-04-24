@@ -1,0 +1,57 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        {{ title|split("|")[0] }}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            {% include "layouts/alert.twig" %}
+            <div class="widget">
+                <div class="widget-header d-flex justify-content-between align-items-center">
+                    <div>
+                        Applications
+                        <br>
+                        <small>Create, modify and delete your API applications.</small>
+                    </div>
+                    <a href="{{ baseUrl("/developers/applications/create") }}" class="btn btn-success btn-sm">Create New</a>
+                </div>
+                <div class="card mb-0">
+                    <div class="card-body">
+                        {% if applications %}
+                            {% for application in applications %}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        {{ application.name }}
+                                        <br>
+                                        <code>{{ application.redirect_url }}</code>
+                                    </div>
+                                    <div>
+                                        <a href="{{ baseUrl("/developers/applications/"~application.id) }}" class="btn btn-primary btn-sm">View</a>
+                                    </div>
+                                </div>
+                                {% if loop.index != applications.length %}
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            No applications
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+{% endblock %}

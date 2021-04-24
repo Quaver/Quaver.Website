@@ -1,0 +1,85 @@
+{% extends "layouts/app.twig" %}
+{% block content %}
+    <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
+        <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md-8 mx-auto">
+                    <h1 class="display-5 text-white font-weight-bold">
+                        {{ title|split("|")[0] }}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="playlists">
+        <div class="container">
+            {% include "layouts/alert.twig" %}
+            <div class="widget">
+                <div class="widget-header d-flex justify-content-between align-items-center">
+                    <div>
+                        {% if edit %} Edit {% else %} Create {% endif %} Application
+                    </div>
+                    {% if edit %}
+                        <form class="d-inline-block" method="POST" onsubmit="return confirm('Do you want to delete application?')" action="{{ baseUrl("/developers/applications/"~application.id~"/delete") }}">
+                            <input type="submit" name="application_delete" class="btn btn-danger btn-sm" value="Delete">
+                        </form>
+                    {% endif %}
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" action="{{ baseUrl("/developers/applications/save") }}">
+                            {% if edit %}
+                                <input type="hidden" name="application_id" value="{{ application.id }}">
+                            {% endif %}
+                            <div class="form-group">
+                                <label>Application name:</label>
+                                <input type="text" class="form-control" name="application_name" placeholder="Application name" value="{{ (edit) ? application.name : '' }}" maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label>Redirect URL:</label>
+                                <input type="text" class="form-control" name="application_redirect_url" placeholder="Redirect URL" value="{{ (edit) ? application.redirect_url : '' }}">
+                            </div>
+                            {% if not edit %}
+                                <input type="submit" name="application_submit" class="btn btn-primary" value="Create">
+                            {% else %}
+                                <input type="submit" name="application_edit" class="btn btn-primary" value="Save">
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+                {% if edit %}
+                    <div class="widget-header">
+                        <div>
+                            Token
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="POST" accept-charset="UTF-8" onsubmit="return confirm('Do you want to reset token?')" action="{{ baseUrl("/developers/applications/"~application.id~"/reset") }}">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-primary" type="submit">Reset</button>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ (edit) ? application.token : '' }}" disabled>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block style %}
+    <style>
+        #playlists .btn-danger {
+            background: #e45454 !important;
+            padding: 6px 12px;
+        }
+    </style>
+{% endblock %}

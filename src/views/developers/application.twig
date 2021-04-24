@@ -35,11 +35,11 @@
                             {% endif %}
                             <div class="form-group">
                                 <label>Application name:</label>
-                                <input type="text" class="form-control" name="application_name" placeholder="Application name" value="{{ (edit) ? application.name : '' }}" maxlength="50">
+                                <input type="text" class="form-control" name="application_name" placeholder="Application name" value="{{ (edit) ? application.name|escape : '' }}" maxlength="50">
                             </div>
                             <div class="form-group">
                                 <label>Redirect URL:</label>
-                                <input type="text" class="form-control" name="application_redirect_url" placeholder="Redirect URL" value="{{ (edit) ? application.redirect_url : '' }}">
+                                <input type="text" class="form-control" name="application_redirect_url" placeholder="Redirect URL" value="{{ (edit) ? application.redirect_url|escape : '' }}">
                             </div>
                             {% if not edit %}
                                 <input type="submit" name="application_submit" class="btn btn-primary" value="Create">

@@ -31,9 +31,9 @@
                             {% for application in applications %}
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        {{ application.name }}
+                                        {{ application.name|escape }}
                                         <br>
-                                        <code>{{ application.redirect_url }}</code>
+                                        <code>{{ application.redirect_url|escape }}</code>
                                     </div>
                                     <div>
                                         <a href="{{ baseUrl("/developers/applications/"~application.id) }}" class="btn btn-primary btn-sm">View</a>

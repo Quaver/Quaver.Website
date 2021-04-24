@@ -7,6 +7,7 @@ const crypto = require('crypto');
 ToDo
 Implement application limit
 Implement the token in oauth2
+Implement application_usage
  */
 
 export default class Applications {
@@ -51,7 +52,6 @@ export default class Applications {
 
         if(name === "" || redirectUrl === "") {
             req.flash('error', 'Empty fields!');
-            // ToDo return form
             return res.redirect(303, `/developers/applications/create`);
         }
 

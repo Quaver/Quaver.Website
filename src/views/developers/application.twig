@@ -52,20 +52,30 @@
                 {% if edit %}
                     <div class="widget-header">
                         <div>
-                            Token
+                            OAuth2
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-body">
                             <form method="POST" accept-charset="UTF-8" onsubmit="return confirm('Do you want to reset token?')" action="{{ baseUrl("/developers/applications/"~application.id~"/reset") }}">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <button class="btn btn-primary" type="submit">Reset</button>
-                                    </div>
-                                    <input type="text" class="form-control" value="{{ (edit) ? application.token : '' }}" disabled>
+                                <div class="form-group">
+                                    <label>Client ID:</label>
+                                    <input type="text" class="form-control" value="{{ (edit) ? application.client_id|escape : '' }}" disabled>
                                 </div>
-
+                                <div class="form-group">
+                                    <label>Client Secret:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" value="{{ (edit) ? application.client_secret : '' }}" disabled>
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-primary" type="submit">Reset</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Authorize URL</label>
+                                    <input type="text" class="form-control" value="{{ authorizeUrl }}" disabled>
+                                </div>
                             </form>
                         </div>
                     </div>

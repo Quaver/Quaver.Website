@@ -14,7 +14,8 @@ const RedisStore = require('connect-redis')(session);
 const cookieParser = require('cookie-parser');
 const redis = require('redis');
 const fileUpload = require('express-fileupload');
-const flash = require('connect-flash')
+const flash = require('connect-flash');
+const bearerToken = require('express-bearer-token');
 
 const client = redis.createClient({
     password: config.redis.password,
@@ -60,6 +61,7 @@ export default class Server {
         this.ExpressApp.set("view options", {layout: false});
 
         this.ExpressApp.use(cookieParser());
+        this.ExpressApp.use(bearerToken());
 
         if (config.environment === "development") {
             // Disable twig cache

@@ -18,7 +18,7 @@ import Donate from "../controllers/donate/Donate";
 import RankingQueue from "../controllers/maps/RankingQueue";
 // import Artists from "../controllers/artists/Artists";
 import Ranking from "../controllers/ranking/Ranking";
-import Oauth2 from "../controllers/login/Oauth2";
+import Oauth2 from "../controllers/developers/Oauth2";
 import Applications from "../controllers/developers/Applications";
 
 export default class Router {
@@ -102,7 +102,8 @@ export default class Router {
 
         router.route("/oauth2/authorize").get(Authentication.RequireLogin, Oauth2.Authorize);
         router.route("/oauth2/authorize").post(Authentication.RequireLogin, Oauth2.POST);
-        router.route("/oauth2/verify").post(Oauth2.VerifyToken);
+        router.route("/oauth2/token").post(Oauth2.VerifyToken);
+        router.route("/oauth2/me").post(Oauth2.Me);
 
         router.route("/download/:type/:id").get(Download.GET);
 

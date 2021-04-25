@@ -3,12 +3,7 @@ import SqlDatabase from "../../database/SqlDatabase";
 
 const crypto = require('crypto');
 
-/*
-ToDo
-Implement application limit
-Implement the token in oauth2
-Implement application_usage
- */
+const config = require("../../config/config.json");
 
 export default class Applications {
     public static applicationsLimit = 10;
@@ -31,16 +26,19 @@ export default class Applications {
         const applicationId = req.params.id;
         const application = await Applications.ApplicationCheck(req, applicationId);
 
-        if(!application) {
+        if (!application) {
             req.flash('error', 'You are not the owner of this application!');
             return res.redirect(303, `/developers/applications`);
         }
 
         const fetchApplication = await SqlDatabase.Execute("SELECT * FROM applications WHERE id = ? LIMIT 1", [applicationId]);
 
+        const authorizeUrl = `${config.baseUrl}/oauth2/authorize?client_id=${fetchApplication[0].client_id}&redirect_url=${fetchApplication[0].redirect_url}`;
+
         Responses.Send(req, res, "developers/application", "Application | Quaver", {
             edit: true,
-            application: fetchApplication[0]
+            application: fetchApplication[0],
+            authorizeUrl: authorizeUrl
         });
     }
 
@@ -50,7 +48,7 @@ export default class Applications {
         const redirectUrl = req.body.application_redirect_url;
         let isEdit = false;
 
-        if(name === "" || redirectUrl === "") {
+        if (name === "" || redirectUrl === "") {
             req.flash('error', 'Empty fields!');
             return res.redirect(303, `/developers/applications/create`);
         }
@@ -63,18 +61,27 @@ export default class Applications {
             }
 
             isEdit = true;
+        } else {
+            // Check if user can create more applications
+            const userApplications = await SqlDatabase.Execute("SELECT COUNT(id) as count FROM applications WHERE user_id = ? AND active = 1", [req.user.id]);
+
+            if(userApplications[0].count >= Applications.applicationsLimit) {
+                req.flash('error', `You cannot create more than ${Applications.applicationsLimit} applications!`);
+                return res.redirect(303, `/developers/applications`);
+            }
         }
 
         try {
             // Validates the redirect url
             new URL(redirectUrl);
 
-            if(!isEdit) {
-                const key = await Applications.GenerateToken();
+            if (!isEdit) {
+                const client_id = await Applications.GenerateToken(16);
+                const client_secret = await Applications.GenerateToken(32);
                 const now = Math.round((new Date()).getTime());
 
-                const newApplication = await SqlDatabase.Execute("INSERT INTO applications (user_id, name, redirect_url, token, timestamp) VALUES " +
-                    "(?, ?, ?, ?, ?)", [req.user.id, name, redirectUrl, key, now]);
+                const newApplication = await SqlDatabase.Execute("INSERT INTO applications (user_id, name, redirect_url, client_id, client_secret, timestamp) VALUES " +
+                    "(?, ?, ?, ?, ?, ?)", [req.user.id, name, redirectUrl, client_id, client_secret, now]);
 
                 req.flash('success', 'Application successfully created!');
 
@@ -97,14 +104,14 @@ export default class Applications {
         const applicationId = req.params.id;
         const application = await Applications.ApplicationCheck(req, applicationId);
 
-        if(!application) {
+        if (!application) {
             req.flash('error', 'You are not the owner of this application!');
             return res.redirect(303, `/developers/applications`);
         }
 
-        const key = await Applications.GenerateToken();
+        const key = await Applications.GenerateToken(32);
 
-        await SqlDatabase.Execute("UPDATE applications SET token = ? WHERE id = ?", [key, applicationId]);
+        await SqlDatabase.Execute("UPDATE applications SET client_secret = ? WHERE id = ?", [key, applicationId]);
 
         req.flash('success', 'New token is generated!');
 
@@ -115,7 +122,7 @@ export default class Applications {
         const applicationId = req.params.id;
         const application = await Applications.ApplicationCheck(req, applicationId);
 
-        if(!application) {
+        if (!application) {
             req.flash('error', 'You are not the owner of this application!');
             return res.redirect(303, `/developers/applications`);
         }
@@ -137,14 +144,34 @@ export default class Applications {
     }
 
     public static async VerifyToken(token): Promise<boolean> {
-        const fetch = await SqlDatabase.Execute("SELECT 1 FROM applications WHERE token = ? AND active = 1 LIMIT 1", [token]);
+        const fetch = await SqlDatabase.Execute("SELECT 1 FROM applications WHERE client_secret = ? AND active = 1 LIMIT 1", [token]);
 
         if (fetch.length) return true;
         return false;
     }
 
-    private static async GenerateToken(): Promise<string> {
-        return crypto.randomBytes(32).toString('hex');
+    public static async FetchClientSecret(clientId: string) {
+        const fetch = await SqlDatabase.Execute("SELECT client_secret, redirect_url FROM applications WHERE client_id = ? AND active = 1 LIMIT 1", [clientId]);
+
+        if (fetch.length) {
+            return fetch[0];
+        }
+
+        return null;
+    }
+
+    public static async ApplicationUsage(client_secret): Promise<void> {
+        const fetch = await SqlDatabase.Execute("SELECT id FROM applications WHERE client_secret = ? AND active = 1 LIMIT 1", [client_secret]);
+
+        if (fetch.length) {
+            const now = Math.round((new Date()).getTime());
+
+            await SqlDatabase.Execute("INSERT INTO applications_usage (application_id, timestamp) VALUES (?, ?)", [fetch[0].id, now]);
+        }
+    }
+
+    private static async GenerateToken(size: number): Promise<string> {
+        return crypto.randomBytes(size).toString('hex');
     }
 
     private static async htmlEntities(str: any): Promise<string> {

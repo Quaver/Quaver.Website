@@ -33,7 +33,7 @@ export default class Applications {
 
         const fetchApplication = await SqlDatabase.Execute("SELECT * FROM applications WHERE id = ? LIMIT 1", [applicationId]);
 
-        const authorizeUrl = `${config.baseUrl}/oauth2/authorize?client_id=${fetchApplication[0].client_id}&redirect_url=${fetchApplication[0].redirect_url}`;
+        const authorizeUrl = `${config.baseUrl}/oauth2/authorize?client_id=${fetchApplication[0].client_id}&redirect_uri=${fetchApplication[0].redirect_url}`;
 
         Responses.Send(req, res, "developers/application", "Application | Quaver", {
             edit: true,

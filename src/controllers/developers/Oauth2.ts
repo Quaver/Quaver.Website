@@ -8,11 +8,11 @@ export default class Oauth2 {
         const clientId = req.query.client_id;
 
         if (clientId == undefined || clientId == "") {
-            return res.status(401).json({status: 401, error: "No Client ID provided!"});
+            return res.status(401).json({status: 401, error: "ClientId is Invalid"});
         }
 
         if (redirectUrl == undefined || redirectUrl == "") {
-            return res.status(400).json({status: 400, error: "No Redirect URL provided!"});
+            return res.status(400).json({status: 400, error: "Redirection URI is required"});
         }
 
         try {
@@ -24,7 +24,7 @@ export default class Oauth2 {
                 site: site
             });
         } catch (e) {
-            return res.status(400).json({status: 400, error: "Redirect URL invalid!"});
+            return res.status(400).json({status: 400, error: "Redirect URI invalid"});
         }
     }
 
@@ -32,7 +32,7 @@ export default class Oauth2 {
         const clientId = req.body.client_id;
 
         if (clientId == undefined || clientId == "") {
-            return res.status(401).json({status: 401, error: "No Client ID provided!"});
+            return res.status(401).json({status: 401, error: "ClientId is Invalid"});
         }
 
         const fetchSecret: any = await Applications.FetchClientSecret(clientId);
@@ -56,11 +56,11 @@ export default class Oauth2 {
 
                 return res.redirect(site);
             } catch (e) {
-                return res.status(400).json({status: 400, error: "Redirect URL invalid!"});
+                return res.status(400).json({status: 400, error: "Redirect URI invalid"});
             }
         }
 
-        return res.status(401).json({status: 401, error: "Invalid client ID"});
+        return res.status(401).json({status: 401, error: "ClientId is Invalid"});
     }
 
     public static async VerifyToken(req: any, res: any): Promise<void> {
@@ -68,7 +68,7 @@ export default class Oauth2 {
         const code = req.body.code;
 
         if (token == undefined || token == "") {
-            return res.status(400).json({status: 400, error: "No Token provided!"});
+            return res.status(401).json({status: 401, error: "Access Token not approved"});
         }
 
         const result = await Jwt.Verify(code, token);
@@ -82,7 +82,7 @@ export default class Oauth2 {
             });
         }
 
-        return res.status(400).json({status: 400, error: "Token expired or invalid!"});
+        return res.status(401).json({status: 401, error: "Access Token expired"});
     }
 
     public static async Me(req: any, res: any): Promise<void> {
@@ -98,6 +98,6 @@ export default class Oauth2 {
             })
         }
 
-        return res.status(400).json({status: 400, error: "Token expired or invalid!"});
+        return res.status(400).json({status: 400, error: "Token expired or invalid"});
     }
 }

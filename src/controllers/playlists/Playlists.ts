@@ -3,6 +3,9 @@ import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import TimeHelper from "../../utils/TimeHelper";
 
+const request = require("request");
+const config = require("../../config/config.json");
+
 export default class Playlists {
 
     /**
@@ -108,6 +111,7 @@ export default class Playlists {
                 res.redirect(303, `/playlists`);
                 return;
             }
+
             if (typeof req.body.edit_playlist !== 'undefined') {
                 await API.POST(req, `v1/playlist/${req.body.id}/update`, {
                     name: req.body.playlist_name,
@@ -117,9 +121,43 @@ export default class Playlists {
                 res.redirect(303, `/playlist/` + req.body.id);
                 return;
             }
+
+            if (typeof req.body.submitCover !== 'undefined') {
+                const token = await API.GetToken(req);
+                let headers: any = {};
+                let response: any = null;
+
+                if (token)
+                    headers["Authorization"] = `Bearer ${token}`;
+
+                if (req.files && req.files.playlist_cover) {
+                    req.files.playlist_cover.data = Buffer.from(req.files.playlist_cover.data).toString("base64");
+
+                    response = await new Promise(resolve => {
+                        request.post(`${config.apiBaseUrl}/v1/playlist/${req.params.id}/cover`, {
+                            form: {
+                                cover: req.files.playlist_cover
+                            },
+                            headers: headers,
+                            json: true
+                        }, function (error, response, body) {
+                            resolve(body);
+                        });
+                    }).then(body => body);
+
+                    if (response) {
+                        if (response.status == 200) req.flash('success', response.message);
+                        else if (response.message) req.flash('error', response.message);
+                        else if (response.error) req.flash('error', response.error);
+                    }
+
+                    res.redirect(303, `/playlist/` + req.params.id + "/edit");
+                    return;
+                }
+            }
         } catch (err) {
-                Logger.Error(err);
-                Responses.Return500(req, res);
+            Logger.Error(err);
+            Responses.Return500(req, res);
         }
     }
 

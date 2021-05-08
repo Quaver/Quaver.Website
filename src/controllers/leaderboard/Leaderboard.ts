@@ -11,7 +11,7 @@ export default class Leaderboard {
      */
     public static async GET(req: any, res: any): Promise<void> {
         try {
-            const mode = req.query.mode || 1;
+            const mode = req.query.mode || (req.cookies.mode) || 1;
             const page = req.query.page || 1;
             const country = req.query.country ? `&country=${req.query.country}` : "";
             const limit = 50;

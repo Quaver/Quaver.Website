@@ -15,7 +15,15 @@ export default class Users {
      */
     public static async GET(req: any, res: any): Promise<void> {
         try {
-            let mode = parseInt(req.query.mode) || 1;
+            if(req.cookies.mode === undefined) {
+                res.cookie('mode', 1, { maxAge: 900000, httpOnly: true});
+            }
+
+            let mode = parseInt(req.query.mode) || (req.cookies.mode) || 1;
+
+            if (req.cookies.mode !== mode) {
+                res.cookie('mode', mode, { maxAge: 900000, httpOnly: true});
+            }
 
             if (mode < 1 || mode > 2)
                 mode = 1;

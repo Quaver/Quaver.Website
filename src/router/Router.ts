@@ -18,6 +18,8 @@ import Donate from "../controllers/donate/Donate";
 import RankingQueue from "../controllers/maps/RankingQueue";
 // import Artists from "../controllers/artists/Artists";
 import Ranking from "../controllers/ranking/Ranking";
+import Oauth2 from "../controllers/developers/Oauth2";
+import Applications from "../controllers/developers/Applications";
 
 export default class Router {
     /**
@@ -90,6 +92,18 @@ export default class Router {
         router.route("/login/verify").get(Login.VerifyGET);
         router.route("/logout").get(Login.LogoutGET);
         router.route("/team").get(Team.GET);
+
+        router.route("/developers/applications").get(Authentication.RequireLogin, Applications.GET);
+        router.route("/developers/applications/create").get(Authentication.RequireLogin, Applications.CreateGET);
+        router.route("/developers/applications/save").post(Authentication.RequireLogin, Applications.SavePOST);
+        router.route("/developers/applications/:id").get(Authentication.RequireLogin, Applications.ViewGET);
+        router.route("/developers/applications/:id/reset").post(Authentication.RequireLogin, Applications.ResetPOST);
+        router.route("/developers/applications/:id/delete").post(Authentication.RequireLogin, Applications.DeletePOST);
+
+        router.route("/oauth2/authorize").get(Authentication.RequireLogin, Oauth2.Authorize);
+        router.route("/oauth2/authorize").post(Authentication.RequireLogin, Oauth2.POST);
+        router.route("/oauth2/token").post(Oauth2.VerifyToken);
+        router.route("/oauth2/me").post(Oauth2.Me);
 
         router.route("/download/:type/:id").get(Download.GET);
 

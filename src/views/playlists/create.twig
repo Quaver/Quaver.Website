@@ -40,14 +40,6 @@
                             <label>Description:</label>
                             <textarea class="form-control" name="playlist_description" rows="4">{{ (edit) ? playlist.description : '' }}</textarea>
                         </div>
-                        {#                        <div class="form-group">#}
-                        {#                            <label>Cover image</label>#}
-                        {#                            <div class="custom-file">#}
-                        {#                                <input type="file" class="custom-file-input" name="playlist_cover" id="playlist_cover">#}
-                        {#                                <label class="custom-file-label" for="playlist_cover">Choose image</label>#}
-                        {#                            </div>#}
-                        {#                            <small class="form-text text-muted">(Preferred size 590x590 and jpg and jpeg only)</small>#}
-                        {#                        </div>#}
                         {% if not edit %}
                             <input type="submit" name="submit" class="btn btn-primary" value="Create">
                         {% else %}
@@ -56,6 +48,32 @@
                     </form>
                 </div>
             </div>
+            {% if edit %}
+                <div class="widget mt-4">
+                    <div class="widget-header">Cover Image</div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="playlist_cover" id="playlist_cover">
+                                    <label class="custom-file-label" for="playlist_cover">Choose image</label>
+                                    <small class="form-text text-muted">(Preferred size
+                                        <strong>590x590</strong>
+                                        and
+                                        <strong>jpg</strong>
+                                        and
+                                        <strong>jpeg</strong>
+                                        only)
+                                    </small>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit" name="submitCover">Upload</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </section>
 

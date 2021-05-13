@@ -133,7 +133,7 @@
                                 <div class="col-sm-6">
                                     <div class="category category-no-margin">
                                         <span>Total scores</span>
-                                        <span class="count">{{ (stats.total_scores) ?: 0 }}</span>
+                                        <span class="count" data-toggle="tooltip" title="{{ ((stats.total_scores)|number_format) ?: 0 }}">{{ (stats.total_scores) ?: 0 }}</span>
                                     </div>
                                 </div>
                             </div>

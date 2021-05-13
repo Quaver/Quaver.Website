@@ -50,7 +50,10 @@ export default class Applications {
 
         if (name === "" || redirectUrl === "") {
             req.flash('error', 'Empty fields!');
-            return res.redirect(303, `/developers/applications/create`);
+            if(applicationId === undefined)
+                return res.redirect(303, `/developers/applications/create`);
+            else
+                return res.redirect(303, `/developers/applications/${applicationId}`);
         }
 
         if (applicationId !== undefined) {
@@ -95,7 +98,7 @@ export default class Applications {
             }
         } catch (e) {
             req.flash('error', 'Invalid Redirect URL!');
-            if (isEdit) return res.redirect(303, `/developers/applications/token`);
+            if (isEdit) return res.redirect(303, `/developers/applications/${applicationId}`);
             else return res.redirect(303, `/developers/applications/create`);
         }
     }

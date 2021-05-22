@@ -50,6 +50,7 @@
                                     <button onclick="copyToClipboard(this)" class="btn btn-social btn-discord btn-sm btn-sc"
                                             data-toggle="tooltip" title="Click to copy">
                                         <i class="ya ya-discord"></i> {{ info }}</button>
+                                {% elseif key == "notif_action_mapset" %}
                                 {% else %}
                                     {% set url = "" %}
                                     {% set name = "" %}

@@ -4,7 +4,7 @@
             <img data-src="{{ assets('/img/grades/'~score.grade~'.png') }}" alt="{{ score.grade }}" title="{{ score.grade }}" width="30px" height="30px" class="lazy">
         </td>
         <td class="song">
-            <a href="{{ baseUrl('/mapset/map/'~score.map.id) }}">{{ score.map.artist }} - {{ score.map.title }} [{{ score.map.difficulty_name }}]</a>
+            <a href="{{ baseUrl('/mapset/map/'~score.map.id) }}">{{ score.map.artist|escape }} - {{ score.map.title|escape }} [{{ score.map.difficulty_name|truncate(55)|escape }}]</a>
             <br>
             <span data-toggle="tooltip" title="{{ formatDate(score.time) }}">{{ formatDateDistance(score.time) }}</span>
         </td>
@@ -52,7 +52,7 @@
 {#                    <div class="col-sm-6 d-sm-block">#}
 {#                        <canvas class="chartScore_{{ table }}_{{ score.id }}" style="height: 269px;"></canvas>#}
 {#                    </div>#}
-{#                    <div class="col-sm-6">#}
+{#                    <div class="col-md-12">#}
 {#                        <canvas class="scatterScore_{{ table }}_{{ score.id }}" ></canvas>#}
 {#                    </div>#}
 {#                </div>#}

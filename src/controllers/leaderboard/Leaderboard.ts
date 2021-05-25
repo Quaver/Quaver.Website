@@ -13,7 +13,7 @@ export default class Leaderboard {
         try {
             const mode = req.query.mode || 1;
             const page = req.query.page || 1;
-            const country = req.query.country ? `&country=${req.query.country}` : "";
+            const country = req.query.country ? `&country=${req.query.country.toLowerCase()}` : "";
             const limit = 50;
 
             let pages;

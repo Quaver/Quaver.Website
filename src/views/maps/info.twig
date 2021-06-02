@@ -23,10 +23,8 @@
     </div>
     <div class="mt-md-0 mt-sm-3">
         {% if not modding %}
-            {% if currentUser %}
-                {% if mapset.ranking_queue_status != null and mapset.mapset_ranking_queue_id %}
-                    <a href="{{ baseUrl('/mapset/'~mapset.id~'/ranking') }}" class="btn btn-info">Ranking</a>
-                {% endif %}
+            {% if mapset.ranking_queue_status != null and mapset.mapset_ranking_queue_id %}
+                <a href="{{ baseUrl('/mapset/'~mapset.id~'/ranking') }}" class="btn btn-info">Ranking</a>
             {% endif %}
             <a type="button" href="{{ baseUrl('/mapset/map/'~map.id~'/mods') }}" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Modding Discussion</a>
             <a type="button" href="{{ baseUrl('/download/mapset/'~mapset.id) }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>

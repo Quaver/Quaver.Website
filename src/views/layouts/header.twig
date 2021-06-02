@@ -106,8 +106,8 @@
                         {% if IsDonator(currentUser.usergroups) %}
                             <a class="dropdown-item" href="{{ baseUrl('/settings/donator') }}">Donator Settings</a>
                         {% endif %}
-{#                        <div class="dropdown-divider"></div>#}
-{#                        <a class="dropdown-item" href="{{ baseUrl('/developers/applications') }}">Developers</a>#}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ baseUrl('/developers/applications') }}">Applications</a>
                         {% if CanAccessDashboard(currentUser.usergroups) %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="https://a.quavergame.com/">Dashboard</a>

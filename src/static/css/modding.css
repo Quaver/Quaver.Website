@@ -52,6 +52,10 @@
     border-radius: 12px;
 }
 
+.media pre code {
+    color: #2575dc;
+}
+
 .mod {
     padding: 18px !important;
 }

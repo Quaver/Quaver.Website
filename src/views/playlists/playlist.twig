@@ -52,9 +52,15 @@
                 </div>
                 <div class="col-lg-9" id="playlist">
                     {% for difficulties in orderedPlaylist %}
+                        <audio id="track_{{ difficulties[0].mapset_id }}" src="https://cdn.quavergame.com/audio-previews/{{ difficulties[0].mapset_id }}.mp3?v={{ version }}" preload="none"></audio>
                         <div class="card">
                             <div class="mapsets">
                                 <div class="status-right">
+                                    <a href="javascript:void(0)">
+                                        <div onclick="song({{ difficulties[0].mapset_id }})" class="download song_button_{{ difficulties[0].mapset_id }}">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </a>
                                     <a href="{{ baseUrl('/download/mapset/'~difficulties[0].mapset_id) }}">
                                         <div class="download">
                                             <i class="fas fa-download"></i>
@@ -132,5 +138,5 @@
 {% endblock %}
 
 {% block scripts %}
-
+    <script defer src="{{ assets('/js/artists.js') }}"></script>
 {% endblock %}

@@ -72,11 +72,16 @@ export default class Users {
                 }
             }
 
-            // Check if information fields are empty
             let informationFlag = true;
-            for (let key in user.info.information) {
-                if (user.info.information[key] !== null && user.info.information[key] != "")
-                    informationFlag = false;
+
+            if(user.info.information) {
+                // Ignore notification field
+                delete user.info.information.notif_action_mapset;
+                // Check if information fields are empty
+                for (let key in user.info.information) {
+                    if ((user.info.information[key] !== null && user.info.information[key] != ""))
+                        informationFlag = false;
+                }
             }
 
             if(informationFlag) user.info.information = null;

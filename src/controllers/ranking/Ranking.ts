@@ -6,9 +6,6 @@ import Privileges from "../../enums/Privileges";
 import API from "../../api/API";
 import Logger from "../../logging/Logger";
 
-const request = require("request");
-const config = require("../../config/config.json");
-
 export default class Ranking {
 
     public static async GET(req: any, res: any): Promise<void> {
@@ -25,6 +22,12 @@ export default class Ranking {
         }
 
         const rankingConfig = await Ranking.GetRankingConfig(req, res);
+
+        // Get modding count
+        for(const map of mapset.maps) {
+            let mods = await Maps.FetchMods(req, map.id);
+            map.count = mods.length;
+        }
 
         const comments = await Maps.FetchSupervisorComments(req, mapset.id);
         let votes: any = null

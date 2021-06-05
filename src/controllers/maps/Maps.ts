@@ -3,9 +3,6 @@ import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import GameModeHelper from "../../utils/GameModeHelper";
 import ModStatus from "../../enums/ModStatus";
-import GameMode from "../../enums/GameMode";
-import RankedStatus from "../../enums/RankedStatus";
-import Authentication from "../../middleware/Authentication";
 import EnvironmentHelper from "../../utils/EnvironmentHelper";
 import TimeHelper from "../../utils/TimeHelper";
 
@@ -13,7 +10,7 @@ const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
 const moment = require("moment");
 
-const allowedHTML = ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5', 'code', 'b',
+const allowedHTML = ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5', 'code', 'b', 'pre',
     'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br', 'em', 'blockquote', 'table', 'tr', 'td', 'th', 'thead', 'tbody'];
 
 export default class Maps {
@@ -440,7 +437,7 @@ export default class Maps {
     /**
      * Fetches map mods
      */
-    private static async FetchMods(req: any, id: number): Promise<any> {
+    static async FetchMods(req: any, id: number): Promise<any> {
         try {
             const response = await API.GET(req, `v1/maps/${id}/mods`);
 

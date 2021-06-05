@@ -5,7 +5,7 @@ const {PurgeCSS} = require('purgecss');
 const fs = require('fs');
 const path = require('path');
 // @ts-ignore
-const appDir = path.dirname(require.main.filename).replace('/dist', '/src');
+const appDir = path.dirname(require.main.filename).replace('dist', '/src');
 
 export default class Purge {
     public static async PurgeCSS(): Promise<void> {
@@ -35,7 +35,17 @@ export default class Purge {
                 'btn-facebook',
                 'btn-spotify',
                 'btn-twitch',
-                'ya-youtube'
+                'ya-youtube',
+                'mod-type-accepted',
+                'mod-type-ignored',
+                'mod-type-pending',
+                'mod-type-denied',
+                'mod-type-suggestion',
+                'mod-type-issue',
+                'mod-accepted',
+                'mod-ignored',
+                'mod-pending',
+                'mod-denied'
             ],
             variables: true,
             rejected: true

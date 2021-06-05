@@ -205,17 +205,24 @@
     {% set game_mode = 'keys' ~ (mode == 1 ? '4' : '7') %}
     <script>
         let mapsPages = {
-            "page_1": 1,
+            "page_1": 0,
             "page_2": 1
         };
 
-        const rank = JSON.parse('{{ user.statistics }}');
+        const currentUserId = "{{ user.info.id }}";
+        const currentMode = "{{ mode }}";
         const currentRank = parseInt("{{ user[game_mode].globalRank }}");
         const stats = JSON.parse('{{ jsonString(user[game_mode].stats) }}');
     </script>
     <script defer src="{{ assets('/js/apexcharts/apexcharts.min.js', true) }}"></script>
     <script defer src="{{ assets('/js/user.js', true) }}"></script>
     <script defer src="{{ assets('/js/artists.js', true) }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchRankProgression({{ user.info.id }}, {{ mode }});
+            fetchGrades({{ user.info.id }}, {{ mode }});
+        });
+    </script>
 {% endblock %}
 
 {% block page_scripts %}{% endblock %}

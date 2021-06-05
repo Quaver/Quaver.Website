@@ -31,31 +31,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    let scorePages = {
-        'best': 1,
-        'recent': 1,
-        'firstplace': 1
-    }
-
-    $('.scores_more').on('click', function () {
-        const table = $(this).data('table');
-        let query = {};
-
-        query['table'] = table;
-        query['page'] = scorePages[table];
-        query['mode'] = "{{ mode }}";
-        query['id'] = "{{ user.info.id }}";
-
-        $.post(baseUrl() + `/user/scores/load`, query, function (data) {
-            if (data.trim() === "") {
-                $(`a[data-table=${table}]`).hide()
-            } else {
-                $(data).appendTo(`#${table}_scores`);
-            }
-            initLazy();
-        });
-        scorePages[table]++;
-    });
-</script>

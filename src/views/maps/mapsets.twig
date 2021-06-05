@@ -32,12 +32,9 @@
                     <div class="cover lazy" data-bg-multi="linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://cdn.quavergame.com/mapsets/{{ map.id }}.jpg?v={{ version }}')">
                         <div class="status">
                             {% set game_modes = map.game_modes %}
-                            {% if not map.game_modes %}
-                                {% set game_modes = [] %}
+                            {% if not map.game_modes %}{% set game_modes = [] %}
                                 {% for m in map.maps %}
-                                    {% if m.game_mode not in game_modes %}
-                                        {% set game_modes = game_modes|merge([m.game_mode]) %}
-                                    {% endif %}
+                                    {% if m.game_mode not in game_modes %}{% set game_modes = game_modes|merge([m.game_mode]) %}{% endif %}
                                 {% endfor %}
                             {% endif %}
                             {% if game_modes|length == 2 %}
@@ -86,23 +83,4 @@
             <i class="fas fa-angle-down"></i>
         </div>
     </a>
-
-    <script>
-        $('#mapsets_more_{{ status }}').on('click', function () {
-            let query = {};
-            query['id'] = parseInt("{{ user.info.id }}");
-            query['status'] = parseInt("{{ status }}");
-            query['page'] = mapsPages['page_{{ status }}'];
-
-            $.post(baseUrl() + `/user/maps/load`, query, function (data) {
-                if (data.trim() === "") {
-                    $("#mapsets_more_{{ status }}").hide();
-                } else {
-                    $(data).appendTo("#mapsets_{{ status }}");
-                }
-                initLazy();
-            });
-            mapsPages['page_{{ status }}']++;
-        });
-    </script>
 {% endif %}

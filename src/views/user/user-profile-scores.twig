@@ -20,9 +20,15 @@
                             {% include './user-scores.twig' with {'table': 'best', 'data': best} %}
                         </div>
                         <div class="tab-pane fade show" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+                            <div style="padding-top: 10px;" id="loader-scores-recent">
+                                <div class="aj-loading" style="margin-top: 0px;"></div>
+                            </div>
                             {% include './user-scores.twig' with {'table': 'recent', 'data': recent} %}
                         </div>
                         <div class="tab-pane fade show" id="first" role="tabpanel" aria-labelledby="first-tab">
+                            <div style="padding-top: 10px;" id="loader-scores-first">
+                                <div class="aj-loading" style="margin-top: 0px;"></div>
+                            </div>
                             {% include './user-scores.twig' with {'table': 'firstplace', 'data': firstPlace} %}
                         </div>
                     </div>
@@ -31,31 +37,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    let scorePages = {
-        'best': 1,
-        'recent': 1,
-        'firstplace': 1
-    }
-
-    $('.scores_more').on('click', function () {
-        const table = $(this).data('table');
-        let query = {};
-
-        query['table'] = table;
-        query['page'] = scorePages[table];
-        query['mode'] = "{{ mode }}";
-        query['id'] = "{{ user.info.id }}";
-
-        $.post(baseUrl() + `/user/scores/load`, query, function (data) {
-            if (data.trim() === "") {
-                $(`a[data-table=${table}]`).hide()
-            } else {
-                $(data).appendTo(`#${table}_scores`);
-            }
-            initLazy();
-        });
-        scorePages[table]++;
-    });
-</script>

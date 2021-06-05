@@ -31,11 +31,7 @@ export default class Users {
             }
 
             const best = await Users.GetBestScores(req, res, user, mode);
-            const recent = await Users.GetRecentScores(req, res, user, mode);
-            const firstPlace = await Users.GetFirstPlaceScores(req, res, user, mode);
             const mapSetsRanked = await Users.GetUploadedMapSetsRanked(req, res, user.info.id, 0);
-
-            const mapSetsUnRanked = await Users.GetUploadedMapSetsUnRanked(req, res, user.info.id, 0);
             const playlists = await Users.GetPlaylists(req, res, user);
 
             let friend: any = null;
@@ -91,10 +87,10 @@ export default class Users {
                 mode,
                 bio,
                 best,
-                recent,
-                firstPlace,
+                recent: [],
+                firstPlace: [],
                 mapSetsRanked,
-                mapSetsUnRanked,
+                mapSetsUnRanked: [],
                 playlists,
                 GameMode,
                 RankedStatus,
@@ -127,32 +123,6 @@ export default class Users {
      */
     private static async GetBestScores(req: any, res: any, user: any, mode: number): Promise<any> {
         const apiScores = await API.GET(req, `v1/users/scores/best?id=${user.info.id}&mode=${mode}&page=0&limit=15`);
-
-        return apiScores.scores;
-    }
-
-    /**
-     * Renders th epage that displays the user's recent scores
-     * @param req
-     * @param res
-     * @param user
-     * @param mode
-     */
-    private static async GetRecentScores(req: any, res: any, user: any, mode: number): Promise<any> {
-        const apiScores = await API.GET(req, `v1/users/scores/recent?id=${user.info.id}&mode=${mode}&page=0&limit=15`);
-
-        return apiScores.scores;
-    }
-
-    /**
-     * Renders the page that displays the user's first place scores
-     * @param req
-     * @param res
-     * @param user
-     * @param mode
-     */
-    private static async GetFirstPlaceScores(req: any, res: any, user: any, mode: number): Promise<any> {
-        const apiScores = await API.GET(req, `v1/users/scores/firstplace?id=${user.info.id}&mode=${mode}&page=0&limit=15`);
 
         return apiScores.scores;
     }
@@ -221,10 +191,8 @@ export default class Users {
 
         const onlineStatusResponse = await API.GET(req, `v1/server/users/online/${response.user.info.id}`);
         const achievementsResponse = await API.GET(req, `v1/users/${response.user.info.id}/achievements`);
-        const graphRankResponse = await API.GET(req, `v1/users/graph/rank?id=${response.user.info.id}&mode=${mode}`);
         response.user.online_status = onlineStatusResponse;
         response.user.achievements = achievementsResponse.achievements;
-        response.user.statistics = JSON.stringify(graphRankResponse.statistics);
 
         return response.user;
     }
@@ -261,7 +229,7 @@ export default class Users {
      * @param res
      * @constructor
      */
-    public static async UserMapssetsPOST(req: any, res: any): Promise<void> {
+    public static async UserMapsetsPOST(req: any, res: any): Promise<void> {
         try {
             req.query = req.body;
 

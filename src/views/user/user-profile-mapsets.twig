@@ -22,11 +22,8 @@
                         {% endif %}
                     </div>
                     <div class="tab-pane fade show" id="unranked" role="tabpanel" aria-labelledby="unranked-tab">
-                        {% if mapSetsUnRanked %}
+                        <div id="loader-mapset-unranked" class="aj-loading"></div>
                         {% include '../maps/mapsets.twig' with {'data': 'profile', 'status': RankedStatus.Unranked, 'maps': mapSetsUnRanked} %}
-                        {% else %}
-                            No Unranked Mapsets
-                        {% endif %}
                     </div>
                 </div>
             </div>

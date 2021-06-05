@@ -2003,6 +2003,23 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin: 5px;
 }
 
+/* Loading animation */
+
+.aj-loading {
+    margin: 10px auto 20px auto;
+    border: 8px solid #1A1A1A;
+    border-top: 8px solid #09a5c8;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Mobile optimizations */
 
 @media (max-width: 1200px) {

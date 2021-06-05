@@ -20,16 +20,16 @@
                             {% include './user-scores.twig' with {'table': 'best', 'data': best} %}
                         </div>
                         <div class="tab-pane fade show" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+                            {% include './user-scores.twig' with {'table': 'recent', 'data': recent} %}
                             <div style="padding-top: 10px;" id="loader-scores-recent">
                                 <div class="aj-loading" style="margin-top: 0px;"></div>
                             </div>
-                            {% include './user-scores.twig' with {'table': 'recent', 'data': recent} %}
                         </div>
                         <div class="tab-pane fade show" id="first" role="tabpanel" aria-labelledby="first-tab">
+                            {% include './user-scores.twig' with {'table': 'firstplace', 'data': firstPlace} %}
                             <div style="padding-top: 10px;" id="loader-scores-first">
                                 <div class="aj-loading" style="margin-top: 0px;"></div>
                             </div>
-                            {% include './user-scores.twig' with {'table': 'firstplace', 'data': firstPlace} %}
                         </div>
                     </div>
                 </div>

@@ -459,7 +459,7 @@ $('#recent-tab').click(function () {
 
 $('#first-tab').click(function () {
     if(scorePages.firstplace === 0) {
-        loadScores(null, 'firstplace', "#loader-scores-first");
+        loadScores(null, 'firstplace', "#loader-scores-firstplace");
     }
 });
 
@@ -510,7 +510,9 @@ function loadScores(id, name, removeId = null) {
     $.post(baseUrl() + `/user/scores/load`, query, function (data) {
         if(removeId) $(removeId).hide();
         if (data.trim() === "") {
-            $(`a[data-table=${table}]`).hide()
+            $(`a[data-table=${table}]`).hide();
+            if(scorePages[table] === 1)
+                $("<tr><td colspan='7'>No Scores</td></tr>").appendTo(`#${table}_scores`);
         } else {
             $(data).appendTo(`#${table}_scores`);
         }

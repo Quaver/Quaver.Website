@@ -17,6 +17,11 @@
             </tbody>
         </table>
     </div>
+    {% if table == "recent" or table == "firstplace" %}
+        <div style="padding-bottom: 20px;" id="loader-scores-{{ table }}">
+            <div class="aj-loading" style="margin-bottom: 0px;"></div>
+        </div>
+    {% endif %}
     <a href="javascript:void(0)" class="scores_more" data-table="{{ table }}">
         <div class="load-more">
             <i class="fas fa-angle-down"></i>

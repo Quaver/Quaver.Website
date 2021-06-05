@@ -220,7 +220,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             fetchRankProgression({{ user.info.id }}, {{ mode }});
-            fetchGrades({{ user.info.id }}, {{ mode }});
+            {#fetchGrades({{ user.info.id }}, {{ mode }});#}
         });
     </script>
 {% endblock %}

@@ -453,19 +453,19 @@ $('.scores_more').on('click', function () {
 
 $('#recent-tab').click(function () {
     if(scorePages.recent === 0) {
-        loadScores(null, 'recent');
+        loadScores(null, 'recent', "#loader-scores-recent");
     }
 });
 
 $('#first-tab').click(function () {
     if(scorePages.firstplace === 0) {
-        loadScores(null, 'firstplace');
+        loadScores(null, 'firstplace', "#loader-scores-first");
     }
 });
 
 $('#unranked-tab').click(function () {
     if(mapsPages['page_1'] === 0) {
-        loadMapsets(1);
+        loadMapsets(1, "#loader-mapset-unranked");
     }
 });
 
@@ -477,7 +477,7 @@ $('#mapsets_more_1').on('click', function () {
     loadMapsets(1);
 });
 
-function loadMapsets(status) {
+function loadMapsets(status, removeId = null) {
     let query = {};
     query['id'] = parseInt(currentUserId);
     query['status'] = status;
@@ -485,6 +485,7 @@ function loadMapsets(status) {
     console.log(query);
 
     $.post(baseUrl() + `/user/maps/load`, query, function (data) {
+        if(removeId) $(removeId).hide();
         if (data.trim() === "") {
             console.log(mapsPages['page_' + status])
             $("#mapsets_more_" + status).hide();
@@ -498,7 +499,7 @@ function loadMapsets(status) {
     mapsPages['page_' + status]++;
 }
 
-function loadScores(id, name) {
+function loadScores(id, name, removeId = null) {
     const table = (name) ? name : $(id).data('table');
     let query = {};
 
@@ -508,6 +509,7 @@ function loadScores(id, name) {
     query['id'] = currentUserId;
 
     $.post(baseUrl() + `/user/scores/load`, query, function (data) {
+        if(removeId) $(removeId).hide();
         if (data.trim() === "") {
             $(`a[data-table=${table}]`).hide()
         } else {

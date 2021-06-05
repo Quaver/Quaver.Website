@@ -482,7 +482,6 @@ function loadMapsets(status, removeId = null) {
     query['id'] = parseInt(currentUserId);
     query['status'] = status;
     query['page'] = mapsPages['page_' + status];
-    console.log(query);
 
     $.post(baseUrl() + `/user/maps/load`, query, function (data) {
         if(removeId) $(removeId).hide();

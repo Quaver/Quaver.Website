@@ -1464,6 +1464,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     flex-wrap: wrap;
 }
 
+@media (max-width: 575px) {
+    #playlists .equal {
+        display: block;
+    }
+}
+
 #playlists .card-footer {
     display: -ms-flexbox;
     display: flex;
@@ -1509,10 +1515,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: white;
 }
 
-#playlist .image {
-    width: 260px;
-    height: 260px;
-}
+/*#playlist .image {*/
+/*    width: 260px;*/
+/*    height: 260px;*/
+/*}*/
 
 #playlist .card-footer span:nth-child(2) {
     margin-left: 8px;

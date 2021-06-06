@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             if (data.trim() === "") {
                 $("#more").hide();
             } else {
-                $("#maps").append(data);
+                $("#playlist").append(data);
                 initLazy();
             }
         });

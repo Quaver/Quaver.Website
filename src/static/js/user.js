@@ -521,24 +521,6 @@ function loadScores(id, name, removeId = null) {
     scorePages[table]++;
 }
 
-let achievementsLoaded = false;
-
-function loadAchievements(id) {
-    achievementsLoaded = true;
-    $.post(baseUrl() + `/user/achievements/load?id=${id}`, {}, function (data) {
-        $(data).appendTo("#achievements");
-    });
-}
-
-let playlistsLoaded = false;
-
-function loadPlaylists(id) {
-    playlistsLoaded = true;
-    $.post(baseUrl() + `/user/playlists/load?id=${id}`, {}, function (data) {
-        $(data).appendTo("#playlists");
-        initLazy();
-    });
-}
 
 function copyToClipboard(element) {
     $(element).attr('data-original-title', "Copied!").tooltip('show');
@@ -552,6 +534,9 @@ function copyToClipboard(element) {
         $(element).attr('data-original-title', "Click to copy").tooltip('show');
     }, 1000);
 }
+
+let achievementsLoaded = false;
+let playlistsLoaded = false;
 
 document.addEventListener("DOMContentLoaded", function (event) {
     judgementBreakdown();
@@ -567,13 +552,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
     };
 
     $(document).on('scroll', function () {
-        if ($('#achievements').isInViewport() && !achievementsLoaded) {
-            loadAchievements(currentUserId);
-            console.log(1)
+        if (!achievementsLoaded && $('#achievements').isInViewport()) {
+            achievementsLoaded = true;
+            $.post(baseUrl() + `/user/achievements/load?id=${currentUserId}`, {}, function (data) {
+                $(data).appendTo("#achievements");
+            });
         }
-        if ($('#playlists').isInViewport() && !playlistsLoaded) {
-            loadPlaylists(currentUserId);
-            console.log(2)
+        if (!playlistsLoaded && $('#playlists').isInViewport()) {
+            playlistsLoaded = true;
+            $.post(baseUrl() + `/user/playlists/load?id=${currentUserId}`, {}, function (data) {
+                $(data).appendTo("#playlists");
+                initLazy();
+            });
         }
     });
 });

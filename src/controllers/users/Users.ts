@@ -25,14 +25,13 @@ export default class Users {
             if (!user)
                 return Responses.ReturnUserNotFound(req, res);
 
-            if(req.params.id != user.info.id) {
+            if (req.params.id != user.info.id) {
                 res.redirect(301, '/user/' + user.info.id);
                 return;
             }
 
             const best = await Users.GetBestScores(req, res, user, mode);
             const mapSetsRanked = await Users.GetUploadedMapSetsRanked(req, res, user.info.id, 0);
-            const playlists = await Users.GetPlaylists(req, res, user);
 
             let friend: any = null;
 
@@ -70,7 +69,7 @@ export default class Users {
 
             let informationFlag = true;
 
-            if(user.info.information) {
+            if (user.info.information) {
                 // Ignore notification field
                 delete user.info.information.notif_action_mapset;
                 // Check if information fields are empty
@@ -80,7 +79,7 @@ export default class Users {
                 }
             }
 
-            if(informationFlag) user.info.information = null;
+            if (informationFlag) user.info.information = null;
 
             Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
                 user,
@@ -91,7 +90,7 @@ export default class Users {
                 firstPlace: [],
                 mapSetsRanked,
                 mapSetsUnRanked: [],
-                playlists,
+                playlists: [],
                 GameMode,
                 RankedStatus,
                 friend
@@ -189,12 +188,37 @@ export default class Users {
         if (response.status != 200)
             return null;
 
-        const onlineStatusResponse = await API.GET(req, `v1/server/users/online/${response.user.info.id}`);
-        const achievementsResponse = await API.GET(req, `v1/users/${response.user.info.id}/achievements`);
-        response.user.online_status = onlineStatusResponse;
-        response.user.achievements = achievementsResponse.achievements;
+        response.user.online_status = await API.GET(req, `v1/server/users/online/${response.user.info.id}`);;
 
         return response.user;
+    }
+
+    public static async UserAchievementsPOST(req: any, res: any): Promise<void> {
+        try {
+            const userId: number = (req.query.id) ? req.query.id : 0;
+            const response = await API.GET(req, `v1/users/${userId}/achievements`);
+
+            Responses.Send(req, res, "user/user-profile-achievements", ``, {
+                achievements: response.achievements
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
+    }
+
+    public static async UserPlaylistsPOST(req: any, res: any): Promise<void> {
+        try {
+            const userId: number = (req.query.id) ? req.query.id : 0;
+            const response = await API.GET(req, `v1/users/${userId}/playlists`);
+
+            Responses.Send(req, res, "user/user-profile-playlists", ``, {
+                playlists: response.playlists
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
     }
 
     /**

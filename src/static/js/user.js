@@ -452,19 +452,19 @@ $('.scores_more').on('click', function () {
 });
 
 $('#recent-tab').click(function () {
-    if(scorePages.recent === 0) {
+    if (scorePages.recent === 0) {
         loadScores(null, 'recent', "#loader-scores-recent");
     }
 });
 
 $('#first-tab').click(function () {
-    if(scorePages.firstplace === 0) {
+    if (scorePages.firstplace === 0) {
         loadScores(null, 'firstplace', "#loader-scores-firstplace");
     }
 });
 
 $('#unranked-tab').click(function () {
-    if(mapsPages['page_1'] === 0) {
+    if (mapsPages['page_1'] === 0) {
         loadMapsets(1, "#loader-mapset-unranked");
     }
 });
@@ -484,11 +484,11 @@ function loadMapsets(status, removeId = null) {
     query['page'] = mapsPages['page_' + status];
 
     $.post(baseUrl() + `/user/maps/load`, query, function (data) {
-        if(removeId) $(removeId).hide();
+        if (removeId) $(removeId).hide();
         if (data.trim() === "") {
             console.log(mapsPages['page_' + status])
             $("#mapsets_more_" + status).hide();
-            if(mapsPages['page_' + status] === 1)
+            if (mapsPages['page_' + status] === 1)
                 $("<div class='col-md-6'>No Unranked Mapsets</div>").appendTo("#mapsets_" + status);
         } else {
             $(data).appendTo("#mapsets_" + status);
@@ -508,10 +508,10 @@ function loadScores(id, name, removeId = null) {
     query['id'] = currentUserId;
 
     $.post(baseUrl() + `/user/scores/load`, query, function (data) {
-        if(removeId) $(removeId).hide();
+        if (removeId) $(removeId).hide();
         if (data.trim() === "") {
             $(`a[data-table=${table}]`).hide();
-            if(scorePages[table] === 1)
+            if (scorePages[table] === 1)
                 $("<tr><td colspan='7'>No Scores</td></tr>").appendTo(`#${table}_scores`);
         } else {
             $(data).appendTo(`#${table}_scores`);
@@ -535,6 +535,35 @@ function copyToClipboard(element) {
     }, 1000);
 }
 
+let achievementsLoaded = false;
+let playlistsLoaded = false;
+
 document.addEventListener("DOMContentLoaded", function (event) {
     judgementBreakdown();
+
+    $.fn.isInViewport = function () {
+        const elementTop = $(this).offset().top;
+        const elementBottom = elementTop + $(this).outerHeight();
+
+        const viewportTop = $(window).scrollTop();
+        const viewportBottom = viewportTop + $(window).height();
+
+        return elementBottom > viewportTop && elementTop < viewportBottom;
+    };
+
+    $(document).on('scroll', function () {
+        if (!achievementsLoaded && $('#achievements').isInViewport()) {
+            achievementsLoaded = true;
+            $.post(baseUrl() + `/user/achievements/load?id=${currentUserId}`, {}, function (data) {
+                $(data).appendTo("#achievements");
+            });
+        }
+        if (!playlistsLoaded && $('#playlists').isInViewport()) {
+            playlistsLoaded = true;
+            $.post(baseUrl() + `/user/playlists/load?id=${currentUserId}`, {}, function (data) {
+                $(data).appendTo("#playlists");
+                initLazy();
+            });
+        }
+    });
 });

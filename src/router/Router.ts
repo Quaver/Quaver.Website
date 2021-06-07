@@ -67,6 +67,8 @@ export default class Router {
         router.route("/user/:id").get(Users.GET);
         router.route("/user/maps/load").post(Users.UserMapsetsPOST);
         router.route("/user/scores/load").post(Users.UserScoresPOST);
+        router.route("/user/achievements/load").post(Users.UserAchievementsPOST);
+        router.route("/user/playlists/load").post(Users.UserPlaylistsPOST);
 
         router.route("/friends").get(Authentication.RequireLogin, Friends.GET);
         router.route("/friends").post(Authentication.RequireLogin, Friends.POST);

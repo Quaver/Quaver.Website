@@ -226,6 +226,7 @@
 {% endblock %}
 
 {% block scripts %}
+    <script defer src="{{ assets('/js/artists.js') }}"></script>
     <script>
         function readSpam(element) {
             const id = $(element).data('id');

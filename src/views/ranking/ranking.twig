@@ -10,7 +10,7 @@
                     <a type="button" href="javascript:window.history.back();" class="btn btn-info" style="background-color: #0FBAE5; border: none;">Back</a>
                     <a type="button" href="{{ baseUrl('/mapset/'~mapset.id) }}" class="btn btn-info" style="border: none;">Leaderboard</a>
                     <a type="button" href="{{ baseUrl('/download/mapset/'~mapset.id) }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download</a>
-                    <a type="button" href="{{ 'quaver://mapset/'~mapset.id }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Direct Download</a>
+                    <a type="button" href="{{ 'quaver://mapset/'~mapset.id }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Download In-Game</a>
                     <button class="btn btn-dark song_button_{{ mapset.id }}" type="button" onclick="song({{ mapset.id }})">
                         <i class="fas fa-play"></i>
                     </button>

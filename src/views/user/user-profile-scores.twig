@@ -10,6 +10,7 @@
                         <a class="nav-item nav-link active" id="best-tab" data-toggle="tab" href="#best" role="tab" aria-controls="best" aria-selected="false">Best</a>
                         <a class="nav-item nav-link" id="recent-tab" data-toggle="tab" href="#recent" role="tab" aria-controls="recent" aria-selected="false">Recent</a>
                         <a class="nav-item nav-link" id="first-tab" data-toggle="tab" href="#first" role="tab" aria-controls="first" aria-selected="true">First Place</a>
+                        <a class="nav-item nav-link" id="grades-tab" data-toggle="tab" href="#grades" role="tab" aria-controls="grades" aria-selected="true">Grades</a>
                     </div>
                 </div>
             </div>
@@ -24,6 +25,52 @@
                         </div>
                         <div class="tab-pane fade show" id="first" role="tabpanel" aria-labelledby="first-tab">
                             {% include './user-scores.twig' with {'table': 'firstplace', 'data': firstPlace} %}
+                        </div>
+                        <div class="tab-pane fade show" id="grades" role="tabpanel" aria-labelledby="grades-tab">
+                            <div class="nav-tab-scroll">
+                                <div class="nav nav-tabs" id="tab-grades" role="tablist">
+                                {% for grade in grades %}
+                                    <a class="nav-item nav-link" id="grades-{{ grade }}-tab" data-toggle="tab" href="#grades_{{ grade }}"
+                                            role="tab" aria-controls="grades_{{ grade }}" aria-selected="false" data-grade="{{ grade }}">
+                                        <img src="{{ assets('/img/grades/'~grade~'.png') }}" width="22px"> 1,234
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="tab-content" id="tab-grades">
+                                {% for grade in grades %}
+                                    <div class="tab-pane" id="grades_{{ grade }}" role="tabpanel" aria-labelledby="grades_{{ grade }}">
+                                        <div>
+                                            <div class="table-responsive" id="leaderboard">
+                                                <table class="table align-items-center" id="table_{{ table }}">
+                                                    <thead>
+                                                    <tr style="text-align: center">
+                                                        <th scope="col" style="width: 5%;">Grade</th>
+                                                        <th scope="col">Song</th>
+                                                        <th scope="col" style="width: 20%;">Performance Rating</th>
+                                                        <th scope="col" style="width: 5%;">Accuracy</th>
+                                                        <th scope="col" style="width: 5%;">Mods</th>
+                                                        <th scope="col" style="width: 5%;">Replay</th>
+                                                        <th scope="col" style="width: 5%;">Info</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="grades_{{ grade }}_table">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                                <div style="padding-bottom: 20px;" id="loader-grades-{{ grade }}">
+                                                    <div class="aj-loading" style="margin-bottom: 0;"></div>
+                                                </div>
+                                            <a href="javascript:void(0)" class="grades_more" data-grade="{{ grade }}">
+                                                <div class="load-more">
+                                                    <i class="fas fa-angle-down"></i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -291,79 +291,6 @@ function judgementBreakdown() {
     chart.render();
 }
 
-// Fetch grades
-function fetchGrades(userId, mode) {
-    $.ajax({
-        type: 'GET',
-        url: apiBaseUrl() + `/v1/users/${userId}/grades?mode=${mode}`,
-        success: function (response) {
-            const grades = ['X', 'S+', 'S', 'A', 'B', 'C', 'D'];
-            let gradesCounter = {X: 0, SS: 0, S: 0, A: 0, B: 0, C: 0, D: 0};
-            for (const grade of response.grades) gradesCounter[grade.grade] = grade.total;
-            const jb = document.getElementById('chartGrades');
-            const colors = ['#FFFFFF', '#F3F47B', '#F3F47B', '#38A150', '#29A5CD', '#E748A1', '#F46363'];
-
-            let options = {
-                series: [{
-                    name: "Total",
-                    data: [gradesCounter.X, gradesCounter.SS, gradesCounter.S, gradesCounter.A, gradesCounter.B, gradesCounter.C, gradesCounter.D]
-                }],
-                chart: {
-                    height: 350,
-                    type: 'bar',
-                    toolbar: {show: false},
-                    zoom: {enabled: false},
-                    animations: {enabled: false},
-                    legend: {enabled: false, showForSingleSeries: false,},
-                    foreColor: '#fff'
-                },
-                colors: colors,
-                plotOptions: {
-                    bar: {
-                        columnWidth: '45%',
-                        distributed: true,
-                        dataLabels: {position: 'top'}
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    style: {colors: ['#fff']},
-                    offsetY: -20
-                },
-                legend: {show: false},
-                annotations: {
-                    yaxis: [{
-                        label: {show: false}
-                    }],
-                    xaxis: [{
-                        label: {show: false}
-                    }]
-                },
-                yaxis: {
-                    labels: {
-                        formatter: function (value) {
-                            return value.toLocaleString();
-                        }
-                    },
-                },
-                grid: {show: false},
-                xaxis: {
-                    categories: grades,
-                    labels: {
-                        style: {
-                            colors: colors,
-                            fontSize: '12px'
-                        }
-                    }
-                }
-            };
-
-            let chart = new ApexCharts(jb, options);
-            chart.render();
-        }
-    });
-}
-
 // Fetch rank progression
 function fetchRankProgression(userId, mode) {
     $.ajax({
@@ -519,6 +446,51 @@ function loadScores(id, name, removeId = null) {
         initLazy();
     });
     scorePages[table]++;
+}
+
+// Fetch grades
+let gradeScores = {
+    "X": 0,
+    "SS": 0,
+    "S": 0,
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 0
+}
+
+$(document).on('click', '#grades .nav-link', function () {
+    const grade = $(this).data('grade');
+
+    if(gradeScores[grade] === 0) loadGradeScores(grade, "#loader-grades-" + grade);
+})
+
+$(document).on('click', '.grades_more', function () {
+    const grade = $(this).data('grade');
+    loadGradeScores(grade);
+});
+
+function loadGradeScores(grade, removeId = null) {
+    let query = {};
+
+    query['page'] = gradeScores[grade];
+    query['mode'] = currentMode;
+    query['id'] = currentUserId;
+    query['grade'] = grade;
+
+    $.post(baseUrl() + `/user/scores/grades/load`, query, function (data) {
+        if (removeId) $(removeId).hide();
+        if (data.trim() === "") {
+            $(`.grades_more[data-grade=${grade}]`).hide();
+            if (gradeScores[grade] === 1)
+                $("<tr><td colspan='7'>No Scores</td></tr>").appendTo(`#grades_${grade}_table`);
+        } else {
+            $(data).appendTo(`#grades_${grade}_table`);
+        }
+        initLazy();
+    });
+
+    gradeScores[grade]++;
 }
 
 

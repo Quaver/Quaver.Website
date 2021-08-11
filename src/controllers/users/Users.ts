@@ -6,6 +6,7 @@ import RankedStatus from "../../enums/RankedStatus";
 import bbobHTML from '@bbob/html';
 import presetHTML5 from '@bbob/preset-html5';
 import sanitizeHtml = require("sanitize-html");
+import Grade from "../../enums/Grade";
 
 export default class Users {
     /**
@@ -93,7 +94,8 @@ export default class Users {
                 playlists: [],
                 GameMode,
                 RankedStatus,
-                friend
+                friend,
+                grades: ["X", "SS", "S", "A", "B", "C", "D"]
             });
         } catch (err) {
             Logger.Error(err);
@@ -136,6 +138,12 @@ export default class Users {
      */
     private static async GetScores(req: any, res: any, type: any, user: any, mode: number, page: number): Promise<any> {
         const apiScores = await API.GET(req, `v1/users/scores/${type}?id=${user}&mode=${mode}&page=${page}&limit=15`);
+
+        return apiScores.scores;
+    }
+
+    private static async GetScoresGrade(req: any, res: any, grade: any, user: any, mode: number, page: number): Promise<any> {
+        const apiScores = await API.GET(req, `v1/users/scores/grades?id=${user}&mode=${mode}&grade=${grade}&page=${page}&limit=15`);
 
         return apiScores.scores;
     }
@@ -237,6 +245,33 @@ export default class Users {
             const page: number = (!isNaN(req.query.page) && req.query.page >= 0) ? req.query.page : 0;
 
             const scores = await Users.GetScores(req, res, type, userId, mode, page);
+
+            Responses.Send(req, res, "user/scores", ``, {
+                data: scores
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
+    }
+
+    /**
+     * Fetches and returns score grades
+     * @param req
+     * @param res
+     * @constructor
+     */
+
+    public static async UserScoresGradePOST(req: any, res: any): Promise<void> {
+        try {
+            req.query = req.body;
+
+            const userId: number = (req.query.id) ? req.query.id : 0;
+            const mode: GameMode = (req.query.mode) ? req.query.mode : GameMode.Keys4;
+            const grade: Grade = (req.query.grade) ? req.query.grade : "None";
+            const page: number = (!isNaN(req.query.page) && req.query.page >= 0) ? req.query.page : 0;
+
+            const scores = await Users.GetScoresGrade(req, res, grade, userId, mode, page);
 
             Responses.Send(req, res, "user/scores", ``, {
                 data: scores

@@ -1,9 +1,14 @@
 {% for playlist in playlists %}
+    {% if playlist.time_last_updated %}
+        {% set version = md5(playlist.time_last_updated) %}
+    {% else %}
+        {% set version = md5("1") %}
+    {% endif %}
     <div class="col-lg-3 col-md-4 col-sm-4 equal">
         <div class="card card-sm">
             <div class="image">
                 <a href="{{ baseUrl('/playlist/'~playlist.id) }}">
-                    <img style='object-fit: cover;' class="lazy" data-src="https://cdn.quavergame.com/playlists/{{ playlist.id }}.jpg" onerror="this.src='{{ assets("/img/playlist_default.jpg") }}'">
+                    <img style='object-fit: cover;' class="lazy" data-src="https://cdn.quavergame.com/playlists/{{ playlist.id }}.jpg?v={{ version }}" onerror="this.src='{{ assets("/img/playlist_default.jpg") }}'">
                 </a>
             </div>
             <div class="card-block fix-height">

@@ -2012,7 +2012,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 #grades .nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
     background-color: rgba(9, 165, 200, 0.2) !important;
-    border: none !important;
+    /*border: none !important;*/
+    border-color: transparent;
 }
 
 

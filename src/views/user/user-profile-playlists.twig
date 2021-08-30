@@ -6,8 +6,15 @@
         <div class="row">
             {% if not playlists %}
                 <div class="col-md-12 text-white">
-                    No playlists
+                    <div class="card">
+                        <div class="card-body">
+                            No playlists
+                        </div>
+                    </div>
                 </div>
+                <script>
+                    $('#playlists').css({'min-height': '0'});
+                </script>
             {% else %}
                 {% include '../playlists/playlists.twig' %}
             {% endif %}

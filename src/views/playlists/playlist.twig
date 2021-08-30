@@ -1,5 +1,11 @@
 {% extends "layouts/app.twig" %}
 {% block content %}
+    {% if playlist.time_last_updated %}
+        {% set version = md5(playlist.time_last_updated) %}
+    {% else %}
+        {% set version = md5("1") %}
+    {% endif %}
+
     <section class="bg-image bg-dark py-5 py-lg-7 px-4 px-lg-0" style="background-color: rgb(52, 53, 56) !important;">
         <img class="background" src="{{ assets('/img/cover.jpg') }}" alt="">
         <div class="container">
@@ -20,7 +26,7 @@
                 <div class="col-lg-3">
                     <div class="card card-sm sticky-top">
                         <div class="image">
-                            <img src="https://cdn.quavergame.com/playlists/{{ playlist.id }}.jpg" onerror="this.src='{{ assets("/img/playlist_default.jpg") }}'">
+                            <img src="https://cdn.quavergame.com/playlists/{{ playlist.id }}.jpg?v={{ version }}" onerror="this.src='{{ assets("/img/playlist_default.jpg") }}'">
                         </div>
 
                         <div class="card-block">

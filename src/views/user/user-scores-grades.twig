@@ -1,8 +1,16 @@
 <div>
     <div class="nav-tab-scroll">
         <div class="nav nav-tabs" id="tab-grades" role="tablist">
+            {% set found = false %}
+            {% set active = false %}
             {% for grade in grades %}
-                <a class="nav-item nav-link d-flex align-items-center" id="grades-{{ grade }}-tab" data-toggle="tab" href="#grades_{{ grade }}"
+                {% if not found and user[game_mode]['stats']['count_grade_' ~ (grade|lower)] != 0 %}
+                    {% set active = true %}
+                    {% set found = true %}
+                {% else %}
+                    {% set active = false %}
+                {% endif %}
+                <a class="nav-item nav-link {{ active ? "active" : "" }} d-flex align-items-center" id="grades-{{ grade }}-tab" data-toggle="tab" href="#grades_{{ grade }}"
                         role="tab" aria-controls="grades_{{ grade }}" aria-selected="false" data-grade="{{ grade }}">
                     <img src="{{ assets('/img/grades/'~grade~'.png') }}" width="22px" alt="{{ grade }}">
                     <span class="ml-2">{{ user[game_mode]['stats']['count_grade_' ~ (grade|lower)] }}</span>
@@ -11,8 +19,21 @@
         </div>
     </div>
     <div class="tab-content" id="tab-grades">
+        {% set found = false %}
+        {% set active = false %}
         {% for grade in grades %}
-            <div class="tab-pane" id="grades_{{ grade }}" role="tabpanel" aria-labelledby="grades_{{ grade }}">
+            {% if not found and user[game_mode]['stats']['count_grade_' ~ (grade|lower)] != 0 %}
+                {% set active = true %}
+                {% set found = true %}
+                <script>
+                    document.addEventListener("DOMContentLoaded", function (event) {
+                        loadGradeScores("{{ grade }}", "#loader-grades-{{ grade }}");
+                    });
+                </script>
+            {% else %}
+                {% set active = false %}
+            {% endif %}
+            <div class="tab-pane {{ active ? "fade show active" : "" }}" id="grades_{{ grade }}" role="tabpanel" aria-labelledby="grades_{{ grade }}">
                 <div>
                     <div class="table-responsive" id="leaderboard">
                         <table class="table align-items-center" id="table_{{ table }}">

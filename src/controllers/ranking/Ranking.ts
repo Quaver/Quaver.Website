@@ -5,6 +5,7 @@ import UserHelper from "../../utils/UserHelper";
 import Privileges from "../../enums/Privileges";
 import API from "../../api/API";
 import Logger from "../../logging/Logger";
+import MapsetRankingStatus from "../../enums/MapsetRankingStatus";
 
 export default class Ranking {
 
@@ -54,6 +55,11 @@ export default class Ranking {
         // Mapset doesn't exist or is hidden, so return a 404.
         if (!mapset)
             return Responses.ReturnMapsetNotFound(req, res);
+
+        if(mapset.ranking_queue_status === MapsetRankingStatus.Ranked) {
+            req.flash('error', "Mapset already ranked!");
+            return res.redirect('/mapset/' + mapset.id);
+        }
 
         // Check if logged user is Ranking Supervisor
         if (!UserHelper.HasPrivilege(req.user, Privileges.RankMapsets)) {

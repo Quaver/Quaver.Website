@@ -71,7 +71,7 @@ export default class Ranking {
 
         const response: any = await API.POST(req, `v1/mapsets/${req.params.id}/ranking/${action}`, {});
 
-        // req.flash('success', response.msg);
+        req.flash('success', response.msg);
         return res.redirect('/mapset/' + mapset.id + '/ranking');
     }
 

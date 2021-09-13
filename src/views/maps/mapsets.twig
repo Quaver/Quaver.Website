@@ -44,7 +44,16 @@
                             {% else %}
                                 <div class="qadge mapset-7k">7K</div>
                             {% endif %}
-                            {% if map.ranked_status == 2 %}
+                            {% if map.ranking_status == 0 %}
+                                <div class="qadge status-pending">Pending</div>
+							{# Denied = 1 -> Back to unranked #}
+                            {% elseif map.ranking_status == 2 %}
+                                <div class="qadge status-blacklisted">Blacklisted</div>
+                            {% elseif map.ranking_status == 3 %}
+                                <div class="qadge status-onhold">OnHold</div>
+                            {% elseif map.ranking_status == 4 %}
+                                <div class="qadge status-resolved">Resolved</div>
+                            {% elseif map.ranking_status == 5 %}
                                 <div class="qadge status-ranked">Ranked</div>
                             {% else %}
                                 <div class="qadge status-unranked">Unranked</div>

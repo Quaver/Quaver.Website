@@ -784,6 +784,22 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background: #F9645D;
 }
 
+.mapsets .status .status-pending {
+    background: #F2994A;
+}
+
+.mapsets .status .status-blacklisted {
+    background: #1f1f1f;
+}
+
+.mapsets .status .status-onhold {
+    background: #959299;
+}
+
+.mapsets .status .status-resolved {
+    background: #9468C3;
+}
+
 .mapsets .status .mapset-4k {
     background: #0587E5;
 }

@@ -1216,6 +1216,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #D761EB;
 }
 
+.difficulty-rating-extreme {
+    color: #7B61EB;
+}
+
+.difficulty-rating-master {
+    color: #B7B7B7;
+}
+
 #mobile-search {
     display: none;
 }

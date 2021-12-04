@@ -3,6 +3,7 @@ import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import GameModeHelper from "../../utils/GameModeHelper";
 import ModStatus from "../../enums/ModStatus";
+import ScoreboardType from "../../enums/ScoreboardType";
 import EnvironmentHelper from "../../utils/EnvironmentHelper";
 import TimeHelper from "../../utils/TimeHelper";
 
@@ -73,48 +74,8 @@ export default class Maps {
             if (!mapset)
                 return Responses.ReturnMapsetNotFound(req, res);
 
-            // Sort difficulties
-            mapset.maps = await Maps.SortDifficulties(mapset.maps);
-
-            mapset.descriptionRaw = mapset.description;
-
-            showdown.setFlavor('github');
-
-            mapset.description = sanitizeHtml(new showdown.Converter({
-                ghMentionsLink: EnvironmentHelper.baseUrl('/user/{u}')
-            }).makeHtml(mapset.description), {
-                allowedTags: allowedHTML,
-                allowedAttributes: {
-                    'a': ['href'],
-                    'span': ['style'],
-                    'img': ['src']
-                },
-                disallowedTagsMode: 'escape'
-            });
-
-            // The selected map in this case is the top difficulty
-            const map = mapset.maps[mapset.maps.length - 1];
-            const scores = await Maps.FetchMapScores(req, map.id);
-            const comments = await Maps.FetchSupervisorComments(req, mapset.id);
-
-            // Get logged user playlists
-            let playlists: any = null;
-
-            if (req.user) {
-                playlists = await Maps.FetchUserPlaylists(req, req.user.id, map.id);
-            }
-
-            Responses.Send(req, res, "map", `${mapset.artist} - ${mapset.title} by: ${mapset.creator_username} | Quaver`, {
-                mapset: mapset,
-                map: map,
-                scores: scores,
-                comments: comments,
-                gameMode: GameModeHelper.gameMode,
-                playlists: playlists,
-                description: `
-                BPM: ${map.bpm} | Length: ${TimeHelper.formatTime(map.length)}`,
-                image: EnvironmentHelper.assets('/img/mapset-image.jpg')
-            });
+            // Redirect to latest difficulty
+            return res.redirect('/mapset/map/' + mapset.maps[mapset.maps.length - 1].id);
         } catch (err) {
             Logger.Error(err);
             Responses.ReturnMapsetNotFound(req, res);
@@ -128,6 +89,23 @@ export default class Maps {
      */
     public static async MapGET(req: any, res: any): Promise<void> {
         try {
+            let scoreboardType = ScoreboardType.Global;
+            let scoreboardCountry = "";
+            let scoreboardModes = 0;
+
+            if (req.query.type || !isNaN(req.query.type))
+                scoreboardType = parseInt(req.query.type);
+
+            if(!(scoreboardType in ScoreboardType)) {
+                return Responses.ReturnMapsetNotFound(req, res);
+            }
+
+            if (req.query.country && req.query.type == ScoreboardType.Country)
+                scoreboardCountry = req.query.country;
+
+            if(req.query.modes && !isNaN(req.query.mods) && req.query.type == ScoreboardType.Rate)
+                scoreboardModes = req.query.modes;
+
             const map = await Maps.FetchMap(req, req.params.id);
 
             if (!map)
@@ -157,27 +135,29 @@ export default class Maps {
                 disallowedTagsMode: 'escape'
             });
 
-            const scores = await Maps.FetchMapScores(req, map.id);
+            const scores = await Maps.FetchMapScoreboard(req, map.id, scoreboardType, scoreboardModes, scoreboardCountry);
             const comments = await Maps.FetchSupervisorComments(req, mapset.id);
 
             // Get logged user playlists
             let playlists: any = null;
 
-            if (req.user) {
+            if (req.user)
                 playlists = await Maps.FetchUserPlaylists(req, req.user.id, map.id);
-            }
 
             Responses.Send(req, res, "map", `${mapset.artist} - ${mapset.title} by: ${mapset.creator_username} | Quaver`, {
                 mapset: mapset,
                 map: map,
-                scores: scores,
+                pb: scores.personalBest,
+                scores: scores.scores,
                 comments: comments,
                 gameMode: GameModeHelper.gameMode,
                 playlists: playlists,
                 description: `
                 BPM: ${map.bpm} | Length: ${TimeHelper.formatTime(map.length)}
                 Passes / Fails: ${map.play_count-map.fail_count} / ${map.fail_count}`,
-                image: EnvironmentHelper.assets('/img/mapset-image.jpg')
+                image: EnvironmentHelper.assets('/img/mapset-image.jpg'),
+                ScoreboardType: ScoreboardType,
+                SelectedScoreboardType: scoreboardType
             });
         } catch (err) {
             Logger.Error(err);
@@ -490,15 +470,25 @@ export default class Maps {
      * Fetches scores for an individual map
      * @param req
      * @param id
+     * @param type
+     * @param mods
+     * @param country
      */
-    private static async FetchMapScores(req: any, id: number): Promise<any[]> {
+    private static async FetchMapScoreboard(req: any, id: number, type: number = 0, mods: number = 0, country: string = ""): Promise<any[]> {
         try {
-            const response = await API.GET(req, `v1/scores/map/${id}`);
+            let params = {
+                type: type,
+                mods: mods,
+            }
+
+            if(country) params['country'] = country;
+
+            const response = await API.GET(req, `v1/scores/map/${id}/scoreboard`, params);
 
             if (response.status != 200)
                 return [];
 
-            return response.scores;
+            return response;
         } catch (err) {
             Logger.Error(err);
             return [];
@@ -551,6 +541,7 @@ export default class Maps {
      * Fetches logged user playlists
      * @param req
      * @param id
+     * @param map
      */
     private static async FetchUserPlaylists(req: any, id: number, map: number): Promise<any[]> {
         try {

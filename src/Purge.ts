@@ -45,7 +45,8 @@ export default class Purge {
                 'mod-accepted',
                 'mod-ignored',
                 'mod-pending',
-                'mod-denied'
+                'mod-denied',
+                'summary'
             ],
             variables: true,
             rejected: true

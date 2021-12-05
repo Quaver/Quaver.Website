@@ -20,6 +20,7 @@ import RankingQueue from "../controllers/maps/RankingQueue";
 import Ranking from "../controllers/ranking/Ranking";
 import Oauth2 from "../controllers/developers/Oauth2";
 import Applications from "../controllers/developers/Applications";
+import Modding from "../controllers/maps/Modding";
 
 export default class Router {
     /**
@@ -41,10 +42,10 @@ export default class Router {
         router.route('/mapsets/queue').get(RankingQueue.GET);
         router.route("/mapset/:id").get(Maps.MapsetGET);
         router.route("/mapset/map/:id").get(Maps.MapGET);
-        router.route("/mapset/map/:id/mods").get(Maps.ModsGET);
+        router.route("/mapset/map/:id/mods").get(Modding.ModsGET);
         router.route("/mapset/:id").post(Authentication.RequireLogin, Maps.HandlePost);
         router.route("/mapset/map/:id").post(Authentication.RequireLogin, Maps.HandlePost);
-        router.route("/mapset/map/:id/mods").post(Authentication.RequireLogin, Maps.HandlePostMods);
+        router.route("/mapset/map/:id/mods").post(Authentication.RequireLogin, Modding.HandlePostMods);
         router.route('/mapset/:id/ranking').get(Ranking.GET);
         router.route('/mapset/:id/ranking/:action').post(Authentication.RequireLogin, Ranking.POST);
         router.route('/mapset/:id/comment').post(Authentication.RequireLogin, Ranking.CommentPOST);

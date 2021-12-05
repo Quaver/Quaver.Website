@@ -36,6 +36,9 @@ export default class Modding {
 
             let mods = await Modding.FetchMods(req, map.id);
 
+            const matchSrc = new RegExp("src=['\"](?:[^\"'\\/]\\/)*([^'\"]+)['\"]");
+            const image = `data-src='$1' class="lazy"`;
+
             for (let mod in mods) {
                 mods[mod].mod.comment = sanitizeHtml(new showdown.Converter().makeHtml(mods[mod].mod.comment), {
                     allowedTags: allowedHTML,
@@ -48,6 +51,8 @@ export default class Modding {
                 });
                 // Replace <code> with link to editor
                 mods[mod].mod.comment = await Modding.ReplaceCode(mods[mod].mod.comment);
+                // Make images lazy load - ToDo replaceAll
+                mods[mod].mod.comment = mods[mod].mod.comment.replace(matchSrc, image);
 
                 // Mod replies
                 for (let reply in mods[mod].mod.replies) {
@@ -63,6 +68,8 @@ export default class Modding {
 
                     // Replace <code> with link to editor
                     mods[mod].mod.replies[reply].message.comment = await Modding.ReplaceCode(mods[mod].mod.replies[reply].message.comment);
+                    // Make images lazy load - ToDo replaceAll
+                    mods[mod].mod.replies[reply].message.comment = mods[mod].mod.replies[reply].message.comment.replace(matchSrc, image);
                 }
             }
 

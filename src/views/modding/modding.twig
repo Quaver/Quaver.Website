@@ -25,15 +25,22 @@
                         {% endif %}
 
                         <div class="modding-bottom">
-                            <div class="mod-type mod-type-{{ type }}" style="">
-                                {% if mod.mod.status == 'Accepted' %}
-                                    Accepted
-                                {% elseif mod.mod.status == 'Ignored' %}
-                                    Ignored
-                                {% elseif mod.mod.status == 'Pending' %}
-                                    Pending
-                                {% else %}
-                                    Denied
+                            <div class="d-flex justify-content-between">
+                                <div class="mod-type mod-type-{{ type }}" style="">
+                                    {% if mod.mod.status == 'Accepted' %}
+                                        Accepted
+                                    {% elseif mod.mod.status == 'Ignored' %}
+                                        Ignored
+                                    {% elseif mod.mod.status == 'Pending' %}
+                                        Pending
+                                    {% else %}
+                                        Denied
+                                    {% endif %}
+                                </div>
+                                {% if mod.mod.type != "None" %}
+                                    <div class="mod-type mod-type-{{ mod.mod.type|lower }}">
+                                        {{ mod.mod.type }}
+                                    </div>
                                 {% endif %}
                             </div>
                             <div class="card" id="mod_{{ mod.mod.id }}">
@@ -67,9 +74,8 @@
                                             </div>
                                             <div class="comment-action" style="float: right;">
                                                 <div class="dropdown float-right">
-                                                    <div class="mapset-buttons mod-type-{{ mod.mod.type|lower }}">
-                                                        {{ mod.mod.type }}
-                                                    </div>
+                                                    <a href="#" class="text-info"><i class="fas fa-pen"></i></a>
+                                                    <a href="#" class="text-danger"><i class="fa fa-times"></i></a>
                                                 </div>
                                             </div>
                                             {% if mod.mod.map_timestamp %}
@@ -113,9 +119,9 @@
                                                                 <div class="media-meta">{{ formatDateDistance(comment.message.timestamp) }}</div>
                                                             </div>
                                                         </div>
-                                                        <p>
+                                                        <div style="word-break: break-word;">
                                                             {{ comment.message.comment }}
-                                                        </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             {% endfor %}

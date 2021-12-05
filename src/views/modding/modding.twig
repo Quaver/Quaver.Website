@@ -72,12 +72,14 @@
                                             <div class="media-meta">
                                                 <a href="#mod_{{ mod.mod.id }}">Permalink</a>
                                             </div>
-                                            <div class="comment-action" style="float: right;">
-                                                <div class="dropdown float-right">
-                                                    <a href="#" class="text-info"><i class="fas fa-pen"></i></a>
-                                                    <a href="#" class="text-danger"><i class="fa fa-times"></i></a>
+                                            {% if mod.author.id == currentUser.id %}
+                                                <div class="comment-action" style="float: right;">
+                                                    <div class="dropdown float-right">
+                                                        <a href="#" class="text-info"><i class="fas fa-pen"></i></a>
+                                                        <a href="#" class="text-danger"><i class="fa fa-times"></i></a>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            {% endif %}
                                             {% if mod.mod.map_timestamp %}
                                                 <div class="modding-timestamp">
                                                     <a href="quaver://editor/{{ mod.mod.map_timestamp }}">

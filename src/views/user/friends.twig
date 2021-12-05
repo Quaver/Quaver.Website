@@ -28,11 +28,11 @@
                             </div>
                         {% endif %}
                         {% for friend in friends %}
-                            {% set cover = assets("/img/cover.jpg") %}
-                            {% if IsDonator(friend.usergroups) %}
-                                {% set cover = "https://cdn.quavergame.com/profile-covers/"~friend.user_id~".jpg" %}
-                            {% endif %}
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-3" id="player_{{ friend.user_id }}">
+                                {% set cover = assets("/img/cover.jpg") %}
+                                {% if IsDonator(friend.usergroups) %}
+                                    {% set cover = "https://cdn.quavergame.com/profile-covers/"~friend.user_id~".jpg" %}
+                                {% endif %}
                                 {% include "helpers/player-card.twig" with {player: friend, cover: cover, friends: true} %}
                             </div>
                         {% endfor %}
@@ -45,6 +45,15 @@
 
 {% block scripts %}
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            $(document).on('click', '.remove-friend', function () {
+                const userId = $(this).data('user-id');
+                $('#player_' + userId).remove();
 
+                $.post(baseUrl() + `/friend/remove`, {
+                    id: userId
+                }, function (data) {});
+            })
+        });
     </script>
 {% endblock %}

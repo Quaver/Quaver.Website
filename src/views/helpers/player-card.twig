@@ -1,9 +1,12 @@
-<div class="player-card" id="player_{{ player.user_id }}">
+<div class="player-card">
     <div class="offset-card">
         <div class="player-cover lazy"
              data-bg-multi="linear-gradient(360deg, rgb(26, 26, 32) 1%, rgba(26, 26, 32, 0.5) 100%), url({{ cover }})">
             {% if friends %}
-                <div class="player-badge remove-friend">
+                <div class="player-badge remove-friend" data-toggle="tooltip"
+                     data-placement="top" title="" data-original-title="Remove friend"
+                    data-user-id="{{ player.user_id }}"
+                >
                     {% if player.mutual %}
                         <div class="player-mutual">
                             <i class="fas fa-heart"></i>

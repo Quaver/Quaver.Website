@@ -1682,6 +1682,123 @@ summary {
     display: none;
 }
 
+.player-card {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.player-card .player-cover {
+    height: 110px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.player-card .player-stats {
+    background: #363636;
+    height: 40px;
+    padding-left: 50px;
+    font-size: 13px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.player-card .player-avatar img {
+    outline: 4px solid #242424;
+    border-radius: 12px;
+}
+
+.player-card .offset-card {
+    margin-left: 50px;
+}
+
+.player-card .player-avatar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 90px;
+    height: 90px;
+}
+
+.player-card .player-info {
+    position: absolute;
+    bottom: 5px;
+    left: 50px;
+}
+
+.player-card .player-name .player-s {
+    font-size: 12px;
+    margin-top: 0;
+}
+
+.player-card .player-name .player-s .offline {
+    width: 10px;
+    height: 10px;
+}
+
+.player-card .player-stats .player-gr {
+    color: #F2C94C;
+}
+
+.player-card .player-mode {
+    width: 48px;
+    height: 16px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.player-card .player-mode-keys4 {
+    background: #0587E5;
+    border-radius: 12px;
+}
+
+.player-card .player-mode-keys7 {
+    background: #9B51E0;
+    border-radius: 12px;
+}
+
+.player-card .player-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.player-card .player-badge .player-friend {
+    background: #0587E5;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    padding: 6px;
+    border-radius: 50%;
+    font-weight: 700;
+    line-height: 1;
+    font-size: 13px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+
+.player-card .player-badge .player-mutual {
+    background: #FDAAFF;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    padding: 6px;
+    border-radius: 50%;
+    font-weight: 700;
+    line-height: 1;
+    font-size: 13px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+
 /* Donator */
 
 .perks {

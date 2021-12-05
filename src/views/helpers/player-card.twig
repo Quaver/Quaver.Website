@@ -1,0 +1,51 @@
+<div class="player-card" id="player_{{ player.user_id }}">
+    <div class="offset-card">
+        <div class="player-cover lazy"
+             data-bg-multi="linear-gradient(360deg, rgb(26, 26, 32) 1%, rgba(26, 26, 32, 0.5) 100%), url({{ cover }})">
+            {% if friends %}
+                <div class="player-badge remove-friend">
+                    {% if player.mutual %}
+                        <div class="player-mutual">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    {% else %}
+                        <div class="player-friend">
+                            <i class="far fa-user"></i>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="player-info">
+                <div class="player-name">
+                    <div class="player-n">
+                        <a href="{{ baseUrl('/user/'~player.user_id) }}">
+                            <img data-src="{{ assets('/img/flags/'~player.country~'.png') }}"
+                                 alt="{{ player.country|upper }}" class="lazy"> {{ player.username }}
+                        </a>
+                    </div>
+                    <div class="player-s status">
+                        {% if player.online %}
+                            <span class="circle online"></span>
+                            Online
+                        {% else %}
+                            <span class="circle offline"></span>
+                            Offline
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {#            <div class="player-mode"> #}
+            {#                <div class="player-mode-keys4">4K</div> #}
+            {#            </div> #}
+        </div>
+        {#        <div class="player-stats"> #}
+        {#            <div class="player-gr">Global ranking: <span>#1,234</span></div> #}
+        {#            <div class="player-or">Overall rating: <span>999.2</span></div> #}
+        {#        </div> #}
+    </div>
+    <div class="player-avatar">
+        <a href="{{ baseUrl('/user/'~player.user_id) }}">
+            <img data-src="{{ player.avatar_url }}" class="lazy" alt="{{ player.username }}">
+        </a>
+    </div>
+</div>

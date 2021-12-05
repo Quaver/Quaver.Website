@@ -32,36 +32,8 @@
                             {% if IsDonator(friend.usergroups) %}
                                 {% set cover = "https://cdn.quavergame.com/profile-covers/"~friend.user_id~".jpg" %}
                             {% endif %}
-                            <div class="col-md-4 mb-3 visit" data-id="{{ friend.user_id }}">
-                                <div class="avatar-card d-flex justify-content-between lazy {{ (friend.online ? 'friend-online' : 'friend-offline') }}"
-                                        style="background-size: cover; background-position: center center;"
-                                        data-bg-multi="linear-gradient(360deg, rgb(26, 26, 32) 1%, rgba(26, 26, 32, 0.5) 100%), url({{ cover }})">
-                                    <div class="avatar-title">
-                                        <img src="{{ assets('/img/flags/'~friend.country~'.png') }}" alt="{{ friend.country }}">
-                                        {{ friend.username }}
-                                    </div>
-                                    <div class="avatar-badge">
-                                        {% if friend.avatar_url %}
-                                            <img src="{{ friend.avatar_url }}" alt="{{ friend.username }}">
-                                        {% else %}
-                                            <img src="{{ assets('/img/noavatar.jpg') }}" alt="{{ friend.username }}">
-                                        {% endif %}
-                                        <form method="POST" accept-charset="UTF-8">
-                                            <input type="hidden" name="id" value="{{ friend.user_id }}">
-                                            {% if friend.mutual %}
-                                                <a class="badge mutual" onclick="this.closest('form').submit();return false;"
-                                                        data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove friend">
-                                                    <i class="fas fa-heart"></i>
-                                                </a>
-                                            {% else %}
-                                                <a class="badge badge-primary" onclick="this.closest('form').submit();return false;"
-                                                        data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove friend">
-                                                    <i class="far fa-user"></i>
-                                                </a>
-                                            {% endif %}
-                                        </form>
-                                    </div>
-                                </div>
+                            <div class="col-md-4 mb-3">
+                                {% include "helpers/player-card.twig" with {player: friend, cover: cover, friends: true} %}
                             </div>
                         {% endfor %}
                     </div>
@@ -71,52 +43,8 @@
     </section>
 {% endblock %}
 
-{% block style %}
-    <style>
-        .avatar-card {
-            background: #1A1A1A;
-        }
-
-        .friend-online {
-            border-left-color: #28a745;
-        }
-
-        .friend-offline {
-            border-left-color: #dc3545;
-        }
-
-        .avatar-card img {
-            transition: none;
-        }
-
-        .avatar-card .avatar-title img {
-            width: auto;
-            height: auto;
-            border-radius: unset;
-        }
-
-        .avatar-card:hover {
-            border-top-color: transparent;
-            border-bottom-color: transparent;
-            border-right-color: transparent;
-            border-left-color: #45D6F5;
-            cursor: pointer;
-        }
-
-        .avatar-card .btn-xs {
-            padding: 0 8px;
-
-        }
-    </style>
-{% endblock %}
-
 {% block scripts %}
     <script>
-        $(document).on('click', '.visit', function (e) {
-            const id = $(this).data('id');
-            if(!$(e.target).closest('a').length) {
-                window.location.href = baseUrl() + "/user/" + id;
-            }
-        });
+
     </script>
 {% endblock %}

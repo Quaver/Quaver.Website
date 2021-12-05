@@ -626,13 +626,13 @@ summary {
 
 .feed {
     margin-bottom: 0;
-    color: #CACACA;
+    color: #FFFFFF;
     width: 100%;
     padding: 0;
 }
 
 .feed .timestamp {
-    color: #808080;
+    color: #cacaca;
     background: transparent;
     transition: none;
     padding: 0;
@@ -1884,7 +1884,8 @@ summary {
     color: #5b5b5b;
     font-weight: 500;
     margin: 0 10px;
-    border-radius: 8px;
+    border-radius: 32px;
+    line-height: 1.1;
 }
 
 #donator .btn:first-child {

@@ -20,7 +20,7 @@
                     <h5 class="text-white">
                         {% if IsDonator(currentUser.usergroups) %}
                             Your donator perks will expire on
-                            <strong>{{ formatDate(orders.donatorEndTime, true) }}</strong>.
+                            <strong style="color: #F2C94C">{{ formatDate(orders.donatorEndTime, true) }}</strong>.
                         {% else %}
                             You currently do not have an active donator subscription.
                         {% endif %}

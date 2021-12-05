@@ -95,14 +95,13 @@ export default class Maps {
             if (req.query.type || !isNaN(req.query.type))
                 scoreboardType = parseInt(req.query.type);
 
-            if(!(scoreboardType in ScoreboardType)) {
-                return Responses.ReturnMapsetNotFound(req, res);
-            }
+            if (!(scoreboardType in ScoreboardType))
+                return Responses.ReturnCustom(req, res, "Invalid Type", "Invalid Scoreboard Type");
 
             if (req.query.country && req.query.type == ScoreboardType.Country)
                 scoreboardCountry = req.query.country;
 
-            if(req.query.modes && !isNaN(req.query.mods) && req.query.type == ScoreboardType.Rate)
+            if (req.query.modes && !isNaN(req.query.mods) && req.query.type == ScoreboardType.Rate)
                 scoreboardModes = req.query.modes;
 
             const map = await Maps.FetchMap(req, req.params.id);
@@ -153,7 +152,7 @@ export default class Maps {
                 playlists: playlists,
                 description: `
                 BPM: ${map.bpm} | Length: ${TimeHelper.formatTime(map.length)}
-                Passes / Fails: ${map.play_count-map.fail_count} / ${map.fail_count}`,
+                Passes / Fails: ${map.play_count - map.fail_count} / ${map.fail_count}`,
                 image: EnvironmentHelper.assets('/img/mapset-image.jpg'),
                 ScoreboardType: ScoreboardType,
                 SelectedScoreboardType: scoreboardType
@@ -301,7 +300,7 @@ export default class Maps {
                 mods: mods,
             }
 
-            if(country) params['country'] = country;
+            if (country) params['country'] = country;
 
             const response = await API.GET(req, `v1/scores/map/${id}/scoreboard`, params);
 

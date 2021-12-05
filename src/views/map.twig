@@ -7,69 +7,65 @@
             {% include "layouts/alert.twig" %}
             {% include 'maps/info.twig' %}
 
-            <div>
-                <div class="widget">
-                    <div class="widget-header d-flex justify-content-between">
-                        Leaderboard
-                        {% if map.ranked_status == 2 %}
-                            <span class="mapset-buttons ranked">Ranked</span>
-                        {% else %}
-                            <span class="mapset-buttons unranked">Unranked</span>
-                        {% endif %}
-                    </div>
+            <div class="widget">
+                <div class="widget-header d-flex justify-content-between">
+                    Leaderboard
+                    {% if map.ranked_status == 2 %}
+                        <span class="mapset-buttons ranked">Ranked</span>
+                    {% else %}
+                        <span class="mapset-buttons unranked">Unranked</span>
+                    {% endif %}
                 </div>
-                <div class="card">
-                    <div class="card-header transparent p-0 border-0">
-                        <div class="nav-tab-scroll">
-                            <div class="nav nav-tabs" id="tab" role="tablist">
-                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Global) ? 'active' : '' }}"
-                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Global) }}">Global</a>
-                                {% if currentUser %}
-                                    <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Country) ? 'active' : '' }}"
-                                       href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Country~'&country='~currentUser.country) }}">Country</a>
-                                {% endif %}
-                                {#                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Mods) ? 'active' : '' }}"#}
-                                {#                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Mods) }}">Mods</a>#}
-                                {#                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Rate) ? 'active' : '' }}"#}
-                                {#                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Rate) }}">Rate</a>#}
-                                {% if currentUser %}
-                                    <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Friends) ? 'active' : '' }}"
-                                       href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Friends) }}">Friends</a>
-                                {% endif %}
+            </div>
+            <div class="card">
+                <div class="card-header transparent p-0 border-0">
+                    <div class="nav-tab-scroll">
+                        <div class="nav nav-tabs">
+                            <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Global) ? 'active' : '' }}"
+                               href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Global) }}">Global</a>
+                            {% if currentUser %}
+                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Country) ? 'active' : '' }}"
+                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Country~'&country='~currentUser.country) }}">Country</a>
+                                {#                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Mods) ? 'active' : '' }}" #}
+                                {#                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Mods) }}">Mods</a> #}
+                                {#                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Rate) ? 'active' : '' }}" #}
+                                {#                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Rate) }}">Rate</a> #}
+                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Friends) ? 'active' : '' }}"
+                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Friends) }}">Friends</a>
                                 <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.All) ? 'active' : '' }}"
                                    href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.All) }}">All</a>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="card-body table-responsive" style="padding: 0;" id="leaderboard">
-                        <table class="table align-items-center">
-                            <thead>
-                            <tr style="font-size: 12px;">
-                                <th scope="col">#</th>
-                                <th scope="col">Grade</th>
-                                <th scope="col" class="player">Player</th>
-                                <th scope="col">Perf. Rating</th>
-                                <th scope="col">Accuracy</th>
-                                <th scope="col">Max Combo</th>
-                                <th scope="col">Marvelous</th>
-                                <th scope="col">Perfect</th>
-                                <th scope="col">Great</th>
-                                <th scope="col">Good</th>
-                                <th scope="col">Okay</th>
-                                <th scope="col">Miss</th>
-                                <th scope="col">Mods</th>
-                            </tr>
-                            </thead>
-                            <tbody style="font-size: 14px;">
-                            {% if pb %}
-                                {% include "maps/map-scores.twig" with {index: "PB", score: pb} %}
-                            {% endif %}
-                            {% for score in scores %}
-                                {% include "maps/map-scores.twig" with {index: loop.index, score: score} %}
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                </div>
+                <div class="card-body table-responsive p-0" id="leaderboard">
+                    <table class="table align-items-center">
+                        <thead>
+                        <tr style="font-size: 12px;">
+                            <th scope="col">#</th>
+                            <th scope="col">Grade</th>
+                            <th scope="col" class="player">Player</th>
+                            <th scope="col">Perf. Rating</th>
+                            <th scope="col">Accuracy</th>
+                            <th scope="col">Max Combo</th>
+                            <th scope="col">Marvelous</th>
+                            <th scope="col">Perfect</th>
+                            <th scope="col">Great</th>
+                            <th scope="col">Good</th>
+                            <th scope="col">Okay</th>
+                            <th scope="col">Miss</th>
+                            <th scope="col">Mods</th>
+                        </tr>
+                        </thead>
+                        <tbody style="font-size: 14px;">
+                        {% if pb %}
+                            {% include "maps/map-scores.twig" with {index: "PB", score: pb} %}
+                        {% endif %}
+                        {% for score in scores %}
+                            {% include "maps/map-scores.twig" with {index: loop.index, score: score} %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -18,13 +18,15 @@
 
     <section class="py-lg-5">
         <div class="container">
-            {% if slug != "hits" %}
+            {% if slug != "hits" and slug != "country" %}
                 <div class="nav-tab-scroll" id="mode-tabs">
                     <div class="nav nav-tabs {% if mode == 1 %}keys4{% else %}keys7{% endif %}">
-                        <a class="nav-item nav-link {% if mode == 1 %}active-keys4{% else %}tab-keys4{% endif %}" href="/leaderboard{% if leaderboardType == 3 %}/multiplayer{% endif %}?mode=1{{ (country) ? country : '' }}">
+                        <a class="nav-item nav-link {% if mode == 1 %}active-keys4{% else %}tab-keys4{% endif %}"
+                           href="/leaderboard{% if leaderboardType == 3 %}/multiplayer{% endif %}?mode=1{{ (country) ? country : '' }}">
                             4 Keys
                         </a>
-                        <a class="nav-item nav-link {% if mode == 2 %}active-keys7{% else %}tab-keys7{% endif %}" href="/leaderboard{% if leaderboardType == 3 %}/multiplayer{% endif %}?mode=2{{ (country) ? country : '' }}">
+                        <a class="nav-item nav-link {% if mode == 2 %}active-keys7{% else %}tab-keys7{% endif %}"
+                           href="/leaderboard{% if leaderboardType == 3 %}/multiplayer{% endif %}?mode=2{{ (country) ? country : '' }}">
                             7 Keys
                         </a>
                     </div>

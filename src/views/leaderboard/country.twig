@@ -1,0 +1,30 @@
+<div class="table-responsive" id="leaderboard" style="margin-top: 1rem;">
+    <table class="table align-items-center">
+        <thead>
+        <tr>
+            <th scope="col" style="width: 5%;"></th>
+            <th scope="col" style="width: 80%;"></th>
+            <th scope="col">Players</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for country in countries %}
+            <tr>
+                <td>
+                    {{ loop.index }}
+                </td>
+                <td>
+                    <a href="{{ baseUrl('/leaderboard?country='~country.country|lower~'&mode='~1) }}">
+                        <img data-src="{{ assets('/img/flags/'~country.country~'.png') }}"
+                             alt="{{ country.country }}" onerror="this.src='{{ assets('/img/flags/xx.png') }}'"
+                             class="lazy"> {{ countryList[country.country|upper]??'Unknown' }}
+                    </a>
+                </td>
+                <td>
+                    {{ country.users|number_format }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

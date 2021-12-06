@@ -48,7 +48,7 @@ export default class Leaderboard {
             const stats = await API.GET(req, "v1/stats/country");
             const sortedCountries = await Leaderboard.TopCountries(stats.countries);
 
-            Responses.Send(req, res, "leaderboard", "Countries | Quaver", {
+            Responses.Send(req, res, "leaderboard", "Countries Leaderboard | Quaver", {
                 leaderboardType: LeaderboardType.Country,
                 slug: 'country',
                 countries: sortedCountries,

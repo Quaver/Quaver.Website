@@ -15,7 +15,7 @@
                 </td>
                 <td>
                     <a href="{{ baseUrl('/leaderboard?country='~country.country|lower~'&mode='~1) }}">
-                        <img data-src="{{ assets('/img/flags/'~country.country~'.png') }}"
+                        <img data-src="{{ assets('/img/flags/'~country.country|upper~'.png') }}"
                              alt="{{ country.country }}" onerror="this.src='{{ assets('/img/flags/xx.png') }}'"
                              class="lazy"> {{ countryList[country.country|upper]??'Unknown' }}
                     </a>

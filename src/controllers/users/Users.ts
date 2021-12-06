@@ -31,7 +31,7 @@ export default class Users {
                 return;
             }
 
-            if(!req.query.mode && user.info.information.default_mode !== undefined && !isNaN(user.info.information.default_mode)) {
+            if(!req.query.mode && user.info.information && user.info.information.default_mode !== undefined && !isNaN(user.info.information.default_mode)) {
                 mode = user.info.information.default_mode;
             }
 

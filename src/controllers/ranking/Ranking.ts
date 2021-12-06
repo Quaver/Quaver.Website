@@ -6,6 +6,7 @@ import Privileges from "../../enums/Privileges";
 import API from "../../api/API";
 import Logger from "../../logging/Logger";
 import MapsetRankingStatus from "../../enums/MapsetRankingStatus";
+import Modding from "../maps/Modding";
 
 export default class Ranking {
 
@@ -26,7 +27,7 @@ export default class Ranking {
 
         // Get modding count
         for(const map of mapset.maps) {
-            let mods = await Maps.FetchMods(req, map.id);
+            let mods = await Modding.FetchMods(req, map.id);
             map.count = mods.length;
         }
 

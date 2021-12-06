@@ -1306,6 +1306,17 @@ summary {
     transition: .5s;
 }
 
+#playlists select {
+    background-color: #181818 !important;
+    border: none;
+    border-radius: 4px;
+    -webkit-appearance: auto !important;
+    -moz-appearance: auto !important;
+    appearance: auto !important;
+}
+
+
+
 #playlists .custom-file-label {
     background-color: #181818;
     border: none;
@@ -1327,7 +1338,8 @@ summary {
 
 #filters input:focus,
 #playlists input:focus,
-#playlists textarea:focus {
+#playlists textarea:focus,
+#playlists select:focus {
     background-color: #393939;
     border-color: #393939;
     -webkit-box-shadow: none;

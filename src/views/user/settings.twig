@@ -18,6 +18,21 @@
             {% include "layouts/alert.twig" %}
             <form action="{{ baseUrl('/settings') }}" method="post">
                 <div class="widget mt-4">
+                    <div class="widget-header">Profile Settings</div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Default mode</label>
+                            <select name="information[default_mode]" class="form-control">
+                                <option value="1" {% if not information.default_mode or information.default_mode == 1 %} selected {% endif %}>Keys 4</option>
+                                <option value="2" {% if information.default_mode == 2 %}selected{% endif %}>Keys 7</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" type="submit" name="submit">Save</button>
+                    </div>
+                </div>
+                <div class="widget mt-4">
                     <div class="widget-header">Profile Information</div>
                 </div>
                 <div class="card">

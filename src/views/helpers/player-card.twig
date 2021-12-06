@@ -5,8 +5,7 @@
             {% if friends %}
                 <div class="player-badge remove-friend" data-toggle="tooltip"
                      data-placement="top" title="" data-original-title="Remove friend"
-                    data-user-id="{{ player.user_id }}"
-                >
+                     data-user-id="{{ player.user_id }}">
                     {% if player.mutual %}
                         <div class="player-mutual">
                             <i class="fas fa-heart"></i>
@@ -37,14 +36,23 @@
                     </div>
                 </div>
             </div>
-            {#            <div class="player-mode"> #}
-            {#                <div class="player-mode-keys4">4K</div> #}
-            {#            </div> #}
+            {% if player.information.default_mode and player.information.default_mode == 2 %}
+                {% set game_mode = 'keys7' %}
+                <div class="player-mode">
+                    <div class="player-mode-keys7">7K</div>
+                </div>
+            {% else %}
+                {% set game_mode = 'keys4' %}
+                <div class="player-mode">
+                    <div class="player-mode-keys4">4K</div>
+                </div>
+            {% endif %}
         </div>
-        {#        <div class="player-stats"> #}
-        {#            <div class="player-gr">Global ranking: <span>#1,234</span></div> #}
-        {#            <div class="player-or">Overall rating: <span>999.2</span></div> #}
-        {#        </div> #}
+        <div class="player-stats">
+            <div class="player-gr">Global ranking: <span>#{{ player[game_mode].globalRank|number_format }}</span></div>
+            <div class="player-or">Overall rating:
+                <span>{{ player[game_mode].stats.overall_performance_rating|number_format(2) }}</span></div>
+        </div>
     </div>
     <div class="player-avatar">
         <a href="{{ baseUrl('/user/'~player.user_id) }}">

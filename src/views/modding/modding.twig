@@ -82,8 +82,8 @@
 {#                                            {% endif %}#}
                                             {% if mod.mod.map_timestamp %}
                                                 <div class="modding-timestamp">
-                                                    <a href="quaver://editor/{{ mod.mod.map_timestamp }}">
-                                                        <span class="">{{ mod.mod.map_timestamp_readable }}</span>
+                                                    <a href="quaver://editor/{{ mod.mod.map_timestamp|escape }}">
+                                                        <span class="">{{ mod.mod.map_timestamp_readable|escape }}</span>
                                                     </a>
                                                 </div>
                                                 <br>

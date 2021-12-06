@@ -34,7 +34,7 @@
                                 {% if text == "" %}
                                     <span style="display: block; margin-top: 10px;"></span>
                                 {% else %}
-                                    {{ text }}
+                                    {{ text|escape }}
                                 {% endif %}
                             {% endfor %}
                         </p>

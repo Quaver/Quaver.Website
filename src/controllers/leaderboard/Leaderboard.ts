@@ -2,6 +2,7 @@ import Logger from "../../logging/Logger";
 import Responses from "../../utils/Responses";
 import API from "../../api/API";
 import LeaderboardType from "./LeaderboardType";
+import IsoCountries from "../../utils/IsoCountries";
 
 export default class Leaderboard {
     /**
@@ -40,6 +41,41 @@ export default class Leaderboard {
             Logger.Error(err);
             Responses.Return500(req, res);
         }
+    }
+
+    public static async CountriesGET(req: any, res: any): Promise<void> {
+        try {
+            const stats = await API.GET(req, "v1/stats/country");
+            const sortedCountries = await Leaderboard.TopCountries(stats.countries);
+
+            Responses.Send(req, res, "leaderboard", "Countries Leaderboard | Quaver", {
+                leaderboardType: LeaderboardType.Country,
+                slug: 'country',
+                countries: sortedCountries,
+                countryList: IsoCountries.Countries
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.Return500(req, res);
+        }
+    }
+
+    private static async TopCountries(countries: any): Promise<any> {
+        let newList = [];
+
+        Object.keys(countries)
+            .forEach(function(v, i) {
+                if(v !== "total") newList.push({
+                    country: v,
+                    users: countries[v]
+                })
+            });
+
+        return newList.sort( (a, b) => {
+            if(a.users < b.users) return -1;
+            if(a.users > b.users) return 1;
+            return 0;
+        }).reverse();
     }
 
     /**

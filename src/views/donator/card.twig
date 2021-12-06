@@ -1,4 +1,5 @@
-<div style="background: url({{ assets("/img/donator_card.jpg") }}) center center; background-size: cover;" class="donator-card"></div>
+{% set cover = "https://cdn.quavergame.com/profile-covers/"~player.id~".jpg" %}
+<div style="background: linear-gradient(360deg, rgb(26, 26, 32) 1%, rgba(26, 26, 32, 0.5) 100%), url({{ cover }}), url({{ assets("/img/donator_card.jpg") }}) center center; background-size: cover;" class="donator-card"></div>
 <div class="donator-border">
     <div class="d-flex">
         <div class="donator-avatar">

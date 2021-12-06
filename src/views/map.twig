@@ -6,6 +6,7 @@
         <div class="container">
             {% include "layouts/alert.twig" %}
             {% include 'maps/info.twig' %}
+
             <div class="widget">
                 <div class="widget-header d-flex justify-content-between">
                     Leaderboard
@@ -16,8 +17,28 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="card" id="leaderboard">
-                <div class="card-body table-responsive" style="padding: 0;">
+            <div class="card">
+                <div class="card-header transparent p-0 border-0">
+                    <div class="nav-tab-scroll">
+                        <div class="nav nav-tabs">
+                            <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Global) ? 'active' : '' }}"
+                               href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Global) }}">Global</a>
+                            {% if currentUser %}
+                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Country) ? 'active' : '' }}"
+                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Country~'&country='~currentUser.country) }}">Country</a>
+                                {#                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Mods) ? 'active' : '' }}" #}
+                                {#                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Mods) }}">Mods</a> #}
+                                {#                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Rate) ? 'active' : '' }}" #}
+                                {#                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Rate) }}">Rate</a> #}
+                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.Friends) ? 'active' : '' }}"
+                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.Friends) }}">Friends</a>
+                                <a class="nav-item nav-link {{ (SelectedScoreboardType == ScoreboardType.All) ? 'active' : '' }}"
+                                   href="{{ baseUrl('/mapset/map/'~map.id~'?type='~ScoreboardType.All) }}">All</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body table-responsive p-0" id="leaderboard">
                     <table class="table align-items-center">
                         <thead>
                         <tr style="font-size: 12px;">
@@ -37,129 +58,17 @@
                         </tr>
                         </thead>
                         <tbody style="font-size: 14px;">
+                        {% if pb %}
+                            {% include "maps/map-scores.twig" with {index: "PB", score: pb} %}
+                        {% endif %}
                         {% for score in scores %}
-                            <tr>
-                                <td>{{ loop.index }}</td>
-                                <td>
-                                    <img src="{{ assets('/img/grades/'~score.grade~'.png') }}" alt="{{ score.grade }}" title="{{ score.grade }}" width="30px" height="30px">
-                                </td>
-                                <td style="text-align: left;" class="player">
-                                    <a href="{{ baseUrl('/leaderboard?country='~score.user.country|lower) }}">
-                                        <img src="{{ assets('/img/flags/'~score.user.country~'.png') }}" alt="{{ score.user.country }}">
-                                    </a>
-                                    <a href="{{ baseUrl('/user/'~score.user.id) }}">{{ score.user.username }}</a>
-                                </td>
-                                <td>
-                                    <b>{{ score.performance_rating|number_format(2) }}</b>
-                                </td>
-                                <td>{{ score.accuracy|number_format(2) }}%</td>
-                                <td>{{ score.max_combo|number_format(0, '.', ',') }}x</td>
-                                <td style="color: rgba(251, 255, 182, 1);">{{ score.count_marv|number_format(0, '.', ',') }}</td>
-                                <td style="color: rgba(242, 201, 76, 1);">{{ score.count_perf|number_format(0, '.', ',') }}</td>
-                                <td style="color: rgba(86, 254, 110,1);">{{ score.count_great|number_format(0, '.', ',') }}</td>
-                                <td style="color: rgba(15, 186, 229, 1);">{{ score.count_good|number_format(0, '.', ',') }}</td>
-                                <td style="color: rgba(238, 95, 172, 1);">{{ score.count_okay|number_format(0, '.', ',') }}</td>
-                                <td style="color: rgba(249, 100, 93, 1);">{{ score.count_miss|number_format(0, '.', ',') }}</td>
-                                <td>{{ score.mods_string }}</td>
-                            </tr>
+                            {% include "maps/map-scores.twig" with {index: loop.index, score: score} %}
                         {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-{#        <div class="container">#}
-{#            <div class="widget">#}
-{#                <div class="widget-header d-flex justify-content-between">#}
-{#                    Ranking Queue Comments#}
-{#                    <div>#}
-{#                        {% if mapset.ranking_queue_status == 0 %}#}
-{#                            <span class="mapset-buttons pending">Pending</span>#}
-{#                        {% elseif mapset.ranking_queue_status == 1 %}#}
-{#                            <span class="mapset-buttons denied">Denied For Rank</span>#}
-{#                        {% elseif mapset.ranking_queue_status == 2 %}#}
-{#                            <span class="mapset-buttons blacklisted">Blacklisted</span>#}
-{#                        {% elseif mapset.ranking_queue_status == 3 %}#}
-{#                            <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">On Hold</span>#}
-{#                        {% elseif mapset.ranking_queue_status == 4 %}#}
-{#                            <span class="mapset-buttons blacklisted" style="background-color: #5B5B5B;">Resolved</span>#}
-{#                        {% endif %}#}
-{#                        <span class="mapset-buttons btn-info">#}
-{#                            {% if map.ranked_status == 2 %}#}
-{#                                2/2#}
-{#                            {% else %}#}
-{#                                {% if mapset.ranking_queue_vote_count %}#}
-{#                                    {{ mapset.ranking_queue_vote_count }}/2#}
-{#                                {% else %}#}
-{#                                    0/2#}
-{#                                {% endif %}#}
-{#                            {% endif %}#}
-{#                            Supervisor Votes#}
-{#                        </span>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="card" id="comments">#}
-{#                <div class="card-body">#}
-{#                    <div id="comments" class="comments">#}
-{#                        {% if not comments|length %}No Comments{% endif %}#}
-{#                        {% for comment in comments %}#}
-{#                            <div class="media">#}
-{#                                <div class="avatar">#}
-{#                                    <a class="h6" href="{{ baseUrl('/user/'~comment.user.id) }}">#}
-{#                                        <img src="{{ comment.user.avatar_url }}" alt="{{ comment.user.username }}">#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                                <div class="media-body">#}
-{#                                    <div class="d-md-flex d-sm-block">#}
-{#                                        <a class="h6" href="{{ baseUrl('/user/'~comment.user.id) }}">{{ comment.user.username }}</a>#}
-{#                                        <div class="media-meta">#}
-{#                                            {% if map.creator_id == comment.user.id %}#}
-{#                                                <span>Creator</span>#}
-{#                                            {% elseif HasGroup(comment.user, UserGroups.Developer) %}#}
-{#                                                <span class="text-color-developer">Developer</span>#}
-{#                                            {% elseif HasGroup(comment.user, UserGroups.Admin) %}#}
-{#                                                <span class="text-color-admin">Administrator</span>#}
-{#                                            {% elseif HasGroup(comment.user, UserGroups.Moderator) %}#}
-{#                                                <span class="text-color-moderator">Moderator</span>#}
-{#                                            {% elseif HasGroup(comment.user, UserGroups.RankingSupervisor) %}#}
-{#                                                <span class="text-color-ranking-supervisor">Ranking Supervisor</span>#}
-{#                                            {% else %}#}
-{#                                                <span>User</span>#}
-{#                                            {% endif %}#}
-{#                                        </div>#}
-{#                                        <div class="media-meta" data-toggle="tooltip" title="{{ formatDate(comment.timestamp) }}">{{ formatDateDistance(comment.timestamp) }}</div>#}
-{#                                    </div>#}
-{#                                    <p>#}
-{#                                        {% for text in comment.comment %}#}
-{#                                            {% if text == "" %}#}
-{#                                                <span style="display: block; margin-top: 10px;"></span>#}
-{#                                            {% else %}#}
-{#                                                {{ text }}#}
-{#                                            {% endif %}#}
-{#                                        {% endfor %}#}
-{#                                    </p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
-{#                    </div>#}
-{#                    {% if currentUser %}#}
-{#                        {% if map.ranked_status != 2 and (mapset.ranking_queue_status and mapset.ranking_queue_status != 2) and (HasPrivilege(currentUser, Privileges.RankMapsets)#}
-{#                            or (currentUser.id == map.creator_id )) %}#}
-{#                            <h5 class="mt-5">Leave a comment</h5>#}
-{#                            <form method="post" accept-charset="UTF-8">#}
-{#                                <input type="hidden" name="mapset_id" value="{{ mapset.id }}">#}
-{#                                <div class="form-group mb-4">#}
-{#                                    <textarea class="form-control queue-comment-textarea" rows="5" name="comment"></textarea>#}
-{#                                    <small class="form-text text-muted">Your comment must be between 0 and 2,000 characters!</small>#}
-{#                                </div>#}
-{#                                <input type="submit" class="btn btn-primary" name="submit_comment" value="Submit comment">#}
-{#                            </form>#}
-{#                        {% endif %}#}
-{#                    {% endif %}#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
     </section>
 
     {% include "modals/playlist.twig" %}

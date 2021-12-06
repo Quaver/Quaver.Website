@@ -6,7 +6,7 @@ import SqlDatabase from "../../database/SqlDatabase";
 const config = require("../../config/config.json");
 
 export default class Settings {
-    public static validNames = ["discord", "twitter", "twitch", "youtube", "notif_action_mapset"];
+    public static validNames = ["discord", "twitter", "twitch", "youtube", "notif_action_mapset", "default_mode"];
     public static checkboxes = ["notif_action_mapset"]
 
     public static async GET(req: any, res: any): Promise<void> {
@@ -33,8 +33,17 @@ export default class Settings {
                 for (const [key, value] of Object.entries(req.body.information)) {
                     // Validate allowed inputs
                     if (Settings.validNames.includes(key)) {
-                        // Replace any unwanted content
-                        information[key] = Settings.htmlEntities(value);
+                        if(key === "default_mode") {
+                            // @ts-ignore
+                            if(!isNaN(value) && [1, 2].includes(parseInt(value))) {
+                                information[key] = parseInt(value);
+                            } else {
+                                information[key] = 1;
+                            }
+                        } else {
+                            // Replace any unwanted content
+                            information[key] = Settings.htmlEntities(value);
+                        }
                     }
                 }
 

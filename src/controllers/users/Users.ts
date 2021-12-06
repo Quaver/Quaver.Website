@@ -21,7 +21,7 @@ export default class Users {
             if (mode < 1 || mode > 2)
                 mode = 1;
 
-            const user = await Users.FetchUser(req, req.params.id, mode);
+            const user = await Users.FetchUser(req, req.params.id);
 
             if (!user)
                 return Responses.ReturnUserNotFound(req, res);
@@ -29,6 +29,10 @@ export default class Users {
             if (req.params.id != user.info.id) {
                 res.redirect(301, '/user/' + user.info.id);
                 return;
+            }
+
+            if(!req.query.mode && user.info.information && user.info.information.default_mode !== undefined && !isNaN(user.info.information.default_mode)) {
+                mode = user.info.information.default_mode;
             }
 
             const best = await Users.GetBestScores(req, res, user, mode);
@@ -53,7 +57,7 @@ export default class Users {
                             'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
                         allowedAttributes: {
                             'a': ['href'],
-                            'span': ['style'],
+                            // 'span': ['style'],
                             'img': ['src']
                         },
                         disallowedTagsMode: 'escape'
@@ -188,15 +192,14 @@ export default class Users {
      * Fetches information for an individual user
      * @param req
      * @param id
-     * @param mode
      */
-    static async FetchUser(req: any, id: any, mode: any): Promise<any> {
+    static async FetchUser(req: any, id: any): Promise<any> {
         const response = await API.GET(req, `v1/users/full/${id}`);
 
         if (response.status != 200)
             return null;
 
-        response.user.online_status = await API.GET(req, `v1/server/users/online/${response.user.info.id}`);;
+        response.user.online_status = await API.GET(req, `v1/server/users/online/${response.user.info.id}`);
 
         return response.user;
     }

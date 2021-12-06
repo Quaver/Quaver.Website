@@ -1,0 +1,27 @@
+<tr style="{{ (index == "PB") ? 'background: rgba(252, 255, 188, 0.1);' : '' }}">
+    <td>{{ index }}</td>
+    <td>
+        <img src="{{ assets('/img/grades/'~score.grade~'.png') }}"
+             alt="{{ score.grade }}"
+             title="{{ score.grade }}" width="30px" height="30px">
+    </td>
+    <td style="text-align: left;" class="player">
+        <a href="{{ baseUrl('/leaderboard?country='~score.country|lower) }}">
+            <img src="{{ assets('/img/flags/'~score.country~'.png') }}"
+                 alt="{{ score.country }}">
+        </a>
+        <a href="{{ baseUrl('/user/'~score.user_id) }}">{{ score.username }}</a>
+    </td>
+    <td>
+        <b>{{ score.performance_rating|number_format(2) }}</b>
+    </td>
+    <td>{{ score.accuracy|number_format(2) }}%</td>
+    <td>{{ score.max_combo|number_format(0, '.', ',') }}x</td>
+    <td style="color: rgba(251, 255, 182, 1);">{{ score.count_marv|number_format(0, '.', ',') }}</td>
+    <td style="color: rgba(242, 201, 76, 1);">{{ score.count_perf|number_format(0, '.', ',') }}</td>
+    <td style="color: rgba(86, 254, 110,1);">{{ score.count_great|number_format(0, '.', ',') }}</td>
+    <td style="color: rgba(15, 186, 229, 1);">{{ score.count_good|number_format(0, '.', ',') }}</td>
+    <td style="color: rgba(238, 95, 172, 1);">{{ score.count_okay|number_format(0, '.', ',') }}</td>
+    <td style="color: rgba(249, 100, 93, 1);">{{ score.count_miss|number_format(0, '.', ',') }}</td>
+    <td>{{ score.mods_string }}</td>
+</tr>

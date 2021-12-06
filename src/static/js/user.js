@@ -325,7 +325,7 @@ function fetchRankProgression(userId, mode) {
                     foreColor: '#fff',
                 },
                 grid: {show: false,},
-                colors: ['#ccc'],
+                colors: ['#44D6F5'],
                 stroke: {curve: 'smooth'},
                 annotations: {
                     yaxis: [{

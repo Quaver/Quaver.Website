@@ -212,4 +212,19 @@ export default class Responses {
             text: 'Multiplayer Game Not Found'
         });
     }
+
+    /**
+     * Custom
+     * @param req
+     * @param res
+     * @constructor
+     */
+    public static ReturnCustom(req: express.Request, res: express.Response, title: string, text: string): void {
+        res.status(404);
+
+        Responses.Send(req, res, "404", title + " | Quaver", {
+            code: null,
+            text: text
+        });
+    }
 }

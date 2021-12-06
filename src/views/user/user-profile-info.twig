@@ -108,7 +108,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="widget-body widget-padding">
+            <div class="widget-body widget-padding mb-3">
                 <ul class="statistics">
                     <li>Overall Rating
                         <span>{{ user[game_mode].stats.overall_performance_rating|number_format(2) }}</span>
@@ -131,6 +131,10 @@
                     <li>Multiplayer Record
                         <span>{{ user[game_mode].stats.multiplayer_wins }}W - {{ user[game_mode].stats.multiplayer_losses }}L - {{ user[game_mode].stats.multiplayer_ties }}T</span>
                     </li>
+                </ul>
+            </div>
+            <div class="widget-body widget-padding">
+                <ul class="statistics">
                     <li>Date Registered
                         <span data-toggle="tooltip" title="{{ formatDate(user.info.time_registered) }}">{{ formatDateDistance(user.info.time_registered) }}</span>
                     </li>

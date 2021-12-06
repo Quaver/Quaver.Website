@@ -127,7 +127,7 @@ export default class Maps {
                 allowedTags: allowedHTML,
                 allowedAttributes: {
                     'a': ['href'],
-                    'span': ['style'],
+                    // 'span': ['style'],
                     'img': ['src']
                 },
                 disallowedTagsMode: 'escape'

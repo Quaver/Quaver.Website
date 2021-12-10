@@ -49,9 +49,14 @@
             {% endif %}
         </div>
         <div class="player-stats">
-            <div class="player-gr">Global ranking: <span>#{{ player[game_mode].globalRank|number_format }}</span></div>
-            <div class="player-or">Overall rating:
-                <span>{{ player[game_mode].stats.overall_performance_rating|number_format(2) }}</span></div>
+            <div class="player-gr d-flex justify-content-between align-items-center">
+                <div>Global ranking:</div>
+                <span>#{{ player[game_mode].globalRank|number_format }}</span>
+            </div>
+            <div class="player-or d-flex justify-content-between align-items-center">
+                <div>Overall rating:</div>
+                <span>{{ player[game_mode].stats.overall_performance_rating|number_format(2) }}</span>
+            </div>
         </div>
     </div>
     <div class="player-avatar">

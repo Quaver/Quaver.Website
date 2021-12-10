@@ -24,4 +24,5 @@
     <td style="color: rgba(238, 95, 172, 1);">{{ score.count_okay|number_format(0, '.', ',') }}</td>
     <td style="color: rgba(249, 100, 93, 1);">{{ score.count_miss|number_format(0, '.', ',') }}</td>
     <td>{{ score.mods_string }}</td>
+    <td><span data-toggle="tooltip" title="{{ formatDate(score.timestamp) }}">{{ formatShortDate(score.timestamp) }}</span></td>
 </tr>

@@ -9,8 +9,32 @@ export default class TimeHelper {
         });
     }
 
-    public static formatDate(time: any, hidetime: true): string {
-        const format = (hidetime) ? "MMMM DD, YYYY" : "MMMM DD, YYYY HH:mm:ss";
+    public static formatShortDate(time: any): string {
+        moment.locale('en', {
+            relativeTime: {
+                future: 'in %s',
+                past: '%s',
+                s:  '1s',
+                ss: '%ss',
+                m:  '1m',
+                mm: '%dm',
+                h:  '1h',
+                hh: '%dh',
+                d:  '1d',
+                dd: '%dd',
+                M:  '1m',
+                MM: '%dm',
+                y:  '1y',
+                yy: '%dy'
+            }
+        });
+
+        return moment(new Date(time)).fromNow();
+    }
+
+    public static formatDate(time: any, hidetime: true, short: false): string {
+        let format = (hidetime) ? "MMMM DD, YYYY" : "MMMM DD, YYYY HH:mm:ss";
+        if(short) format = "DM";
         return moment(new Date(time)).format(format);
     }
 

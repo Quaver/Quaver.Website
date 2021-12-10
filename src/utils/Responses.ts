@@ -32,6 +32,7 @@ export default class Responses {
             formatDateDistance: TimeHelper.formatDateDistance,
             formatDate: TimeHelper.formatDate,
             formatTime: TimeHelper.formatTime,
+            formatShortDate: TimeHelper.formatShortDate,
             ratingColor: ColorHelper.RatingColor,
             flash: req.flash(),
             md5: EnvironmentHelper.md5,

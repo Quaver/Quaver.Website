@@ -133,7 +133,7 @@ export default class Maps {
                 disallowedTagsMode: 'escape'
             });
 
-            const scores = await Maps.FetchMapScoreboard(req, map.id, scoreboardType, scoreboardModes, scoreboardCountry);
+            const scores: any = await Maps.FetchMapScoreboard(req, map.id, scoreboardType, scoreboardModes, scoreboardCountry);
             const comments = await Maps.FetchSupervisorComments(req, mapset.id);
 
             // Get logged user playlists
@@ -141,6 +141,10 @@ export default class Maps {
 
             if (req.user)
                 playlists = await Maps.FetchUserPlaylists(req, req.user.id, map.id);
+
+            for(let score of scores.scores) {
+                score.timestamp = new Date(score.timestamp).toISOString();
+            }
 
             Responses.Send(req, res, "map", `${mapset.artist} - ${mapset.title} by: ${mapset.creator_username} | Quaver`, {
                 mapset: mapset,

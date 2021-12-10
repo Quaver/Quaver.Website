@@ -65,7 +65,7 @@ export default class Leaderboard {
 
         Object.keys(countries)
             .forEach(function(v, i) {
-                if(v !== "total") newList.push({
+                if(v !== "total" && v !== "") newList.push({
                     country: v,
                     users: countries[v]
                 })

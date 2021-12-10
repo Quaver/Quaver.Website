@@ -20,7 +20,7 @@
                             <img src="{{ assets('/img/grades/'~score.grade~'.png') }}" alt="{{ score.grade }}" title="{{ score.grade }}" width="30px" height="30px">
                         </td>
                         <td>
-                            <a href="{{ baseUrl('/mapset/map/'~score.map.id) }}">{{ score.map.artist }} - {{ score.map.title }} [{{ score.map.difficulty_name }}]</a>
+                            <a href="{{ baseUrl('/mapset/map/'~score.map.id) }}">{{ score.map.artist|escape }} - {{ score.map.title|escape }} [{{ score.map.difficulty_name|escape }}]</a>
                             <br>
                             <span data-toggle="tooltip" title="{{ formatDate(score.time) }}">{{ formatDateDistance(score.time) }}</span>
                         </td>

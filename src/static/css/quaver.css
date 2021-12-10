@@ -104,6 +104,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     animation: border 30s infinite linear;
 }
 
+.navbar-dark .navbar-nav .nav-link {
+    font-family: Lato, sans-serif;
+}
+
 @keyframes border {
     0% {
         transform: translateX(0);

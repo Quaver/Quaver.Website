@@ -28,7 +28,7 @@
                             </div>
                         {% endif %}
                         {% for friend in friends %}
-                            <div class="col-md-4 mb-3" id="player_{{ friend.user_id }}">
+                            <div class="col-lg-4 col-md-6 mb-3" id="player_{{ friend.user_id }}">
                                 {% set cover = assets("/img/cover.jpg") %}
                                 {% if IsDonator(friend.usergroups) %}
                                     {% set cover = "https://cdn.quavergame.com/profile-covers/"~friend.user_id~".jpg" %}

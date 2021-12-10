@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="body-text">
                                     <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
-                                        <b>{{ game.name }}</b>
+                                        <b>{{ game.name|escape }}</b>
                                     </a>
                                 </div>
                                 <div class="body-text">
@@ -55,7 +55,7 @@
                                             <a>{{ game.map.name|truncate(60)|escape }}</a>
                                         </a>
                                     {% else %}
-                                        <span>{{ game.map.name }}</span>
+                                        <span>{{ game.map.name|escape }}</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                             <div>
                                 <div>
                                     <a href="{{ baseUrl('/multiplayer/game/'~game.id) }}">
-                                        <b>{{ game.name }}</b>
+                                        <b>{{ game.name|escape }}</b>
                                     </a>
                                 </div>
                                 <div class="mt-4">
@@ -93,7 +93,7 @@
                                             <a>{{ game.map.name|truncate(60)|escape }}</a>
                                         </a>
                                     {% else %}
-                                        <span>{{ game.map.name }}</span>
+                                        <span>{{ game.map.name|escape }}</span>
                                     {% endif %}
                                 </div>
                             </div>

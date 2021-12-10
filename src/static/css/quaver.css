@@ -1320,7 +1320,6 @@ summary {
 }
 
 
-
 #playlists .custom-file-label {
     background-color: #181818;
     border: none;
@@ -2141,7 +2140,7 @@ summary {
 
 /* Ranking */
 
-#mapset-ranking .btn-block+.btn-block {
+#mapset-ranking .btn-block + .btn-block {
     margin-top: 0 !important;
 }
 
@@ -2170,8 +2169,12 @@ summary {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Mobile optimizations */
@@ -2238,6 +2241,10 @@ summary {
 
     .mapset-info-right, .mapset-rating {
         float: right;
+    }
+
+    .mobile-map-settings {
+        margin-top: 10px;
     }
 
 }

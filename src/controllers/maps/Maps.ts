@@ -142,8 +142,10 @@ export default class Maps {
             if (req.user)
                 playlists = await Maps.FetchUserPlaylists(req, req.user.id, map.id);
 
-            for(let score of scores.scores) {
-                score.timestamp = new Date(score.timestamp).toISOString();
+            if (scores.scores) {
+                for (let score of scores.scores) {
+                    score.timestamp = new Date(score.timestamp).toISOString();
+                }
             }
 
             Responses.Send(req, res, "map", `${mapset.artist} - ${mapset.title} by: ${mapset.creator_username} | Quaver`, {

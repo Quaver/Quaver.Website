@@ -35,7 +35,7 @@
             <div class="card">
                 <div class="card-body">
                     {% include 'helpers/pagination.twig' with {
-                        currentPage: page,
+                        currentPage: page|escape,
                         paginationPath: slug~"?mode="~mode~"&page=",
                         paginationCountry: (country) ? country|escape : '',
                         lastPage: pages
@@ -44,7 +44,7 @@
                     {% include 'leaderboard/'~slug~'.twig' %}
 
                     {% include 'helpers/pagination.twig' with {
-                        currentPage: page,
+                        currentPage: page|escape,
                         paginationPath: slug~"?mode="~mode~"&page=",
                         paginationCountry: (country) ? country|escape : '',
                         lastPage: pages

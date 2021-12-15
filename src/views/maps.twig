@@ -37,7 +37,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ search }}">
+                            <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ search|escape }}">
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Mode:</label>
@@ -81,19 +81,19 @@
                         <div class="form-group row">
                             <label class="col-sm-2">Difficulty Rating:</label>
                             <div class="col-sm-2">
-                                <input class="form-control" type="number" name="mindiff" value="{{ form.mindiff }}" placeholder="Min Rating">
+                                <input class="form-control" type="number" name="mindiff" value="{{ form.mindiff|escape }}" placeholder="Min Rating">
                             </div>
                             <div class="col-sm-2">
-                                <input class="form-control" type="number" name="maxdiff" value="{{ form.maxdiff }}" placeholder="Max Rating">
+                                <input class="form-control" type="number" name="maxdiff" value="{{ form.maxdiff|escape }}" placeholder="Max Rating">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Length:</label>
                             <div class="col-sm-2">
-                                <input class="form-control" type="number" name="minlen" value="{{ form.minlen }}" placeholder="Min Length">
+                                <input class="form-control" type="number" name="minlen" value="{{ form.minlen|escape }}" placeholder="Min Length">
                             </div>
                             <div class="col-sm-2">
-                                <input class="form-control" type="number" name="maxlen" value="{{ form.maxlen }}" placeholder="Max Length">
+                                <input class="form-control" type="number" name="maxlen" value="{{ form.maxlen|escape }}" placeholder="Max Length">
                             </div>
                         </div>
 
@@ -101,49 +101,49 @@
                             <div class="form-group row">
                                 <label class="col-sm-2">BPM:</label>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="number" name="minbpm" value="{{ form.minbpm }}" placeholder="Min BPM">
+                                    <input class="form-control" type="number" name="minbpm" value="{{ form.minbpm|escape }}" placeholder="Min BPM">
                                 </div>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="number" name="maxbpm" value="{{ form.maxbpm }}" placeholder="Max BPM">
+                                    <input class="form-control" type="number" name="maxbpm" value="{{ form.maxbpm|escape }}" placeholder="Max BPM">
                                 </div>
                                 <label class="col-sm-2 mt-sm-3">Long Note %:</label>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="number" name="minnote" value="{{ form.minnote }}" placeholder="Min LN%">
+                                    <input class="form-control" type="number" name="minnote" value="{{ form.minnote|escape }}" placeholder="Min LN%">
                                 </div>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="number" name="maxnote" value="{{ form.maxnote }}" placeholder="Max LN%">
+                                    <input class="form-control" type="number" name="maxnote" value="{{ form.maxnote|escape }}" placeholder="Max LN%">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Ranked Play Count:</label>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="number" name="minpc" value="{{ form.minpc }}" placeholder="Min Plays">
+                                    <input class="form-control" type="number" name="minpc" value="{{ form.minpc|escape }}" placeholder="Min Plays">
                                 </div>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="number" name="maxpc" value="{{ form.maxpc }}" placeholder="Max Plays">
+                                    <input class="form-control" type="number" name="maxpc" value="{{ form.maxpc|escape }}" placeholder="Max Plays">
                                 </div>
                                 <label class="col-sm-2 mt-sm-3">Max Combo:</label>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="number" name="mincombo" value="{{ form.mincombo }}" placeholder="Min Combo">
+                                    <input class="form-control" type="number" name="mincombo" value="{{ form.mincombo|escape }}" placeholder="Min Combo">
                                 </div>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="number" name="maxcombo" value="{{ form.maxcombo }}" placeholder="Max Combo">
+                                    <input class="form-control" type="number" name="maxcombo" value="{{ form.maxcombo|escape }}" placeholder="Max Combo">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Upload Date:</label>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="date" name="mindateu" value="{{ form.mindateu }}" placeholder="Start Date">
+                                    <input class="form-control" type="date" name="mindateu" value="{{ form.mindateu|escape }}" placeholder="Start Date">
                                 </div>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="date" name="maxdateu" value="{{ form.maxdateu }}" placeholder="End Date">
+                                    <input class="form-control" type="date" name="maxdateu" value="{{ form.maxdateu|escape }}" placeholder="End Date">
                                 </div>
                                 <label class="col-sm-2 mt-sm-3">Last Updated Date:</label>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="date" name="mindatelu" value="{{ form.mindatelu }}" placeholder="Start Date">
+                                    <input class="form-control" type="date" name="mindatelu" value="{{ form.mindatelu|escape }}" placeholder="Start Date">
                                 </div>
                                 <div class="col-sm-2">
-                                    <input class="form-control" type="date" name="maxdatelu" value="{{ form.maxdatelu }}" placeholder="End Date">
+                                    <input class="form-control" type="date" name="maxdatelu" value="{{ form.maxdatelu|escape }}" placeholder="End Date">
                                 </div>
                             </div>
                         </div>

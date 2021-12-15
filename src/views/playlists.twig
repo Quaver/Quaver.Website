@@ -20,7 +20,7 @@
             <div class="mb-4">
                 <form id="playlist_search" method="get" accept-charset="UTF-8">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for Playlists..." name="search" value="{{ search }}">
+                        <input type="text" class="form-control" placeholder="Search for Playlists..." name="search" value="{{ search|escape }}">
                         {% if currentUser %}
                         <div class="input-group-prepend">
                             <a href="{{ baseUrl('/playlist/create') }}" class="btn btn-success text-white">Create Playlist</a>

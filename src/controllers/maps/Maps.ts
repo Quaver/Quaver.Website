@@ -33,8 +33,7 @@ export default class Maps {
                 search: search,
                 status: status,
                 mode: mode,
-                form: req.query,
-                query: req.query
+                form: req.query
             });
         } catch (err) {
             Logger.Error(err);

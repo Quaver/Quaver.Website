@@ -123,6 +123,8 @@ export default class Leaderboard {
             const mode = req.query.mode || 1;
             const page = req.query.page || 1;
 
+            if(isNaN(page) || isNaN(mode)) return Responses.Return500(req, res);
+
             const leaderboard = await API.GET(req, `v1/multiplayer/leaderboard?mode=${mode}&page=${page - 1}`);
 
             const stats = await API.GET(req, "v1/stats");

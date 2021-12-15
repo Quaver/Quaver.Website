@@ -17,6 +17,8 @@ export default class Leaderboard {
             const country = req.query.country ? `&country=${req.query.country.toLowerCase()}` : "";
             const limit = 50;
 
+            if(isNaN(page) || isNaN(mode)) return Responses.Return500(req, res);
+
             let pages;
             if(country !== "") {
                 const stats = await API.GET(req, "v1/stats/country");

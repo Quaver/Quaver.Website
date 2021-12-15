@@ -37,7 +37,7 @@
                     {% include 'helpers/pagination.twig' with {
                         currentPage: page,
                         paginationPath: slug~"?mode="~mode~"&page=",
-                        paginationCountry: (country) ? country : '',
+                        paginationCountry: (country) ? country|escape : '',
                         lastPage: pages
                     } only %}
 
@@ -46,7 +46,7 @@
                     {% include 'helpers/pagination.twig' with {
                         currentPage: page,
                         paginationPath: slug~"?mode="~mode~"&page=",
-                        paginationCountry: (country) ? country : '',
+                        paginationCountry: (country) ? country|escape : '',
                         lastPage: pages
                     } only %}
                 </div>

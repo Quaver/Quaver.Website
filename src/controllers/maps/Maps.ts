@@ -34,7 +34,7 @@ export default class Maps {
                 status: status,
                 mode: mode,
                 form: req.query,
-                query: JSON.stringify(req.query)
+                query: req.query
             });
         } catch (err) {
             Logger.Error(err);

@@ -171,7 +171,16 @@
 
 {% block scripts %}
     <script>
-        let query = JSON.parse('{{ query }}');
+        try {
+            let query = {
+                search: "{{ query.search|escape }}",
+                status: parseInt("{{ query.status|escape }}"),
+                mode: "{{ query.mode|escape }}"
+            };
+        } catch (e) {
+            console.log(e);
+            console.log('Failed to parse query');
+        }
     </script>
     <script src="{{ assets('/js/plugins/lazyload.min.js') }}"></script>
     <script defer src="{{ assets('/js/maps.js') }}"></script>

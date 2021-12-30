@@ -172,7 +172,7 @@
 {% block scripts %}
     <script>
         try {
-            let query = {
+            window['query'] = {
                 search: "{{ query.search|escape }}",
                 status: parseInt("{{ query.status|escape }}"),
                 mode: "{{ query.mode|escape }}"

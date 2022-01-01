@@ -80,7 +80,7 @@
                                     {% elseif user.online_status.current_status.status == 4 %}
                                         Watching {{ user.online_status.current_status.content }}
                                     {% elseif user.online_status.current_status.status == 5 %}
-                                        Editing {{ user.online_status.current_status.content }}
+                                        Editing {{ user.online_status.current_status.content|escape }}
                                     {% elseif user.online_status.current_status.status == 6 %}
                                         In Multiplayer Lobby
                                     {% elseif user.online_status.current_status.status == 7 %}

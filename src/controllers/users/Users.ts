@@ -63,8 +63,8 @@ export default class Users {
                         disallowedTagsMode: 'escape'
                     });
 
-                const matchSrc = new RegExp("src=['\"](?:[^\"'\\/]\\/)*([^'\"]+)['\"]");
-                const image = `data-src='$1' class="lazy"`;
+                const matchSrc = new RegExp("<img src=['\"](?:[^\"'\\/]\\/)*([^'\"]+)['\"]>");
+                const image = `data-src='$1' class='lazy'`;
 
                 if (bio !== "") {
                     bio = bio.replace(matchSrc, image);

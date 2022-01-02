@@ -77,6 +77,7 @@ export default class Users {
             if (user.info.information) {
                 // Ignore notification field
                 delete user.info.information.notif_action_mapset;
+                delete user.info.information.default_mode;
                 // Check if information fields are empty
                 for (let key in user.info.information) {
                     if ((user.info.information[key] !== null && user.info.information[key] != ""))

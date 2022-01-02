@@ -26,20 +26,21 @@
                     {% endif %}
                 </div>
             </div>
-            {% if bio and IsDonator(user.info.usergroups) %}
-                <div class="widget widget-secondary">
-                    <div class="widget-body" id="userpage" style="position:relative;">
-                        {% if bio %}
-                            {% for line in bio %}
-                                {% if line == "" %}
-                                    <br>
-                                {% else %}
-                                    {{ line }}
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
+            {% if user.info.userpage|length and IsDonator(user.info.usergroups) %}
+                <style>
+                    iframe {
+                        border: 0;
+                        width: 100%;
+                        max-height: 320px;
+                        height: max-content;
+                    }
+                </style>
+                <iframe src="{{ baseUrl('/user/'~user.info.id~'/aboutme') }}" id="aboutme" sandbox="allow-same-origin" onload="resizeIframe(this)"></iframe>
+                <script>
+                    function resizeIframe(obj) {
+                        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+                    }
+                </script>
             {% endif %}
             {% if user.info.information %}
                 <div class="widget widget-secondary">

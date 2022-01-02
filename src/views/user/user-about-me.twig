@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="{{ assets('/styles/app.css', true) }}">
+{% if bio %}
+    <div class="widget widget-secondary">
+        <div class="widget-body" id="" style="position:relative;">
+            {% if bio %}
+                {% for line in bio %}
+                    {% if line == "" %}
+                        <br>
+                    {% else %}
+                        {{ line }}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

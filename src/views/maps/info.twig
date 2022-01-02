@@ -117,29 +117,29 @@
     </div>
 </div>
 
-{% if not modding and (mapset.description or currentUser.id == map.creator_id) %}
-    <div class="widget">
-        <div class="widget-header d-flex justify-content-between align-items-center">
-            Description
-            {% if currentUser.id == map.creator_id %}
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#editDescription">
-                    <i class="far fa-edit"></i>
-                </a>
-            {% endif %}
-        </div>
-    </div>
-    <div class="card mt-4">
-        <div class="card-body map-description position-relative markdown-body">
-            {% if mapset.description == "null" or mapset.description == "" %}
-                No description
-            {% else %}
-                {{ mapset.description }}
-            {% endif %}
-        </div>
-    </div>
-{% endif %}
+{#{% if not modding and (mapset.description or currentUser.id == map.creator_id) %}#}
+{#    <div class="widget">#}
+{#        <div class="widget-header d-flex justify-content-between align-items-center">#}
+{#            Description#}
+{#            {% if currentUser.id == map.creator_id %}#}
+{#                <a href="javascript:void(0)" data-toggle="modal" data-target="#editDescription">#}
+{#                    <i class="far fa-edit"></i>#}
+{#                </a>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="card mt-4">#}
+{#        <div class="card-body map-description position-relative markdown-body">#}
+{#            {% if mapset.description == "null" or mapset.description == "" %}#}
+{#                No description#}
+{#            {% else %}#}
+{#                {{ mapset.description }}#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
+{#{% endif %}#}
 
 {% if currentUser.id == map.creator_id %}
-    {% include "../modals/editDescription.twig" %}
+{#    {% include "../modals/editDescription.twig" %}#}
     {# {% include "../modals/submitForRank.twig" %} #}
 {% endif %}

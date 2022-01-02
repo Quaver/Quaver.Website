@@ -123,6 +123,9 @@
                     <li>Total Score
                         <span>{{ user[game_mode].stats.total_score|number_format(0, '.', ',') }}</span>
                     </li>
+                    <li>Total Hits
+                        <span>{{ (user[game_mode].stats.total_marv + user[game_mode].stats.total_perf + user[game_mode].stats.total_great + user[game_mode].stats.total_good + user[game_mode].stats.total_okay)|number_format(0, '.', ',') }}</span>
+                    </li>
                     <li>Max Combo
                         <span>{{ user[game_mode].stats.max_combo|number_format(0, '.', ',') }}</span>
                     </li>

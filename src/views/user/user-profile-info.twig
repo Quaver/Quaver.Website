@@ -15,7 +15,7 @@
                 User is banned!
             </div>
         {% endif %}
-        {% if bio or user.info.information %}
+        {% if user.info.userpage|length or user.info.information %}
             <div class="widget">
                 <div class="widget-header d-flex justify-content-between">
                     About Me

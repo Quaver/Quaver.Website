@@ -44,6 +44,48 @@ export default class Users {
                 friend = await Users.IsFriend(req, res, user);
             }
 
+            let informationFlag = true;
+
+            if (user.info.information) {
+                // Ignore notification field
+                delete user.info.information.notif_action_mapset;
+                delete user.info.information.default_mode;
+                // Check if information fields are empty
+                for (let key in user.info.information) {
+                    if ((user.info.information[key] !== null && user.info.information[key] != ""))
+                        informationFlag = false;
+                }
+            }
+
+            if (informationFlag) user.info.information = null;
+
+            Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
+                user,
+                mode,
+                best,
+                recent: [],
+                firstPlace: [],
+                mapSetsRanked,
+                mapSetsUnRanked: [],
+                playlists: [],
+                GameMode,
+                RankedStatus,
+                friend,
+                grades: ["X", "SS", "S", "A", "B", "C", "D"]
+            });
+        } catch (err) {
+            Logger.Error(err);
+            Responses.ReturnUserNotFound(req, res);
+        }
+    }
+
+    public static async UserAboutMe(req: any, res: any): Promise<any> {
+        try {
+            const user = await Users.FetchUser(req, req.params.id);
+
+            if (!user)
+                return Responses.ReturnUserNotFound(req, res);
+
             let bio: any = null;
 
             if (user.info.userpage) {
@@ -63,8 +105,8 @@ export default class Users {
                         disallowedTagsMode: 'escape'
                     });
 
-                const matchSrc = new RegExp("src=['\"](?:[^\"'\\/]\\/)*([^'\"]+)['\"]");
-                const image = `data-src='$1' class="lazy"`;
+                const matchSrc = new RegExp("<img src=['\"](?:[^\"'\\/]\\/)*([^'\"]+)['\"]>");
+                const image = `data-src='$1' class='lazy'`;
 
                 if (bio !== "") {
                     bio = bio.replace(matchSrc, image);
@@ -72,35 +114,8 @@ export default class Users {
                 }
             }
 
-            let informationFlag = true;
-
-            if (user.info.information) {
-                // Ignore notification field
-                delete user.info.information.notif_action_mapset;
-                delete user.info.information.default_mode;
-                // Check if information fields are empty
-                for (let key in user.info.information) {
-                    if ((user.info.information[key] !== null && user.info.information[key] != ""))
-                        informationFlag = false;
-                }
-            }
-
-            if (informationFlag) user.info.information = null;
-
-            Responses.Send(req, res, "user", `${user.info.username}'s Profile | Quaver`, {
-                user,
-                mode,
-                bio,
-                best,
-                recent: [],
-                firstPlace: [],
-                mapSetsRanked,
-                mapSetsUnRanked: [],
-                playlists: [],
-                GameMode,
-                RankedStatus,
-                friend,
-                grades: ["X", "SS", "S", "A", "B", "C", "D"]
+            Responses.Send(req, res, 'user/user-about-me', 'About Me', {
+                bio
             });
         } catch (err) {
             Logger.Error(err);

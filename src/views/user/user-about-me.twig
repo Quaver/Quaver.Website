@@ -1,7 +1,86 @@
-<link rel="stylesheet" href="{{ assets('/styles/app.css', true) }}">
+<html>
+<head>
+    <style>
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Lato', sans-serif;
+            height: auto;
+            line-height: 1.5;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+        }
+
+        a {
+            color: #45D6F5;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #FFFFFF;
+        }
+
+        #userpage {
+            word-wrap: break-word;
+        }
+
+        .widget-secondary {
+            padding: 0;
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, .125);
+            box-shadow: 0 2px 0 0 rgb(0 0 0 / 5%);
+            border-radius: 4px;
+        }
+
+        .widget-secondary {
+            border: none;
+            box-shadow: 0 4px 6px rgb(0 0 0 / 15%);
+            background: 0 0;
+        }
+
+        .widget-secondary .widget-body {
+            background-color: #242424;
+            color: #fff;
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .markdown-body img {
+            background: transparent !important;
+        }
+
+        summary {
+            cursor: pointer !important;
+            color: #45D6F5 !important;
+        }
+
+        #userpage p,
+        #userpage h1,
+        #userpage h2,
+        #userpage h3,
+        #userpage h4,
+        #userpage h5 {
+            margin: 0;
+        }
+
+        #userpage ul,
+        #userpage ol {
+            margin-bottom: 0;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+    <title>About me</title>
+</head>
+<body>
 {% if bio %}
     <div class="widget widget-secondary">
-        <div class="widget-body" id="" style="position:relative;">
+        <div class="widget-body" id="userpage" style="position:relative;">
             {% if bio %}
                 {% for line in bio %}
                     {% if line == "" %}
@@ -14,3 +93,5 @@
         </div>
     </div>
 {% endif %}
+</body>
+</html>

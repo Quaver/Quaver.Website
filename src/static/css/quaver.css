@@ -1225,6 +1225,14 @@ summary {
     color: #D761EB;
 }
 
+.difficulty-rating-extreme {
+    color: #7B61EB;
+}
+
+.difficulty-rating-master {
+    color: #B7B7B7;
+}
+
 #mobile-search {
     display: none;
 }

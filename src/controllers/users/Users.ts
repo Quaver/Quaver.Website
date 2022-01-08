@@ -98,18 +98,26 @@ export default class Users {
                         allowedTags: ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5',
                             'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary'],
                         allowedAttributes: {
-                            'a': ['href'],
+                            'a': ['href', 'target'],
                             // 'span': ['style'],
                             'img': ['src']
+                        },
+                        allowedClasses: {
+                          'img': ['lazy']
+                        },
+                        transformTags: {
+                            'a': function (tagName, attribs) {
+                                attribs['target'] = "_blank";
+                                return {
+                                    tagName: tagName,
+                                    attribs: attribs
+                                }
+                            }
                         },
                         disallowedTagsMode: 'escape'
                     });
 
-                const matchSrc = new RegExp("<img src=['\"](?:[^\"'\\/]\\/)*([^'\"]+)['\"]>");
-                const image = `data-src='$1' class='lazy'`;
-
                 if (bio !== "") {
-                    bio = bio.replace(matchSrc, image);
                     bio = bio.split(/\r\n|\n|\r/);
                 }
             }

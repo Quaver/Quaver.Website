@@ -35,10 +35,9 @@
                         height: 10px;
                     }
                 </style>
-                <iframe src="{{ baseUrl('/user/'~user.info.id~'/aboutme') }}" id="aboutme" sandbox="allow-same-origin" onload="resizeIframe(this)"></iframe>
+                <iframe src="{{ baseUrl('/user/'~user.info.id~'/aboutme') }}" id="aboutme" sandbox="allow-same-origin allow-popups" onload="resizeIframe(this)"></iframe>
                 <script>
                     function resizeIframe(obj) {
-                        console.log(obj.contentWindow.document.documentElement.scrollHeight);
                         obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
                     }
                 </script>

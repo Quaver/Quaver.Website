@@ -109,7 +109,7 @@
                                         <a href="{{ baseUrl('/mapset/map/'~map.id) }}" class="align-items-center {{ rating }}">
                                             <div class="d-flex justify-content-between">
                                                 <b>
-                                                    {{ map.difficulty_name }}
+                                                    {{ map.difficulty_name|escape }}
                                                 </b>
                                             </div>
                                         </a>

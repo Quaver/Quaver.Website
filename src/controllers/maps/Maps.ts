@@ -129,7 +129,9 @@ export default class Maps {
                     // 'span': ['style'],
                     'img': ['src']
                 },
-                disallowedTagsMode: 'escape'
+                disallowedTagsMode: 'escape',
+                nestingLimit: 6
+
             });
 
             const scores: any = await Maps.FetchMapScoreboard(req, map.id, scoreboardType, scoreboardModes, scoreboardCountry);

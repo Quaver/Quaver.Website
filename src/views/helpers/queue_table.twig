@@ -28,7 +28,7 @@
                     </a>
                     </div>
                     {% for difficulty in map.difficulties %}
-                        <img src="{{ assets('/img/difficulties/'~ratingColor(difficulty.difficulty_rating)~'.png') }}"
+                        <img src="{{ assets('/img/difficulties/'~ratingColor(difficulty.difficulty_rating)~'.png', true) }}"
                                 data-toggle="tooltip" title="Mode: {{ difficulty.game_mode }}
 Difficulty: {{ difficulty.difficulty_name|escape }}
 Difficulty Rating: {{ difficulty.difficulty_rating }}

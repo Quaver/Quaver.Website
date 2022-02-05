@@ -47,7 +47,10 @@
             <tr style="font-size: 12px;">
                 <th scope="col" style="width: 5%">#</th>
                 <th scope="col" class="player" style="width: 20%">Player</th>
-                <th scope="col">Wins</th>
+                <th scope="col" style="width: 10%">Wins</th>
+                <th scope="col" style="width: 10%">Has Map</th>
+                <th scope="col" style="width: 10%">Is Ready</th>
+                <th scope="col" style="width: 20%">Mods</th>
             </tr>
             </thead>
             <tbody>
@@ -70,6 +73,15 @@
                         {% else %}
                             {{ player.wins }}
                         {% endif %}
+                    </td>
+                    <td>
+                        {{ (player.has_map) ? 'Yes' : 'No' }}
+                    </td>
+                    <td>
+                        {{ (player.is_ready) ? 'Yes' : 'No' }}
+                    </td>
+                    <td>
+                        {{ player.mods_string }}
                     </td>
                 </tr>
             {% endfor %}

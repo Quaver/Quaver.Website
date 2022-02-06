@@ -45,7 +45,7 @@
                             {% endif %}
                             <p class="card-text font-size-md">{{ playlist.description|escape }}</p>
                             <p class="card-text font-size-md">Created by
-                                <a href="">{{ playlist.owner_username }}</a>
+                                <a href="{{ baseUrl('/user/'~playlist.owner_id) }}">{{ playlist.owner_username }}</a>
                             </p>
                         </div>
                         <div class="card-footer">

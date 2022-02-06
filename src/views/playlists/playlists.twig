@@ -20,7 +20,7 @@
                 </p>
                 {% if playlist.owner_username %}
                     <p class="card-text font-size-md">Created by
-                        <a href="{{ baseUrl('/user/'~playlist.owner_username) }}">{{ playlist.owner_username }}</a>
+                        <a href="{{ baseUrl('/user/'~playlist.owner_id) }}">{{ playlist.owner_username }}</a>
                     </p>
                 {% else %}
                     <p class="card-text font-size-md"></p>

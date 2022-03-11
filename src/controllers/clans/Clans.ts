@@ -44,6 +44,11 @@ export default class Clans {
 
     public static async ClanGET(req: any, res: any): Promise<void> {
         try {
+            let mode = parseInt(req.query.mode) || 1;
+
+            if (mode < 1 || mode > 2)
+                mode = 1;
+
             const clan: any = await Clans.FetchClan(req, req.params.id);
 
             if (clan.status !== 200) {
@@ -66,7 +71,8 @@ export default class Clans {
 
             Responses.Send(req, res, "clans/clan", `${clan.clan.name} | Quaver`, {
                 title: clan.clan.name,
-                clan: clan.clan
+                clan: clan.clan,
+                mode: mode
             });
         } catch (err: any) {
             Logger.Error(err);

@@ -46,6 +46,8 @@
                         </div>
                         <div class="nav-scroll">
                             <div class="nav nav-list nav-list-profile">
+                                <a class="nav-item nav-link" href="#stats">Stats</a>
+                                <a class="nav-item nav-link" href="#graphs">Graphs</a>
                                 <a class="nav-item nav-link" href="#members">Members</a>
                             </div>
                         </div>
@@ -61,13 +63,13 @@
                 <div class="col-lg-12 mb-4">
                     {% include './blocks/about.twig' %}
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" id="stats">
                     {% include './blocks/statistics.twig' %}
                 </div>
                 <div class="col-lg-8">
                     {% include './blocks/feed.twig' %}
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12" id="graphs">
                     {% include './blocks/graphs.twig' %}
                 </div>
                 <div class="col-lg-12" id="members">

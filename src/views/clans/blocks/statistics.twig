@@ -2,10 +2,10 @@
     <div class="widget-header d-flex justify-content-between">
         <div>Statistics</div>
         <div class="mode-switch">
-            <a href="#" class="mode-4 active">
+            <a href="{{ baseUrl('/clans/' ~ clan.id ~ '?mode=1') }}" class="mode-4 {{ (mode == 1) ? 'active' : '' }}">
                 <div>4K</div>
             </a>
-            <a href="#" class="mode-7">
+            <a href="{{ baseUrl('/clans/' ~ clan.id ~ '?mode=2') }}" class="mode-7 {{ (mode == 2) ? 'active' : '' }}">
                 <div>7K</div>
             </a>
         </div>

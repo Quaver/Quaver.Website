@@ -5,7 +5,7 @@
             <div class="player-info">
                 <div class="player-name">
                     <div class="player-n">
-                        <a href="{{ baseUrl('/user/'~player.user_id) }}">
+                        <a href="{{ baseUrl('/user/'~player.id) }}">
                             <img data-src="{{ assets('/img/flags/'~player.country~'.png') }}"
                                  alt="{{ player.country|upper }}" class="lazy"> {{ player.username }}
                         </a>

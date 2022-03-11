@@ -1,0 +1,25 @@
+<section id="friends">
+    <div class="widget">
+        <div class="widget-header">Members</div>
+    </div>
+    <div class="widget widget-secondary">
+        <div class="widget-body">
+            <div class="row">
+                {% if not clan.members %}
+                    <div class="col-md-12">
+                        No clan members
+                    </div>
+                {% endif %}
+                {% for member in clan.members %}
+                    <div class="col-lg-4 col-md-6 mb-3" id="player_{{ member.user_id }}">
+                        {% set cover = assets("/img/cover.jpg") %}
+                        {% if IsDonator(member.usergroups) %}
+                            {% set cover = "https://cdn.quavergame.com/profile-covers/"~member.id~".jpg" %}
+                        {% endif %}
+                        {% include "./player-card.twig" with {player: member, cover: cover, friends: true} %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

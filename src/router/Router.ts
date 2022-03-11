@@ -21,6 +21,7 @@ import Ranking from "../controllers/ranking/Ranking";
 import Oauth2 from "../controllers/developers/Oauth2";
 import Applications from "../controllers/developers/Applications";
 import Modding from "../controllers/maps/Modding";
+import Clans from "../controllers/clans/Clans";
 
 export default class Router {
     /**
@@ -90,6 +91,19 @@ export default class Router {
         router.route("/donate/user").post(Donate.CardGET);
         router.route("/donate/connect").get(Authentication.RequireLogin, Donate.DiscordConnect);
         router.route("/donate/unlink").get(Authentication.RequireLogin, Donate.DiscordUnlink);
+
+        router.route("/clans").get(); // probably will be clan ranking?
+
+        router.route("/clans/create").get(Authentication.RequireLogin, Clans.CreateClanGET);
+        router.route("/clans/create").post(Authentication.RequireLogin, Clans.CreateClanPOST);
+
+        router.route("/clans/:id").get(Clans.ClanGET);
+
+        // router.route("/clans/invite").get();
+        // router.route("/clans/invite/accept").post();
+        // router.route("/clans/leave").post();
+        // router.route("/clans/create").post();
+        // router.route("/clans/create").post();
 
         // router.route("/artists").get(Artists.GET);
         // router.route("/artist/:id").get(Artists.ArtistGET);

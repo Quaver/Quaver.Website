@@ -1,0 +1,40 @@
+<div class="widget">
+    <div class="widget-header">Feed</div>
+</div>
+
+<div class="widget widget-secondary">
+    <div class="widget-body">
+        <ul class="feed">
+            {% for feed in clan.activity %}
+                <li>
+                    {% set u = "<a href='/user/" ~ feed.user.id ~ "'>" ~ feed.user.username ~ "</a>" %}
+
+                    {% if feed.type == 0 %}
+                        <div class="feed-icon">
+                            <i class="fa fa-user-plus"></i>
+                        </div>
+                        Clan was created!
+                    {% elseif (feed.type == 1) %}
+                        <div class="feed-icon">
+                            <i class="fa fa-file-upload"></i>
+                        </div>
+                        {{ u|raw }} joined!
+                    {% elseif (feed.type == 2) %}
+                        <div class="feed-icon">
+                            <i class="fa fa-file-export"></i>
+                        </div>
+                        {{ u|raw }} left!
+                    {% elseif (feed.type == 3) %}
+                        <div class="feed-icon">
+                            <i class="fa fa-check-circle"></i>
+                        </div>
+                        {{ u|raw }} transferred ownership!
+                    {% endif %}
+                    <div class="timestamp">
+                        <span data-toggle="tooltip" title="{{ formatDate(feed.timestamp) }}">{{ formatDateDistance(feed.timestamp) }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

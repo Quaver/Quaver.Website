@@ -159,6 +159,19 @@ function fetchRankProgression(userId, mode) {
     });
 }
 
+function copyToClipboard(element) {
+    $(element).attr('data-original-title', "Copied!").tooltip('show');
+    let $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text().trim()).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    setInterval(function () {
+        $(element).attr('data-original-title', "Click to copy").tooltip('show');
+    }, 1000);
+}
+
 document.addEventListener("DOMContentLoaded", function (event) {
     judgementBreakdown();
 });

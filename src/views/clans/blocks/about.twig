@@ -1,0 +1,65 @@
+{% if clan.about_me|length or clan.information %}
+    <div class="widget">
+        <div class="widget-header d-flex justify-content-between">
+            About The Clan
+            {% if currentUser.id == clan.owner_id %}
+                <a href="{{ baseUrl('/') }}">
+                    <i class="far fa-edit"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    {% if clan.about_me|length %}
+        <style>
+            iframe {
+                border: 0;
+                width: 100%;
+                max-height: 360px;
+                height: 10px;
+            }
+        </style>
+        <iframe src="{{ baseUrl('/clans/'~clan.id~'/aboutme') }}" id="aboutme" sandbox="allow-same-origin allow-popups" onload="resizeIframe(this)"></iframe>
+        <script>
+            function resizeIframe(obj) {
+                obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+            }
+        </script>
+    {% endif %}
+    {% if clan.information %}
+        <div class="widget widget-secondary">
+            <div class="widget-body" style="padding: 5px;">
+                {% for key, info in clan.information %}
+                    {% if info %}
+                        {% if key == "discord" %}
+                            <button onclick="copyToClipboard(this)" class="btn btn-social btn-discord btn-sm btn-sc"
+                                    data-toggle="tooltip" title="Click to copy">
+                                <i class="ya ya-discord"></i> {{ info }}</button>
+                        {% elseif key == "notif_action_mapset" %}
+                        {% elseif key == "default_mode" %}
+                        {% else %}
+                            {% set url = "" %}
+                            {% set name = "" %}
+                            {% if key == "twitch" %}
+                                {% set url = "https://www.twitch.tv/" %}
+                                {% set name = "Twitch" %}
+                            {% elseif key == "twitter" %}
+                                {% set url = "https://twitter.com/" %}
+                                {% set name = "Twitter" %}
+                            {% elseif key == "youtube" %}
+                                {% set url = "" %}
+                                {% set name = "YouTube" %}
+                            {% endif %}
+                            <a href="{{ url ~ info }}" class="btn btn-social btn-{{ key }} btn-sm btn-sc" target="_blank">
+                                <i class="ya ya-{{ key }}"></i> {{ name }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if currentUser.id == clan.owner_id %}
+                    <a href="{{ baseUrl('/settings') }}" class="float-right">
+                        <i class="far fa-edit"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

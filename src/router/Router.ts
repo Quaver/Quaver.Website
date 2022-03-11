@@ -97,7 +97,9 @@ export default class Router {
         router.route("/clans/create").get(Authentication.RequireLogin, Clans.CreateClanGET);
         router.route("/clans/create").post(Authentication.RequireLogin, Clans.CreateClanPOST);
 
+
         router.route("/clans/:id").get(Clans.ClanGET);
+        router.route("/clans/:id/aboutme").get(Clans.ClanAboutMe);
 
         // router.route("/clans/invite").get();
         // router.route("/clans/invite/accept").post();

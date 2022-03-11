@@ -101,11 +101,12 @@ export default class Router {
         router.route("/clans/:id").get(Clans.ClanGET);
         router.route("/clans/:id/aboutme").get(Clans.ClanAboutMe);
 
+        router.route("/clans/:id/leave").post(Authentication.RequireLogin, Clans.LeaveClanPOST);
+        router.route("/clans/:id/disband").post(Authentication.RequireLogin, Clans.DisbandClanPOST);
+
+
         // router.route("/clans/invite").get();
         // router.route("/clans/invite/accept").post();
-        // router.route("/clans/leave").post();
-        // router.route("/clans/create").post();
-        // router.route("/clans/create").post();
 
         // router.route("/artists").get(Artists.GET);
         // router.route("/artist/:id").get(Artists.ArtistGET);

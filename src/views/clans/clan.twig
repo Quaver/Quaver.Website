@@ -16,10 +16,18 @@
                             <img src="{{ assets('/img/clans/users.png') }}" width="20" height="20" class="mr-2">
                             <span class="text-white">[{{ clan.tag|escape }}] {{ clan.name|escape }}</span>
                         </div>
-                        <div  style="font-size: 16px;">
+                        <div style="font-size: 16px;">
                             {{ clan.members.length }} members
                         </div>
                     </h2>
+                    <div class="ml-lg-auto mt-2 mb-3 my-lg-0">
+                        <form method="post" accept-charset="UTF-8" action="{{ baseUrl("/clans/"~clan.id~"/leave") }}">
+                            <button type="submit" name="leave_clan" class="btn btn-dark btn-sm">Leave clan</button>
+                        </form>
+                        <form method="post" accept-charset="UTF-8" action="{{ baseUrl("/clans/"~clan.id~"/disband") }}">
+                            <button type="submit" name="disband_clan" class="btn btn-danger btn-sm">Disband clan</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,7 +46,7 @@
                                 <img src="{{ assets('/img/clans/avatar.png') }}" alt="" width="50" height="50">
                                 <div class="text-white">
                                     <strong>{{ clan.tag|escape }}</strong>
-                                    <div  style="font-size: 16px;">
+                                    <div style="font-size: 16px;">
                                         {{ clan.members.length }} members
                                     </div>
                                 </div>
@@ -61,6 +69,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mb-4">
+                    {% include "layouts/alert.twig" %}
                     {% include './blocks/about.twig' %}
                 </div>
                 <div class="col-lg-4" id="stats">

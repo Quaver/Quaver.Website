@@ -33,7 +33,6 @@ export default class Clans {
             if (clan.clan_id) {
                 return res.redirect(303, '/clans/' + clan.clan_id);
             } else {
-                req.flash('error', clan.error);
                 return res.redirect(303, `/clans/create`);
             }
         } catch (err: any) {
@@ -129,7 +128,51 @@ export default class Clans {
             Responses.Send(req, res, 'user/user-about-me', 'About Me', {
                 bio
             });
-        } catch (err) {
+        } catch (err: any) {
+            Logger.Error(err);
+            Responses.ReturnUserNotFound(req, res);
+        }
+    }
+
+    public static async LeaveClanPOST(req: any, res: any): Promise<any> {
+        try {
+            let clan: any = await Clans.FetchClan(req, req.params.id);
+
+            if (clan.status !== 200) {
+                req.flash('error', clan.error);
+                return res.redirect(303, `/404`);
+            }
+
+            const resp: any = await Clans.LeaveClan(req);
+
+            if(resp.status === 200) {
+                req.flash('success', "You left the clan successfully!");
+            }
+
+            return res.redirect(303, `/clans/${req.params.id}`);
+        } catch (err: any) {
+            Logger.Error(err);
+            Responses.ReturnUserNotFound(req, res);
+        }
+    }
+
+    public static async DisbandClanPOST(req: any, res: any): Promise<any> {
+        try {
+            let clan: any = await Clans.FetchClan(req, req.params.id);
+
+            if (clan.status !== 200) {
+                req.flash('error', clan.error);
+                return res.redirect(303, `/404`);
+            }
+
+            const resp: any = await Clans.DisbandClan(req);
+
+            if(resp.status === 200) {
+                req.flash('success', "You disbanded the clan successfully!");
+            }
+
+            return res.redirect(303, `/clans/${req.params.id}`);
+        } catch (err: any) {
             Logger.Error(err);
             Responses.ReturnUserNotFound(req, res);
         }
@@ -152,6 +195,24 @@ export default class Clans {
     private static async FetchClan(req: any, id: number): Promise<any[]> {
         try {
             return await API.GET(req, `v1/clans/${id}`);
+        } catch (err: any) {
+            Logger.Error(err);
+            return [];
+        }
+    }
+
+    private static async LeaveClan(req: any): Promise<any[]> {
+        try {
+            return await API.POST(req, `v1/clans/leave`);
+        } catch (err: any) {
+            Logger.Error(err);
+            return [];
+        }
+    }
+
+    private static async DisbandClan(req: any): Promise<any[]> {
+        try {
+            return await API.POST(req, `v1/clans/disband`);
         } catch (err: any) {
             Logger.Error(err);
             return [];

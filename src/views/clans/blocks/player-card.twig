@@ -22,12 +22,12 @@
                 </div>
             </div>
             {% if clan.favorite_mode and favorite_mode.favorite_mode == 2 %}
-                {% set game_mode = 2 %}
+                {% set game_mode = "keys" ~ 7 %}
                 <div class="player-mode">
                     <div class="player-mode-keys7">7K</div>
                 </div>
             {% else %}
-                {% set game_mode = 1 %}
+                {% set game_mode = "keys" ~ 4 %}
                 <div class="player-mode">
                     <div class="player-mode-keys4">4K</div>
                 </div>
@@ -36,11 +36,11 @@
         <div class="player-stats">
             <div class="player-gr d-flex justify-content-between align-items-center">
                 <div>Global ranking:</div>
-                <span>#{{ player[game_mode].globalRank|number_format }}</span>
+                <span>#{{ player.stats[game_mode][0].globalRank|number_format }}</span>
             </div>
             <div class="player-or d-flex justify-content-between align-items-center">
                 <div>Overall rating:</div>
-                <span>{{ player[game_mode].stats.overall_performance_rating|number_format(2) }}</span>
+                <span>{{ player.stats[game_mode][0].overall_performance_rating|number_format(2) }}</span>
             </div>
         </div>
     </div>

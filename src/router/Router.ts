@@ -101,6 +101,7 @@ export default class Router {
         router.route("/clans/:id").get(Clans.ClanGET);
         router.route("/clans/:id/aboutme").get(Clans.ClanAboutMe);
 
+        router.route("/clans/:id/invite/:user").post(Authentication.RequireLogin, Clans.InvitePlayerPOST);
         router.route("/clans/:id/leave").post(Authentication.RequireLogin, Clans.LeaveClanPOST);
         router.route("/clans/:id/disband").post(Authentication.RequireLogin, Clans.DisbandClanPOST);
 

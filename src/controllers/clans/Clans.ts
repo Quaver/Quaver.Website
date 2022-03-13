@@ -5,6 +5,7 @@ import Responses from "../../utils/Responses";
 import bbobHTML from '@bbob/html';
 import presetHTML5 from '@bbob/preset-html5';
 import sanitizeHtml = require("sanitize-html");
+import Users from "../users/Users";
 
 export default class Clans {
     public static async CreateClanGET(req: any, res: any): Promise<void> {
@@ -134,6 +135,28 @@ export default class Clans {
         }
     }
 
+    public static async InvitePlayerPOST(req: any, res: any): Promise<any> {
+        try {
+            let clan: any = await Clans.FetchClan(req, req.params.id);
+
+            if (clan.status !== 200) {
+                req.flash('error', clan.error);
+                return res.redirect(303, `/404`);
+            }
+
+            const resp: any = await Clans.InvitePlayer(req, req.params.user);
+
+            if(resp.status === 200) {
+                req.flash('success', resp.message);
+            }
+
+            return res.redirect(303, `/clans/${req.params.id}`);
+        } catch (err: any) {
+            Logger.Error(err);
+            Responses.ReturnUserNotFound(req, res);
+        }
+    }
+
     public static async LeaveClanPOST(req: any, res: any): Promise<any> {
         try {
             let clan: any = await Clans.FetchClan(req, req.params.id);
@@ -143,10 +166,12 @@ export default class Clans {
                 return res.redirect(303, `/404`);
             }
 
-            const resp: any = await Clans.LeaveClan(req);
+            const resp: any = await Clans.InvitePlayer(req, 0);
 
             if(resp.status === 200) {
-                req.flash('success', "You left the clan successfully!");
+                req.flash('success', resp.message);
+            } else {
+                req.flash('danger', resp.error);
             }
 
             return res.redirect(303, `/clans/${req.params.id}`);
@@ -192,7 +217,7 @@ export default class Clans {
         }
     }
 
-    private static async FetchClan(req: any, id: number): Promise<any[]> {
+    public static async FetchClan(req: any, id: number): Promise<any[]> {
         try {
             return await API.GET(req, `v1/clans/${id}`);
         } catch (err: any) {
@@ -213,6 +238,17 @@ export default class Clans {
     private static async DisbandClan(req: any): Promise<any[]> {
         try {
             return await API.POST(req, `v1/clans/disband`);
+        } catch (err: any) {
+            Logger.Error(err);
+            return [];
+        }
+    }
+
+    private static async InvitePlayer(req: any, id: number): Promise<any[]> {
+        try {
+            return await API.POST(req, `v1/clans/invite`, {
+                user: id
+            });
         } catch (err: any) {
             Logger.Error(err);
             return [];

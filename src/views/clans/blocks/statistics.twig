@@ -11,3 +11,44 @@
         </div>
     </div>
 </div>
+
+{% if mode == 1 %}
+    {% set key_stats = "keys4" %}
+{% else %}
+    {% set key_stats = "keys7" %}
+{% endif %}
+
+<div class="widget widget-secondary">
+    <div class="widget-body widget-padding mb-3">
+        <ul class="statistics">
+            <li>Global Rank
+                <span>#{{ 1 }}</span>
+            </li>
+            <li>Average Rating
+                <span>{{ clan.stats[key_stats].overall_performance_rating|number_format(2) }}</span>
+            </li>
+            <li>Average Accuracy
+                <span>{{ clan.stats[key_stats].overall_accuracy|number_format(2) }}%</span>
+            </li>
+            <li>Total First Places
+                <span>{{ 1 }}</span>
+            </li>
+            <li>Total Play Count
+                <span>{{ 1 }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="widget widget-secondary">
+    <div class="widget-body widget-padding mb-3">
+        <ul class="statistics">
+            <li>Members
+                <span>{{ clan.members.length }}</span>
+            </li>
+            <li>Created on
+                <span data-toggle="tooltip" title="{{ formatDate(clan.created_at) }}">{{ formatDateDistance(clan.created_at) }}</span>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -94,8 +94,13 @@
                     </h2>
                     {% if currentUser and currentUser.id != user.info.id %}
                         <div class="ml-lg-auto mt-2 mb-3 my-lg-0 friend-badge">
+                            {% if clan %}
+                                <form class="d-inline-block" method="POST" action="{{  baseUrl('/clans/' ~ clan.id ~ '/invite/' ~ user.info.id) }}">
+                                    <button class="btn btn-primary btn-sm"><i class="fas fa-user-check"></i> Invite to {{ clan.name }}</button>
+                                </form>
+                            {% endif %}
                             {% if friend.relationship != 1 %}
-                                <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/add') }}">
+                                <form method="POST" accept-charset="UTF-8" action="{{ baseUrl('/friend/add') }}" class="d-inline-block">
                                     <input type="hidden" name="id" value="{{ user.info.id }}">
                                     <button class="btn btn-primary btn-sm btn-icon-left font-weight-semibold">
                                         <i class="ya ya-user-add"></i>
@@ -220,7 +225,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             fetchRankProgression({{ user.info.id }}, {{ mode }});
-            {#fetchGrades({{ user.info.id }}, {{ mode }});#}
+            {# fetchGrades({{ user.info.id }}, {{ mode }}); #}
         });
     </script>
 {% endblock %}

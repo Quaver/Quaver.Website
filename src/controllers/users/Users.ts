@@ -7,6 +7,7 @@ import bbobHTML from '@bbob/html';
 import presetHTML5 from '@bbob/preset-html5';
 import sanitizeHtml = require("sanitize-html");
 import Grade from "../../enums/Grade";
+import Clans from "../clans/Clans";
 
 export default class Users {
     /**
@@ -39,9 +40,15 @@ export default class Users {
             const mapSetsRanked = await Users.GetUploadedMapSetsRanked(req, res, user.info.id, 0);
 
             let friend: any = null;
+            let clan: any = null;
 
             if (req.user) {
                 friend = await Users.IsFriend(req, res, user);
+
+                if(req.user.clan_id && user.clan === null) {
+                    clan = await Clans.FetchClan(req, req.user.clan_id);
+                    clan = clan.clan
+                }
             }
 
             let informationFlag = true;
@@ -71,6 +78,7 @@ export default class Users {
                 GameMode,
                 RankedStatus,
                 friend,
+                clan,
                 grades: ["X", "SS", "S", "A", "B", "C", "D"]
             });
         } catch (err) {

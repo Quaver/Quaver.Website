@@ -44,10 +44,19 @@
                         {% endif %}
                     </div>
                     <h2 class="h4 text-white mb-0 ml-2 pl-lg-8" id="user-card">
-                        <a href="{{ baseUrl('/leaderboard?country='~user.info.country|lower) }}">
-                            <img src="{{ assets('/img/flags/'~user.info.country~'.png') }}" alt="{{ user.info.country }}">
-                        </a>
-                        <a href="https://steamcommunity.com/profiles/{{ user.info.steam_id }}/" class="text-white" target="_blank">{{ user.info.username }}</a>
+                        <div class="d-flex align-items-center">
+                            <a href="{{ baseUrl('/leaderboard?country='~user.info.country|lower) }}" class="mr-2">
+                                <img src="{{ assets('/img/flags/'~user.info.country~'.png') }}" alt="{{ user.info.country }}">
+                            </a>
+                            {% if user.clan %}
+                                <a href="{{ baseUrl('/clans/' ~ user.clan.id) }}" class="mr-2">
+                                    [{{ user.clan.tag }}]
+                                </a>
+                            {% endif %}
+                            <a href="https://steamcommunity.com/profiles/{{ user.info.steam_id }}/" class="text-white" target="_blank">
+                                {{ user.info.username }}
+                            </a>
+                        </div>
                         <div class="profile-groups">
                             <small>
                                 {% if HasGroup(user.info, UserGroups.Developer) %}
@@ -78,13 +87,13 @@
                                     {% elseif user.online_status.current_status.status == 3 %}
                                         Paused
                                     {% elseif user.online_status.current_status.status == 4 %}
-                                        Watching {{ user.online_status.current_status.content }}
+                                        Watching {{ user.online_status.current_status.content|escape }}
                                     {% elseif user.online_status.current_status.status == 5 %}
                                         Editing {{ user.online_status.current_status.content|escape }}
                                     {% elseif user.online_status.current_status.status == 6 %}
                                         In Multiplayer Lobby
                                     {% elseif user.online_status.current_status.status == 7 %}
-                                        Playing Multiplayer {{ user.online_status.current_status.content }}
+                                        Playing Multiplayer
                                     {% endif %}
                                 {% endif %}
                             {% else %}
@@ -95,8 +104,10 @@
                     {% if currentUser and currentUser.id != user.info.id %}
                         <div class="ml-lg-auto mt-2 mb-3 my-lg-0 friend-badge">
                             {% if clan %}
-                                <form class="d-inline-block" method="POST" action="{{  baseUrl('/clans/' ~ clan.id ~ '/invite/' ~ user.info.id) }}">
-                                    <button class="btn btn-primary btn-sm"><i class="fas fa-user-check"></i> Invite to {{ clan.name }}</button>
+                                <form class="d-inline-block" method="POST" action="{{ baseUrl('/clans/' ~ clan.id ~ '/invite/' ~ user.info.id) }}">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-user-check"></i>
+                                        Invite to {{ clan.name }}</button>
                                 </form>
                             {% endif %}
                             {% if friend.relationship != 1 %}

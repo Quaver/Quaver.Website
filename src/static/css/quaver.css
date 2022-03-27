@@ -452,8 +452,8 @@ summary {
 }
 
 .status .circle {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     display: inline-block;
     margin-right: 4px;
@@ -464,11 +464,11 @@ summary {
 }
 
 .status .circle.online {
-    background: #28a745;
+    background: #27B06E;
 }
 
 .status .circle.offline {
-    background: #dc3545;
+    background: #F9645D;
 }
 
 .profile-badges {
@@ -1712,12 +1712,12 @@ summary {
 }
 
 .player-card .player-cover {
-    height: 110px;
+    height: 100px;
     background-size: cover;
     background-position: center;
     position: relative;
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
 }
 
 .player-card .player-stats {
@@ -1726,13 +1726,14 @@ summary {
     padding-left: 50px;
     padding-right: 10px;
     font-size: 13px;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+    font-weight: 550;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
 }
 
 .player-card .player-avatar img {
     border: 4px solid #242424;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 .player-card .offset-card {
@@ -1755,12 +1756,9 @@ summary {
 
 .player-card .player-name .player-s {
     font-size: 12px;
+    font-weight: 550;
     margin-top: 0;
-}
-
-.player-card .player-name .player-s .offline {
-    width: 10px;
-    height: 10px;
+    margin-left: -4px;
 }
 
 .player-card .player-stats .player-gr {
@@ -1775,6 +1773,7 @@ summary {
     right: 10px;
     text-align: center;
     font-size: 12px;
+    font-weight: 550;
 }
 
 .player-card .player-mode-keys4 {
@@ -1789,8 +1788,8 @@ summary {
 
 .player-card .player-badge {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 8px;
+    right: 10px;
 }
 
 .player-card .player-badge .player-friend {

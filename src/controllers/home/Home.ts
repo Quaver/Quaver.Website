@@ -12,11 +12,14 @@ export default class Home {
      */
     public static async GET(req: any, res: any): Promise<void> {
         try {
-            const recentlyRanked = await Home.FetchRecentlyRanked(req);
-            const stats = await API.GET(req, "v1/stats");
+            //const recentlyRanked = await Home.FetchRecentlyRanked(req);
+            const recentlyRanked = [];
+            //const stats = await API.GET(req, "v1/stats");
+            const stats = [];
             const blog = await axios.get("https://blog.quavergame.com/feed.json");
-            const popularMapsets = await API.GET(req, "v1/stats/mapsets/mostplayed");
-
+            //const popularMapsets = await API.GET(req, "v1/stats/mapsets/mostplayed");
+            const popularMapsets = [];
+            
             return Responses.Send(req, res, "home", "Home | Quaver", {
                 recentlyRanked: recentlyRanked,
                 stats: stats.stats,

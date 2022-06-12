@@ -47,6 +47,7 @@
                             <p class="card-text font-size-md">Created by
                                 <a href="">{{ playlist.owner_username }}</a>
                             </p>
+                            <a type="button" href="quaver://playlist/{{ playlist.id }}" class="btn btn-primary" style="background-color: #0587E5; border: none;">Import</a>
                         </div>
                         <div class="card-footer">
                             <span data-tooltip="Last Updated" data-toggle="tooltip" title="{{ formatDate(playlist.time_last_updated) }}"><i class="fas fa-clock"></i> <b>{{ formatDateDistance(playlist.time_last_updated) }}</b></span>

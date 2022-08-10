@@ -135,6 +135,9 @@ export default class Router {
         router.get('/moderators/apply', function (req: any, res: any) {
             res.redirect(301, 'https://forms.gle/1UL3jonAYEWUXD4A6');
         });
+        router.get('/packranking', function (req: any, res: any) {
+            res.redirect(301, 'https://forms.gle/ZpX6GmYGQEimAAbE6');
+        });
 
         router.route("/sitemap.xml").get(Sitemap.GET);
 

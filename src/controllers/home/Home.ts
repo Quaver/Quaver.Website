@@ -22,7 +22,7 @@ export default class Home {
                 stats: stats.stats,
                 blog: blog.data,
                 popularMapsets: popularMapsets,
-                description: 'The ultimate community-driven, and open-source competitive rhythm game available on Steam Early Access.'
+                description: 'The ultimate community-driven, and open-source competitive rhythm game available on Steam.'
             }); 
         } catch (err) {
             Logger.Error(err);

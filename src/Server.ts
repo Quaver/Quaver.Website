@@ -20,7 +20,8 @@ const bearerToken = require('express-bearer-token');
 const client = redis.createClient({
     password: config.redis.password,
     port: config.redis.port,
-    host: config.redis.host
+    host: config.redis.host,
+    db: 5
 });
 
 export default class Server {

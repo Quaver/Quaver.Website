@@ -91,6 +91,13 @@ export default class Server {
             }
         }));
 
+        this.ExpressApp.use((req, res, next) => {
+            if (!req.session.userLoggedIn) {
+                req.session.cookie.maxAge = 600000; // 10 minutes for non-logged-in users
+            }
+            next();
+        });
+
         this.ExpressApp.use(flash());
 
         Login.Initialize();

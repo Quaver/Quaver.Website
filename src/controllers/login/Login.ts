@@ -97,6 +97,9 @@ export default class Login {
                     return Responses.Return401(req,  res);
                 } 
 
+                req.session.userLoggedIn = true;
+                req.session.cookie.maxAge = (24 * 60 * 60 * 1000) * 30;
+
                 if(req.cookies.currentPage !== undefined)
                     return res.redirect(req.cookies.currentPage);
                 else

@@ -87,9 +87,16 @@ export default class Server {
             saveUninitialized: true,
             cookie: {
                 secure: false,
-                maxAge: 3600000 // Expire session after 1 hour
+                maxAge: (24 * 60 * 60 * 1000) * 30
             }
         }));
+
+        this.ExpressApp.use((req, res, next) => {
+            if (!req.session.userLoggedIn) {
+                req.session.cookie.maxAge = 600000; // 10 minutes for non-logged-in users
+            }
+            next();
+        });
 
         this.ExpressApp.use(flash());
 

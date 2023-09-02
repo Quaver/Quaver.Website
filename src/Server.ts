@@ -87,7 +87,7 @@ export default class Server {
             saveUninitialized: true,
             cookie: {
                 secure: false,
-                maxAge: (24 * 60 * 60 * 1000) * 30
+                maxAge: 3600000 // Expire session after 1 hour
             }
         }));
 

@@ -36,7 +36,8 @@ export default class Responses {
             ratingColor: ColorHelper.RatingColor,
             flash: req.flash(),
             md5: EnvironmentHelper.md5,
-            jsonString: EnvironmentHelper.jsonString
+            jsonString: EnvironmentHelper.jsonString,
+            footerYear: new Date().getFullYear(),
         };
 
         Object.assign(templateData, data);

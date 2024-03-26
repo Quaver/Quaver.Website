@@ -29,12 +29,17 @@ export default class Maps {
             const status = (req.query.status) ? req.query.status : 2;
             const mode = (req.query.mode) ? req.query.mode : [1, 2];
 
+            req.query.search = search;
+            req.query.status = status;
+            req.query.mode = mode;
+
             Responses.Send(req, res, "maps", `Maps | Quaver`, {
                 maps: maps,
                 search: search,
                 status: status,
                 mode: mode,
-                form: req.query
+                form: req.query,
+                formString: JSON.stringify(req.query)
             });
         } catch (err) {
             Logger.Error(err);

@@ -172,11 +172,7 @@
 {% block scripts %}
     <script>
         try {
-            window['query'] = {
-                search: "{{ search }}",
-                status: parseInt("{{ status }}"),
-                mode: "{{ mode }}"
-            };
+            window['query'] = JSON.parse('{{ formString }}');
         } catch (e) {
             console.log(e);
             console.log('Failed to parse query');

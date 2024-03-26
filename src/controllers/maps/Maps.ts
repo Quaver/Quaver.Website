@@ -9,6 +9,7 @@ import TimeHelper from "../../utils/TimeHelper";
 const showdown = require('showdown');
 const sanitizeHtml = require('sanitize-html');
 const moment = require("moment");
+const twig = require("twig");
 
 const allowedHTML = ['span', 'a', 'strong', 'img', 'center', 'h1', 'h2', 'h3', 'h4', 'h5', 'code', 'b', 'pre',
     'p', 'i', 'u', 'hr', 'ul', 'ol', 'li', 'details', 'summary', 'br', 'em', 'blockquote', 'table', 'tr', 'td', 'th', 'thead', 'tbody'];
@@ -24,7 +25,7 @@ export default class Maps {
     public static async MapsGET(req: any, res: any): Promise<void> {
         try {
             const maps = await Maps.FetchMaps(req);
-            const search = (req.query.search) ? req.query.search : '';
+            const search = (req.query.search) ? twig.filters.e(req.query.search) : '';
             const status = (req.query.status) ? req.query.status : 2;
             const mode = (req.query.mode) ? req.query.mode : [1, 2];
 

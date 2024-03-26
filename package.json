@@ -60,7 +60,7 @@
     "sanitize-html": "^2.6.1",
     "showdown": "^1.9.1",
     "string.prototype.matchall": "^4.0.2",
-    "twig": "^1.15.1",
+    "twig": "^1.17.1",
     "uuid": "^8.3.0"
   }
 }

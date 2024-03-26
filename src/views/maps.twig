@@ -173,9 +173,9 @@
     <script>
         try {
             window['query'] = {
-                search: "{{ query.search|escape }}",
-                status: parseInt("{{ query.status|escape }}"),
-                mode: "{{ query.mode|escape }}"
+                search: "{{ search }}",
+                status: parseInt("{{ status }}"),
+                mode: "{{ mode }}"
             };
         } catch (e) {
             console.log(e);

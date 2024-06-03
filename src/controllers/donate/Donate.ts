@@ -121,7 +121,8 @@ export default class Donate {
                         form: {
                             months: req.body.months,
                             gift: req.body.gift,
-                            ip: "1.1.1.1"
+                            ip: "1.1.1.1",
+                            special: req.body.special??"0"
                         },
                         headers: headers,
                         json: true

@@ -32,6 +32,9 @@
 <div class="donator-gift">
     <div class="input-group w-100">
         <input type="text" name="donator_search" placeholder="Gift to Player" class="form-control donator_search" value="{{ input }}">
+        <div class="input-group-append" id="special-badge-group">
+            <img src="{{ assets('/img/qot24/1.png') }}" height="38px" id="special-badge-image">
+        </div>
         <div class="input-group-prepend">
             {% if player %}
                 {% if IsDonator(player.usergroups) %}

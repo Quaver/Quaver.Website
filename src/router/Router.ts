@@ -33,7 +33,7 @@ export default class Router {
 
         router.route("/leaderboard").get(LeaderBoard.GET);
         router.route("/leaderboard/hits").get(LeaderBoard.TotalHitsGET);
-        router.route("/leaderboard/multiplayer").get(LeaderBoard.MultiplayerGET);
+        // router.route("/leaderboard/multiplayer").get(LeaderBoard.MultiplayerGET);
         router.route("/leaderboard/countries").get(LeaderBoard.CountriesGET);
 
         router.route('/maps').get(Maps.MapsGET);

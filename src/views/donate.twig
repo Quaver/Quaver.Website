@@ -316,7 +316,12 @@
 
             <style>
                 .donator-buttons small .normal {
-                    text-decoration: line-through;
+                    /*text-decoration: line-through;*/
+                    display: block;
+                }
+
+                .donator-buttons small .special {
+                    display: none;
                 }
 
                 .donator-buttons small .normal-nocross {
@@ -360,27 +365,27 @@
                                     </label>
                                 </div>
 
-                                <div class="text-left">
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="special"
-                                                   name="special" value="1" checked>
-                                            <label class="custom-control-label" for="special">
-                                                Support the Official Quaver 2024 Tournament (Price x 1.5)
-                                            </label>
-                                        </div>
-                                        <small class="d-block">By checking this box, you will be purchasing a profile badge to support this year's tournament.
-                                            <ul>
-                                                <li>The badge will only be available to purchase throughout the duration of the tournament.
-                                                </li>
-                                                <li>The badge will be permanently available on your profile.
-                                                </li>
-                                                <li>If you're gifting to another player, they will be the one who receives the badge.
-                                                </li>
-                                            </ul>
-                                        </small>
-                                    </div>
-                                </div>
+{#                                <div class="text-left">#}
+{#                                    <div class="form-group">#}
+{#                                        <div class="custom-control custom-checkbox">#}
+{#                                            <input type="checkbox" class="custom-control-input" id="special"#}
+{#                                                   name="special" value="1" checked>#}
+{#                                            <label class="custom-control-label" for="special">#}
+{#                                                Support the Official Quaver 2024 Tournament (Price x 1.5)#}
+{#                                            </label>#}
+{#                                        </div>#}
+{#                                        <small class="d-block">By checking this box, you will be purchasing a profile badge to support this year's tournament.#}
+{#                                            <ul>#}
+{#                                                <li>The badge will only be available to purchase throughout the duration of the tournament.#}
+{#                                                </li>#}
+{#                                                <li>The badge will be permanently available on your profile.#}
+{#                                                </li>#}
+{#                                                <li>If you're gifting to another player, they will be the one who receives the badge.#}
+{#                                                </li>#}
+{#                                            </ul>#}
+{#                                        </small>#}
+{#                                    </div>#}
+{#                                </div>#}
 
                                 <button type="submit" class="btn btn-primary mt-4 w-25" id="buy">Donate</button>
                             </div>
@@ -404,21 +409,21 @@
 {% block page_scripts %}
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
-            $('input[type=radio][name=months]').change(function() {
-                $("#special-badge-image").attr('src', assetsUrl("/img/qot24/" + this.value + ".png"))
-            });
+            // $('input[type=radio][name=months]').change(function() {
+            //     $("#special-badge-image").attr('src', assetsUrl("/img/qot24/" + this.value + ".png"))
+            // });
 
-            $('#special').change(function() {
-                if(this.checked) {
-                    $("#special-badge-group").css('display', 'block');
-                    $(".donator-buttons .normal").removeClass('normal-nocross');
-                    $(".donator-buttons .special").css('display', 'inline-block');
-                } else {
-                    $("#special-badge-group").css('display', 'none');
-                    $(".donator-buttons .normal").addClass('normal-nocross');
-                    $(".donator-buttons .special").css('display', 'none');
-                }
-            });
+            // $('#special').change(function() {
+            //     if(this.checked) {
+            //         $("#special-badge-group").css('display', 'block');
+            //         $(".donator-buttons .normal").removeClass('normal-nocross');
+            //         $(".donator-buttons .special").css('display', 'inline-block');
+            //     } else {
+            //         $("#special-badge-group").css('display', 'none');
+            //         $(".donator-buttons .normal").addClass('normal-nocross');
+            //         $(".donator-buttons .special").css('display', 'none');
+            //     }
+            // });
 
             $(window).keydown(function (event) {
                 if (event.keyCode === 13) {

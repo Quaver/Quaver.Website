@@ -57,6 +57,8 @@ export default class Ranking {
         if (!mapset)
             return Responses.ReturnMapsetNotFound(req, res);
 
+        return Responses.Return403(req, res);
+
         if(mapset.ranking_queue_status === MapsetRankingStatus.Ranked) {
             req.flash('error', "Mapset already ranked!");
             return res.redirect('/mapset/' + mapset.id);
@@ -77,6 +79,7 @@ export default class Ranking {
     }
 
     public static async CommentPOST(req: any, res: any): Promise<void> {
+        return Responses.Return403(req, res);
         try {
             if (typeof req.body.submit_comment !== 'undefined') {
                 if (req.body.comment !== "")

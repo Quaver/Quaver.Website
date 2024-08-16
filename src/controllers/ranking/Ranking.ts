@@ -79,7 +79,6 @@ export default class Ranking {
     }
 
     public static async CommentPOST(req: any, res: any): Promise<void> {
-        return Responses.Return403(req, res);
         try {
             if (typeof req.body.submit_comment !== 'undefined') {
                 if (req.body.comment !== "")

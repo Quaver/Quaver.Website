@@ -39,7 +39,11 @@ export default class Router {
         router.route('/maps').get(Maps.MapsGET);
         router.route('/maps/load').post(Maps.MapsSearchPOST);
 
-        router.route('/mapsets/queue').get(RankingQueue.GET);
+        // router.route('/mapsets/queue').get(RankingQueue.GET);
+        router.get('/mapsets/queue', function (req: any, res: any) {
+            res.redirect(301, 'https://two.quavergame.com/ranking-queue/1');
+        });
+        
         router.route("/mapset/:id").get(Maps.MapsetGET);
         router.route("/mapset/map/:id").get(Maps.MapGET);
         router.route("/mapset/map/:id/mods").get(Modding.ModsGET);
@@ -84,7 +88,11 @@ export default class Router {
         router.route("/settings/donator").get(Authentication.RequireLogin, Donator.GET);
         router.route("/settings/donator").post(Authentication.RequireLogin, Donator.POST);
 
-        router.route("/donate").get(Donate.GET);
+        // router.route("/donate").get(Donate.GET);
+        router.get('/donate', function (req: any, res: any) {
+            res.redirect(301, 'https://two.quavergame.com/donate');
+        });
+        
         router.route("/donate").post(Authentication.RequireLogin, Donate.POST);
         router.route("/donate/complete").post(Authentication.RequireLogin, Donate.GET);
         router.route("/donate/user").post(Donate.CardGET);

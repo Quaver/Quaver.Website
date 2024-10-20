@@ -50,7 +50,10 @@ export default class Router {
         router.route("/mapset/:id").post(Authentication.RequireLogin, Maps.HandlePost);
         router.route("/mapset/map/:id").post(Authentication.RequireLogin, Maps.HandlePost);
         router.route("/mapset/map/:id/mods").post(Authentication.RequireLogin, Modding.HandlePostMods);
-        router.route('/mapset/:id/ranking').get(Ranking.GET);
+        // router.route('/mapset/:id/ranking').get(Ranking.GET);
+        router.get('/mapset/:id/ranking', function (req: any, res: any) {
+            res.redirect(301, 'hhttps://two.quavergame.com/mapsets/' + req.params.id + '/ranking');
+        });
         router.route('/mapset/:id/ranking/:action').post(Authentication.RequireLogin, Ranking.POST);
         router.route('/mapset/:id/comment').post(Authentication.RequireLogin, Ranking.CommentPOST);
 

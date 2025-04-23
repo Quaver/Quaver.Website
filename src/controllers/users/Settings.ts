@@ -41,9 +41,9 @@ export default class Settings {
                                 information[key] = 1;
                             }
                         } else {
-                            // Replace any unwanted content and limit to 50 characters
+                            // Replace any unwanted content and limit to 60 characters
                             const sanitizedValue = Settings.htmlEntities(value);
-                            information[key] = sanitizedValue.substring(0, 50);
+                            information[key] = sanitizedValue.substring(0, 60);
                         }
                     }
                 }

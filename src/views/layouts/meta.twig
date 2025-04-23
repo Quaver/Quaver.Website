@@ -10,37 +10,37 @@
 <meta name="keywords" content="quaver, rhythm, game, rhythm, game, competitive, windows, mac, osx, linux, c#, c-sharp, monogame, qua, music">
 <meta name="author" content="The Quaver Team">
 
-<link rel="icon" type="image/x-icon" href="{{ assets('/img/favicon.ico') }}"/>
+<link rel="icon" type="image/x-icon" href="{{ assets('/img/favicon.ico') }}" />
 
 <link rel="preconnect" href="https://steamcdn-a.akamaihd.net">
 <link rel="preconnect" href="https://www.google-analytics.com">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 
 {% if description %}
-	<meta name="description" content="{{ description }}">
-	{% if image %}
-		<meta property="og:image" content="{{ image }}"/>
-		<meta property="og:type" content="website"/>
-	{% else %}
-		<meta property="og:image" content="{{ assets('/img/favicon.png') }}"/>
-	{% endif %}
+    <meta name="description" content="{{ description }}">
+    {% if image %}
+        <meta property="og:image" content="{{ image }}" />
+        <meta property="og:type" content="website" />
+    {% else %}
+        <meta property="og:image" content="{{ assets('/img/favicon.png') }}" />
+    {% endif %}
 {% else %}
-	{% if user %}
-		<meta name="description" content="{{ user.info.username }}'s profile">
-		{% if user.info.avatar_url %}
-			<meta property="og:image" content="{{ user.info.avatar_url }}"/>
-		{% endif %}
-	{% endif %}
+    {% if user %}
+        <meta name="description" content="{{ user.info.username }}'s profile">
+        {% if user.info.avatar_url %}
+            <meta property="og:image" content="{{ user.info.avatar_url }}" />
+        {% endif %}
+    {% endif %}
 {% endif %}
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120902211-3"></script>
 <script>
-	window.dataLayer = window.dataLayer || [];
+    window.dataLayer = window.dataLayer || [];
 
-function gtag() {
-dataLayer.push(arguments);
-}
+    function gtag() {
+        dataLayer.push(arguments);
+    }
 
-gtag('js', new Date());
-gtag('config', 'UA-120902211-3');
+    gtag('js', new Date());
+    gtag('config', 'UA-120902211-3');
 </script>

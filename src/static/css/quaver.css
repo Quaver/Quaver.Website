@@ -373,7 +373,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-top: 15px;
 }
 
-.pagination>li>a, .pagination>li>span {
+.pagination > li > a, .pagination > li > span {
     margin: 0 5px;
     color: #FFE76B;
     border-radius: 50%;
@@ -381,7 +381,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-size: 14px;
 }
 
-.pagination>li>a, .pagination>li>span {
+.pagination > li > a, .pagination > li > span {
     position: relative;
     float: left;
     padding: 6px 12px;
@@ -404,7 +404,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 @media (max-width: 375px) {
-    .pagination>li>a, .pagination>li>span {
+    .pagination > li > a, .pagination > li > span {
         margin: 0 2px;
         font-size: 12px;
     }
@@ -423,8 +423,7 @@ summary {
 
 .widget-padding {
     padding-top: 8px !important;
-    padding-bottom: 8px !important;
-    ;
+    padding-bottom: 8px !important;;
 }
 
 .btn-sc {
@@ -676,11 +675,16 @@ summary {
     text-align: center;
 }
 
-.feed li .feed-icon i {}
+.feed li .feed-icon i {
+}
 
-.feed li .feed-text {}
+.feed li .feed-text {
 
-.feed li .timestamp {}
+}
+
+.feed li .timestamp {
+
+}
 
 .btn-quaver-dark {
     background-color: #1A1A1A;
@@ -961,7 +965,7 @@ summary {
     margin-bottom: 10px;
 }
 
-.team-card:hover>.team-image img {
+.team-card:hover > .team-image img {
     border-radius: 8px;
     padding: 1px;
 }
@@ -1018,7 +1022,9 @@ summary {
     border-color: #0094FF;
 }
 
-#teams .supervisors {}
+#teams .supervisors {
+
+}
 
 #teams small {
     font-weight: 500;
@@ -1250,7 +1256,7 @@ summary {
 }
 
 @media (min-width: 1150px) {
-    .dropdown:hover>.dropdown-menu {
+    .dropdown:hover > .dropdown-menu {
         display: block;
     }
 
@@ -1560,7 +1566,7 @@ summary {
     border-radius: 0;
 }
 
-#playlist .btn>i {
+#playlist .btn > i {
     margin-left: 0;
 }
 
@@ -1659,7 +1665,8 @@ summary {
     color: #FFFFFF;
 }
 
-.friend-badge {}
+.friend-badge {
+}
 
 .friend-badge .mutual {
     background: #db88c2;
@@ -2116,7 +2123,7 @@ summary {
     background: linear-gradient(90deg, #fd4d50, #32adf0);
 }
 
-#multiplayer .mp-teams>div {
+#multiplayer .mp-teams > div {
     font-weight: bold;
     text-align: center;
 }
@@ -2140,7 +2147,7 @@ summary {
 
 /* Ranking */
 
-#mapset-ranking .btn-block+.btn-block {
+#mapset-ranking .btn-block + .btn-block {
     margin-top: 0 !important;
 }
 
@@ -2172,7 +2179,6 @@ summary {
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
@@ -2202,7 +2208,6 @@ summary {
 }
 
 @media (max-width: 767px) {
-
     #donator .row-border,
     #donator .has-border {
         box-shadow: none;
@@ -2237,7 +2242,9 @@ summary {
         margin-bottom: 30px;
     }
 
-    .mapset-info-download {}
+    .mapset-info-download {
+
+    }
 
     .mapset-info-right, .mapset-rating {
         float: right;

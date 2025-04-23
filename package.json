@@ -53,7 +53,7 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "popper.js": "^1.16.0",
-    "purgecss": "^2.3.0",
+    "purgecss": "^5.0.0",
     "redis": "^3.1.1",
     "request": "^2.88.2",
     "request-ip": "^2.1.3",

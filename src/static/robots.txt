@@ -10,3 +10,6 @@ Disallow: /
 User-agent: *
 Disallow: /download/replay/*
 Disallow: /download/mapset/*
+Disallow: /auth/steam
+Disallow: /d/web/replay/*
+Disallow: /d/web/mapset/*

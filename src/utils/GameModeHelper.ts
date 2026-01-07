@@ -41,7 +41,7 @@ export default class GameModeHelper {
     public static modesBadgeLabel(gms: number[]): string {
         if (gms.length <= 2)
             return gms
-                .sort((a, b) => a - b)
+                .sort((a, b) => GameModeHelper.gameModeKey(a) - GameModeHelper.gameModeKey(b))
                 .map(gm => GameModeHelper.gameMode(gm))
                 .join(' / ');
         return 'Mixed';

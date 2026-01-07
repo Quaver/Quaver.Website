@@ -805,6 +805,10 @@ summary {
     background: linear-gradient(270deg, #9B51E0 35.92%, #0587E5 100%);
 }
 
+.mapsets .status .mapset-other {
+    background: #c5c5c5;
+}
+
 .mapsets .download {
     background: #2575dc;
     font-size: 11px;

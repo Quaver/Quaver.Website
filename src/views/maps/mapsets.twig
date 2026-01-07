@@ -37,7 +37,7 @@
                                     {% if m.game_mode not in game_modes %}{% set game_modes = game_modes|merge([m.game_mode]) %}{% endif %}
                                 {% endfor %}
                             {% endif %}
-                            <div class="qadge {% modesBadgeClass(game_modes) %}">{% modesBadgeLabel(game_modes) %}</div>
+                            <div class="qadge {{ modesBadgeClass(game_modes) }}">{{ modesBadgeLabel(game_modes) }}</div>
                             {% if map.ranked_status == 2 %}
                                 <div class="qadge status-ranked">Ranked</div>
                             {% else %}

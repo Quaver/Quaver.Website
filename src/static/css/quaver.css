@@ -793,6 +793,7 @@ summary {
     background: #F9645D;
 }
 
+/* purgecss start ignore */
 .mapsets .status .mapset-4k {
     background: #0587E5;
 }
@@ -808,6 +809,7 @@ summary {
 .mapsets .status .mapset-other {
     background: #c5c5c5;
 }
+/* purgecss end ignore */
 
 .mapsets .download {
     background: #2575dc;

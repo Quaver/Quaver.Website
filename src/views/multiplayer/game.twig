@@ -35,11 +35,7 @@
                         <div class="cover position-relative" style="background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
                                 url('https://cdn.quavergame.com/mapsets/{{ match.map.mapset_id }}.jpg')">
                             <div class="status">
-                                {% if match.map.game_mode == 1 %}
-                                    <div class="qadge mapset-4k">4K</div>
-                                {% else %}
-                                    <div class="qadge mapset-7k">7K</div>
-                                {% endif %}
+                                <div class="qadge {{ modesBadgeClass([match.map.game_mode]) }}">{{ modesBadgeLabel([match.map.game_mode]) }}</div>
                             </div>
                             <div class="float-right pr-3 valuable-player">
                                 <a href="{{ baseUrl('/user/'~match.most_valuable_player.id) }}" class="text-white d-flex align-items-center text-center">

@@ -3,11 +3,7 @@
         <div class="cover position-relative" style="background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
                 url('https://cdn.quavergame.com/mapsets/{{ live.map.mapset_id }}.jpg')">
             <div class="status">
-                {% if live.map.game_mode == 1 %}
-                    <div class="qadge mapset-4k">4K</div>
-                {% else %}
-                    <div class="qadge mapset-7k">7K</div>
-                {% endif %}
+                <div class="qadge {{ modesBadgeClass([live.map.game_mode]) }}">{{ modesBadgeLabel([live.map.game_mode]) }}</div>
             </div>
             <div class="song-name">
                 <span class="title" id="map_song">{{ live.map.map | truncate(70) }}</span>

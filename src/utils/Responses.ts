@@ -5,6 +5,7 @@ import TimeHelper from "./TimeHelper";
 import EnvironmentHelper from "./EnvironmentHelper";
 import Privileges from "../enums/Privileges";
 import ColorHelper from "./ColorHelper";
+import GameModeHelper from "./GameModeHelper";
 
 export default class Responses {
     /**
@@ -38,6 +39,8 @@ export default class Responses {
             md5: EnvironmentHelper.md5,
             jsonString: EnvironmentHelper.jsonString,
             footerYear: new Date().getFullYear(),
+            modesBadgeLabel: GameModeHelper.modesBadgeLabel,
+            modesBadgeClass: GameModeHelper.modesBadgeClass,
         };
 
         Object.assign(templateData, data);

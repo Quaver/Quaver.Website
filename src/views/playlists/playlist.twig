@@ -78,13 +78,7 @@
                                     <div class="cover position-relative" style="background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
                                             url('https://cdn.quavergame.com/mapsets/{{ difficulties[0].mapset_id }}.jpg')">
                                         <div class="status">
-                                            {% if difficulties.game_modes|length == 2 %}
-                                                <div class="qadge mapset-4k-7k">4K / 7K</div>
-                                            {% elseif difficulties.game_modes[0] == 1 %}
-                                                <div class="qadge mapset-4k">4K</div>
-                                            {% else %}
-                                                <div class="qadge mapset-7k">7K</div>
-                                            {% endif %}
+                                            <div class="qadge {{ modesBadgeClass(difficulties.game_modes) }}">{{ modesBadgeLabel(difficulties.game_modes) }}</div>
                                             {% if difficulties[0].ranked_status == 2 %}
                                                 <div class="qadge status-ranked">Ranked</div>
                                             {% else %}

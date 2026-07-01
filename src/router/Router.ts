@@ -123,7 +123,7 @@ export default class Router {
         router.route("/oauth2/token").post(Oauth2.VerifyToken);
         router.route("/oauth2/me").post(Oauth2.Me);
 
-        router.route("/download/:type/:id").get(Download.GET);
+        router.route("/download/:type/:id").get(Authentication.RequireLogin, Download.GET);
 
         // Redirect old routes
         router.get('/profile/*', function (req: any, res: any) {
